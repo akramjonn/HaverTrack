@@ -4,6 +4,20 @@ import * as Linking from 'expo-linking';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 
+/**
+ * `prompt=select_account` always shows the account chooser.
+ *
+ * There is deliberately no `hd` (hosted domain) parameter. It only pre-filters
+ * Google's own UI — it is not enforcement, and the `enforce_google_domain`
+ * trigger already refuses to create a non-Haverford Google user. What it *did*
+ * do was hang the sign-in: when the browser holds Google sessions that don't
+ * match the hosted domain, the account-switch step (accounts.google.<tld>
+ * /accounts/SetSID) can stall instead of resolving. Showing the chooser and
+ * rejecting the wrong account afterwards, with a clear message, beats a page
+ * that freezes.
+ */
+const GOOGLE_QUERY_PARAMS = { prompt: 'select_account' } as const;
+
 export interface GoogleSignInResult {
   /**
    * The profile as it stands immediately after sign-in — role/college_verified
@@ -30,7 +44,7 @@ export async function signInWithGoogle(): Promise<GoogleSignInResult> {
       provider: 'google',
       options: {
         redirectTo: window.location.origin,
-        queryParams: { hd: 'haverford.edu' },
+        queryParams: GOOGLE_QUERY_PARAMS,
       },
     });
     if (error) throw new Error(describeGoogleError(error.message));
@@ -47,7 +61,7 @@ export async function signInWithGoogle(): Promise<GoogleSignInResult> {
     options: {
       redirectTo,
       skipBrowserRedirect: true,
-      queryParams: { hd: 'haverford.edu' },
+      queryParams: GOOGLE_QUERY_PARAMS,
     },
   });
 
