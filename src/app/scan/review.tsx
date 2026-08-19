@@ -80,6 +80,8 @@ export default function ScanReviewScreen() {
   const matchSubtitle = scanResult?.dish_subtitle || 'Matched to DC Main Line · today';
   const matchConfidence = scanResult?.match_confidence ?? 0.92;
   const isFallback = scanResult?.is_fallback_estimate ?? false;
+  const quotaRemaining = scanResult?.quota_remaining;
+  const showQuotaWarning = typeof quotaRemaining === 'number' && quotaRemaining < 5;
 
   const [portion, setPortion] = useState(1);
   const [items, setItems] = useState<ScannedPlateItem[]>(initialItems);
@@ -219,6 +221,14 @@ export default function ScanReviewScreen() {
               style={{ marginLeft: 8 }}
             />
           </View>
+
+          {showQuotaWarning ? (
+            <Text style={styles.quotaWarning}>
+              {quotaRemaining === 0
+                ? "That's your last photo scan for today — manual menu logging still works."
+                : `${quotaRemaining} photo scan${quotaRemaining === 1 ? '' : 's'} left today`}
+            </Text>
+          ) : null}
         </View>
 
         {/* Portion Control Hero Card */}
@@ -337,6 +347,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     flexWrap: 'wrap',
     gap: 8,
+  },
+  quotaWarning: {
+    ...Typography.caption,
+    color: Colors.amber,
+    marginTop: 8,
   },
   heroCard: {
     marginBottom: 24,
