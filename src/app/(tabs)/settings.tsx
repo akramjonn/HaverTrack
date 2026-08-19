@@ -23,8 +23,9 @@ import {
   LogOut,
   ChevronRight,
   Sparkles,
+  ShieldCheck,
 } from 'lucide-react-native';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore, selectIsAdmin } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
 import { supabase } from '@/lib/supabase';
 
@@ -34,6 +35,7 @@ export default function SettingsScreen() {
   const profile = useAuthStore((state) => state.profile);
   const goal = useAuthStore((state) => state.goal);
   const signOut = useAuthStore((state) => state.signOut);
+  const isAdmin = useAuthStore(selectIsAdmin);
   const [deleting, setDeleting] = useState(false);
   const logs = useLogStore((state) => state.logs);
   const weightEntries = useLogStore((state) => state.weightEntries);
@@ -110,6 +112,21 @@ export default function SettingsScreen() {
             {profile?.email || user?.email || ''}
           </Text>
         </View>
+
+        {isAdmin ? (
+          <Card
+            onPress={() => router.push('/(admin)' as any)}
+            accessibilityLabel="Open admin console"
+            style={styles.adminRow}
+          >
+            <ShieldCheck size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+            <View style={{ flex: 1 }}>
+              <Text style={Typography.bodySSemiBold}>Admin console</Text>
+              <Text style={Typography.caption}>Signups, engagement, and menu health</Text>
+            </View>
+            <ChevronRight size={16} color={Colors.textMuted} />
+          </Card>
+        ) : null}
 
         {/* Current Plan Card */}
         <Card style={styles.card}>
@@ -255,6 +272,11 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
+    marginBottom: 20,
+  },
+  adminRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 20,
   },
   card: {
