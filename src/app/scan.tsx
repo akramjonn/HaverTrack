@@ -16,6 +16,12 @@ import { useRouter, useIsFocused } from 'expo-router';
 import { CameraView, useCameraPermissions, type BarcodeScanningResult } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as Haptics from 'expo-haptics';
+import Animated, {
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import {
   X,
@@ -29,10 +35,18 @@ import {
 } from 'lucide-react-native';
 import { Button } from '@/components/ui';
 import { analyzePlate } from '@/lib/llm/provider';
-import { lookupBarcode } from '@/lib/openFoodFacts';
+import { lookupBarcode, barcodeProductToSearchResult } from '@/lib/productLookup';
+import { FoodComposeSheet } from '@/components/FoodComposeSheet';
+import type { FoodSearchResult } from '@/lib/foodSearch';
 import { prepareImageForAnalysis } from '@/lib/image';
 import { useMenuStore } from '@/store/menuStore';
 import { useScanStore } from '@/store/scanStore';
+import { ShutterButton } from '@/components/scan/ShutterButton';
+import { CaptureFreezeFrame } from '@/components/scan/CaptureFreezeFrame';
+import { BarcodeScanLine } from '@/components/scan/BarcodeScanLine';
+import { AnimatedCornerGuides } from '@/components/scan/AnimatedCornerGuides';
+import { PulsingIcon } from '@/components/scan/PulsingIcon';
+import { AnimatedModeTabs, type ScanMode } from '@/components/scan/AnimatedModeTabs';
 
 const BARCODE_TYPES = [
   'ean13',
@@ -60,11 +74,21 @@ export default function ScanScreen() {
   const setCurrentMealPeriod = useScanStore((state) => state.setCurrentMealPeriod);
 
   const [flash, setFlash] = useState(false);
-  const [mode, setMode] = useState<'scan' | 'describe' | 'barcode'>('scan');
+  const [mode, setMode] = useState<ScanMode>('scan');
   const [describeText, setDescribeText] = useState('');
   const [barcodeInput, setBarcodeInput] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [cameraReady, setCameraReady] = useState(false);
+  const [barcodeResult, setBarcodeResult] = useState<FoodSearchResult | null>(null);
+
+  // The frozen shot shown between the shutter press and the analysis result —
+  // set the instant a photo is captured, cleared once handleCapture settles
+  // (whether that ends in navigating to review or an error alert).
+  const [capturedPreviewUri, setCapturedPreviewUri] = useState<string | null>(null);
+  // One-shot green flash on the corner guides for a successful barcode read.
+  const [barcodePulse, setBarcodePulse] = useState(false);
+
+  const reducedMotion = useReducedMotion();
 
   const cameraRef = useRef<CameraView>(null);
   const [permission, requestPermission] = useCameraPermissions();
@@ -92,6 +116,19 @@ export default function ScanScreen() {
   useEffect(() => {
     if (!cameraActive) setCameraReady(false);
   }, [cameraActive]);
+
+  // Cross-fades the center content (viewfinder <-> describe form) on mode
+  // change instead of an instant cut. Skipped under reduced motion.
+  const contentOpacity = useSharedValue(1);
+  useEffect(() => {
+    if (reducedMotion) {
+      contentOpacity.value = 1;
+      return;
+    }
+    contentOpacity.value = 0;
+    contentOpacity.value = withTiming(1, { duration: 150 });
+  }, [mode, reducedMotion]);
+  const contentFadeStyle = useAnimatedStyle(() => ({ opacity: contentOpacity.value }));
 
   const handlePermissionPress = useCallback(async () => {
     // requestPermission() is a silent no-op once the user has denied for good — the
@@ -137,6 +174,9 @@ export default function ScanScreen() {
       );
     } finally {
       setIsScanning(false);
+      // The freeze-frame's job is done either way: on success we're navigating
+      // away, on failure the live camera should reappear so the user can retry.
+      setCapturedPreviewUri(null);
     }
   };
 
@@ -153,6 +193,7 @@ export default function ScanScreen() {
       if (!photo?.uri) throw new Error('No image captured');
 
       const prepared = await prepareImageForAnalysis(photo.uri);
+      setCapturedPreviewUri(prepared.uri);
       await handleCapture(prepared.base64, prepared.uri);
     } catch (err) {
       Alert.alert('Camera Error', 'Could not capture photo. Please try again.');
@@ -196,6 +237,10 @@ export default function ScanScreen() {
     }
   };
 
+  // Barcode hits go through the same portion/meal-period/log composer as DC
+  // menu and OpenFoodFacts text search (FoodComposeSheet) instead of the
+  // scan/review screen, which has no way to represent per-100g packaged
+  // nutrition or capture micronutrients into the balance score.
   const resolveBarcode = useCallback(
     async (code: string) => {
       setIsScanning(true);
@@ -204,46 +249,23 @@ export default function ScanScreen() {
         if (!product) {
           Alert.alert(
             'Product Not Found',
-            `No match for ${code} in the OpenFoodFacts database. You can describe it instead.`
+            `No match for ${code} in OpenFoodFacts or USDA FoodData Central. You can add it manually instead.`,
+            [
+              { text: 'Try again', style: 'cancel' },
+              { text: 'Add it manually', onPress: () => router.push('/log/quick-add' as any) },
+            ]
           );
           return;
         }
 
-        setCurrentPhoto(null);
-        setCurrentResult({
-          dish_title: product.name,
-          dish_subtitle: product.brand ? `Packaged · ${product.brand}` : 'Packaged Snack',
-          matched_station: 'Coop / Packaged',
-          match_confidence: 1.0,
-          items: [
-            {
-              id: 'barcode-item',
-              name: product.name,
-              portion: 1.0,
-              portion_unit: product.serving_size || 'package',
-              is_menu_match: true,
-              confidence_score: 1.0,
-              calories: product.calories,
-              protein_g: product.protein_g,
-              carbs_g: product.carbs_g,
-              fat_g: product.fat_g,
-            },
-          ],
-          total_calories: product.calories,
-          total_protein_g: product.protein_g,
-          total_carbs_g: product.carbs_g,
-          total_fat_g: product.fat_g,
-          is_fallback_estimate: false,
-        });
-
-        router.push('/scan/review' as any);
+        setBarcodeResult(barcodeProductToSearchResult(product));
       } catch {
         Alert.alert('Lookup Error', 'Unable to resolve barcode.');
       } finally {
         setIsScanning(false);
       }
     },
-    [router, setCurrentPhoto, setCurrentResult]
+    [router]
   );
 
   // A single barcode fires dozens of frames per second; without a lock every one of
@@ -259,6 +281,11 @@ export default function ScanScreen() {
       if (Platform.OS !== 'web') {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
       }
+
+      // A visual beat alongside the lookup, not gating it: the pulse plays out
+      // on its own timer while resolveBarcode runs unblocked underneath it.
+      setBarcodePulse(true);
+      setTimeout(() => setBarcodePulse(false), 500);
 
       await resolveBarcode(data);
       setTimeout(() => {
@@ -325,7 +352,9 @@ export default function ScanScreen() {
     if (isScanning) {
       return (
         <View style={styles.scanningOverlay}>
-          <Sparkles size={32} color={Colors.gold} />
+          <PulsingIcon reducedMotion={reducedMotion}>
+            <Sparkles size={32} color={Colors.gold} />
+          </PulsingIcon>
           <Text style={styles.analyzingText}>
             {mode === 'barcode'
               ? 'Looking up this product…'
@@ -403,6 +432,7 @@ export default function ScanScreen() {
         </View>
 
         {/* Viewfinder Center */}
+        <Animated.View style={[{ flex: 1 }, contentFadeStyle]}>
         {wantsCamera ? (
           <View style={styles.viewfinderCenter}>
             <View style={styles.frameGuide}>
@@ -424,13 +454,12 @@ export default function ScanScreen() {
                 />
               )}
 
-              <View style={[styles.corner, styles.tl]} />
-              <View style={[styles.corner, styles.tr]} />
-              <View style={[styles.corner, styles.bl]} />
-              <View style={[styles.corner, styles.br]} />
+              <CaptureFreezeFrame uri={capturedPreviewUri} analyzing={isScanning} />
+
+              <AnimatedCornerGuides pulse={barcodePulse} />
 
               {mode === 'barcode' && cameraActive && cameraReady && !isScanning ? (
-                <View style={styles.scanLine} />
+                <BarcodeScanLine reducedMotion={reducedMotion} />
               ) : null}
 
               {renderCameraBlocker()}
@@ -461,38 +490,11 @@ export default function ScanScreen() {
             />
           </View>
         )}
+        </Animated.View>
 
         {/* Bottom Shutter & Mode Switcher */}
         <View style={styles.bottomSection}>
-          {/* Mode Switcher */}
-          <View style={styles.modeRow}>
-            <Pressable
-              onPress={() => setMode('scan')}
-              style={[styles.modeItem, mode === 'scan' && styles.activeMode]}
-            >
-              <Text style={[styles.modeText, mode === 'scan' && styles.activeModeText]}>
-                Scan food
-              </Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => setMode('describe')}
-              style={[styles.modeItem, mode === 'describe' && styles.activeMode]}
-            >
-              <Text style={[styles.modeText, mode === 'describe' && styles.activeModeText]}>
-                Describe it
-              </Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => setMode('barcode')}
-              style={[styles.modeItem, mode === 'barcode' && styles.activeMode]}
-            >
-              <Text style={[styles.modeText, mode === 'barcode' && styles.activeModeText]}>
-                Barcode
-              </Text>
-            </Pressable>
-          </View>
+          <AnimatedModeTabs mode={mode} onChange={setMode} />
 
           {mode === 'scan' ? (
             <View style={styles.shutterRow}>
@@ -504,17 +506,10 @@ export default function ScanScreen() {
                 <ImageIcon size={22} color={Colors.darkText} />
               </Pressable>
 
-              <Pressable
+              <ShutterButton
                 onPress={takePhoto}
                 disabled={!cameraActive || !cameraReady || isScanning}
-                style={[
-                  styles.shutterOuter,
-                  (!cameraActive || !cameraReady || isScanning) && styles.shutterDisabled,
-                ]}
-                accessibilityLabel="Take food photo"
-              >
-                <View style={styles.shutterInner} />
-              </Pressable>
+              />
 
               <View style={{ width: 44 }} />
             </View>
@@ -545,6 +540,15 @@ export default function ScanScreen() {
           ) : null}
         </View>
       </View>
+
+      <FoodComposeSheet
+        result={barcodeResult}
+        onClose={() => setBarcodeResult(null)}
+        onLogged={() => {
+          setBarcodeResult(null);
+          router.back();
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -608,24 +612,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     backgroundColor: Colors.darkSurface,
-  },
-  corner: {
-    position: 'absolute',
-    width: 28,
-    height: 28,
-    borderColor: 'rgba(251, 248, 243, 0.6)',
-  },
-  tl: { top: 0, left: 0, borderTopWidth: 3, borderLeftWidth: 3, borderTopLeftRadius: 12 },
-  tr: { top: 0, right: 0, borderTopWidth: 3, borderRightWidth: 3, borderTopRightRadius: 12 },
-  bl: { bottom: 0, left: 0, borderBottomWidth: 3, borderLeftWidth: 3, borderBottomLeftRadius: 12 },
-  br: { bottom: 0, right: 0, borderBottomWidth: 3, borderRightWidth: 3, borderBottomRightRadius: 12 },
-  scanLine: {
-    position: 'absolute',
-    left: 24,
-    right: 24,
-    height: 2,
-    backgroundColor: Colors.scarletBright,
-    opacity: 0.85,
   },
   hintContainer: {
     backgroundColor: 'rgba(20, 20, 20, 0.7)',
@@ -717,29 +703,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingBottom: 20,
   },
-  modeRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 16,
-    marginBottom: 24,
-  },
-  modeItem: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-  },
-  activeMode: {
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.scarlet,
-  },
-  modeText: {
-    fontFamily: Fonts.outfit.medium,
-    fontSize: 14,
-    color: Colors.darkTextDim,
-  },
-  activeModeText: {
-    color: Colors.darkText,
-    fontFamily: Fonts.outfit.semiBold,
-  },
   shutterRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -752,23 +715,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  shutterOuter: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
-    borderWidth: 4,
-    borderColor: Colors.cream,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  shutterDisabled: {
-    opacity: 0.4,
-  },
-  shutterInner: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.cream,
   },
 });
