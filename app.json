@@ -1,0 +1,62 @@
+{
+  "expo": {
+    "name": "SquirrelTrack",
+    "slug": "squirreltrack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "squirreltrack",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "edu.haverford.squirreltrack",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "SquirrelTrack uses your camera to photograph and identify meals at the Haverford Dining Center.",
+        "NSPhotoLibraryUsageDescription": "SquirrelTrack allows you to choose meal photos from your library to log calories."
+      }
+    },
+    "android": {
+      "package": "edu.haverford.squirreltrack",
+      "adaptiveIcon": {
+        "backgroundColor": "#FBF8F3",
+        "foregroundImage": "./assets/images/adaptive-icon.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#9E1B32",
+          "image": "./assets/images/icon.png",
+          "imageWidth": 120
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "SquirrelTrack uses your camera to photograph and identify meals at the Haverford Dining Center."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "SquirrelTrack allows you to choose meal photos from your library to log calories."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

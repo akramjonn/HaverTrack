@@ -1,0 +1,189 @@
+import { create } from 'zustand';
+import latestMenuJson from '../data/menus/latest.json';
+import { ParsedMenuItem } from '@/lib/nutrislice';
+import {
+  SavedMeal,
+  SavedMealInput,
+  deleteFavorite,
+  fetchFavorites,
+  pushFavorite,
+  touchFavorite,
+} from '@/lib/favorites';
+import { useAuthStore } from '@/store/authStore';
+
+interface MenuState {
+  items: ParsedMenuItem[];
+  syncedAt: string;
+  isStale: boolean;
+
+  /**
+   * Saved meals, straight from public.user_favorites. This used to be an
+   * in-memory map that evaporated on reload — every write now goes to the
+   * database first and the local copy follows it.
+   */
+  favorites: SavedMeal[];
+  favoritesLoaded: boolean;
+  favoritesError: string | null;
+
+  hydrateFavorites: (userId: string | null) => Promise<void>;
+  /** Saves the dish if it is not saved, removes it if it is. */
+  toggleFavorite: (input: SavedMealInput) => Promise<void>;
+  saveFavorite: (input: SavedMealInput) => Promise<void>;
+  removeFavorite: (dishName: string) => Promise<void>;
+  markFavoriteLogged: (dishName: string) => Promise<void>;
+  isFavorite: (dishName: string) => boolean;
+  clearFavorites: () => void;
+
+  getItemsForPeriod: (
+    period: 'breakfast' | 'lunch' | 'dinner' | 'brunch' | 'coop',
+    dateStr?: string
+  ) => Record<string, ParsedMenuItem[]>;
+}
+
+/** Turns a menu row into the shape user_favorites stores. */
+export function favoriteFromMenuItem(
+  item: Pick<
+    ParsedMenuItem,
+    'dish_name' | 'nutrislice_id' | 'calories' | 'protein_g' | 'carbs_g' | 'fat_g' | 'serving_size' | 'station_name'
+  >
+): SavedMealInput {
+  return {
+    dish_name: item.dish_name,
+    nutrislice_id: item.nutrislice_id,
+    calories: item.calories,
+    protein_g: item.protein_g,
+    carbs_g: item.carbs_g,
+    fat_g: item.fat_g,
+    serving_size: item.serving_size,
+    station_name: item.station_name,
+    source: 'menu',
+  };
+}
+
+export const useMenuStore = create<MenuState>((set, get) => {
+  const syncedAt = latestMenuJson.synced_at || new Date().toISOString();
+  const syncTime = new Date(syncedAt).getTime();
+  const now = Date.now();
+  const hoursOld = (now - syncTime) / (1000 * 60 * 60);
+
+  const currentUserId = () => useAuthStore.getState().user?.id ?? null;
+
+  return {
+    items: latestMenuJson.items as ParsedMenuItem[],
+    syncedAt: syncedAt,
+    isStale: hoursOld > 26,
+
+    favorites: [],
+    favoritesLoaded: false,
+    favoritesError: null,
+
+    hydrateFavorites: async (userId) => {
+      if (!userId) {
+        set({ favorites: [], favoritesLoaded: true, favoritesError: null });
+        return;
+      }
+
+      try {
+        const favorites = await fetchFavorites(userId);
+        set({ favorites, favoritesLoaded: true, favoritesError: null });
+      } catch (e: any) {
+        set({
+          favoritesLoaded: true,
+          favoritesError: `Could not load your saved meals: ${e?.message ?? 'unknown error'}`,
+        });
+      }
+    },
+
+    toggleFavorite: async (input) => {
+      if (get().isFavorite(input.dish_name)) {
+        await get().removeFavorite(input.dish_name);
+      } else {
+        await get().saveFavorite(input);
+      }
+    },
+
+    saveFavorite: async (input) => {
+      const userId = currentUserId();
+      if (!userId) {
+        set({ favoritesError: 'Sign in to save meals — there is nowhere to keep them yet.' });
+        return;
+      }
+
+      set({ favoritesError: null });
+      try {
+        const saved = await pushFavorite(userId, input);
+        const rest = get().favorites.filter((f) => f.dish_name !== saved.dish_name);
+        set({ favorites: [saved, ...rest] });
+      } catch (e: any) {
+        set({ favoritesError: `Could not save "${input.dish_name}": ${e?.message ?? 'unknown error'}` });
+      }
+    },
+
+    removeFavorite: async (dishName) => {
+      const userId = currentUserId();
+      if (!userId) return;
+
+      const previous = get().favorites;
+      set({ favorites: previous.filter((f) => f.dish_name !== dishName), favoritesError: null });
+
+      try {
+        await deleteFavorite(userId, dishName);
+      } catch (e: any) {
+        // Put it back rather than pretend it was removed.
+        set({
+          favorites: previous,
+          favoritesError: `Could not remove "${dishName}": ${e?.message ?? 'unknown error'}`,
+        });
+      }
+    },
+
+    markFavoriteLogged: async (dishName) => {
+      const userId = currentUserId();
+      if (!userId || !get().isFavorite(dishName)) return;
+
+      const stamp = new Date().toISOString();
+      set({
+        favorites: get().favorites.map((f) =>
+          f.dish_name === dishName ? { ...f, last_logged_at: stamp } : f
+        ),
+      });
+
+      try {
+        await touchFavorite(userId, dishName);
+      } catch {
+        // A missing "last logged" timestamp is cosmetic; the meal log itself is
+        // already saved by the caller, so this is not worth an error banner.
+      }
+    },
+
+    isFavorite: (dishName) => get().favorites.some((f) => f.dish_name === dishName),
+
+    clearFavorites: () => set({ favorites: [], favoritesLoaded: false, favoritesError: null }),
+
+    getItemsForPeriod: (period, dateStr) => {
+      const items = get().items;
+      // Filter by period and date
+      const matched = items.filter((item) => {
+        const periodMatch =
+          period === 'coop'
+            ? item.station_name.toLowerCase().includes('coop') || item.station_name.toLowerCase().includes('grill')
+            : item.meal_period === period;
+
+        if (dateStr) {
+          return periodMatch && item.served_date === dateStr;
+        }
+        return periodMatch;
+      });
+
+      // Group by station
+      const grouped: Record<string, ParsedMenuItem[]> = {};
+      for (const item of matched) {
+        const station = item.station_name || 'Main Line';
+        if (!grouped[station]) grouped[station] = [];
+        grouped[station].push(item);
+      }
+
+      return grouped;
+    },
+  };
+});
