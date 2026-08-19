@@ -2,8 +2,6 @@ import type { AuthError } from '@supabase/supabase-js';
 
 export type AuthFailure = {
   message: string;
-  /** The signup email still needs confirming before a session can be issued. */
-  needsConfirmation?: boolean;
 };
 
 /**
@@ -17,13 +15,6 @@ export function describeAuthError(error: AuthError | Error): AuthFailure {
 
   if (message.includes('invalid login credentials')) {
     return { message: 'That email and password do not match. Check both and try again.' };
-  }
-
-  if (message.includes('email not confirmed')) {
-    return {
-      message: 'Confirm your email first — we sent you a code.',
-      needsConfirmation: true,
-    };
   }
 
   if (message.includes('user already registered') || message.includes('already been registered')) {

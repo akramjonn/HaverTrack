@@ -119,19 +119,31 @@ const GEMINI_RESPONSE_SCHEMA = {
 };
 
 function buildPrompt(menuContextText: string, describeText?: string) {
-  return `You are SquirrelTrack Vision, analyzing a student's meal at Haverford College Dining Center.
+  return `You are SquirrelTrack Vision. A student at Haverford College has ${describeText ? 'described' : 'photographed'} their meal.
 
-TODAY'S HAVERFORD DC MENU (the ONLY dishes you may treat as a menu match):
-${menuContextText || '(no menu items available for this meal period)'}
+STEP 1 — IDENTIFY THE FOOD ON ITS OWN MERITS.
+Work out what each distinct food item actually is, purely from what you can ${describeText ? 'read in their description' : 'see'}. Do not consult any menu for this step. Do not let the list below influence what you think the food is. If it is a burrito, say burrito — even if no burrito appears on the menu.
 
-Rules:
-1. Identify each distinct food item on the plate (or described by the student).
-2. For each item, try to match it to one of the exact dishes listed above. If it matches, set is_menu_match: true, matched_menu_item_id to that dish's [ID], and use THAT DISH'S calories/macros exactly rather than estimating your own — the menu numbers are dietitian-certified and must not be overridden by a visual guess.
-3. If an item is not on the menu (a personal snack, a condiment, something off-menu), set is_menu_match: false, matched_menu_item_id: null, and give your own honest estimate with a lower confidence_score (0.4–0.7).
-4. total_calories/protein_g/carbs_g/fat_g are the sum across all items.
-5. match_confidence is your overall confidence in the whole-plate read (not any single item).
-6. Give each item a short unique id ("item-1", "item-2", ...).
-${describeText ? `\nThe student described their plate as: "${describeText}". No photo was provided — work from this description alone.` : '\nAnalyze the attached photo of the plate.'}`;
+STEP 2 — ESTIMATE ITS NUTRITION YOURSELF.
+For every item, give your own honest calories/protein/carbs/fat estimate based on what it is and how much of it there appears to be, using your general knowledge of food. This is your baseline answer and it must stand on its own.
+
+STEP 3 — ONLY NOW, CHECK FOR A DINING CENTER MATCH.
+Here is what the Dining Center is serving this meal:
+${menuContextText || '(no menu data available for this meal period)'}
+
+For each item you identified in step 1, ask: is this genuinely the same dish as one of the entries above? Judge that on the food itself, not on similarity of wording.
+- If YES — it is clearly the same dish — set is_menu_match: true, set matched_menu_item_id to that entry's [ID], and REPLACE your step-2 estimate with that entry's exact calories and macros. Those figures are dietitian-certified and are better than your estimate.
+- If NO — set is_menu_match: false, matched_menu_item_id: null, and KEEP your own step-2 estimate.
+
+Never force a match. An unmatched item with your honest estimate is a correct, useful answer; a wrong match reports someone else's food as this student's. When nothing on the plate matches the menu, it is entirely normal for every item to come back is_menu_match: false — that is the expected result for outside food, and you must still return your own real estimates rather than reaching for the nearest menu entry.
+
+OUTPUT RULES.
+- confidence_score is per item: how sure you are of the identification and amount. A matched item is typically 0.8–0.95; an unmatched visual estimate is typically 0.5–0.75.
+- match_confidence is your confidence in the whole-plate read overall.
+- total_* fields are the sums across all items.
+- Give each item a short unique id ("item-1", "item-2", ...).
+- dish_title should name the meal as a person would say it, e.g. "Chicken burrito with rice".
+${describeText ? `\nThe student described their plate as: "${describeText}". No photo was provided — work from this description alone.` : '\nAnalyze the attached photo.'}`;
 }
 
 interface GeminiFailure {

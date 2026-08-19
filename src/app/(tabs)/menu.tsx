@@ -16,6 +16,7 @@ import { Search, Plus, Check, AlertCircle, Clock, X, ListPlus, Bookmark, Sparkle
 import { useMenuStore } from '@/store/menuStore';
 import { ParsedMenuItem } from '@/lib/nutrislice';
 import { logMeal, periodForNow } from '@/lib/logging';
+import { getTodayString } from '@/store/logStore';
 
 export default function MenuScreen() {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function MenuScreen() {
   const isStale = useMenuStore((state) => state.isStale);
   const syncedAt = useMenuStore((state) => state.syncedAt);
 
+  const todayStr = getTodayString();
   const [mealPeriod, setMealPeriod] = useState<'lunch' | 'dinner' | 'breakfast' | 'coop'>('lunch');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -31,9 +33,16 @@ export default function MenuScreen() {
   const [loggingItemIds, setLoggingItemIds] = useState<Record<number, boolean>>({});
   const [logError, setLogError] = useState<string | null>(null);
 
-  // Filter and group by station
+  // Filter and group by station.
+  //
+  // The date filter matters for more than freshness: nutrislice_id identifies a
+  // *dish*, not a serving, so the same dish recurs across every date it is
+  // served (Pasta appears 11 times in one sync). Without pinning to a single
+  // day this screen rendered the whole week at once and handed React duplicate
+  // keys for the repeats.
   const stationGroups = useMemo(() => {
     const periodItems = menuItems.filter((item) => {
+      if (item.served_date !== todayStr) return false;
       if (mealPeriod === 'coop') {
         return item.station_name.toLowerCase().includes('coop') || item.station_name.toLowerCase().includes('grill');
       }
@@ -41,8 +50,14 @@ export default function MenuScreen() {
     });
 
     const groups: Record<string, ParsedMenuItem[]> = {};
+    const seen = new Set<number>();
 
     for (const item of periodItems) {
+      // Belt and braces: one physical dish can still be listed at two stations
+      // on the same day, and a duplicate key is a rendering bug either way.
+      if (seen.has(item.nutrislice_id)) continue;
+      seen.add(item.nutrislice_id);
+
       const matchesSearch = item.dish_name.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesTag =
         !selectedTag ||
@@ -57,7 +72,7 @@ export default function MenuScreen() {
     }
 
     return groups;
-  }, [menuItems, mealPeriod, searchQuery, selectedTag]);
+  }, [menuItems, mealPeriod, searchQuery, selectedTag, todayStr]);
 
   const stationNames = Object.keys(stationGroups);
 

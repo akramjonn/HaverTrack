@@ -14,7 +14,7 @@ import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Button, Input, IconButton, GoogleIcon } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
-import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
+import { describeAuthError } from '@/lib/authErrors';
 import { useGoogleSignIn } from '@/hooks/use-google-sign-in';
 
 export default function SignUpScreen() {
@@ -64,22 +64,9 @@ export default function SignUpScreen() {
         return;
       }
 
-      // With email confirmation on, signUp returns a user but no session. The
-      // account is not usable until the code is entered.
-      if (!data.session) {
-        router.push({
-          pathname: '/(auth)/verify-email',
-          params: { mode: 'confirm', email: address },
-        } as any);
-        return;
-      }
-
-      if (!isCollegeEmail(address)) {
-        router.push({ pathname: '/(auth)/verify-email', params: { mode: 'college' } } as any);
-        return;
-      }
-
-      router.replace('/(onboarding)/goal' as any);
+      // Email confirmation is off, so signUp issues a session immediately and
+      // the root route decides between onboarding and the tabs.
+      router.replace('/' as any);
     } catch (err: any) {
       setError(describeAuthError(err).message);
     } finally {

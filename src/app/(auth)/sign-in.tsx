@@ -46,15 +46,7 @@ export default function SignInScreen() {
       });
 
       if (signInError) {
-        const failure = describeAuthError(signInError);
-        if (failure.needsConfirmation) {
-          router.push({
-            pathname: '/(auth)/verify-email',
-            params: { mode: 'confirm', email: email.trim().toLowerCase() },
-          } as any);
-          return;
-        }
-        setError(failure.message);
+        setError(describeAuthError(signInError).message);
         return;
       }
 
@@ -125,16 +117,6 @@ export default function SignInScreen() {
               style={{ marginTop: 8 }}
             />
 
-            <Button
-              label="Forgot password?"
-              variant="ghost"
-              onPress={() =>
-                router.push({
-                  pathname: '/(auth)/forgot-password',
-                  params: { email: email.trim().toLowerCase() },
-                } as any)
-              }
-            />
           </View>
 
           <View style={styles.dividerRow}>

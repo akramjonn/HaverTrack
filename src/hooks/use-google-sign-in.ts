@@ -4,10 +4,10 @@ import { useRouter } from 'expo-router';
 import { signInWithGoogle } from '@/lib/googleAuth';
 
 /**
- * One Google button handler shared by welcome, sign-in and sign-up. On
- * success the root route decides between onboarding and the tabs; the only
- * branch handled here is the unverified-college fallback, which predates the
- * @haverford.edu gate and covers accounts created before it existed.
+ * One Google button handler shared by welcome, sign-in and sign-up. Routing is
+ * left entirely to the root route, which decides between onboarding and the
+ * tabs. No verification hop exists: the enforce_google_domain trigger already
+ * guarantees a Google account is @haverford.edu before it can be created.
  */
 export function useGoogleSignIn() {
   const router = useRouter();
@@ -25,11 +25,6 @@ export function useGoogleSignIn() {
       // On web this only started a full-page redirect; the root layout
       // exchanges the returning code and routing happens there.
       if (Platform.OS === 'web') return;
-
-      if (!profile?.college_verified) {
-        router.push({ pathname: '/(auth)/verify-email', params: { mode: 'college' } } as any);
-        return;
-      }
 
       router.replace('/' as any);
     } catch (err: any) {
