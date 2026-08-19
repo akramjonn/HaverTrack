@@ -7,11 +7,17 @@ import {
   StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { AppIcon, Button } from '@/components/ui';
+import { Colors, Fonts, Typography } from '@/constants/theme';
+import { AppIcon, Button, GoogleIcon } from '@/components/ui';
+import { useGoogleSignIn } from '@/hooks/use-google-sign-in';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const {
+    signIn: handleGoogleSignIn,
+    isLoading: googleLoading,
+    error: googleError,
+  } = useGoogleSignIn();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -46,8 +52,25 @@ export default function WelcomeScreen() {
             label="I already have an account"
             variant="secondaryDark"
             onPress={() => router.push('/(auth)/sign-in' as any)}
-            style={{ marginBottom: 24 }}
+            style={{ marginBottom: 20 }}
           />
+
+          <View style={styles.dividerRow}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>or</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <Button
+            label="Continue with Google"
+            variant="google"
+            icon={<GoogleIcon />}
+            onPress={handleGoogleSignIn}
+            loading={googleLoading}
+            style={{ marginBottom: 20 }}
+          />
+
+          {googleError ? <Text style={styles.googleError}>{googleError}</Text> : null}
 
           {/* 12px disclaimer */}
           <Text style={styles.disclaimer}>
@@ -107,6 +130,28 @@ const styles = StyleSheet.create({
   },
   actionBlock: {
     width: '100%',
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: Colors.darkBorder,
+  },
+  dividerText: {
+    ...Typography.monoLabel,
+    color: Colors.darkTextDim,
+    marginHorizontal: 16,
+  },
+  googleError: {
+    fontFamily: Fonts.outfit.medium,
+    fontSize: 13,
+    color: Colors.scarletBright,
+    marginBottom: 12,
+    textAlign: 'center',
   },
   disclaimer: {
     fontFamily: Fonts.outfit.regular,

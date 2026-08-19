@@ -75,11 +75,39 @@ include `{{ .Token }}`:
 | Change email address | `verify-email` in `college` mode |
 | Reset password | `forgot-password` |
 
-Without `{{ .Token }}` the email arrives with only a link and the code entry cannot
-succeed.
+> **"The code is invalid" / no code ever arrives.** This is almost always this exact
+> step skipped. Supabase's default templates only contain `{{ .ConfirmationURL }}` (a
+> magic link) — no `{{ .Token }}` — so no numeric code is ever generated, and whatever
+> the user types is checked against a code that was never issued. Open each of the
+> three templates above and add a line like `Your code is {{ .Token }}` to it; there is
+> nothing to fix in the app itself for this. If codes *were* arriving and suddenly
+> stop, the second most common cause is Supabase's free-tier built-in email sender rate
+> limit (a handful of emails/hour) — switch to a custom SMTP provider under
+> **Authentication → Settings → SMTP Settings** for real testing volume.
 
 **Authentication → URL Configuration**
 - Add `squirreltrack://` to the redirect allow-list.
+
+**Authentication → Providers → Google** — required for the "Continue with Google"
+button (`src/lib/googleAuth.ts`):
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), create
+   an OAuth 2.0 Client ID of type **Web application** (not Android/iOS — the flow goes
+   through a browser, not the native Google SDK).
+2. Add `https://<ref>.supabase.co/auth/v1/callback` as an authorized redirect URI —
+   Supabase's Google provider page shows this exact URL.
+3. Paste the resulting Client ID and Client Secret into **Authentication → Providers →
+   Google** in the Supabase dashboard and enable the provider.
+4. `squirreltrack://` must already be in the URL Configuration allow-list from the step
+   above — that's what the browser hands control back to after Google redirects to
+   Supabase and Supabase redirects to the app.
+
+There is no server-side restriction to only `@haverford.edu` / `@brynmawr.edu` Google
+accounts — Google's `hd` parameter only accepts one domain and Haverford's bi-college
+setup has two, and it's a UI hint that can be spoofed regardless. Enforcement instead
+happens the same way it does for email/password signup: `handle_user_signup` computes
+`college_verified` from the real address on the Google account, and the app routes
+anyone who isn't verified to `verify-email` in `college` mode to attach a real one
+afterward.
 
 ## 5. Granting admin access
 

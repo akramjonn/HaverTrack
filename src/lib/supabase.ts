@@ -11,5 +11,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
+    // The OAuth flow relies on a ?code= redirect that exchangeCodeForSession
+    // trades for a session; supabase-js defaults to the implicit flow, whose
+    // token-in-fragment redirect would never produce that code.
+    flowType: 'pkce',
   },
 });

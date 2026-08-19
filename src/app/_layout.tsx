@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Platform, View } from 'react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -6,8 +7,8 @@ import { useFonts, Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outf
 import { JetBrainsMono_400Regular, JetBrainsMono_500Medium } from '@expo-google-fonts/jetbrains-mono';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Colors } from '@/constants/theme';
-import { View } from 'react-native';
 import { useAuthStore } from '@/store/authStore';
+import { supabase } from '@/lib/supabase';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,6 +31,19 @@ export default function RootLayout() {
   useEffect(() => {
     const unsubscribe = initAuth();
     return unsubscribe;
+  }, []);
+
+  // Web sign-in lands back on the app with ?code=...; the PKCE verifier is in
+  // localStorage, so exchanging it here is all the callback handling needed.
+  // detectSessionInUrl is off, so nothing else would consume the code.
+  useEffect(() => {
+    if (Platform.OS !== 'web') return;
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (!code) return;
+    supabase.auth
+      .exchangeCodeForSession(code)
+      .then(() => window.history.replaceState({}, '', window.location.pathname))
+      .catch((e) => console.warn('Web sign-in code exchange failed:', e));
   }, []);
 
   useEffect(() => {

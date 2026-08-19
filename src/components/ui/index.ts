@@ -1,5 +1,6 @@
 export * from './AppIcon';
 export * from './Button';
+export * from './GoogleIcon';
 export * from './Input';
 export * from './Card';
 export * from './OptionCard';

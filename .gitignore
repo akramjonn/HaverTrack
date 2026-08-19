@@ -37,6 +37,9 @@ yarn-error.*
 # scratch scripts
 scripts/.tmp/
 
+# local coding-tool session state
+.zcode/
+
 # typescript
 *.tsbuildinfo
 
