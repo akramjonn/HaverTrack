@@ -40,6 +40,9 @@ scripts/.tmp/
 # local coding-tool session state
 .zcode/
 
+# supabase CLI local link/deploy cache
+supabase/.temp/
+
 # typescript
 *.tsbuildinfo
 
