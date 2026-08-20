@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Platform, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -8,7 +8,7 @@ import { JetBrainsMono_400Regular, JetBrainsMono_500Medium } from '@expo-google-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Colors } from '@/constants/theme';
 import { useAuthStore } from '@/store/authStore';
-import { supabase } from '@/lib/supabase';
+import { completeWebOAuthCallback, hasPendingWebOAuthCallback } from '@/lib/googleAuth';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,32 +27,52 @@ export default function RootLayout() {
 
   const initAuth = useAuthStore((state) => state.initAuth);
   const isAuthInitialized = useAuthStore((state) => state.isInitialized);
+  const setOAuthError = useAuthStore((state) => state.setOAuthError);
+
+  // Web sign-in lands back on the app with ?code=... (or an error in the
+  // fragment); the PKCE verifier is in localStorage, so exchanging it here is
+  // all the callback handling needed, and detectSessionInUrl is off so nothing
+  // else would consume the code.
+  //
+  // The gate is the point. The exchange is a network round-trip, while
+  // getSession() only reads localStorage, so without holding rendering back
+  // the index route resolves "signed out" first and redirects to the welcome
+  // screen — stranding a user who did in fact just sign in. Seeding the state
+  // synchronously from the URL is what makes the gate close before the first
+  // render rather than after it.
+  const [oauthCallbackPending, setOAuthCallbackPending] = useState(
+    hasPendingWebOAuthCallback
+  );
 
   useEffect(() => {
     const unsubscribe = initAuth();
     return unsubscribe;
   }, []);
 
-  // Web sign-in lands back on the app with ?code=...; the PKCE verifier is in
-  // localStorage, so exchanging it here is all the callback handling needed.
-  // detectSessionInUrl is off, so nothing else would consume the code.
   useEffect(() => {
-    if (Platform.OS !== 'web') return;
-    const code = new URLSearchParams(window.location.search).get('code');
-    if (!code) return;
-    supabase.auth
-      .exchangeCodeForSession(code)
-      .then(() => window.history.replaceState({}, '', window.location.pathname))
-      .catch((e) => console.warn('Web sign-in code exchange failed:', e));
-  }, []);
+    if (!oauthCallbackPending) return;
+    let cancelled = false;
+    completeWebOAuthCallback()
+      .then((message) => {
+        if (!cancelled && message) setOAuthError(message);
+      })
+      .finally(() => {
+        if (!cancelled) setOAuthCallbackPending(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [oauthCallbackPending]);
+
+  const isReady = (loaded || error) && isAuthInitialized && !oauthCallbackPending;
 
   useEffect(() => {
-    if ((loaded || error) && isAuthInitialized) {
+    if (isReady) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, error, isAuthInitialized]);
+  }, [isReady]);
 
-  if ((!loaded && !error) || !isAuthInitialized) {
+  if (!isReady) {
     return null;
   }
 

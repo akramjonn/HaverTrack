@@ -41,8 +41,17 @@ interface AuthState {
   goal: DailyGoal | null;
   isLoading: boolean;
   isInitialized: boolean;
+  /**
+   * Set by the root layout when a web OAuth callback fails. Local component
+   * state cannot carry this: web sign-in leaves the page entirely, so the
+   * screen that owned the error had already been torn down and remounted by
+   * the time Supabase answered. Without somewhere durable to put it, a failed
+   * Google sign-in on web looked identical to no sign-in at all.
+   */
+  oauthError: string | null;
 
   setGoal: (goal: DailyGoal | null) => void;
+  setOAuthError: (message: string | null) => void;
   loadProfile: (userId: string) => Promise<UserProfile | null>;
   updateProfile: (patch: Partial<EditableProfile>) => Promise<void>;
   completeOnboarding: () => Promise<void>;
@@ -66,8 +75,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   goal: DEFAULT_GOAL,
   isLoading: true,
   isInitialized: false,
+  oauthError: null,
 
   setGoal: (goal) => set({ goal }),
+
+  setOAuthError: (message) => set({ oauthError: message }),
 
   loadProfile: async (userId) => {
     const { data, error } = await supabase
@@ -171,7 +183,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   signOut: async () => {
     const { error } = await supabase.auth.signOut();
     if (error) console.warn('Sign out error:', error.message);
-    set({ user: null, session: null, profile: null, goal: DEFAULT_GOAL });
+    set({ user: null, session: null, profile: null, goal: DEFAULT_GOAL, oauthError: null });
   },
 
   /**
