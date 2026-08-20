@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Tabs, Redirect } from 'expo-router';
 import { Colors, Fonts } from '@/constants/theme';
-import { Calendar, Utensils, TrendingUp, User } from 'lucide-react-native';
+import { TabBarIcon } from '@/components/ui';
 import { Platform } from 'react-native';
 import { useAuthStore, selectIsOnboarded } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
@@ -43,32 +43,39 @@ export default function TabLayout() {
         },
       }}
     >
+      {/*
+        Today gets the plate and the menu tab gets the chef's hat, swapping the
+        calendar that used to sit on Today. A calendar says "dates", which is
+        what the Progress tab is about; the thing Today actually shows is the
+        meals on your plate right now. The pair also stops Today and DC menu
+        from both being fork-and-knife variants.
+      */}
       <Tabs.Screen
         name="index"
         options={{
           title: 'Today',
-          tabBarIcon: ({ color, size }) => <Calendar size={22} color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="today" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="menu"
         options={{
           title: 'DC menu',
-          tabBarIcon: ({ color, size }) => <Utensils size={22} color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="menu" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
           title: 'Progress',
-          tabBarIcon: ({ color, size }) => <TrendingUp size={22} color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="progress" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'You',
-          tabBarIcon: ({ color, size }) => <User size={22} color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="profile" focused={focused} />,
         }}
       />
     </Tabs>

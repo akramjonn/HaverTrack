@@ -12,19 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Card, Button } from '@/components/ui';
-import {
-  User,
-  Heart,
-  FileText,
-  Download,
-  Trash2,
-  ExternalLink,
-  LogOut,
-  ChevronRight,
-  Sparkles,
-  ShieldCheck,
-} from 'lucide-react-native';
+import { Card, Button, Icon } from '@/components/ui';
 import { useAuthStore, selectIsAdmin } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
 import { supabase } from '@/lib/supabase';
@@ -119,12 +107,12 @@ export default function SettingsScreen() {
             accessibilityLabel="Open admin console"
             style={styles.adminRow}
           >
-            <ShieldCheck size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+            <Icon name="shield" size="md" color={Colors.scarlet} style={styles.rowGlyph} />
             <View style={{ flex: 1 }}>
               <Text style={Typography.bodySSemiBold}>Admin console</Text>
               <Text style={Typography.caption}>Signups, engagement, and menu health</Text>
             </View>
-            <ChevronRight size={16} color={Colors.textMuted} />
+            <Icon name="chevronRight" size="sm" color={Colors.textMuted} />
           </Card>
         ) : null}
 
@@ -156,6 +144,15 @@ export default function SettingsScreen() {
         </Card>
 
         {/* Campus Wellbeing Resources Section (§11 & §13) */}
+        {/*
+          Every leading glyph in these two cards is ink at one size, the way
+          Affirm and Tabby draw a settings list. The rows used to run scarlet
+          heart / gold sparkle / grey heart / ink download, which made the list
+          read as four unrelated things and spent the brand's accent colours on
+          rows that are not more important than their neighbours. Colour here is
+          reserved for the one row that is genuinely elevated — admin — and for
+          the destructive action at the bottom.
+        */}
         <View style={styles.section}>
           <Text style={styles.sectionEyebrow}>CAMPUS & HEALTH RESOURCES</Text>
           <Card style={{ padding: 0, overflow: 'hidden' }}>
@@ -163,12 +160,12 @@ export default function SettingsScreen() {
               onPress={() => Linking.openURL('https://www.haverford.edu/caps')}
               style={styles.menuRow}
             >
-              <Heart size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+              <Icon name="care" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <View style={{ flex: 1 }}>
                 <Text style={Typography.bodySSemiBold}>Haverford CAPS</Text>
                 <Text style={Typography.caption}>Counseling & Psychological Services</Text>
               </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
+              <Icon name="external" size="sm" color={Colors.textMuted} label="Opens in browser" />
             </Pressable>
 
             <Pressable
@@ -177,24 +174,24 @@ export default function SettingsScreen() {
               }
               style={styles.menuRow}
             >
-              <Sparkles size={18} color={Colors.gold} style={{ marginRight: 12 }} />
+              <Icon name="menu" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <View style={{ flex: 1 }}>
                 <Text style={Typography.bodySSemiBold}>Bi-Co Campus Dietitian</Text>
                 <Text style={Typography.caption}>Dining Services Nutrition Support</Text>
               </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
+              <Icon name="external" size="sm" color={Colors.textMuted} label="Opens in browser" />
             </Pressable>
 
             <Pressable
               onPress={() => Linking.openURL('https://www.allianceforeatingdisorders.com/')}
               style={[styles.menuRow, { borderBottomWidth: 0 }]}
             >
-              <Heart size={18} color={Colors.textMuted} style={{ marginRight: 12 }} />
+              <Icon name="wellbeing" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <View style={{ flex: 1 }}>
                 <Text style={Typography.bodySSemiBold}>National Eating Disorders Helpline</Text>
                 <Text style={Typography.caption}>Free, confidential support & resources</Text>
               </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
+              <Icon name="external" size="sm" color={Colors.textMuted} label="Opens in browser" />
             </Pressable>
           </Card>
         </View>
@@ -207,27 +204,27 @@ export default function SettingsScreen() {
               onPress={handleExportData}
               style={styles.menuRow}
             >
-              <Download size={18} color={Colors.ink} style={{ marginRight: 12 }} />
+              <Icon name="download" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Download All Data (JSON)</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
+              <Icon name="chevronRight" size="sm" color={Colors.textMuted} />
             </Pressable>
 
             <Pressable
               onPress={() => router.push('/legal/privacy' as any)}
               style={styles.menuRow}
             >
-              <FileText size={18} color={Colors.ink} style={{ marginRight: 12 }} />
+              <Icon name="shield" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Privacy Policy</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
+              <Icon name="chevronRight" size="sm" color={Colors.textMuted} />
             </Pressable>
 
             <Pressable
               onPress={() => router.push('/legal/terms' as any)}
               style={[styles.menuRow, { borderBottomWidth: 0 }]}
             >
-              <FileText size={18} color={Colors.ink} style={{ marginRight: 12 }} />
+              <Icon name="document" size="md" color={Colors.ink} style={styles.rowGlyph} />
               <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Terms of Service</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
+              <Icon name="chevronRight" size="sm" color={Colors.textMuted} />
             </Pressable>
           </Card>
         </View>
@@ -238,14 +235,21 @@ export default function SettingsScreen() {
             label="Sign out"
             variant="secondary"
             onPress={handleSignOut}
+            icon={<Icon name="signOut" size="md" color={Colors.ink} />}
             style={{ marginBottom: 12 }}
           />
 
+          {/*
+            The only icon in this screen that is not a scanning aid: a trash
+            glyph on a red-bordered button is a second, pre-verbal signal that
+            this control destroys data, and it fires before the label is read.
+          */}
           <Button
             label="Delete Account & All Data"
             variant="destructive"
             onPress={handleDeleteAccount}
             loading={deleting}
+            icon={<Icon name="trash" size="md" color={Colors.scarletBright} />}
           />
         </View>
 
@@ -300,6 +304,9 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderSoft,
+  },
+  rowGlyph: {
+    marginRight: 12,
   },
   footer: {
     marginTop: 20,

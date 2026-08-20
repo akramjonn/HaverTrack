@@ -41,6 +41,56 @@ export const Colors = {
   greenBg: '#DCFCE7',
 } as const;
 
+/**
+ * One size scale for every glyph in the app. Before this existed the screens
+ * each picked their own number (14, 15, 16, 17, 18, 20, 22, 28, 30, 32) and
+ * icons that sat in the same visual role came out different sizes.
+ *
+ * The tokens are named by role, not by pixel, so a call site says what the
+ * glyph is doing rather than how big it happens to be:
+ *   xs  inline with mono/micro type (11-12pt)
+ *   sm  trailing affordances — chevrons, external-link marks, dismiss buttons
+ *   md  the default: leading glyph on a list row or a labelled button
+ *   lg  tab bar and standalone icon buttons
+ *   xl  stat-tile and section-header marks
+ *   hero empty-state and full-screen-state marks
+ */
+export const IconSize = {
+  xs: 14,
+  sm: 16,
+  md: 18,
+  lg: 22,
+  xl: 28,
+  hero: 34,
+} as const;
+
+/**
+ * Lucide ships at strokeWidth 2, which is heavier than Outfit's letterforms and
+ * makes small glyphs look bolder than the text they label. 1.75 is the weight
+ * that optically matches Outfit Medium at 14-18px; `bold` is reserved for the
+ * active tab and for glyphs sitting on a scarlet or ink fill, where the ground
+ * eats a little of the stroke.
+ */
+export const IconStroke = {
+  regular: 1.75,
+  bold: 2.25,
+} as const;
+
+/**
+ * Protein / carbs / fat get a fixed colour each so the same three hues mean the
+ * same three macros on every screen — the trick Life Reset and Cal AI use to
+ * let macro numbers appear without a repeated text label beside each one.
+ *
+ * These are existing palette entries, not new colours. Amber rather than gold
+ * for carbs: gold (#E8B84B) on cream does not carry a 1.75px stroke, and gold
+ * stays reserved for streak and insight accents where it already lives.
+ */
+export const MacroColors = {
+  protein: Colors.scarlet,
+  carbs: Colors.amber,
+  fat: Colors.green,
+} as const;
+
 export const Radii = {
   pill: 999,
   xs: 6,

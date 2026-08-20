@@ -23,17 +23,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import {
-  X,
-  Zap,
-  ZapOff,
-  Image as ImageIcon,
-  ChevronDown,
-  Sparkles,
-  Barcode,
-  CameraOff,
-} from 'lucide-react-native';
-import { Button } from '@/components/ui';
+import { Button, Icon } from '@/components/ui';
 import { analyzePlate } from '@/lib/llm/provider';
 import { lookupBarcode, barcodeProductToSearchResult } from '@/lib/productLookup';
 import { FoodComposeSheet } from '@/components/FoodComposeSheet';
@@ -305,7 +295,7 @@ export default function ScanScreen() {
     if (!platformSupportsCamera) {
       return (
         <View style={styles.scanningOverlay}>
-          <CameraOff size={28} color={Colors.gold} />
+          <Icon name="cameraOff" size="xl" color={Colors.gold} />
           <Text style={styles.blockerText}>
             The browser is blocking camera access. Open SquirrelTrack over https or on
             localhost, or use the app on your phone.
@@ -333,7 +323,7 @@ export default function ScanScreen() {
       const blockedForGood = !permission.canAskAgain;
       return (
         <View style={styles.scanningOverlay}>
-          <CameraOff size={28} color={Colors.gold} />
+          <Icon name="cameraOff" size="xl" color={Colors.gold} />
           <Text style={styles.blockerText}>
             {blockedForGood
               ? 'Camera access is turned off for SquirrelTrack. Turn it on in Settings to scan your plate.'
@@ -353,7 +343,7 @@ export default function ScanScreen() {
       return (
         <View style={styles.scanningOverlay}>
           <PulsingIcon reducedMotion={reducedMotion}>
-            <Sparkles size={32} color={Colors.gold} />
+            <Icon name="analyzing" size="hero" color={Colors.gold} />
           </PulsingIcon>
           <Text style={styles.analyzingText}>
             {mode === 'barcode'
@@ -394,7 +384,7 @@ export default function ScanScreen() {
             style={styles.circleBtn}
             accessibilityLabel="Close camera"
           >
-            <X size={20} color={Colors.darkText} />
+            <Icon name="close" size="lg" color={Colors.darkText} />
           </Pressable>
 
           <Pressable
@@ -410,7 +400,7 @@ export default function ScanScreen() {
             style={styles.contextPill}
           >
             <Text style={styles.contextText}>{contextPill}</Text>
-            <ChevronDown size={14} color={Colors.darkText} style={{ marginLeft: 4 }} />
+            <Icon name="chevronDown" size="xs" color={Colors.darkText} style={{ marginLeft: 4 }} />
           </Pressable>
 
           {wantsCamera ? (
@@ -421,9 +411,9 @@ export default function ScanScreen() {
               accessibilityLabel="Toggle flash"
             >
               {flash ? (
-                <Zap size={20} color={Colors.gold} />
+                <Icon name="flashOn" size="lg" color={Colors.gold} />
               ) : (
-                <ZapOff size={20} color={Colors.darkText} />
+                <Icon name="flashOff" size="lg" color={Colors.darkText} />
               )}
             </Pressable>
           ) : (
@@ -503,7 +493,7 @@ export default function ScanScreen() {
                 style={styles.galleryBtn}
                 accessibilityLabel="Choose from photo library"
               >
-                <ImageIcon size={22} color={Colors.darkText} />
+                <Icon name="photoLibrary" size="lg" color={Colors.darkText} />
               </Pressable>
 
               <ShutterButton
@@ -516,7 +506,7 @@ export default function ScanScreen() {
           ) : mode === 'barcode' ? (
             <View style={styles.barcodeFallback}>
               <View style={styles.barcodeLabelRow}>
-                <Barcode size={14} color={Colors.darkTextDim} />
+                <Icon name="barcode" size="xs" color={Colors.darkTextDim} />
                 <Text style={styles.barcodeLabel}>Label damaged? Enter the numbers</Text>
               </View>
               <View style={styles.barcodeInputRow}>

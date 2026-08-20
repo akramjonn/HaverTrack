@@ -11,8 +11,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Input, OptionCard, IconButton, ProgressBar } from '@/components/ui';
-import { ArrowLeft } from 'lucide-react-native';
+import { Button, Input, OptionCard, IconButton, ProgressBar, Icon } from '@/components/ui';
 import { useAuthStore } from '@/store/authStore';
 import { calculateGoals } from '@/lib/goals';
 
@@ -120,7 +119,7 @@ export default function OnboardingAboutScreen() {
           {/* Top Progress Bar */}
           <View style={styles.topHeader}>
             <IconButton
-              icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+              icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
               onPress={() => router.back()}
               accessibilityLabel="Go back"
             />
@@ -184,6 +183,7 @@ export default function OnboardingAboutScreen() {
             </Text>
 
             <OptionCard
+              icon="activityLow"
               title="Mostly classes & library"
               subtitle="Sedentary, studying mostly"
               selected={activity === 'sedentary'}
@@ -191,6 +191,7 @@ export default function OnboardingAboutScreen() {
             />
 
             <OptionCard
+              icon="activityMedium"
               title="Walking campus, gym 2–3×"
               subtitle="Moderate daily movement"
               selected={activity === 'moderate'}
@@ -198,6 +199,7 @@ export default function OnboardingAboutScreen() {
             />
 
             <OptionCard
+              icon="activityHigh"
               title="Training most days"
               subtitle="Athletics or heavy workouts"
               selected={activity === 'active'}

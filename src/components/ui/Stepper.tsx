@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet, ViewStyle } from 'react-native';
 import { Colors, Radii, Fonts } from '@/constants/theme';
-import { Minus, Plus } from 'lucide-react-native';
+import { Icon } from './Icon';
 
 interface StepperProps {
   value: number;
@@ -48,7 +48,7 @@ export function Stepper({
           pressed && value > min && { opacity: 0.7 },
         ]}
       >
-        <Minus size={18} color={value <= min ? Colors.textGhost : Colors.ink} />
+        <Icon name="remove" size="md" color={value <= min ? Colors.textGhost : Colors.ink} />
       </Pressable>
 
       <View style={styles.valueContainer}>
@@ -68,7 +68,7 @@ export function Stepper({
           pressed && value < max && { opacity: 0.7 },
         ]}
       >
-        <Plus size={18} color={value >= max ? Colors.textGhost : Colors.ink} />
+        <Icon name="add" size="md" color={value >= max ? Colors.textGhost : Colors.ink} />
       </Pressable>
     </View>
   );

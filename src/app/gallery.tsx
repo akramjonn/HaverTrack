@@ -28,8 +28,8 @@ import {
   Chip,
   Stepper,
   StreakBadge,
+  Icon,
 } from '@/components/ui';
-import { ArrowLeft, Sparkles, ChevronRight, Apple } from 'lucide-react-native';
 
 export default function ComponentGalleryScreen() {
   const router = useRouter();
@@ -165,7 +165,7 @@ export default function ComponentGalleryScreen() {
             <Button
               label="Continue with Apple"
               variant="apple"
-              icon={<Apple size={20} color={Colors.cream} />}
+              icon={<Icon name="menu" size="lg" color={Colors.cream} />}
               onPress={() => {}}
             />
             <Button label="Loading State" variant="primary" loading onPress={() => {}} />

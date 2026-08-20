@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, IconButton, SegmentedControl } from '@/components/ui';
-import { ArrowLeft, Check, RotateCcw, Star, Bookmark } from 'lucide-react-native';
+import { Button, Card, IconButton, SegmentedControl, Icon, EmptyState } from '@/components/ui';
 import { useMenuStore } from '@/store/menuStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { useAuthStore } from '@/store/authStore';
@@ -146,7 +145,7 @@ export default function SavedMealsScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
@@ -182,19 +181,17 @@ export default function SavedMealsScreen() {
 
         <Text style={styles.sectionTitle}>Saved meals</Text>
         {favorites.length === 0 ? (
-          <Card style={styles.emptyCard}>
-            <Bookmark size={28} color={Colors.textGhost} />
-            <Text style={[Typography.title, { marginTop: 10 }]}>Nothing saved yet</Text>
-            <Text style={styles.emptyBody}>
-              Tap the star on any DC dish or search result and it lands here for one-tap logging.
-            </Text>
+          <EmptyState
+            icon="savedMeals"
+            title="Nothing saved yet"
+            body="Tap the star on any DC dish or search result and it lands here for one-tap logging."
+          >
             <Button
               label="Browse the DC menu"
               variant="secondary"
               onPress={() => router.push('/(tabs)/menu' as any)}
-              style={{ marginTop: 14, alignSelf: 'stretch' }}
             />
-          </Card>
+          </EmptyState>
         ) : (
           favorites.map((meal) => (
             <View key={meal.id} style={styles.row}>
@@ -215,7 +212,7 @@ export default function SavedMealsScreen() {
                 style={styles.iconSlot}
                 accessibilityLabel={`Remove ${meal.dish_name} from saved meals`}
               >
-                <Star size={18} color={Colors.gold} fill={Colors.gold} />
+                <Icon name="star" size="md" color={Colors.gold} filled label="Saved" />
               </Pressable>
 
               <Pressable
@@ -225,7 +222,7 @@ export default function SavedMealsScreen() {
                 accessibilityLabel={`Log ${meal.dish_name} to ${mealPeriod}`}
               >
                 {justLogged === meal.id ? (
-                  <Check size={17} color={Colors.cream} />
+                  <Icon name="check" size="md" color={Colors.cream} emphasis />
                 ) : (
                   <Text style={styles.logBtnText}>Log</Text>
                 )}
@@ -236,13 +233,11 @@ export default function SavedMealsScreen() {
 
         <Text style={[styles.sectionTitle, { marginTop: 28 }]}>Log again</Text>
         {recents.length === 0 ? (
-          <Card style={styles.emptyCard}>
-            <RotateCcw size={28} color={Colors.textGhost} />
-            <Text style={[Typography.title, { marginTop: 10 }]}>No earlier meals yet</Text>
-            <Text style={styles.emptyBody}>
-              Meals you logged on previous days show up here so you can repeat them in one tap.
-            </Text>
-          </Card>
+          <EmptyState
+            icon="undo"
+            title="No earlier meals yet"
+            body="Meals you logged on previous days show up here so you can repeat them in one tap."
+          />
         ) : (
           recents.map((meal) => (
             <View key={meal.id} style={styles.row}>
@@ -261,9 +256,9 @@ export default function SavedMealsScreen() {
                 accessibilityLabel={`Log ${meal.title} again`}
               >
                 {justLogged === meal.id ? (
-                  <Check size={17} color={Colors.cream} />
+                  <Icon name="check" size="md" color={Colors.cream} emphasis />
                 ) : (
-                  <RotateCcw size={16} color={Colors.cream} />
+                  <Icon name="undo" size="sm" color={Colors.cream} emphasis />
                 )}
               </Pressable>
             </View>
@@ -348,16 +343,6 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.outfit.semiBold,
     fontSize: 14,
     color: Colors.cream,
-  },
-  emptyCard: {
-    alignItems: 'center',
-    padding: 22,
-  },
-  emptyBody: {
-    ...Typography.bodyS,
-    color: Colors.textMuted,
-    textAlign: 'center',
-    marginTop: 4,
   },
   errorCard: {
     marginBottom: 14,

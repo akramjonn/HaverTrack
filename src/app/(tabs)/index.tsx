@@ -12,12 +12,14 @@ import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import {
   HeroCard,
   CalorieRing,
-  ProgressBar,
   StreakBadge,
   Button,
-  Card,
+  Icon,
+  MacroStat,
+  LogSourceTile,
+  EmptyState,
+  mealPeriodIcon,
 } from '@/components/ui';
-import { Camera, Plus, Layers, UtensilsCrossed, Zap, Search } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { loggingStreak } from '@/lib/stats';
@@ -129,7 +131,12 @@ export default function TodayScreen() {
             <Text style={styles.dayMuted}>{dayName}</Text>
             <Text style={Typography.displayM}>{monthDay}</Text>
           </View>
-          <StreakBadge days={12} />
+          {/*
+            Hidden at zero rather than rendered as "0 day streak", which reads
+            as a reprimand on the one screen a student opens before they have
+            logged anything.
+          */}
+          {streak.current > 0 && <StreakBadge days={streak.current} />}
         </View>
 
         {/* Gallery / Debug Link Pill */}
@@ -137,7 +144,7 @@ export default function TodayScreen() {
           onPress={() => router.push('/gallery' as any)}
           style={styles.galleryBadge}
         >
-          <Layers size={14} color={Colors.scarlet} />
+          <Icon name="layers" size="xs" color={Colors.scarlet} />
           <Text style={styles.galleryBadgeText}>View Design System Gallery</Text>
         </Pressable>
 
@@ -165,9 +172,12 @@ export default function TodayScreen() {
               ) : (
                 <>
                   <Text style={Typography.displayXL}>{caloriesLeft}</Text>
-                  <Text style={[Typography.body, { color: Colors.textMuted }]}>
-                    calories left
-                  </Text>
+                  <View style={styles.calorieCaptionRow}>
+                    <Icon name="calories" size="xs" color={Colors.scarlet} />
+                    <Text style={[Typography.body, { color: Colors.textMuted }]}>
+                      calories left
+                    </Text>
+                  </View>
                   <Text style={[Typography.monoLabel, { marginTop: 4 }]}>
                     {totalCalories} / {targetCalories} KCAL
                   </Text>
@@ -178,89 +188,46 @@ export default function TodayScreen() {
 
           {/* Macro Progress Columns */}
           <View style={styles.macroRow}>
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Protein</Text>
-              <ProgressBar
-                progress={targetProtein > 0 ? totalProtein / targetProtein : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalProtein)} / {targetProtein}G
-              </Text>
-            </View>
-
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Carbs</Text>
-              <ProgressBar
-                progress={targetCarbs > 0 ? totalCarbs / targetCarbs : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalCarbs)} / {targetCarbs}G
-              </Text>
-            </View>
-
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Fat</Text>
-              <ProgressBar
-                progress={targetFat > 0 ? totalFat / targetFat : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalFat)} / {targetFat}G
-              </Text>
-            </View>
+            <MacroStat macro="protein" current={totalProtein} target={targetProtein} />
+            <MacroStat macro="carbs" current={totalCarbs} target={targetCarbs} />
+            <MacroStat macro="fat" current={totalFat} target={targetFat} />
           </View>
         </HeroCard>
 
-        {/* Action Button Row: Scan & Browse Menu */}
-        <View style={styles.actionRow}>
-          <Pressable
+        {/*
+          One strip for every way into the log, replacing the two-button row
+          plus three-text-link row that used to stack here. The five paths are
+          parallel choices, so ranking two of them as buttons and three as
+          footnotes was arbitrary — the tile strip gives each an equal target
+          and lets the scarlet fill do the "start here" work on its own.
+        */}
+        <View style={styles.logSourceRow}>
+          <LogSourceTile
+            icon="scan"
+            label="Scan"
+            primary
             onPress={() => router.push('/scan' as any)}
-            style={({ pressed }) => [
-              styles.scanBtn,
-              pressed && { opacity: 0.9 },
-            ]}
-          >
-            <Camera size={20} color={Colors.cream} />
-            <Text style={styles.scanBtnText}>Scan a plate</Text>
-          </Pressable>
-
-          <Pressable
+          />
+          <LogSourceTile
+            icon="menu"
+            label="DC menu"
             onPress={() => router.push('/(tabs)/menu' as any)}
-            style={({ pressed }) => [
-              styles.menuBtn,
-              pressed && { opacity: 0.9 },
-            ]}
-          >
-            <Plus size={20} color={Colors.ink} />
-            <Text style={styles.menuBtnText}>Browse DC menu</Text>
-          </Pressable>
-        </View>
-
-        {/* Secondary logging paths: no photo, no menu browse */}
-        <View style={styles.secondaryRow}>
-          <Pressable
-            onPress={() => router.push('/log/quick-add' as any)}
-            style={({ pressed }) => [styles.secondaryLink, pressed && { opacity: 0.7 }]}
-          >
-            <Zap size={15} color={Colors.scarlet} />
-            <Text style={styles.secondaryLinkText}>Quick add</Text>
-          </Pressable>
-          <Pressable
+          />
+          <LogSourceTile
+            icon="search"
+            label="Search"
             onPress={() => router.push('/log/search' as any)}
-            style={({ pressed }) => [styles.secondaryLink, pressed && { opacity: 0.7 }]}
-          >
-            <Search size={15} color={Colors.scarlet} />
-            <Text style={styles.secondaryLinkText}>Search foods</Text>
-          </Pressable>
-          <Pressable
+          />
+          <LogSourceTile
+            icon="quickAdd"
+            label="Quick add"
+            onPress={() => router.push('/log/quick-add' as any)}
+          />
+          <LogSourceTile
+            icon="savedMeals"
+            label="Saved"
             onPress={() => router.push('/log/saved' as any)}
-            style={({ pressed }) => [styles.secondaryLink, pressed && { opacity: 0.7 }]}
-          >
-            <UtensilsCrossed size={15} color={Colors.scarlet} />
-            <Text style={styles.secondaryLinkText}>Saved meals</Text>
-          </Pressable>
+          />
         </View>
 
         <WaterTile
@@ -292,6 +259,18 @@ export default function TodayScreen() {
               onPress={() => router.push(`/log/${meal.id}` as any)}
               style={styles.mealRow}
             >
+              {/*
+                The period disc turns the day's log into something you can read
+                by shape — sunrise, sun, moon down the left edge — instead of
+                parsing "DC breakfast" out of the metadata line on every row.
+              */}
+              <View style={styles.mealPeriodDisc}>
+                <Icon
+                  name={mealPeriodIcon(meal.meal_period)}
+                  size="md"
+                  color={Colors.scarlet}
+                />
+              </View>
               <View style={styles.mealLeft}>
                 <Text style={Typography.bodySSemiBold}>{meal.title}</Text>
                 <Text style={styles.mealMeta}>
@@ -305,25 +284,23 @@ export default function TodayScreen() {
             </Pressable>
           ))
         ) : (
-          <Card style={styles.emptyCard}>
-            <UtensilsCrossed size={32} color={Colors.textGhost} style={{ marginBottom: 12 }} />
-            <Text style={Typography.title}>Nothing logged yet today</Text>
-            <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center', marginTop: 4, marginBottom: 16 }]}>
-              Scan a plate at the DC or choose from today's menu to track calories and macros.
-            </Text>
-            <View style={{ width: '100%', gap: 8 }}>
-              <Button
-                label="Scan a plate"
-                variant="primary"
-                onPress={() => router.push('/scan' as any)}
-              />
-              <Button
-                label="Browse DC menu"
-                variant="secondary"
-                onPress={() => router.push('/(tabs)/menu' as any)}
-              />
-            </View>
-          </Card>
+          <EmptyState
+            icon="plate"
+            title="Nothing logged yet today"
+            body="Scan a plate at the DC or choose from today's menu to track calories and macros."
+            style={styles.emptyCard}
+          >
+            <Button
+              label="Scan a plate"
+              variant="primary"
+              onPress={() => router.push('/scan' as any)}
+            />
+            <Button
+              label="Browse DC menu"
+              variant="secondary"
+              onPress={() => router.push('/(tabs)/menu' as any)}
+            />
+          </EmptyState>
         )}
 
         <View style={styles.footer}>
@@ -387,6 +364,11 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     flex: 1,
   },
+  calorieCaptionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
   macroRow: {
     flexDirection: 'row',
     gap: 12,
@@ -395,64 +377,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.borderSoft,
   },
-  macroCol: {
-    flex: 1,
-  },
-  actionRow: {
+  logSourceRow: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 14,
-  },
-  secondaryRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 20,
+    gap: 8,
     marginBottom: 20,
-  },
-  secondaryLink: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  secondaryLinkText: {
-    fontFamily: Fonts.outfit.semiBold,
-    fontSize: 13,
-    color: Colors.scarlet,
   },
   waterTile: {
     marginBottom: 24,
-  },
-  scanBtn: {
-    flex: 1,
-    height: 52,
-    backgroundColor: Colors.scarlet,
-    borderRadius: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  scanBtnText: {
-    fontFamily: Fonts.outfit.semiBold,
-    fontSize: 15,
-    color: Colors.cream,
-  },
-  menuBtn: {
-    flex: 1,
-    height: 52,
-    backgroundColor: Colors.surface,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  menuBtnText: {
-    fontFamily: Fonts.outfit.semiBold,
-    fontSize: 15,
-    color: Colors.ink,
   },
   sectionHeaderRow: {
     flexDirection: 'row',
@@ -471,6 +402,15 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 10,
   },
+  mealPeriodDisc: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: Colors.surfaceWarm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
   mealLeft: {
     flex: 1,
     paddingRight: 12,
@@ -484,8 +424,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   emptyCard: {
-    alignItems: 'center',
-    padding: 24,
     marginBottom: 16,
   },
   footer: {

@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Colors, Radii, Fonts, Typography } from '@/constants/theme';
-import { Eye, EyeOff } from 'lucide-react-native';
+import { Icon } from './Icon';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -56,9 +56,9 @@ export function Input({
             accessibilityRole="button"
           >
             {showPassword ? (
-              <EyeOff size={20} color={Colors.textMuted} />
+              <Icon name="conceal" size="lg" color={Colors.textMuted} />
             ) : (
-              <Eye size={20} color={Colors.textMuted} />
+              <Icon name="reveal" size="lg" color={Colors.textMuted} />
             )}
           </Pressable>
         ) : null}

@@ -11,8 +11,15 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { SegmentedControl, Chip } from '@/components/ui';
-import { Search, Plus, Check, AlertCircle, Clock, X, ListPlus, Bookmark, Sparkles } from 'lucide-react-native';
+import {
+  SegmentedControl,
+  Chip,
+  Icon,
+  EmptyState,
+  MacroTag,
+  stationIcon,
+  mealPeriodIcon,
+} from '@/components/ui';
 import { useMenuStore } from '@/store/menuStore';
 import { ParsedMenuItem } from '@/lib/nutrislice';
 import { logMeal, periodForNow } from '@/lib/logging';
@@ -130,15 +137,24 @@ export default function MenuScreen() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={Typography.displayL}>Dining Center</Text>
-          <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 4 }]}>
-            {getMealPeriodTiming()}
-          </Text>
+          {/*
+            The period glyph beside the serving hours is the one place the
+            breakfast/lunch/dinner/coop marks get introduced with their names
+            spelled out, which is what makes them legible later as bare discs on
+            the Today log rows.
+          */}
+          <View style={styles.headerTimingRow}>
+            <Icon name={mealPeriodIcon(mealPeriod)} size="sm" color={Colors.textMuted} />
+            <Text style={[Typography.body, { color: Colors.textMuted }]}>
+              {getMealPeriodTiming()}
+            </Text>
+          </View>
         </View>
 
         {/* Staleness Banner if >26h (§4 Screen 09) */}
         {isStale && !dismissStaleness ? (
           <View style={styles.stalenessBanner}>
-            <Clock size={16} color={Colors.amber} style={{ marginRight: 8 }} />
+            <Icon name="clock" size="sm" color={Colors.amber} style={{ marginRight: 8 }} />
             <Text style={styles.stalenessText}>
               Showing cached menu from {new Date(syncedAt).toLocaleDateString()}. Live sync pending.
             </Text>
@@ -147,7 +163,7 @@ export default function MenuScreen() {
               hitSlop={8}
               accessibilityLabel="Dismiss banner"
             >
-              <X size={16} color={Colors.amber} />
+              <Icon name="close" size="sm" color={Colors.amber} />
             </Pressable>
           </View>
         ) : null}
@@ -197,7 +213,7 @@ export default function MenuScreen() {
         {/* Search Field */}
         <View style={styles.searchRow}>
           <View style={styles.searchWrapper}>
-            <Search size={18} color={Colors.textMuted} style={styles.searchIcon} />
+            <Icon name="search" size="md" color={Colors.textMuted} style={styles.searchIcon} />
             <TextInput
               placeholder="Search today's menu"
               placeholderTextColor={Colors.textGhost}
@@ -212,7 +228,7 @@ export default function MenuScreen() {
             style={styles.iconLinkBtn}
             accessibilityLabel="Search packaged foods too"
           >
-            <ListPlus size={18} color={Colors.ink} />
+            <Icon name="browseMenu" size="md" color={Colors.ink} />
           </Pressable>
 
           <Pressable
@@ -220,7 +236,7 @@ export default function MenuScreen() {
             style={styles.iconLinkBtn}
             accessibilityLabel="Saved meals"
           >
-            <Bookmark size={18} color={Colors.ink} />
+            <Icon name="savedMeals" size="md" color={Colors.ink} />
           </Pressable>
         </View>
 
@@ -228,7 +244,7 @@ export default function MenuScreen() {
           onPress={() => router.push('/log/plate' as any)}
           style={({ pressed }) => [styles.buildPlateBtn, pressed && { opacity: 0.9 }]}
         >
-          <Sparkles size={16} color={Colors.cream} />
+          <Icon name="buildPlate" size="sm" color={Colors.cream} emphasis />
           <Text style={styles.buildPlateBtnText}>Build my plate for today's target</Text>
         </Pressable>
 
@@ -241,7 +257,16 @@ export default function MenuScreen() {
         {/* Station-Grouped Items */}
         {stationNames.map((station) => (
           <View key={station} style={styles.stationGroup}>
-            <Text style={styles.stationTitle}>{station}</Text>
+            {/*
+              Station headers are the app's only real wayfinding on a long
+              scroll — a student hunting the grill line scrolls past six of
+              these. The glyph gives each header a silhouette to catch on, which
+              an all-caps mono label at 11px does not.
+            */}
+            <View style={styles.stationHeader}>
+              <Icon name={stationIcon(station)} size="sm" color={Colors.scarlet} />
+              <Text style={styles.stationTitle}>{station}</Text>
+            </View>
             {stationGroups[station].map((item) => {
               const isLogged = loggedItemIds[item.nutrislice_id];
               return (
@@ -252,11 +277,27 @@ export default function MenuScreen() {
                 >
                   <View style={styles.foodInfo}>
                     <Text style={Typography.title}>{item.dish_name}</Text>
-                    <Text style={styles.nutritionLine}>
-                      {item.calories !== null
-                        ? `${item.calories} kcal · ${item.protein_g ?? 0}P ${item.carbs_g ?? 0}C ${item.fat_g ?? 0}F`
-                        : 'Nutrition info pending'}
-                    </Text>
+                    {/*
+                      "24P 39C 60F" made the reader decode three letter codes
+                      per dish. The coloured macro glyphs carry the same three
+                      values without the decoding step, and they are the same
+                      three marks the hero card teaches on Today.
+                    */}
+                    {item.calories !== null ? (
+                      <View style={styles.nutritionRow}>
+                        <View style={styles.calorieTag}>
+                          <Icon name="calories" size={12} color={Colors.textMuted} />
+                          <Text style={styles.nutritionLine}>{item.calories} KCAL</Text>
+                        </View>
+                        <MacroTag macro="protein" value={`${item.protein_g ?? 0}g`} />
+                        <MacroTag macro="carbs" value={`${item.carbs_g ?? 0}g`} />
+                        <MacroTag macro="fat" value={`${item.fat_g ?? 0}g`} />
+                      </View>
+                    ) : (
+                      <Text style={[styles.nutritionLine, { marginTop: 6 }]}>
+                        Nutrition info pending
+                      </Text>
+                    )}
                   </View>
 
                   <Pressable
@@ -276,9 +317,9 @@ export default function MenuScreen() {
                     {loggingItemIds[item.nutrislice_id] ? (
                       <ActivityIndicator size="small" color={Colors.ink} />
                     ) : isLogged ? (
-                      <Check size={18} color={Colors.cream} />
+                      <Icon name="check" size="md" color={Colors.cream} emphasis />
                     ) : (
-                      <Plus size={20} color={Colors.ink} />
+                      <Icon name="add" size="lg" color={Colors.ink} />
                     )}
                   </Pressable>
                 </Pressable>
@@ -288,16 +329,17 @@ export default function MenuScreen() {
         ))}
 
         {stationNames.length === 0 ? (
-          <View style={styles.emptyState}>
-            <Text style={[Typography.body, { color: Colors.textMuted }]}>
-              No dishes found matching your filters for {mealPeriod}.
-            </Text>
-          </View>
+          <EmptyState
+            bare
+            icon="search"
+            title="No dishes match"
+            body={`Nothing on the ${mealPeriod} menu fits your filters. Try clearing a dietary chip or your search.`}
+          />
         ) : null}
 
         {/* Allergen Disclaimer */}
         <View style={styles.disclaimerBox}>
-          <AlertCircle size={16} color={Colors.textMuted} style={{ marginRight: 6 }} />
+          <Icon name="warning" size="sm" color={Colors.textMuted} style={{ marginRight: 6 }} />
           <Text style={styles.disclaimerText}>
             Cross-contact risk exists in commercial kitchens. Check Nutrislice for complete allergen tables.
           </Text>
@@ -319,6 +361,12 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 16,
+  },
+  headerTimingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 4,
   },
   stalenessBanner: {
     flexDirection: 'row',
@@ -408,10 +456,15 @@ const styles = StyleSheet.create({
   stationGroup: {
     marginBottom: 24,
   },
+  stationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginBottom: 10,
+  },
   stationTitle: {
     ...Typography.monoLabel,
     color: Colors.scarlet,
-    marginBottom: 10,
   },
   foodRow: {
     flexDirection: 'row',
@@ -428,9 +481,20 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingRight: 12,
   },
+  nutritionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginTop: 6,
+  },
+  calorieTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   nutritionLine: {
     ...Typography.monoUnit,
-    marginTop: 4,
     color: Colors.textMuted,
   },
   addBtn: {
@@ -449,10 +513,6 @@ const styles = StyleSheet.create({
   },
   addBtnDisabled: {
     opacity: 0.4,
-  },
-  emptyState: {
-    paddingVertical: 32,
-    alignItems: 'center',
   },
   disclaimerBox: {
     flexDirection: 'row',

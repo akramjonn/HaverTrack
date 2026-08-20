@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, IconButton, SegmentedControl } from '@/components/ui';
-import { ArrowLeft, Star } from 'lucide-react-native';
+import { Button, Card, IconButton, SegmentedControl, Icon } from '@/components/ui';
 import { HealthScoreCard } from '@/components/HealthScore';
 import { scoreMeal } from '@/lib/health';
 import { logMeal, periodForNow, type MealPeriod } from '@/lib/logging';
@@ -121,7 +120,7 @@ export default function QuickAddScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
@@ -198,10 +197,11 @@ export default function QuickAddScreen() {
             accessibilityRole="checkbox"
             accessibilityState={{ checked: alsoSave }}
           >
-            <Star
-              size={18}
+            <Icon
+              name="star"
+              size="md"
               color={alsoSave ? Colors.gold : Colors.textFaint}
-              fill={alsoSave ? Colors.gold : 'transparent'}
+              filled={alsoSave}
             />
             <Text style={styles.saveToggleText}>
               Also save to my meals for one-tap logging later

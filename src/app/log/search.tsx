@@ -14,8 +14,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, Chip, IconButton, SegmentedControl, Stepper } from '@/components/ui';
-import { ArrowLeft, Search, Star, UtensilsCrossed, X } from 'lucide-react-native';
+import { Button, Card, Chip, IconButton, SegmentedControl, Stepper, Icon, EmptyState } from '@/components/ui';
 import {
   FoodSearchResult,
   searchFoods,
@@ -92,7 +91,7 @@ export default function FoodSearchScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
@@ -102,7 +101,7 @@ export default function FoodSearchScreen() {
 
       <View style={styles.searchBlock}>
         <View style={styles.searchWrapper}>
-          <Search size={18} color={Colors.textMuted} style={{ marginRight: 8 }} />
+          <Icon name="search" size="md" color={Colors.textMuted} style={{ marginRight: 8 }} />
           <TextInput
             value={query}
             onChangeText={setQuery}
@@ -115,7 +114,7 @@ export default function FoodSearchScreen() {
           />
           {query.length > 0 ? (
             <Pressable onPress={() => setQuery('')} hitSlop={8} accessibilityLabel="Clear search">
-              <X size={16} color={Colors.textMuted} />
+              <Icon name="close" size="sm" color={Colors.textMuted} />
             </Pressable>
           ) : null}
         </View>
@@ -161,20 +160,18 @@ export default function FoodSearchScreen() {
         ) : null}
 
         {!searching && hasSearched && visible.length === 0 && !errors.menu ? (
-          <View style={styles.centered}>
-            <UtensilsCrossed size={30} color={Colors.textGhost} />
-            <Text style={[Typography.title, { marginTop: 12 }]}>No matches</Text>
-            <Text style={styles.emptyBody}>
-              Nothing in {todayOnly ? "today's DC menu" : 'the DC menu'} or OpenFoodFacts matched
-              "{query.trim()}". Try fewer words, or quick add it by hand.
-            </Text>
+          <EmptyState
+            bare
+            icon="search"
+            title="No matches"
+            body={`Nothing in ${todayOnly ? "today's DC menu" : 'the DC menu'} or OpenFoodFacts matched "${query.trim()}". Try fewer words, or quick add it by hand.`}
+          >
             <Button
               label="Quick add instead"
               variant="secondary"
               onPress={() => router.replace('/log/quick-add' as any)}
-              style={{ marginTop: 16, alignSelf: 'stretch' }}
             />
-          </View>
+          </EmptyState>
         ) : null}
 
         {!hasSearched && !searching ? (
@@ -266,10 +263,11 @@ function ResultRow({
         style={styles.starBtn}
         accessibilityLabel={isFavorite ? `Unsave ${result.name}` : `Save ${result.name}`}
       >
-        <Star
-          size={18}
+        <Icon
+          name="star"
+          size="md"
           color={isFavorite ? Colors.gold : Colors.textGhost}
-          fill={isFavorite ? Colors.gold : 'transparent'}
+          filled={isFavorite}
         />
       </Pressable>
     </Pressable>

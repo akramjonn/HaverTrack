@@ -16,8 +16,9 @@ import {
   IconButton,
   Stepper,
   SegmentedControl,
+  Icon,
 } from '@/components/ui';
-import { ArrowLeft, Star, AlertCircle, ExternalLink } from 'lucide-react-native';
+
 import { useMenuStore, favoriteFromMenuItem } from '@/store/menuStore';
 
 export default function FoodDetailScreen() {
@@ -71,16 +72,17 @@ export default function FoodDetailScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
         <IconButton
           icon={
-            <Star
-              size={18}
+            <Icon
+              name="star"
+              size="md"
               color={isFav ? Colors.gold : Colors.inkSoft}
-              fill={isFav ? Colors.gold : 'transparent'}
+              filled={isFav}
             />
           }
           onPress={() => toggleFavorite(favoriteFromMenuItem(dish))}
@@ -161,11 +163,11 @@ export default function FoodDetailScreen() {
           onPress={() => Linking.openURL('https://haverfordcollege.nutrislice.com')}
           style={styles.disclaimerCard}
         >
-          <AlertCircle size={16} color={Colors.textMuted} style={{ marginRight: 8 }} />
+          <Icon name="warning" size="sm" color={Colors.textMuted} style={{ marginRight: 8 }} />
           <Text style={styles.disclaimerText}>
             Nutrition data sourced from Haverford Nutrislice. Tap to view official college labels.
           </Text>
-          <ExternalLink size={14} color={Colors.textMuted} style={{ marginLeft: 6 }} />
+          <Icon name="external" size="xs" color={Colors.textMuted} style={{ marginLeft: 6 }} />
         </Pressable>
       </ScrollView>
 

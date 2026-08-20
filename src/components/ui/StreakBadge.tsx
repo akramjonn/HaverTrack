@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import { Colors, Radii, Fonts } from '@/constants/theme';
-import Svg, { Circle } from 'react-native-svg';
+import { Icon } from './Icon';
 
 interface StreakBadgeProps {
   days: number;
@@ -11,12 +11,14 @@ interface StreakBadgeProps {
 export function StreakBadge({ days, style }: StreakBadgeProps) {
   return (
     <View style={[styles.container, style]}>
-      {/* Gold nut accent circle */}
-      <View style={styles.nutContainer}>
-        <Svg width={10} height={10} viewBox="0 0 10 10">
-          <Circle cx={5} cy={5} r={4.5} fill={Colors.gold} />
-        </Svg>
-      </View>
+      {/*
+        A flame rather than the gold nut that used to sit here. The nut is the
+        brand mark's accent and reads as decoration; every tracker a student has
+        already used — MyFitnessPal, Alma, Me+ — puts a flame on a streak, so
+        the flame is the mark that needs no learning. Filled, because an
+        outlined flame at 14px on a gold-tinted pill reads as a smudge.
+      */}
+      <Icon name="streak" size="xs" color={Colors.gold} filled style={styles.flame} />
       <Text style={styles.text}>{days} day streak</Text>
     </View>
   );
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
-  nutContainer: {
+  flame: {
     marginRight: 6,
   },
   text: {

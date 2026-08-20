@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, IconButton, Stepper, SegmentedControl } from '@/components/ui';
-import { ArrowLeft, Trash2, Clock, Check } from 'lucide-react-native';
+import { Button, Card, IconButton, Stepper, SegmentedControl, Icon } from '@/components/ui';
 import { useLogStore } from '@/store/logStore';
 import { fetchMealNutrients, type MealNutrientRow } from '@/lib/mealNutrients';
 import { scoreMeal } from '@/lib/health';
@@ -121,13 +120,13 @@ export default function EditMealLogScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
         <Text style={Typography.title}>Edit Logged Meal</Text>
         <IconButton
-          icon={<Trash2 size={18} color={Colors.scarletBright} />}
+          icon={<Icon name="trash" size="md" color={Colors.scarletBright} />}
           onPress={handleDelete}
           accessibilityLabel="Delete meal"
         />
@@ -138,7 +137,7 @@ export default function EditMealLogScreen() {
         <View style={styles.header}>
           <Text style={Typography.displayL}>{meal.title}</Text>
           <View style={styles.timeRow}>
-            <Clock size={14} color={Colors.textMuted} style={{ marginRight: 4 }} />
+            <Icon name="clock" size="xs" color={Colors.textMuted} style={{ marginRight: 4 }} />
             <Text style={Typography.monoUnit}>LOGGED AT {meal.logged_time.toUpperCase()}</Text>
           </View>
         </View>

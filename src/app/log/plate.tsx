@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, IconButton, SegmentedControl, Chip } from '@/components/ui';
-import { ArrowLeft, Sparkles, Utensils } from 'lucide-react-native';
+import { Button, Card, IconButton, SegmentedControl, Chip, Icon, EmptyState } from '@/components/ui';
 import { useMenuStore } from '@/store/menuStore';
 import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
@@ -120,7 +119,7 @@ export default function BuildPlateScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Go back"
         />
@@ -181,12 +180,11 @@ export default function BuildPlateScreen() {
         <Text style={styles.sectionEyebrow}>SUGGESTED PLATE</Text>
 
         {candidates.length === 0 ? (
-          <Card style={styles.emptyCard}>
-            <Utensils size={28} color={Colors.textGhost} style={{ marginBottom: 10 }} />
-            <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center' }]}>
-              No {period} menu with calorie data for today yet.
-            </Text>
-          </Card>
+          <EmptyState
+            icon="menu"
+            title="No menu yet"
+            body={`No ${period} menu with calorie data for today yet.`}
+          />
         ) : calorieBudget <= 0 ? (
           <Card style={styles.emptyCard}>
             <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center' }]}>
@@ -239,7 +237,7 @@ export default function BuildPlateScreen() {
 
             {saved ? (
               <View style={styles.savedBanner}>
-                <Sparkles size={16} color={Colors.green} />
+                <Icon name="insight" size="sm" color={Colors.green} />
                 <Text style={styles.savedText}>Logged to today.</Text>
               </View>
             ) : (

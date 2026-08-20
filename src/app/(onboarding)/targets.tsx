@@ -8,9 +8,8 @@ import {
   StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, Card, IconButton } from '@/components/ui';
-import { ArrowLeft, Sparkles, CheckCircle2 } from 'lucide-react-native';
+import { Colors, Fonts, MacroColors, Typography, Radii } from '@/constants/theme';
+import { Button, Card, IconButton, Icon } from '@/components/ui';
 import { useAuthStore } from '@/store/authStore';
 
 export default function OnboardingTargetsScreen() {
@@ -52,14 +51,17 @@ export default function OnboardingTargetsScreen() {
       <View style={styles.container}>
         <View style={styles.topHeader}>
           <IconButton
-            icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+            icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
             onPress={() => router.back()}
             accessibilityLabel="Go back"
           />
         </View>
 
         <ScrollView contentContainerStyle={styles.content}>
-          <Text style={[Typography.monoLabel, { color: Colors.scarlet }]}>PLAN READY</Text>
+          <View style={styles.eyebrowRow}>
+            <Icon name="success" size="xs" color={Colors.scarlet} />
+            <Text style={[Typography.monoLabel, { color: Colors.scarlet }]}>PLAN READY</Text>
+          </View>
 
           {isTracking ? (
             <>
@@ -77,9 +79,18 @@ export default function OnboardingTargetsScreen() {
                 Roughly a DC breakfast, a full lunch plate, and dinner with dessert.
               </Text>
 
-              {/* Three Macro Rows with Haverford context rationale */}
+              {/*
+                This card is the app's first sight of the macro marks, on the
+                one screen with room to show each glyph beside its full name and
+                a sentence of rationale. Everywhere afterwards — the Today hero,
+                the menu rows, the progress split — the same three marks appear
+                without their names, and this is what makes that readable.
+              */}
               <Card style={styles.macroCard}>
                 <View style={styles.macroRow}>
+                  <View style={[styles.macroGlyph, { backgroundColor: 'rgba(158, 27, 50, 0.10)' }]}>
+                    <Icon name="protein" size="md" color={MacroColors.protein} />
+                  </View>
                   <View style={{ flex: 1 }}>
                     <Text style={Typography.title}>Protein</Text>
                     <Text style={styles.rationale}>Keeps you full through 4pm labs</Text>
@@ -90,6 +101,9 @@ export default function OnboardingTargetsScreen() {
                 <View style={styles.divider} />
 
                 <View style={styles.macroRow}>
+                  <View style={[styles.macroGlyph, { backgroundColor: 'rgba(217, 119, 6, 0.10)' }]}>
+                    <Icon name="carbs" size="md" color={MacroColors.carbs} />
+                  </View>
                   <View style={{ flex: 1 }}>
                     <Text style={Typography.title}>Carbs</Text>
                     <Text style={styles.rationale}>Fuel for walking between classes</Text>
@@ -100,6 +114,9 @@ export default function OnboardingTargetsScreen() {
                 <View style={styles.divider} />
 
                 <View style={styles.macroRow}>
+                  <View style={[styles.macroGlyph, { backgroundColor: 'rgba(21, 128, 61, 0.10)' }]}>
+                    <Icon name="fat" size="md" color={MacroColors.fat} />
+                  </View>
                   <View style={{ flex: 1 }}>
                     <Text style={Typography.title}>Fat</Text>
                     <Text style={styles.rationale}>No need to avoid the good stuff</Text>
@@ -112,6 +129,7 @@ export default function OnboardingTargetsScreen() {
 
           {/* Reassurance Footer Card */}
           <Card style={styles.infoCard}>
+            <Icon name="info" size="md" color={Colors.textFaint} style={{ marginTop: 1 }} />
             <Text style={styles.infoText}>
               You can change these anytime — targets adjust weekly based on what you actually log.
             </Text>
@@ -163,11 +181,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     overflow: 'hidden',
   },
+  eyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
   macroRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 14,
     padding: 20,
+  },
+  macroGlyph: {
+    width: 36,
+    height: 36,
+    borderRadius: Radii.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   rationale: {
     fontFamily: Fonts.outfit.regular,
@@ -181,16 +212,21 @@ const styles = StyleSheet.create({
     color: Colors.ink,
   },
   divider: {
+    // Inset past the glyph well so the rule starts where the macro names do.
     height: 1,
     backgroundColor: Colors.borderSoft,
-    marginLeft: 20,
+    marginLeft: 70,
   },
   infoCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
     backgroundColor: Colors.surfaceWarm,
     borderColor: Colors.borderSoft,
     padding: 16,
   },
   infoText: {
+    flex: 1,
     fontFamily: Fonts.outfit.regular,
     fontSize: 14,
     lineHeight: 20,

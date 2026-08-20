@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Button, OptionCard, IconButton, ProgressBar } from '@/components/ui';
-import { ArrowLeft } from 'lucide-react-native';
+import { Button, OptionCard, IconButton, ProgressBar, Icon } from '@/components/ui';
 import { useAuthStore } from '@/store/authStore';
 
 export default function OnboardingGoalScreen() {
@@ -52,7 +51,7 @@ export default function OnboardingGoalScreen() {
         {/* Progress Header */}
         <View style={styles.topHeader}>
           <IconButton
-            icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+            icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
             onPress={() => router.back()}
             accessibilityLabel="Go back"
           />
@@ -68,7 +67,15 @@ export default function OnboardingGoalScreen() {
             We'll set your daily targets from this.
           </Text>
 
+          {/*
+            Down / equals / up / pulse. The three weight goals form a readable
+            series, and the flat line for "just tracking" is the point of that
+            option — no direction is being aimed at. Students come back through
+            this screen from Settings to change their goal, and by then the
+            shape is faster to find than the sentence.
+          */}
           <OptionCard
+            icon="goalLose"
             title="Lose weight"
             subtitle="Gentle deficit, 0.5 lb per week"
             selected={selectedGoal === 'lose'}
@@ -76,6 +83,7 @@ export default function OnboardingGoalScreen() {
           />
 
           <OptionCard
+            icon="goalMaintain"
             title="Maintain"
             subtitle="Eat around your current level"
             selected={selectedGoal === 'maintain'}
@@ -83,6 +91,7 @@ export default function OnboardingGoalScreen() {
           />
 
           <OptionCard
+            icon="goalGain"
             title="Gain weight"
             subtitle="Small surplus with protein focus"
             selected={selectedGoal === 'gain'}
@@ -90,6 +99,7 @@ export default function OnboardingGoalScreen() {
           />
 
           <OptionCard
+            icon="goalTrack"
             title="Just tracking"
             subtitle="No target, log and observe"
             selected={selectedGoal === 'tracking'}

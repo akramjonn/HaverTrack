@@ -7,9 +7,8 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Card, SegmentedControl, ProgressBar } from '@/components/ui';
-import { Sparkles, TrendingDown, Flame, Scale, X, HeartHandshake } from 'lucide-react-native';
+import { Colors, Fonts, MacroColors, Typography, Radii } from '@/constants/theme';
+import { Card, SegmentedControl, Icon } from '@/components/ui';
 import { useLogStore } from '@/store/logStore';
 import { useAuthStore } from '@/store/authStore';
 import { WeightModal } from '@/components/WeightModal';
@@ -80,7 +79,10 @@ export default function ProgressScreen() {
 
         {/* Daily Average Card */}
         <Card style={styles.card}>
-          <Text style={Typography.monoLabel}>DAILY AVERAGE</Text>
+          <View style={styles.cardLabelRow}>
+            <Icon name="calories" size="xs" color={Colors.textMuted} />
+            <Text style={Typography.monoLabel}>DAILY AVERAGE</Text>
+          </View>
           <View style={styles.metricRow}>
             <Text style={Typography.displayXL}>{avgCalories.toLocaleString()}</Text>
             <Text style={[Typography.title, { marginLeft: 6, color: Colors.textMuted }]}>kcal</Text>
@@ -127,18 +129,31 @@ export default function ProgressScreen() {
             style={[styles.gridCard, { marginRight: 8 }]}
           >
             <View style={styles.iconCircle}>
-              <Scale size={18} color={Colors.ink} />
+              <Icon name="weight" size="md" color={Colors.ink} />
             </View>
             <Text style={[Typography.monoLabel, { marginTop: 8 }]}>WEIGHT</Text>
             <Text style={Typography.displayM}>{latestWeightLb} lb</Text>
-            <Text style={[Typography.caption, { color: Colors.textMuted, marginTop: 2 }]}>
-              {deltaText} recently
-            </Text>
+            {/*
+              The trend arrow is the only part of this tile that is not already
+              spelled out in words, so it earns a label for screen readers where
+              the tile's own glyph does not.
+            */}
+            <View style={styles.deltaRow}>
+              <Icon
+                name={parseFloat(deltaLb) <= 0 ? 'trendDown' : 'trendUp'}
+                size="xs"
+                color={Colors.textMuted}
+                label={parseFloat(deltaLb) <= 0 ? 'Trending down' : 'Trending up'}
+              />
+              <Text style={[Typography.caption, { color: Colors.textMuted }]}>
+                {deltaText} recently
+              </Text>
+            </View>
           </Card>
 
           <Card style={[styles.gridCard, { marginLeft: 8 }]}>
             <View style={[styles.iconCircle, { backgroundColor: '#FDF7E7' }]}>
-              <Flame size={18} color={Colors.gold} />
+              <Icon name="streak" size="md" color={Colors.gold} filled />
             </View>
             <Text style={[Typography.monoLabel, { marginTop: 8 }]}>LOGGING STREAK</Text>
             <Text style={Typography.displayM}>
@@ -155,18 +170,38 @@ export default function ProgressScreen() {
           <Text style={Typography.monoLabel}>
             {period === 'week' ? 'MACRO SPLIT THIS WEEK' : 'MACRO SPLIT THIS MONTH'}
           </Text>
+          {/*
+            The split bar is new alongside the glyphs: three percentages sitting
+            in a row never showed their proportions, which is the whole point of
+            a split. It shares the macro colours so the bar and the three
+            captions below it read as one figure.
+          */}
+          <View style={styles.splitBar}>
+            <View style={{ flex: Math.max(split.protein, 1), backgroundColor: MacroColors.protein }} />
+            <View style={{ flex: Math.max(split.carbs, 1), backgroundColor: MacroColors.carbs }} />
+            <View style={{ flex: Math.max(split.fat, 1), backgroundColor: MacroColors.fat }} />
+          </View>
           <View style={styles.macroSplitRow}>
             <View style={styles.splitItem}>
               <Text style={Typography.title}>{split.protein}%</Text>
-              <Text style={Typography.caption}>Protein</Text>
+              <View style={styles.splitLabelRow}>
+                <Icon name="protein" size="xs" color={MacroColors.protein} />
+                <Text style={Typography.caption}>Protein</Text>
+              </View>
             </View>
             <View style={styles.splitItem}>
               <Text style={Typography.title}>{split.carbs}%</Text>
-              <Text style={Typography.caption}>Carbs</Text>
+              <View style={styles.splitLabelRow}>
+                <Icon name="carbs" size="xs" color={MacroColors.carbs} />
+                <Text style={Typography.caption}>Carbs</Text>
+              </View>
             </View>
             <View style={styles.splitItem}>
               <Text style={Typography.title}>{split.fat}%</Text>
-              <Text style={Typography.caption}>Fat</Text>
+              <View style={styles.splitLabelRow}>
+                <Icon name="fat" size="xs" color={MacroColors.fat} />
+                <Text style={Typography.caption}>Fat</Text>
+              </View>
             </View>
           </View>
         </Card>
@@ -182,9 +217,9 @@ export default function ProgressScreen() {
           >
             <View style={styles.insightHeader}>
               {insight.type === 'wellbeing_checkin' ? (
-                <HeartHandshake size={18} color={Colors.scarlet} style={{ marginRight: 8 }} />
+                <Icon name="wellbeing" size="md" color={Colors.scarlet} style={{ marginRight: 8 }} />
               ) : (
-                <Sparkles size={16} color={Colors.gold} style={{ marginRight: 8 }} />
+                <Icon name="insight" size="sm" color={Colors.gold} style={{ marginRight: 8 }} />
               )}
               <Text
                 style={[
@@ -200,7 +235,7 @@ export default function ProgressScreen() {
                   hitSlop={8}
                   accessibilityLabel="Dismiss check-in"
                 >
-                  <X size={16} color={Colors.textMuted} />
+                  <Icon name="close" size="sm" color={Colors.textMuted} />
                 </Pressable>
               ) : null}
             </View>
@@ -233,6 +268,17 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 16,
+  },
+  cardLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  deltaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: 2,
   },
   metricRow: {
     flexDirection: 'row',
@@ -283,14 +329,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  splitBar: {
+    flexDirection: 'row',
+    height: 8,
+    borderRadius: 4,
+    overflow: 'hidden',
+    marginTop: 16,
+    backgroundColor: Colors.track,
+  },
   macroSplitRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 16,
-    paddingTop: 12,
+    marginTop: 14,
   },
   splitItem: {
     alignItems: 'center',
+  },
+  splitLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 2,
   },
   insightCard: {
     backgroundColor: '#FFFDF9',

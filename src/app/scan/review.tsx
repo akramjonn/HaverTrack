@@ -15,8 +15,9 @@ import {
   IconButton,
   Stepper,
   Chip,
+  Icon,
 } from '@/components/ui';
-import { ArrowLeft, RotateCw, Trash2, Plus, Info } from 'lucide-react-native';
+
 import { scoreMeal, type MealNutrition } from '@/lib/health';
 import { HealthScoreCard } from '@/components/HealthScore';
 import { useScanStore } from '@/store/scanStore';
@@ -196,13 +197,13 @@ export default function ScanReviewScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topHeader}>
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="back" size="md" color={Colors.inkSoft} />}
           onPress={() => router.back()}
           accessibilityLabel="Back to camera"
         />
         <Text style={Typography.title}>Scan review</Text>
         <IconButton
-          icon={<RotateCw size={18} color={Colors.inkSoft} />}
+          icon={<Icon name="retake" size="md" color={Colors.inkSoft} />}
           onPress={() => router.replace('/scan' as any)}
           accessibilityLabel="Re-analyze photo"
         />
@@ -290,7 +291,7 @@ export default function ScanReviewScreen() {
                   style={styles.deleteBtn}
                   accessibilityLabel={`Remove ${item.name}`}
                 >
-                  <Trash2 size={16} color={Colors.textGhost} />
+                  <Icon name="trash" size="sm" color={Colors.textGhost} />
                 </Pressable>
               </View>
             ))}
@@ -299,7 +300,7 @@ export default function ScanReviewScreen() {
 
         {/* Approximate disclaimer (§11 wellbeing requirement) */}
         <View style={styles.disclaimerBox}>
-          <Info size={16} color={Colors.textMuted} style={{ marginRight: 6 }} />
+          <Icon name="info" size="sm" color={Colors.textMuted} style={{ marginRight: 6 }} />
           <Text style={styles.disclaimerText}>
             Estimated from a photo. Numbers are approximate.
           </Text>
