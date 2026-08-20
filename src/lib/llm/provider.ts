@@ -14,7 +14,7 @@ interface AnalyzeRequest {
 
 /**
  * Sends the photo (or a typed description) to the `analyze-photo` Edge
- * Function, which identifies the food with Gemini.
+ * Function, which identifies the food with Claude Sonnet 5 vision.
  *
  * There is deliberately no on-device fallback. The previous one "resolved" an
  * unrecognised plate by returning whatever dish happened to be first on the

@@ -2,9 +2,26 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8';
 
-const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
-const GEMINI_MODEL = 'gemini-flash-latest';
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// Set as a Supabase edge-function secret (`supabase secrets set
+// ANTHROPIC_API_KEY=...`), never in source. Absent means the function is
+// deployed but unconfigured, which we report as a 503 rather than a crash.
+const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+
+// Claude Sonnet 5 is the only analyzer. There is deliberately no second
+// provider and no fallback path: an unreachable model has to surface as an
+// error, because the alternative is handing a student invented macros.
+const ANTHROPIC_MODEL = 'claude-sonnet-5';
+const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+// Messages API wire version, required on every request. It versions the
+// request/response shape, not the model, so it stays put when the model id
+// moves.
+const ANTHROPIC_VERSION = '2023-06-01';
+
+// Adaptive thinking is on by default on Sonnet 5 and draws from this same
+// budget, so the ceiling has to cover the reasoning and the JSON together. A
+// ten-item plate is roughly 1.5k tokens of JSON; the rest is headroom. Too low
+// and the turn ends with stop_reason "max_tokens" holding half an object.
+const MAX_OUTPUT_TOKENS = 8000;
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -61,24 +78,38 @@ const AnalyzePlateResponseSchema = z.object({
   is_fallback_estimate: z.boolean().default(false),
 });
 
-// What we ask Gemini to produce — everything the model can actually know.
+// What we ask the model to produce — everything the model can actually know.
 // quota_remaining and is_fallback_estimate are server-injected afterward, not
 // model output, so they are absent here.
-const GEMINI_ITEM_SCHEMA = {
-  type: 'OBJECT',
+//
+// This is plain JSON Schema, which is what the Messages API structured-output
+// format takes. Two of its rules shape what follows: every object must carry
+// additionalProperties: false, and numeric/string constraints (minimum,
+// maximum, minLength) are unsupported — the 0..1 bounds on the confidence
+// fields therefore live only in the zod schemas above, which still run over
+// the model's output before anything is returned.
+const PLATE_ITEM_SCHEMA = {
+  type: 'object',
   properties: {
-    id: { type: 'STRING' },
-    name: { type: 'STRING' },
-    portion: { type: 'NUMBER' },
-    portion_unit: { type: 'STRING' },
-    matched_menu_item_id: { type: 'INTEGER', nullable: true },
-    is_menu_match: { type: 'BOOLEAN' },
-    confidence_score: { type: 'NUMBER' },
-    calories: { type: 'INTEGER' },
-    protein_g: { type: 'NUMBER' },
-    carbs_g: { type: 'NUMBER' },
-    fat_g: { type: 'NUMBER' },
-    notes: { type: 'STRING', nullable: true },
+    id: { type: 'string' },
+    name: { type: 'string' },
+    portion: { type: 'number' },
+    portion_unit: { type: 'string' },
+    // Explicitly nullable: the prompt asks for a literal null when nothing
+    // matched, and the zod mirror above accepts null here.
+    matched_menu_item_id: { anyOf: [{ type: 'integer' }, { type: 'null' }] },
+    is_menu_match: { type: 'boolean' },
+    confidence_score: { type: 'number' },
+    calories: { type: 'integer' },
+    protein_g: { type: 'number' },
+    carbs_g: { type: 'number' },
+    fat_g: { type: 'number' },
+    // Plain string rather than a nullable one, unlike the other optionals.
+    // The zod mirror types notes as .optional(), which rejects an explicit
+    // null — so permitting null here would let the model emit something the
+    // validator below throws out. Merely leaving it out of `required` means
+    // the model omits the key instead, which zod is happy with.
+    notes: { type: 'string' },
   },
   required: [
     'id',
@@ -92,20 +123,23 @@ const GEMINI_ITEM_SCHEMA = {
     'carbs_g',
     'fat_g',
   ],
+  additionalProperties: false,
 };
 
-const GEMINI_RESPONSE_SCHEMA = {
-  type: 'OBJECT',
+const PLATE_RESPONSE_SCHEMA = {
+  type: 'object',
   properties: {
-    dish_title: { type: 'STRING' },
-    dish_subtitle: { type: 'STRING', nullable: true },
-    matched_station: { type: 'STRING', nullable: true },
-    match_confidence: { type: 'NUMBER' },
-    items: { type: 'ARRAY', items: GEMINI_ITEM_SCHEMA },
-    total_calories: { type: 'INTEGER' },
-    total_protein_g: { type: 'NUMBER' },
-    total_carbs_g: { type: 'NUMBER' },
-    total_fat_g: { type: 'NUMBER' },
+    dish_title: { type: 'string' },
+    // Same reasoning as notes above — .optional() in zod, so omitted rather
+    // than null.
+    dish_subtitle: { type: 'string' },
+    matched_station: { anyOf: [{ type: 'string' }, { type: 'null' }] },
+    match_confidence: { type: 'number' },
+    items: { type: 'array', items: PLATE_ITEM_SCHEMA },
+    total_calories: { type: 'integer' },
+    total_protein_g: { type: 'number' },
+    total_carbs_g: { type: 'number' },
+    total_fat_g: { type: 'number' },
   },
   required: [
     'dish_title',
@@ -116,6 +150,7 @@ const GEMINI_RESPONSE_SCHEMA = {
     'total_carbs_g',
     'total_fat_g',
   ],
+  additionalProperties: false,
 };
 
 function buildPrompt(menuContextText: string, describeText?: string) {
@@ -146,26 +181,37 @@ OUTPUT RULES.
 ${describeText ? `\nThe student described their plate as: "${describeText}". No photo was provided — work from this description alone.` : '\nAnalyze the attached photo.'}`;
 }
 
-interface GeminiFailure {
+interface AnalyzerFailure {
   status: number;
   message: string;
 }
 
-/** Never forward Gemini's raw error text to the client — only a safe, mapped message. */
-function mapGeminiFailure(status: number, body: any): GeminiFailure {
-  const blockReason =
-    body?.promptFeedback?.blockReason ??
-    body?.candidates?.[0]?.finishReason;
+/** Never forward Anthropic's raw error text to the client — only a safe, mapped message. */
+function mapAnthropicFailure(status: number, body: any): AnalyzerFailure {
+  const errorType = body?.error?.type;
 
-  if (status === 429) {
+  // 429 is our own rate limit against the API; 529 is Anthropic shedding load
+  // on their side. Both clear on their own within seconds, so both get the
+  // "try again in a moment" copy rather than the dead-end one. 529 has to be
+  // caught before the >= 500 branch below.
+  if (status === 429 || status === 529 || errorType === 'overloaded_error') {
     return { status: 429, message: 'The photo analyzer is busy right now. Try again in a moment.' };
   }
-  if (blockReason === 'SAFETY' || blockReason === 'BLOCKED' || blockReason === 'PROHIBITED_CONTENT') {
-    return { status: 400, message: 'Could not analyze this photo. Try a clearer shot of just the plate.' };
+  // A rejected key is our misconfiguration, not a problem with their photo —
+  // same situation as a missing key, so the same message and status.
+  if (status === 401 || status === 403) {
+    return { status: 503, message: 'Photo analysis is not configured yet. Please use manual menu logging.' };
+  }
+  // The base64 image dwarfs everything else in the request body, so a size
+  // rejection is effectively always the photo.
+  if (status === 413) {
+    return { status: 400, message: 'That photo is too large to analyze. Try a smaller shot of the plate.' };
   }
   if (status >= 500) {
     return { status: 502, message: 'The photo analyzer is temporarily unavailable.' };
   }
+  // Everything left is a 400 invalid_request_error or similar: a bug in the
+  // body we built, which the student can do nothing about.
   return { status: 502, message: 'Could not analyze this photo. You can search the menu directly instead.' };
 }
 
@@ -208,7 +254,7 @@ serve(async (req) => {
     const body = await req.json();
     const validated = AnalyzeRequestSchema.parse(body);
 
-    if (!GEMINI_API_KEY) {
+    if (!ANTHROPIC_API_KEY) {
       return json(
         { error: 'Photo analysis is not configured yet. Please use manual menu logging.' },
         503
@@ -229,57 +275,95 @@ serve(async (req) => {
       )
       .join('\n');
 
-    const parts: unknown[] = [{ text: buildPrompt(menuContextText, validated.describe_text) }];
-    if (validated.image_base64) {
-      parts.push({ inline_data: { mime_type: 'image/jpeg', data: validated.image_base64 } });
-    }
-
     if (!validated.image_base64 && !validated.describe_text) {
       return json({ error: 'Send either a photo or a description of the plate.' }, 400);
     }
 
-    let geminiRes: Response;
+    // Image first, then the prompt: the model reads a photo better when the
+    // instructions follow it. With describe_text only there is no image block
+    // at all and this is an ordinary text message.
+    const content: unknown[] = [];
+    if (validated.image_base64) {
+      content.push({
+        type: 'image',
+        source: { type: 'base64', media_type: 'image/jpeg', data: validated.image_base64 },
+      });
+    }
+    content.push({ type: 'text', text: buildPrompt(menuContextText, validated.describe_text) });
+
+    let anthropicRes: Response;
     try {
-      geminiRes = await fetch(GEMINI_URL, {
+      anthropicRes = await fetch(ANTHROPIC_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-goog-api-key': GEMINI_API_KEY,
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': ANTHROPIC_VERSION,
         },
         body: JSON.stringify({
-          contents: [{ parts }],
-          generationConfig: {
-            responseMimeType: 'application/json',
-            responseSchema: GEMINI_RESPONSE_SCHEMA,
-            temperature: 0.2,
+          model: ANTHROPIC_MODEL,
+          max_tokens: MAX_OUTPUT_TOKENS,
+          output_config: {
+            // Sonnet 5 rejects temperature/top_p/top_k outright with a 400, so
+            // the old temperature: 0.2 has no direct equivalent. Effort is the
+            // knob that replaces it: medium keeps the read deliberate without
+            // paying for a long reasoning trace on what is usually one plate.
+            effort: 'medium',
+            // Structured outputs constrain the model to emit JSON matching
+            // this schema, so there is no "reply with JSON" plea in the prompt
+            // and no markdown fence to strip off the front. Unlike a forced
+            // tool_choice, it also composes with thinking, which is on by
+            // default on this model.
+            format: { type: 'json_schema', schema: PLATE_RESPONSE_SCHEMA },
           },
+          messages: [{ role: 'user', content }],
         }),
       });
     } catch (networkErr) {
-      console.error('Gemini network error:', networkErr);
+      console.error('Anthropic network error:', networkErr);
       return json({ error: 'Could not reach the photo analyzer. Check your connection.' }, 502);
     }
 
-    const geminiJson = await geminiRes.json();
+    const anthropicJson = await anthropicRes.json();
 
-    if (!geminiRes.ok) {
-      console.error('Gemini API error:', geminiRes.status, JSON.stringify(geminiJson));
-      const failure = mapGeminiFailure(geminiRes.status, geminiJson);
+    if (!anthropicRes.ok) {
+      console.error('Anthropic API error:', anthropicRes.status, JSON.stringify(anthropicJson));
+      const failure = mapAnthropicFailure(anthropicRes.status, anthropicJson);
       return json({ error: failure.message }, failure.status);
     }
 
-    const candidateText = geminiJson?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!candidateText) {
-      console.error('Gemini returned no candidate text:', JSON.stringify(geminiJson));
-      const failure = mapGeminiFailure(geminiRes.status, geminiJson);
-      return json({ error: failure.message }, failure.status);
+    // A refusal or a truncation both come back as a perfectly ordinary 200, so
+    // stop_reason has to be read before the content is. "refusal" is a safety
+    // decline and never carries schema-valid JSON; "max_tokens" means the JSON
+    // was cut mid-object and parsing it would only produce a confusing error.
+    const stopReason = anthropicJson?.stop_reason;
+    if (stopReason === 'refusal') {
+      console.error('Anthropic declined the request:', JSON.stringify(anthropicJson?.stop_details ?? null));
+      return json({ error: 'Could not analyze this photo. Try a clearer shot of just the plate.' }, 400);
+    }
+    if (stopReason === 'max_tokens') {
+      console.error('Anthropic hit max_tokens before finishing the plate JSON');
+      return json({ error: 'The photo analyzer returned an unreadable result.' }, 502);
+    }
+
+    // The answer arrives as a text block holding the JSON. Thinking blocks can
+    // precede it in content, so filter by type rather than indexing [0].
+    const contentBlocks = Array.isArray(anthropicJson?.content) ? anthropicJson.content : [];
+    const outputText = contentBlocks
+      .filter((block: any) => block?.type === 'text' && typeof block.text === 'string')
+      .map((block: any) => block.text)
+      .join('');
+
+    if (!outputText) {
+      console.error('Anthropic returned no text block:', JSON.stringify(anthropicJson));
+      return json({ error: 'Could not analyze this photo. You can search the menu directly instead.' }, 502);
     }
 
     let parsedModelOutput: unknown;
     try {
-      parsedModelOutput = JSON.parse(candidateText);
+      parsedModelOutput = JSON.parse(outputText);
     } catch (parseErr) {
-      console.error('Gemini response was not valid JSON:', candidateText);
+      console.error('Anthropic response was not valid JSON:', outputText);
       return json({ error: 'The photo analyzer returned an unreadable result.' }, 502);
     }
 
@@ -289,7 +373,7 @@ serve(async (req) => {
     }).safeParse(parsedModelOutput);
 
     if (!validationResult.success) {
-      console.error('Gemini output failed schema validation:', validationResult.error.message, candidateText);
+      console.error('Model output failed schema validation:', validationResult.error.message, outputText);
       return json({ error: 'The photo analyzer returned an unexpected result. Try again.' }, 502);
     }
 

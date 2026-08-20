@@ -35,12 +35,15 @@ Applies every file in `supabase/migrations` in filename order and records what r
 ## 3. Edge functions
 
 Three functions exist in `supabase/functions`. **None are deployed yet** — until they
-are, photo scans silently fall back to an on-device estimate, and account deletion
-fails with an error.
+are, photo scans and account deletion both fail with an error. There is no on-device
+fallback for a scan on purpose: a plate the analyzer never saw has no honest macros.
 
 ```bash
 supabase link --project-ref <ref>
 
+# analyze-photo sends the plate to Claude Sonnet 5 and reads ANTHROPIC_API_KEY from
+# this secret. Without it the function returns a 503 telling the student to log
+# from the menu instead.
 supabase secrets set ANTHROPIC_API_KEY=<key>
 # SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are injected automatically.
 
