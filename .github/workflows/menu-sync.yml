@@ -2,12 +2,30 @@ name: Nutrislice Menu Sync
 
 on:
   schedule:
-    # 3x daily in UTC:
-    # 09:30 UTC = 5:30 AM ET (Before breakfast)
-    # 15:00 UTC = 11:00 AM ET (Before lunch)
-    # 20:30 UTC = 4:30 PM ET (Before dinner)
+    # Cron is always UTC, and Haverford is not — the ET offset shifts by an hour
+    # between EDT (Mar-Nov, UTC-4) and EST (Nov-Mar, UTC-5). GitHub has no
+    # timezone option for cron, so these times drift; they are chosen to land
+    # before each meal in *both* offsets rather than being exact in either.
+    #   09:30 UTC = 5:30 AM EDT / 4:30 AM EST (before breakfast)
+    #   15:00 UTC = 11:00 AM EDT / 10:00 AM EST (before lunch)
+    #   20:30 UTC = 4:30 PM EDT / 3:30 PM EST (before dinner)
+    # Note: the hosted cron queue is best-effort and routinely runs late (or skips
+    # entirely under load), which is another reason the sync is idempotent.
     - cron: '30 9,15,20 * * *'
   workflow_dispatch: # Allow manual trigger from GitHub UI
+
+# The default GITHUB_TOKEN is read-only on repositories created after Feb 2023
+# (and anywhere "Read repository contents permission" is the org default), which
+# makes the `git push` below fail with a 403. Requesting write here is what lets
+# the job commit the refreshed menu cache back to main.
+permissions:
+  contents: write
+
+# Two overlapping runs would race on pushing the same file and one would lose to
+# a non-fast-forward rejection. Queue them instead.
+concurrency:
+  group: menu-sync
+  cancel-in-progress: false
 
 jobs:
   sync-menus:
@@ -19,7 +37,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Several dependencies (e.g. @supabase/auth-js) declare engines.node
+          # ">=22.0.0". Nothing enforces it today because engine-strict is off,
+          # but pinning 20 meant running the sync on a version the tree says it
+          # does not support.
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -29,11 +51,25 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        run: npx tsx scripts/sync-nutrislice.ts
+        # `npm run` (not `npx tsx`) so the tsx pinned in the lockfile is used.
+        # `npx tsx` silently downloaded whatever tsx was newest at run time,
+        # which is an unpinned dependency fetched fresh on every single run.
+        run: npm run sync:menus
 
       - name: Commit cached menu data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- src/data/menus/latest.json; then
+            echo "No menu changes to commit."
+            exit 0
+          fi
+
           git add src/data/menus/latest.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(menu): sync live Nutrislice DC menu [skip ci]" && git push)
+          git commit -m "chore(menu): sync live Nutrislice DC menu [skip ci]"
+
+          # Push explicitly to the branch this workflow was triggered on. On a
+          # `schedule` trigger GITHUB_REF_NAME is the default branch, and naming
+          # it beats relying on push.default plus whatever upstream checkout set.
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-08-17T09:17:55.045Z",
+  "synced_at": "2026-08-20T14:11:35.542Z",
   "item_count": 147,
   "items": [
     {
@@ -24,7 +24,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -50,7 +50,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -68,12 +68,12 @@
       "carbs_g": 27,
       "fat_g": 16,
       "dietary_tags": [
-        "Vegetarian"
+        "Vegan"
       ],
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -92,7 +92,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -115,7 +115,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -139,7 +139,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072974,
@@ -165,7 +165,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -188,7 +188,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072956,
@@ -207,7 +207,7 @@
       "fat_g": 6,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -230,7 +230,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -254,7 +254,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -280,7 +280,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -298,12 +298,12 @@
       "carbs_g": 27,
       "fat_g": 16,
       "dietary_tags": [
-        "Vegetarian"
+        "Vegan"
       ],
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -322,7 +322,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -345,7 +345,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -369,7 +369,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072974,
@@ -395,7 +395,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -418,7 +418,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072956,
@@ -437,7 +437,7 @@
       "fat_g": 6,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -460,7 +460,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -484,7 +484,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -510,7 +510,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -528,12 +528,12 @@
       "carbs_g": 27,
       "fat_g": 16,
       "dietary_tags": [
-        "Vegetarian"
+        "Vegan"
       ],
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -552,7 +552,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -575,7 +575,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -599,7 +599,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -625,7 +625,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -643,12 +643,12 @@
       "carbs_g": 27,
       "fat_g": 16,
       "dietary_tags": [
-        "Vegetarian"
+        "Vegan"
       ],
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -667,7 +667,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -690,7 +690,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:52.917Z"
+      "synced_at": "2026-08-20T14:11:30.160Z"
     },
     {
       "nutrislice_id": 2073447,
@@ -712,7 +712,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074255,
@@ -736,7 +736,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -759,7 +759,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073538,
@@ -781,7 +781,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -805,7 +805,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -824,7 +824,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -846,7 +846,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -870,7 +870,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -895,26 +895,30 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
-      "nutrislice_id": 2141647,
+      "nutrislice_id": 2073607,
       "location_id": "dining-location",
       "meal_period": "lunch",
       "served_date": "2026-08-17",
       "station_name": "Pizza Station",
       "station_id": 76003,
-      "dish_name": "Pizza du jour #1",
-      "description": "14480DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
-      "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
+      "dish_name": "Fresh Baked Pepperoni Pizza",
+      "description": "13208DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.)",
+      "serving_size": "1 slice",
+      "calories": 277,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073428,
@@ -936,7 +940,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074130,
@@ -961,7 +965,7 @@
         "Peanuts",
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074261,
@@ -982,7 +986,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074241,
@@ -1001,7 +1005,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074016,
@@ -1023,7 +1027,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -1042,7 +1046,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -1064,7 +1068,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -1088,7 +1092,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -1112,7 +1116,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073030,
@@ -1131,15 +1135,15 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073028,
       "location_id": "dining-location",
       "meal_period": "lunch",
       "served_date": "2026-08-18",
-      "station_name": "Special",
-      "station_id": 71516,
+      "station_name": "Featured Bar",
+      "station_id": 87420,
       "dish_name": "Sour Cream",
       "description": "13001DC",
       "ingredients": "Cream,Sour,SS (CULTURED CREAM, ENZYME. CONTAINS MILK)",
@@ -1155,7 +1159,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1180,26 +1184,30 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
-      "nutrislice_id": 2141647,
+      "nutrislice_id": 2073607,
       "location_id": "dining-location",
       "meal_period": "lunch",
       "served_date": "2026-08-18",
       "station_name": "Pizza Station",
       "station_id": 76003,
-      "dish_name": "Pizza du jour #1",
-      "description": "14480DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
-      "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
+      "dish_name": "Fresh Baked Pepperoni Pizza",
+      "description": "13208DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.)",
+      "serving_size": "1 slice",
+      "calories": 277,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073416,
@@ -1220,7 +1228,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074174,
@@ -1244,7 +1252,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -1267,7 +1275,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074231,
@@ -1289,7 +1297,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074306,
@@ -1308,7 +1316,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -1332,7 +1340,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -1351,7 +1359,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -1373,7 +1381,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -1397,7 +1405,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1422,26 +1430,30 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
-      "nutrislice_id": 2141647,
+      "nutrislice_id": 2073607,
       "location_id": "dining-location",
       "meal_period": "lunch",
       "served_date": "2026-08-19",
       "station_name": "Pizza Station",
       "station_id": 76003,
-      "dish_name": "Pizza du jour #1",
-      "description": "14480DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
-      "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
+      "dish_name": "Fresh Baked Pepperoni Pizza",
+      "description": "13208DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.)",
+      "serving_size": "1 slice",
+      "calories": 277,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073471,
@@ -1460,7 +1472,7 @@
       "fat_g": 24,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074125,
@@ -1485,7 +1497,7 @@
         "Peanuts",
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074261,
@@ -1506,7 +1518,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073538,
@@ -1528,7 +1540,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073243,
@@ -1554,7 +1566,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074051,
@@ -1579,7 +1591,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -1603,7 +1615,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -1622,7 +1634,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -1644,7 +1656,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -1668,7 +1680,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1693,7 +1705,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -1712,7 +1724,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073452,
@@ -1738,7 +1750,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074255,
@@ -1762,7 +1774,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -1785,7 +1797,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074231,
@@ -1807,7 +1819,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -1831,7 +1843,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -1850,7 +1862,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -1872,7 +1884,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -1896,7 +1908,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1921,7 +1933,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -1940,7 +1952,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073471,
@@ -1959,7 +1971,7 @@
       "fat_g": 24,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074125,
@@ -1984,7 +1996,7 @@
         "Peanuts",
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -2007,7 +2019,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074231,
@@ -2029,7 +2041,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2074051,
@@ -2054,7 +2066,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073243,
@@ -2080,7 +2092,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2104,7 +2116,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -2123,7 +2135,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -2145,7 +2157,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -2169,7 +2181,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2194,7 +2206,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -2213,7 +2225,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.355Z"
+      "synced_at": "2026-08-20T14:11:32.506Z"
     },
     {
       "nutrislice_id": 2073423,
@@ -2237,7 +2249,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2238801,
@@ -2259,7 +2271,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2074235,
@@ -2281,7 +2293,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2305,7 +2317,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -2329,7 +2341,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -2351,7 +2363,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -2375,7 +2387,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2400,45 +2412,51 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
-      "nutrislice_id": 2141647,
+      "nutrislice_id": 2073607,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-08-18",
       "station_name": "Pizza Station",
       "station_id": 76003,
-      "dish_name": "Pizza du jour #1",
-      "description": "14480DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
-      "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
+      "dish_name": "Fresh Baked Pepperoni Pizza",
+      "description": "13208DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.)",
+      "serving_size": "1 slice",
+      "calories": 277,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
-      "nutrislice_id": 2073402,
+      "nutrislice_id": 2073407,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-08-19",
       "station_name": "The Main Line",
       "station_id": 78547,
-      "dish_name": "Honey Chili Chicken",
-      "description": "6215",
-      "ingredients": "Chicken,Thigh Meat,Boneless,Skinless,Raw (Chicken.), Water,Tap (Ingredients: Water.   11/4/16), Honey,Pure (Ingredients: Honey.   11/4/16), Onions,Fresh,Jumbo (onions 2018 BP), Peppers,Red,Roasted,Canned,Incl Liquids large can (Red Peppers,Water, Salt, Citric Acid , Calcium Chloride), Cornstarch (USFOODS 1651712: CORN STARCH \r\nJAN 2019), Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Sauce,Sriracha Hot chili (LAM: Chili, Sugar, Salt, Garlic, Distilled Vinegar, Potassium Sorbate, contains Sodium Bisulfite as preservatives, and Xantham Gum. 2013.), Vinegar,Balsamic (USFOODS 9519463:WINE VINEGAR, CONCENTRATED GRAPE MUST, CARAMEL COLOR. CONTAINS SULFITES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Pan Coating Spray,Advantage,Soy Oil Base (USFoods 9856154:Date11.29.2020:ING:  SOYBEAN OIL, CANOLA OIL, CAPRIC/CAPRYLIC TRIGLYCERIDES, PHOSPHATED MONO DIGLYCERIDES, CALCIUM STEARATE, SILICONE DIOXIDE,\r\nPROPELLANT. ADDS A TRIVIAL AMOUNT OF FAT.\r\nADVANTAGE 65183 IS A HIGH HEAT BAKING SPRAY WITH SOY AND CANOLA OILS. CONTAINS NO LECITHIN.), Parsley,Fresh,Bunch (parsley 2018 BP), Salt (Salt, calcium silicate, dextrose, potassium iodide (0.006%), sodium bicarbonate.), Paprika (PAPRIKA AND SILICON DIOXIDE (ADDED TO MAKE FREE FLOWING).), Pepper,Black,Ground (Ground black pepper.)",
-      "serving_size": "6 oz",
-      "calories": 281,
-      "protein_g": 32,
-      "carbs_g": 9,
-      "fat_g": 12,
+      "dish_name": "Spicy Jerk Chicken",
+      "description": "5621",
+      "ingredients": "Chicken,Bone In Thigh Meat,Raw,5.47 oz (ICE GLAZED USDA A GRADE CHICKEN THIGHS WITHOUT BACK PORTION.), Onions,Fresh,Jumbo (onions 2018 BP), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Oil,Olive,100%, Juice,Pineapple,Canned,Unsweetened (US Foods 1015676: Water, pineapple concentrate, and ascorbic acid. 2013.\r\n\r\nSysco 4097572: Water, Pineapple Concentrate, Ascorbic Acid. 2013.), Onions,Green,Fresh,Bunch (green onion), Seasoning,Caribbean Jerk (USFoods 7064199: SUGAR, SPICES (INCLUDING RED PEPPERS, THYME AND ALLSPICE), SALT, ONION AND TURMERIC. 2013.), Sugar,Brown,Light (HC) (Sysco 1854926: Brown Sugar (when produced at Chalmette or Crockett facilities) Sugar, Molasses (when produced at South Bay facility) 2018 BP), Juice,Lime (Ingredients: Lime.  11/4/16), Garlic Cloves,Fresh,Peeled (garlic), Allspice,Ground (US Foods 7449242: Allspice. 2018 BP), Pepper,Cayenne (Ingredients: Cayenne pepper.   11/4/16), Nutmeg,Ground (Ingredients: Nutmeg.   11/4/16), Basil,Dried,Leaves (Basil dried leaves..), Cinnamon,Ground (Sysco 6639512: Ground cinnamon. 2014.\r\n), Thyme,Dried,Whole (Ingredients: Thyme.   11/4/16), Pepper,Red,Crushed (Red pepper.)",
+      "serving_size": "4 oz",
+      "calories": 537,
+      "protein_g": 60,
+      "carbs_g": 13,
+      "fat_g": 27,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "allergens": [
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2237645,
@@ -2462,32 +2480,30 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
-      "nutrislice_id": 2074048,
+      "nutrislice_id": 2072946,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-08-19",
       "station_name": "The Main Line",
       "station_id": 78547,
-      "dish_name": "Mashed Sweet Potatoes",
-      "description": "5963",
-      "ingredients": "Sweet Potato,Fresh,Peeled (Sweet potatoes), Cream,Heavy,Whipping (Sysco 4828802:  Heavy Cream, Milk, Contains less than 0.5% of: Mono and Diglycerides, Polysorbate 80, Carrageenan. CONTAINS: Milk.  2018 BP ), Margarine (7775421:  VEGETABLE OIL BLEND (PALM OIL, SOYBEAN OIL), WATER, CONTAINS 2% OR LESS OF: SALT, SOYBEAN LECITHIN (SOY), VEGETABLE MONOGLYCERIDES, CITRIC ACID (PRESERVATIVE), BETA CAROTENE (COLOR), NATURAL FLAVOR AND VITAMIN A PALMITATE ADDED. CONTAINS: SOY.  2018 BP), Sugar,Brown,Light (HC) (Sysco 1854926: Brown Sugar (when produced at Chalmette or Crockett facilities) Sugar, Molasses (when produced at South Bay facility) 2018 BP), Juice,Orange,valencia, with pulp, concentrate (USFOODS 3785730:CONCENTRATED ORANGE JUICE. SEPT 2019), Parsley,Fresh,Bunch (parsley 2018 BP), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground (Ground black pepper.), Cinnamon,Ground (Sysco 6639512: Ground cinnamon. 2014.\r\n), Nutmeg,Ground (Ingredients: Nutmeg.   11/4/16)",
+      "dish_name": "Tater Tots",
+      "description": "0633",
+      "ingredients": "Potatoes,Tater Tots,Frozen (Sysco 1054378: Potatoes, Vegetable Oil (May Contain One or More of the Following: Canola Oil, Sunflower Oil, Cottonseed Oil, Palm Oil, Corn Oil, Soybean Oil, Hydrogenated Soybean and/or Cottonseed Oil), Salt, Corn Flour, Dehydrated Potato, Disodium Dihydrogen Pyrophosphate (to promote color retention), Dextrose.  2018 BP\r\n\r\nUS Foods 68106: POTATOES, VEGETABLE OIL (MAY CONTAIN ONE OR MORE OF THE FOLLOWING: CANOLA OIL, SUNFLOWER OIL, COTTONSEED OIL, PALM OIL, CORN OIL, SOYBEAN OIL, HYDROGENATED SOYBEAN AND/OR COTTONSEED OIL), SALT, CORN FLOUR, DEHYDRATED POTATO, DISODIUM DIHYDROGEN PYROPHOSPHATE (TO PROMOTE COLOR RETENTION), DEXTROSE.\r\nMAY CONTAIN TRACES OF WHEAT AS IT IS FRIED IN DEEP FRYER (WHEAT 2018)), Oil,Fry On,Zero Trans Fat",
       "serving_size": "3 oz",
-      "calories": 169,
-      "protein_g": 1,
-      "carbs_g": 23,
-      "fat_g": 11,
+      "calories": 167,
+      "protein_g": 2,
+      "carbs_g": 24,
+      "fat_g": 7,
       "dietary_tags": [
-        "Vegetarian",
-        "Wheat-Free"
+        "Vegan"
       ],
       "allergens": [
-        "Milk",
-        "Soy"
+        "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2074221,
@@ -2509,7 +2525,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2533,7 +2549,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -2557,7 +2573,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -2579,7 +2595,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -2603,7 +2619,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2628,26 +2644,30 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
-      "nutrislice_id": 2141647,
+      "nutrislice_id": 2073607,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-08-19",
       "station_name": "Pizza Station",
       "station_id": 76003,
-      "dish_name": "Pizza du jour #1",
-      "description": "14480DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
-      "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
+      "dish_name": "Fresh Baked Pepperoni Pizza",
+      "description": "13208DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.)",
+      "serving_size": "1 slice",
+      "calories": 277,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
       "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073410,
@@ -2670,7 +2690,7 @@
         "Fish",
         "Sesame"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073700,
@@ -2694,7 +2714,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2074199,
@@ -2716,7 +2736,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2740,7 +2760,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -2764,7 +2784,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -2786,7 +2806,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -2810,15 +2830,15 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073673,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-08-20",
-      "station_name": "Special",
-      "station_id": 71516,
+      "station_name": "Featured Bar",
+      "station_id": 87420,
       "dish_name": "Jasmine Rice",
       "description": "1421",
       "ingredients": "Water,Tap (Ingredients: Water.   11/4/16), Rice,Jasmine,Dry (USFoods 4175479: Jasmine Rice. 2018.  BP)",
@@ -2832,7 +2852,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2857,7 +2877,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -2876,7 +2896,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073454,
@@ -2899,7 +2919,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2237646,
@@ -2922,7 +2942,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2074235,
@@ -2944,7 +2964,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2968,7 +2988,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073480,
@@ -2987,7 +3007,7 @@
       "fat_g": 5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -3011,7 +3031,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -3033,7 +3053,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -3057,7 +3077,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -3082,7 +3102,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -3101,7 +3121,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073406,
@@ -3120,7 +3140,7 @@
       "fat_g": 48,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2238798,
@@ -3144,7 +3164,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073538,
@@ -3166,7 +3186,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072916,
@@ -3188,7 +3208,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -3212,7 +3232,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -3236,7 +3256,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -3258,7 +3278,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -3282,7 +3302,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -3307,7 +3327,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -3326,7 +3346,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-17T09:17:54.824Z"
+      "synced_at": "2026-08-20T14:11:33.230Z"
     }
   ]
 }
