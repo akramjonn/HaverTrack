@@ -12,8 +12,7 @@
       "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "HaverTrack uses your camera to photograph and identify meals at the Haverford Dining Center.",
-        "NSPhotoLibraryUsageDescription": "HaverTrack allows you to choose meal photos from your library to log calories.",
-        "NSMotionUsageDescription": "HaverTrack uses Motion & Fitness data to show your daily steps and estimated calories burned."
+        "NSPhotoLibraryUsageDescription": "HaverTrack allows you to choose meal photos from your library to log calories."
       }
     },
     "android": {
@@ -24,8 +23,7 @@
       },
       "permissions": [
         "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "ACTIVITY_RECOGNITION"
+        "READ_EXTERNAL_STORAGE"
       ],
       "predictiveBackGestureEnabled": false
     },
@@ -35,7 +33,6 @@
     },
     "plugins": [
       "expo-router",
-      "expo-sensors",
       [
         "expo-splash-screen",
         {

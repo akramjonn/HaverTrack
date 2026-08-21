@@ -23,7 +23,6 @@
     "expo-image-picker": "~57.0.10",
     "expo-linking": "~57.0.6",
     "expo-router": "~57.0.13",
-    "expo-sensors": "~57.0.2",
     "expo-splash-screen": "~57.0.6",
     "expo-status-bar": "~57.0.1",
     "expo-symbols": "~57.0.2",

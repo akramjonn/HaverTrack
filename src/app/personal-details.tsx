@@ -18,8 +18,8 @@ import { fetchPreferences, savePreferences, type UserPreferences } from '@/lib/w
 /**
  * Plain pushed route (same convention as `edit-goals.tsx`/`bmi-info.tsx` —
  * no `_layout.tsx` entry needed). Absorbs the "BODY METRICS" section that
- * used to live inline on the Settings tab, and adds Goal Weight, Gender, and
- * Daily Step Goal alongside it.
+ * used to live inline on the Settings tab, and adds Goal Weight and Gender
+ * alongside it.
  */
 export default function PersonalDetailsScreen() {
   const router = useRouter();
@@ -30,18 +30,16 @@ export default function PersonalDetailsScreen() {
   const units: Units = profile?.units ?? 'imperial';
   const [savingUnits, setSavingUnits] = useState(false);
 
-  // Preferences (goal_weight_kg, daily_step_goal) live in `user_preferences`,
-  // not the profile store, so they need their own one-off fetch — same
-  // pattern as `(tabs)/progress.tsx`'s goal-weight lookup.
+  // Goal weight lives in `user_preferences`, not the profile store, so it
+  // needs its own one-off fetch — same pattern as `(tabs)/progress.tsx`'s
+  // goal-weight lookup.
   const [prefs, setPrefs] = useState<UserPreferences | null>(null);
-  const [prefsLoaded, setPrefsLoaded] = useState(false);
 
   useEffect(() => {
     if (!user?.id) return;
     fetchPreferences(user.id)
       .then((data) => setPrefs(data))
-      .catch((e) => console.warn('Could not load preferences:', e))
-      .finally(() => setPrefsLoaded(true));
+      .catch((e) => console.warn('Could not load preferences:', e));
   }, [user?.id]);
 
   const handleUnitsChange = async (next: Units) => {
@@ -88,17 +86,15 @@ export default function PersonalDetailsScreen() {
           onSaved={(kg) => setPrefs((p) => (p ? { ...p, goal_weight_kg: kg } : p))}
         />
 
-        {/* Keyed by profile id + units + whether preferences have loaded:
-            the fields below are only ever an *initial* render of external
-            state, so a remount on any of those changing is the correct
-            reset — not an effect that calls setState after the fact. */}
+        {/* Keyed by profile id + units: the fields below are only ever an
+            *initial* render of external state, so a remount on either
+            changing is the correct reset — not an effect that calls
+            setState after the fact. */}
         <PersonalDetailsForm
-          key={`${profile?.id ?? 'anon'}-${units}-${prefsLoaded ? 'loaded' : 'pending'}`}
+          key={`${profile?.id ?? 'anon'}-${units}`}
           profile={profile}
           units={units}
           updateProfile={updateProfile}
-          userId={user?.id ?? null}
-          dailyStepGoal={prefs?.daily_step_goal ?? null}
         />
       </ScrollView>
     </SafeAreaView>
@@ -216,24 +212,16 @@ interface PersonalDetailsFormProps {
   profile: UserProfile | null;
   units: Units;
   updateProfile: (patch: Partial<EditableProfile>) => Promise<void>;
-  userId: string | null;
-  dailyStepGoal: number | null;
 }
 
 /**
- * Height/weight/age/gender/daily-step-goal editor. Mounted with a key from
- * the parent so its local text state is *initialized* fresh from `profile`
- * (and the fetched preferences) whenever any of those change, rather than
- * an effect re-syncing it after the fact — the exact idiom `BodyMetricsFields`
- * used on the Settings tab before this section moved here.
+ * Height/weight/age/gender editor. Mounted with a key from the parent so
+ * its local text state is *initialized* fresh from `profile` whenever
+ * identity or units change, rather than an effect re-syncing it after the
+ * fact — the exact idiom `BodyMetricsFields` used on the Settings tab
+ * before this section moved here.
  */
-function PersonalDetailsForm({
-  profile,
-  units,
-  updateProfile,
-  userId,
-  dailyStepGoal,
-}: PersonalDetailsFormProps) {
+function PersonalDetailsForm({ profile, units, updateProfile }: PersonalDetailsFormProps) {
   const [heightText, setHeightText] = useState(
     profile?.height_cm ? formatHeight(profile.height_cm, units) : ''
   );
@@ -242,9 +230,6 @@ function PersonalDetailsForm({
   );
   const [ageText, setAgeText] = useState(profile?.age != null ? String(profile.age) : '');
   const [sex, setSex] = useState<'male' | 'female' | 'unspecified'>(profile?.sex ?? 'unspecified');
-  const [stepGoalText, setStepGoalText] = useState(
-    dailyStepGoal != null ? String(dailyStepGoal) : ''
-  );
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -275,23 +260,9 @@ function PersonalDetailsForm({
       age = parsedAge;
     }
 
-    let daily_step_goal: number | null = null;
-    if (stepGoalText.trim()) {
-      const parsedSteps = parseInt(stepGoalText.trim(), 10);
-      if (isNaN(parsedSteps) || parsedSteps < 0) {
-        setFormError('Daily step goal must be a non-negative number.');
-        return;
-      }
-      daily_step_goal = parsedSteps;
-    }
-
     setSaving(true);
     try {
-      const tasks: Promise<unknown>[] = [updateProfile({ height_cm, weight_kg, age, sex })];
-      if (userId) {
-        tasks.push(savePreferences(userId, { daily_step_goal }));
-      }
-      await Promise.all(tasks);
+      await updateProfile({ height_cm, weight_kg, age, sex });
     } catch (err: any) {
       setFormError(err?.message ?? 'Could not save your details.');
     } finally {
@@ -353,18 +324,6 @@ function PersonalDetailsForm({
             clearError();
           }}
           style={{ marginBottom: 16 }}
-        />
-
-        <Input
-          label="DAILY STEP GOAL"
-          value={stepGoalText}
-          onChangeText={(t) => {
-            setStepGoalText(t);
-            clearError();
-          }}
-          keyboardType="numeric"
-          placeholder="10000"
-          containerStyle={{ marginBottom: 4 }}
         />
 
         {formError ? <Text style={styles.errorText}>{formError}</Text> : null}

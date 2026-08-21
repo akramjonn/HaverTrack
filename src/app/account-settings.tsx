@@ -62,7 +62,7 @@ export default function AccountSettingsScreen() {
     };
   }, [userId]);
 
-  const handleTogglePreference = async (key: 'add_burned_calories' | 'rollover_calories', next: boolean) => {
+  const handleTogglePreference = async (key: 'rollover_calories', next: boolean) => {
     if (!userId || !preferences) return;
     const previous = preferences;
     setPreferences({ ...preferences, [key]: next });
@@ -184,22 +184,6 @@ export default function AccountSettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionEyebrow}>PREFERENCES</Text>
           <Card style={{ padding: 0, overflow: 'hidden' }}>
-            <View style={styles.menuRow}>
-              <View style={{ flex: 1, marginRight: 12 }}>
-                <Text style={Typography.bodySSemiBold}>Add burned calories</Text>
-                <Text style={Typography.caption}>
-                  Add today&apos;s estimated calories burned back to your daily goal.
-                </Text>
-              </View>
-              <Switch
-                value={preferences?.add_burned_calories ?? false}
-                onValueChange={(next) => handleTogglePreference('add_burned_calories', next)}
-                trackColor={{ false: Colors.border, true: Colors.scarlet }}
-                thumbColor={Colors.surface}
-                disabled={!preferences}
-              />
-            </View>
-
             <View style={[styles.menuRow, { borderBottomWidth: 0 }]}>
               <View style={{ flex: 1, marginRight: 12 }}>
                 <Text style={Typography.bodySSemiBold}>Rollover calories</Text>

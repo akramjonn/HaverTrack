@@ -56,20 +56,15 @@ export async function deleteWaterEntry(userId: string, id: string) {
 export interface UserPreferences {
   water_target_ml: number;
   goal_weight_kg: number | null;
-  daily_step_goal: number | null;
-  add_burned_calories: boolean;
   rollover_calories: boolean;
 }
 
-const PREFERENCES_COLUMNS =
-  'water_target_ml, goal_weight_kg, daily_step_goal, add_burned_calories, rollover_calories';
+const PREFERENCES_COLUMNS = 'water_target_ml, goal_weight_kg, rollover_calories';
 
 function mapPreferencesRow(data: any): UserPreferences {
   return {
     water_target_ml: Number(data.water_target_ml),
     goal_weight_kg: data.goal_weight_kg === null ? null : Number(data.goal_weight_kg),
-    daily_step_goal: data.daily_step_goal === null ? null : Number(data.daily_step_goal),
-    add_burned_calories: Boolean(data.add_burned_calories),
     rollover_calories: Boolean(data.rollover_calories),
   };
 }

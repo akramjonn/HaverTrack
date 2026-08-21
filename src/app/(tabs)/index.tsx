@@ -23,9 +23,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { dailyTotals, loggingStreak } from '@/lib/stats';
 import { WaterTile, BOTTLE_ML } from '@/components/WaterTile';
-import { StepsTile } from '@/components/StepsTile';
 import { CelebrationModal } from '@/components/CelebrationModal';
-import { useStepCount, estimateCaloriesBurned, DEFAULT_WEIGHT_KG } from '@/lib/steps';
 import {
   CUP_ML,
   DEFAULT_WATER_TARGET_ML,
@@ -86,9 +84,8 @@ export default function TodayScreen() {
   const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
   const [waterError, setWaterError] = useState<string | null>(null);
 
-  // Calorie-math preferences — read from the same fetchPreferences call as
+  // Calorie-math preference — read from the same fetchPreferences call as
   // the water target above, not a second fetch.
-  const [addBurnedEnabled, setAddBurnedEnabled] = useState(false);
   const [rolloverEnabled, setRolloverEnabled] = useState(false);
 
   // Celebrations — a full-screen takeover for a milestone the user opted
@@ -119,7 +116,6 @@ export default function TodayScreen() {
         setWaterEntries(entries);
         if (prefs) {
           setWaterTarget(prefs.water_target_ml);
-          setAddBurnedEnabled(prefs.add_burned_calories);
           setRolloverEnabled(prefs.rollover_calories);
         }
       })
@@ -134,13 +130,9 @@ export default function TodayScreen() {
 
   const waterTotalMl = waterEntries.reduce((sum, e) => sum + e.ml, 0);
 
-  // "Add burned calories back" and "rollover calories" both adjust the
-  // effective target only — the macro rows keep deriving from the raw
-  // targetProtein/targetCarbs/targetFat above, untouched.
-  const { steps } = useStepCount();
-  const profileWeightKg = useAuthStore((s) => s.profile?.weight_kg) ?? DEFAULT_WEIGHT_KG;
-  const burnedCalories = steps !== null ? estimateCaloriesBurned(steps, profileWeightKg) : 0;
-
+  // "Rollover calories" adjusts the effective target only — the macro rows
+  // keep deriving from the raw targetProtein/targetCarbs/targetFat above,
+  // untouched.
   // dailyTotals(logs, days, today) returns per-day totals oldest-first, so
   // for a 2-day window ending today, index 0 is yesterday and index 1 is
   // today (confirmed by reading src/lib/stats.ts's offset loop, which walks
@@ -151,7 +143,7 @@ export default function TodayScreen() {
       ? Math.min(200, Math.max(0, (goal?.calorie_target ?? 0) - yesterday.calories))
       : 0;
 
-  const totalAdjustment = isJustTracking ? 0 : (addBurnedEnabled ? burnedCalories : 0) + rolloverAmount;
+  const totalAdjustment = isJustTracking ? 0 : rolloverAmount;
   const adjustedTargetCalories = targetCalories + totalAdjustment;
   const caloriesLeft = Math.max(0, adjustedTargetCalories - totalCalories);
 
@@ -350,8 +342,6 @@ export default function TodayScreen() {
           onUndo={undoWater}
           style={styles.waterTile}
         />
-
-        <StepsTile style={styles.waterTile} />
 
         {/* Logged Today Section Header */}
         <View style={styles.sectionHeaderRow}>
