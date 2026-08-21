@@ -11,11 +11,10 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography } from '@/constants/theme';
-import { Button, Input, IconButton, GoogleIcon } from '@/components/ui';
+import { Button, Input, IconButton } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { describeAuthError } from '@/lib/authErrors';
-import { useGoogleSignIn } from '@/hooks/use-google-sign-in';
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -25,12 +24,6 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const {
-    signIn: handleGoogleSignUp,
-    isLoading: googleLoading,
-    error: googleError,
-  } = useGoogleSignIn();
 
   const handleSignUp = async () => {
     setError(null);
@@ -158,25 +151,6 @@ export default function SignUpScreen() {
             expo-apple-authentication plus supabase.auth.signInWithIdToken, and a
             button that fakes a session is worse than no button.
           */}
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>or</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <Button
-            label="Continue with Google"
-            variant="google"
-            icon={<GoogleIcon />}
-            onPress={handleGoogleSignUp}
-            loading={googleLoading}
-          />
-
-          {googleError ? <Text style={styles.googleError}>{googleError}</Text> : null}
-
-          <Text style={styles.googleHint}>
-            Uses your @haverford.edu Google account — one tap, no password.
-          </Text>
 
           {/* Terms Footer */}
           <View style={styles.footer}>
@@ -214,33 +188,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: Colors.scarletBright,
     marginBottom: 12,
-  },
-  googleError: {
-    fontFamily: Fonts.outfit.medium,
-    fontSize: 13,
-    color: Colors.scarletBright,
-    marginTop: 12,
-    textAlign: 'center',
-  },
-  dividerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 24,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: Colors.borderSoft,
-  },
-  dividerText: {
-    ...Typography.monoLabel,
-    marginHorizontal: 16,
-  },
-  googleHint: {
-    ...Typography.micro,
-    color: Colors.textMuted,
-    textAlign: 'center',
-    marginTop: 10,
   },
   footer: {
     marginTop: 32,

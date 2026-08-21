@@ -16,7 +16,6 @@ export type ButtonVariant =
   | 'outline'
   | 'ghost'
   | 'apple'
-  | 'google'
   | 'destructive';
 
 interface ButtonProps {
@@ -66,12 +65,6 @@ export function Button({
           backgroundColor: Colors.ink,
           borderWidth: 0,
         };
-      case 'google':
-        return {
-          backgroundColor: Colors.surface,
-          borderWidth: 1,
-          borderColor: Colors.border,
-        };
       case 'outline':
         return {
           backgroundColor: Colors.surface,
@@ -115,12 +108,6 @@ export function Button({
       case 'apple':
         return {
           color: Colors.cream,
-          fontFamily: Fonts.outfit.semiBold,
-          fontSize: 17,
-        };
-      case 'google':
-        return {
-          color: Colors.ink,
           fontFamily: Fonts.outfit.semiBold,
           fontSize: 17,
         };
