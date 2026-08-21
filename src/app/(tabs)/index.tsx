@@ -95,6 +95,10 @@ export default function TodayScreen() {
   // reopen on its own.
   const justCrossedStreak = useLogStore((s) => s.justCrossedStreak);
   const clearStreakFlag = useLogStore((s) => s.clearStreakFlag);
+  // Tapping the streak badge opens the same flame popup on demand (matching
+  // Cal AI's "tap the flame to see your streak" pattern) — shares the one
+  // modal instance with the auto-fired crossing celebration below.
+  const [showStreakDetail, setShowStreakDetail] = useState(false);
 
   useEffect(() => {
     if (!userId) {
@@ -162,7 +166,7 @@ export default function TodayScreen() {
             <Text style={styles.dayMuted}>{dayName}</Text>
             <Text style={Typography.displayM}>{monthDay}</Text>
           </View>
-          <StreakBadge days={streak.current} />
+          <StreakBadge days={streak.current} onPress={() => setShowStreakDetail(true)} />
         </View>
 
         {/* Gallery / Debug Link Pill */}
@@ -376,8 +380,11 @@ export default function TodayScreen() {
         subtitle={`You crossed your ${(waterTarget / 1000).toFixed(1)}L target today.`}
       />
       <CelebrationModal
-        visible={justCrossedStreak}
-        onDismiss={clearStreakFlag}
+        visible={justCrossedStreak || showStreakDetail}
+        onDismiss={() => {
+          clearStreakFlag();
+          setShowStreakDetail(false);
+        }}
         icon="flame"
         title={`${streak.current} day streak`}
         subtitle="Keep it going tomorrow."

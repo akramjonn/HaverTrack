@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, Pressable } from 'react-native';
 import { Colors, Radii, Fonts } from '@/constants/theme';
 import Svg, { Circle } from 'react-native-svg';
 
 interface StreakBadgeProps {
   days: number;
   style?: ViewStyle;
+  /** Optional — when given, the badge becomes tappable (e.g. to show streak detail). */
+  onPress?: () => void;
 }
 
-export function StreakBadge({ days, style }: StreakBadgeProps) {
-  return (
-    <View style={[styles.container, style]}>
+export function StreakBadge({ days, style, onPress }: StreakBadgeProps) {
+  const content = (
+    <>
       {/* Gold nut accent circle */}
       <View style={styles.nutContainer}>
         <Svg width={10} height={10} viewBox="0 0 10 10">
@@ -18,8 +20,24 @@ export function StreakBadge({ days, style }: StreakBadgeProps) {
         </Svg>
       </View>
       <Text style={styles.text}>{days} day streak</Text>
-    </View>
+    </>
   );
+
+  if (onPress) {
+    return (
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={`${days} day streak. View streak detail.`}
+        hitSlop={6}
+        style={({ pressed }) => [styles.container, style, pressed && { opacity: 0.8 }]}
+      >
+        {content}
+      </Pressable>
+    );
+  }
+
+  return <View style={[styles.container, style]}>{content}</View>;
 }
 
 const styles = StyleSheet.create({
