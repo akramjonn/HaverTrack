@@ -29,7 +29,7 @@ export interface DailyGoal {
 }
 
 /** Columns the client is allowed to write. Email, role and verification are server-owned. */
-type EditableProfile = Pick<
+export type EditableProfile = Pick<
   UserProfile,
   'full_name' | 'class_year' | 'height_cm' | 'weight_kg' | 'age' | 'activity_level' | 'units'
 >;

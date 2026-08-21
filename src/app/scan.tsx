@@ -23,16 +23,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import {
-  X,
-  Zap,
-  ZapOff,
-  Image as ImageIcon,
-  ChevronDown,
-  Sparkles,
-  Barcode,
-  CameraOff,
-} from 'lucide-react-native';
+import { X, Zap, ZapOff, ChevronDown, Sparkles, Barcode, CameraOff } from 'lucide-react-native';
 import { Button } from '@/components/ui';
 import { analyzePlate } from '@/lib/llm/provider';
 import { lookupBarcode, barcodeProductToSearchResult } from '@/lib/productLookup';
@@ -384,9 +375,33 @@ export default function ScanScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.screen}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.container}>
+
+      {/* Full-bleed camera layer: fills the entire screen behind all chrome below. */}
+      <View style={[StyleSheet.absoluteFill, styles.cameraLayer]} pointerEvents="none">
+        {wantsCamera && cameraActive && (
+          <CameraView
+            ref={cameraRef}
+            style={StyleSheet.absoluteFill}
+            facing="back"
+            enableTorch={flash}
+            onCameraReady={() => setCameraReady(true)}
+            onMountError={() =>
+              Alert.alert(
+                'Camera Error',
+                'The camera could not start. Close any other app using it and try again.'
+              )
+            }
+            barcodeScannerSettings={{ barcodeTypes: [...BARCODE_TYPES] }}
+            onBarcodeScanned={mode === 'barcode' ? handleBarcodeScanned : undefined}
+          />
+        )}
+
+        <CaptureFreezeFrame uri={capturedPreviewUri} analyzing={isScanning} />
+      </View>
+
+      <SafeAreaView style={[StyleSheet.absoluteFill, styles.chrome]} pointerEvents="box-none">
         {/* Top Controls Bar */}
         <View style={styles.topBar}>
           <Pressable
@@ -431,87 +446,57 @@ export default function ScanScreen() {
           )}
         </View>
 
-        {/* Viewfinder Center */}
-        <Animated.View style={[{ flex: 1 }, contentFadeStyle]}>
-        {wantsCamera ? (
-          <View style={styles.viewfinderCenter}>
-            <View style={styles.frameGuide}>
-              {cameraActive && (
-                <CameraView
-                  ref={cameraRef}
-                  style={StyleSheet.absoluteFill}
-                  facing="back"
-                  enableTorch={flash}
-                  onCameraReady={() => setCameraReady(true)}
-                  onMountError={() =>
-                    Alert.alert(
-                      'Camera Error',
-                      'The camera could not start. Close any other app using it and try again.'
-                    )
-                  }
-                  barcodeScannerSettings={{ barcodeTypes: [...BARCODE_TYPES] }}
-                  onBarcodeScanned={mode === 'barcode' ? handleBarcodeScanned : undefined}
-                />
-              )}
-
-              <CaptureFreezeFrame uri={capturedPreviewUri} analyzing={isScanning} />
-
+        {/* Capture frame / describe form, layered as an overlay over the full-bleed camera. */}
+        <Animated.View style={[styles.middle, contentFadeStyle]} pointerEvents="box-none">
+          {wantsCamera ? (
+            <View style={styles.frameArea} pointerEvents="box-none">
               <AnimatedCornerGuides pulse={barcodePulse} />
 
               {mode === 'barcode' && cameraActive && cameraReady && !isScanning ? (
                 <BarcodeScanLine reducedMotion={reducedMotion} />
               ) : null}
 
-              {renderCameraBlocker()}
+              <View style={styles.blockerSlot} pointerEvents="box-none">
+                {renderCameraBlocker()}
+              </View>
             </View>
-          </View>
-        ) : (
-          <View style={styles.describeCenter}>
-            <Text style={[Typography.title, { color: Colors.darkText, marginBottom: 12 }]}>
-              Describe your plate
-            </Text>
-            <Text style={[Typography.bodyS, { color: Colors.darkTextDim, marginBottom: 16 }]}>
-              We'll match your description against what's being served at the DC today.
-            </Text>
-            <TextInput
-              placeholder="e.g. Chicken parm with pasta, corn and side salad"
-              placeholderTextColor={Colors.darkTextDim}
-              value={describeText}
-              onChangeText={setDescribeText}
-              multiline
-              style={styles.describeInput}
-            />
-            <Button
-              label="Find on menu"
-              variant="primary"
-              onPress={() => handleCapture()}
-              loading={isScanning}
-              style={{ marginTop: 16, width: '100%' }}
-            />
-          </View>
-        )}
+          ) : (
+            <View style={styles.describeCenter}>
+              <Text style={[Typography.title, { color: Colors.darkText, marginBottom: 12 }]}>
+                Describe your plate
+              </Text>
+              <Text style={[Typography.bodyS, { color: Colors.darkTextDim, marginBottom: 16 }]}>
+                We'll match your description against what's being served at the DC today.
+              </Text>
+              <TextInput
+                placeholder="e.g. Chicken parm with pasta, corn and side salad"
+                placeholderTextColor={Colors.darkTextDim}
+                value={describeText}
+                onChangeText={setDescribeText}
+                multiline
+                style={styles.describeInput}
+              />
+              <Button
+                label="Find on menu"
+                variant="primary"
+                onPress={() => handleCapture()}
+                loading={isScanning}
+                style={{ marginTop: 16, width: '100%' }}
+              />
+            </View>
+          )}
         </Animated.View>
 
-        {/* Bottom Shutter & Mode Switcher */}
+        {/* Bottom Shutter & Mode Chips */}
         <View style={styles.bottomSection}>
-          <AnimatedModeTabs mode={mode} onChange={setMode} />
+          <AnimatedModeTabs mode={mode} onChange={setMode} onLibraryPress={pickImage} />
 
           {mode === 'scan' ? (
             <View style={styles.shutterRow}>
-              <Pressable
-                onPress={pickImage}
-                style={styles.galleryBtn}
-                accessibilityLabel="Choose from photo library"
-              >
-                <ImageIcon size={22} color={Colors.darkText} />
-              </Pressable>
-
               <ShutterButton
                 onPress={takePhoto}
                 disabled={!cameraActive || !cameraReady || isScanning}
               />
-
-              <View style={{ width: 44 }} />
             </View>
           ) : mode === 'barcode' ? (
             <View style={styles.barcodeFallback}>
@@ -539,7 +524,7 @@ export default function ScanScreen() {
             </View>
           ) : null}
         </View>
-      </View>
+      </SafeAreaView>
 
       <FoodComposeSheet
         result={barcodeResult}
@@ -549,17 +534,24 @@ export default function ScanScreen() {
           router.back();
         }}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  screen: {
     flex: 1,
     backgroundColor: Colors.darkBg,
   },
-  container: {
-    flex: 1,
+  // Sits behind all chrome and fills the entire screen — this is what makes
+  // the viewfinder full-bleed instead of a square inset card.
+  cameraLayer: {
+    backgroundColor: Colors.darkBg,
+  },
+  // Overlaid on top of cameraLayer. box-none so empty space (between the top
+  // bar, frame area, and bottom controls) doesn't swallow touches meant for
+  // the camera layer beneath it.
+  chrome: {
     justifyContent: 'space-between',
     paddingVertical: 12,
   },
@@ -596,22 +588,23 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: Colors.darkText,
   },
-  viewfinderCenter: {
+  middle: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 24,
   },
-  frameGuide: {
-    width: '100%',
-    aspectRatio: 1,
+  // The capture frame: full-height overlay inset from the screen edges so the
+  // corner brackets mark a frame within the full-bleed camera rather than
+  // tracking the whole viewport (which is now the cameraLayer, not this view).
+  frameArea: {
+    flex: 1,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: 340,
-    borderRadius: 20,
-    overflow: 'hidden',
-    backgroundColor: Colors.darkSurface,
+    marginHorizontal: 18,
+    marginVertical: 8,
+  },
+  blockerSlot: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   hintContainer: {
     backgroundColor: 'rgba(20, 20, 20, 0.7)',
@@ -705,14 +698,6 @@ const styles = StyleSheet.create({
   },
   shutterRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  galleryBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
   },

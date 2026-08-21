@@ -15,6 +15,7 @@ import { Button, Input, OptionCard, IconButton, ProgressBar } from '@/components
 import { ArrowLeft } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 import { calculateGoals } from '@/lib/goals';
+import { parseHeightToCm, parseWeightToKg } from '@/lib/units';
 
 export default function OnboardingAboutScreen() {
   const router = useRouter();
@@ -30,33 +31,12 @@ export default function OnboardingAboutScreen() {
   const [classYearText, setClassYearText] = useState('2029');
   const [activity, setActivity] = useState<'sedentary' | 'moderate' | 'active'>('moderate');
 
-  const parseHeightToCm = (str: string): number | null => {
-    const trimmed = str.trim().toLowerCase();
-    if (!trimmed) return null;
-
-    // Check for ft/in pattern (e.g. 5ft 10in, 5'10, 5 10)
-    const match = trimmed.match(/(\d+)\s*(?:ft|'|foot)?\s*(\d+)?\s*(?:in|"|inches)?/);
-    if (match && match[1]) {
-      const feet = parseInt(match[1], 10);
-      const inches = match[2] ? parseInt(match[2], 10) : 0;
-      return Math.round((feet * 12 + inches) * 2.54);
-    }
-
-    const num = parseFloat(trimmed);
-    return isNaN(num) ? null : num;
-  };
-
-  const parseWeightToKg = (str: string): number | null => {
-    const num = parseFloat(str.trim());
-    if (isNaN(num) || num <= 0) return null;
-    return Math.round(num * 0.45359237 * 10) / 10;
-  };
-
   const handleContinue = async () => {
     const goalType = goal?.goal_type || 'lose';
 
     const height_cm = parseHeightToCm(heightText);
-    const weight_kg = parseWeightToKg(weightText);
+    // Onboarding always presents weight in pounds (no units toggle yet).
+    const weight_kg = parseWeightToKg(weightText, 'imperial');
     const age = parseInt(ageText.trim(), 10) || null;
     const class_year = parseInt(classYearText.trim(), 10) || null;
 

@@ -66,6 +66,14 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
+            name="scan/review"
+            options={{
+              presentation: 'fullScreenModal',
+              animation: 'fade',
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
             name="food/[id]"
             options={{
               presentation: 'modal',

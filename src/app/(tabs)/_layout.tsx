@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Tabs, Redirect } from 'expo-router';
-import { Colors, Fonts } from '@/constants/theme';
+import { Redirect } from 'expo-router';
+import { Tabs } from 'expo-router/js-tabs';
+import { Colors } from '@/constants/theme';
 import { Calendar, Utensils, TrendingUp, User } from 'lucide-react-native';
-import { Platform } from 'react-native';
 import { useAuthStore, selectIsOnboarded } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
+import { AppTabBar } from '@/components/navigation/AppTabBar';
 
 export default function TabLayout() {
   const user = useAuthStore((state) => state.user);
@@ -24,23 +25,11 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      tabBar={(props) => <AppTabBar {...props} />}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.scarlet,
         tabBarInactiveTintColor: Colors.textFaint,
-        tabBarStyle: {
-          height: Platform.OS === 'ios' ? 92 : 70,
-          backgroundColor: 'rgba(251, 248, 243, 0.96)',
-          borderTopWidth: 1,
-          borderTopColor: Colors.borderSoft,
-          paddingTop: 8,
-          paddingBottom: Platform.OS === 'ios' ? 26 : 10,
-        },
-        tabBarLabelStyle: {
-          fontFamily: Fonts.outfit.medium,
-          fontSize: 10,
-          marginTop: 2,
-        },
       }}
     >
       <Tabs.Screen

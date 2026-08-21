@@ -7,6 +7,8 @@ interface IconButtonProps {
   onPress: () => void;
   accessibilityLabel: string;
   variant?: 'light' | 'dark';
+  /** 'square' (default, existing look) or 'circle' for floating controls over photos. */
+  shape?: 'square' | 'circle';
   style?: ViewStyle;
 }
 
@@ -15,9 +17,11 @@ export function IconButton({
   onPress,
   accessibilityLabel,
   variant = 'light',
+  shape = 'square',
   style,
 }: IconButtonProps) {
   const isDark = variant === 'dark';
+  const isCircle = shape === 'circle';
 
   return (
     <Pressable
@@ -28,6 +32,7 @@ export function IconButton({
       style={({ pressed }) => [
         styles.container,
         isDark ? styles.darkContainer : styles.lightContainer,
+        isCircle && styles.circleContainer,
         pressed && { opacity: 0.8 },
         style,
       ]}
@@ -45,6 +50,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  circleContainer: {
+    borderRadius: 19,
   },
   lightContainer: {
     backgroundColor: Colors.surface,

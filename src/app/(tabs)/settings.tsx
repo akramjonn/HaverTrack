@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Card, Button } from '@/components/ui';
+import { Card, Button, Input, SegmentedControl } from '@/components/ui';
 import {
   User,
   Heart,
@@ -24,10 +24,12 @@ import {
   ChevronRight,
   Sparkles,
   ShieldCheck,
+  Ruler,
 } from 'lucide-react-native';
-import { useAuthStore, selectIsAdmin } from '@/store/authStore';
+import { useAuthStore, selectIsAdmin, type UserProfile, type EditableProfile } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
 import { supabase } from '@/lib/supabase';
+import { formatHeight, formatWeight, parseHeightInput, parseWeightToKg, type Units } from '@/lib/units';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -35,10 +37,26 @@ export default function SettingsScreen() {
   const profile = useAuthStore((state) => state.profile);
   const goal = useAuthStore((state) => state.goal);
   const signOut = useAuthStore((state) => state.signOut);
+  const updateProfile = useAuthStore((state) => state.updateProfile);
   const isAdmin = useAuthStore(selectIsAdmin);
   const [deleting, setDeleting] = useState(false);
   const logs = useLogStore((state) => state.logs);
   const weightEntries = useLogStore((state) => state.weightEntries);
+
+  const units: Units = profile?.units ?? 'imperial';
+  const [savingUnits, setSavingUnits] = useState(false);
+
+  const handleUnitsChange = async (next: Units) => {
+    if (next === units) return;
+    setSavingUnits(true);
+    try {
+      await updateProfile({ units: next });
+    } catch (err: any) {
+      Alert.alert('Could not update units', err?.message ?? 'Please try again.');
+    } finally {
+      setSavingUnits(false);
+    }
+  };
 
   const handleExportData = async () => {
     try {
@@ -155,6 +173,40 @@ export default function SettingsScreen() {
           </View>
         </Card>
 
+        {/* Body Metrics — units toggle + editable height/weight/age. This is
+            the only place height can be changed after onboarding. */}
+        <View style={styles.section}>
+          <Text style={styles.sectionEyebrow}>BODY METRICS</Text>
+          <Card style={styles.card}>
+            <View style={styles.rowBetween}>
+              <View style={styles.rowInline}>
+                <Ruler size={16} color={Colors.textMuted} style={{ marginRight: 8 }} />
+                <Text style={Typography.monoLabel}>UNITS</Text>
+              </View>
+            </View>
+            <SegmentedControl
+              options={[
+                { value: 'imperial', label: 'Imperial' },
+                { value: 'metric', label: 'Metric' },
+              ]}
+              value={units}
+              onChange={handleUnitsChange}
+              style={{ marginTop: 10, marginBottom: 20, opacity: savingUnits ? 0.6 : 1 }}
+            />
+
+            {/* Keyed by profile id + units: the field values below are only
+                ever an *initial* render of external state, so a remount on
+                either changing is the correct reset — not an effect that
+                calls setState after the fact. */}
+            <BodyMetricsFields
+              key={`${profile?.id ?? 'anon'}-${units}`}
+              profile={profile}
+              units={units}
+              updateProfile={updateProfile}
+            />
+          </Card>
+        </View>
+
         {/* Campus Wellbeing Resources Section (§11 & §13) */}
         <View style={styles.section}>
           <Text style={styles.sectionEyebrow}>CAMPUS & HEALTH RESOURCES</Text>
@@ -261,6 +313,117 @@ export default function SettingsScreen() {
   );
 }
 
+interface BodyMetricsFieldsProps {
+  profile: UserProfile | null;
+  units: Units;
+  updateProfile: (patch: Partial<EditableProfile>) => Promise<void>;
+}
+
+/**
+ * Height/weight/age editor. Mounted with `key={profileId-units}` from the
+ * parent so its local text state is *initialized* fresh from `profile`
+ * whenever either changes, rather than an effect re-syncing it after the
+ * fact — a remount is the correct reset here, not a setState-in-effect.
+ */
+function BodyMetricsFields({ profile, units, updateProfile }: BodyMetricsFieldsProps) {
+  const [heightText, setHeightText] = useState(
+    profile?.height_cm ? formatHeight(profile.height_cm, units) : ''
+  );
+  const [weightText, setWeightText] = useState(
+    profile?.weight_kg ? formatWeight(profile.weight_kg, units) : ''
+  );
+  const [ageText, setAgeText] = useState(profile?.age != null ? String(profile.age) : '');
+  const [metricsError, setMetricsError] = useState<string | null>(null);
+  const [savingMetrics, setSavingMetrics] = useState(false);
+
+  const handleSaveMetrics = async () => {
+    setMetricsError(null);
+
+    const height_cm = heightText.trim() ? parseHeightInput(heightText, units) : null;
+    if (heightText.trim() && height_cm === null) {
+      setMetricsError('Could not read that height.');
+      return;
+    }
+
+    const weight_kg = weightText.trim() ? parseWeightToKg(weightText, units) : null;
+    if (weightText.trim() && weight_kg === null) {
+      setMetricsError('Could not read that weight.');
+      return;
+    }
+
+    let age: number | null = null;
+    if (ageText.trim()) {
+      const parsedAge = parseInt(ageText.trim(), 10);
+      if (isNaN(parsedAge) || parsedAge <= 0) {
+        setMetricsError('Age must be a number.');
+        return;
+      }
+      age = parsedAge;
+    }
+
+    setSavingMetrics(true);
+    try {
+      await updateProfile({ height_cm, weight_kg, age });
+    } catch (err: any) {
+      setMetricsError(err?.message ?? 'Could not save your details.');
+    } finally {
+      setSavingMetrics(false);
+    }
+  };
+
+  return (
+    <>
+      <View style={styles.rowGrid}>
+        <View style={{ flex: 1, marginRight: 8 }}>
+          <Input
+            label="HEIGHT"
+            value={heightText}
+            onChangeText={(t) => {
+              setHeightText(t);
+              setMetricsError(null);
+            }}
+            placeholder={units === 'imperial' ? "5' 10\"" : '178'}
+          />
+        </View>
+        <View style={{ flex: 1, marginLeft: 8 }}>
+          <Input
+            label={`WEIGHT (${units === 'imperial' ? 'LB' : 'KG'})`}
+            value={weightText}
+            onChangeText={(t) => {
+              setWeightText(t);
+              setMetricsError(null);
+            }}
+            keyboardType="numeric"
+            placeholder={units === 'imperial' ? '165' : '75'}
+          />
+        </View>
+      </View>
+
+      <Input
+        label="AGE"
+        value={ageText}
+        onChangeText={(t) => {
+          setAgeText(t);
+          setMetricsError(null);
+        }}
+        keyboardType="numeric"
+        placeholder="19"
+        containerStyle={{ marginBottom: 4 }}
+      />
+
+      {metricsError ? <Text style={styles.errorText}>{metricsError}</Text> : null}
+
+      <Button
+        label="Save body metrics"
+        variant="secondary"
+        onPress={handleSaveMetrics}
+        loading={savingMetrics}
+        style={{ marginTop: 8 }}
+      />
+    </>
+  );
+}
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -286,6 +449,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  rowInline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowGrid: {
+    flexDirection: 'row',
+  },
+  errorText: {
+    fontFamily: Fonts.outfit.medium,
+    fontSize: 13,
+    color: Colors.scarletBright,
+    marginBottom: 8,
   },
   section: {
     marginBottom: 24,

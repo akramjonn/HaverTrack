@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, Pressable, TextInput, TextInputProps } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import {
-  Button,
-  Card,
-  IconButton,
-  Stepper,
-  Chip,
-} from '@/components/ui';
-import { ArrowLeft, RotateCw, Trash2, Plus, Info } from 'lucide-react-native';
+import { Button, Card, IconButton, Stepper, Chip } from '@/components/ui';
+import { PhotoDetailSheet, usePhotoDetailSheetControls } from '@/components/PhotoDetailSheet';
+import { RotateCw, Trash2, Info, ThumbsUp, ThumbsDown } from 'lucide-react-native';
 import { scoreMeal, type MealNutrition } from '@/lib/health';
 import { HealthScoreCard } from '@/components/HealthScore';
 import { useScanStore } from '@/store/scanStore';
@@ -25,6 +13,30 @@ import { saveMealNutrients } from '@/lib/mealNutrients';
 import { useAuthStore } from '@/store/authStore';
 import { uploadMealPhoto } from '@/lib/mealLogs';
 import { ScannedPlateItem } from '@/lib/llm/types';
+
+/**
+ * The editable dish title lives as its own component (rather than inline in
+ * the screen body) purely so it can call `usePhotoDetailSheetControls()` —
+ * that hook only resolves once it's actually rendered under
+ * `PhotoDetailSheet`'s internal context provider, i.e. as part of the
+ * `children` it's passed, not from the screen's own top-level body.
+ */
+function EditableTitle({ value, onChangeText, ...rest }: TextInputProps & { value: string; onChangeText: (t: string) => void }) {
+  const controls = usePhotoDetailSheetControls();
+  return (
+    <TextInput
+      value={value}
+      onChangeText={onChangeText}
+      onFocus={() => controls?.expand()}
+      style={styles.titleInput}
+      placeholder="Name this meal"
+      placeholderTextColor={Colors.textFaint}
+      accessibilityLabel="Meal title"
+      returnKeyType="done"
+      {...rest}
+    />
+  );
+}
 
 export default function ScanReviewScreen() {
   const router = useRouter();
@@ -76,7 +88,10 @@ export default function ScanReviewScreen() {
     },
   ];
 
-  const dishTitle = scanResult?.dish_title || 'Chicken parm with penne';
+  // The one behavioral change vs. the previous version of this screen: the
+  // dish title is now editable state (fed by a TextInput) instead of a
+  // derived constant, so it flows into `addMealLog` below.
+  const [dishTitle, setDishTitle] = useState(scanResult?.dish_title || 'Chicken parm with penne');
   const matchSubtitle = scanResult?.dish_subtitle || 'Matched to DC Main Line · today';
   const matchConfidence = scanResult?.match_confidence ?? 0.92;
   const isFallback = scanResult?.is_fallback_estimate ?? false;
@@ -85,6 +100,14 @@ export default function ScanReviewScreen() {
 
   const [portion, setPortion] = useState(1);
   const [items, setItems] = useState<ScannedPlateItem[]>(initialItems);
+  // Local-only "was this scan accurate?" toggle — there's no feedback
+  // endpoint in this codebase to send it to, so this is decoration for now,
+  // not telemetry.
+  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
+
+  const [capturedAt] = useState(() => new Date());
+  const timestampLabel = `Today · ${capturedAt
+    .toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
 
   const baseTotalCals = items.reduce((acc, item) => acc + item.calories, 0);
   const baseProtein = items.reduce((acc, item) => acc + item.protein_g, 0);
@@ -192,159 +215,173 @@ export default function ScanReviewScreen() {
     router.replace('/(tabs)' as any);
   };
 
+  // There's no dedicated "fix issue" flow anywhere in this codebase yet — the
+  // closest existing, real behavior is what the old header's re-analyze
+  // button did: bounce back to the camera to retake the shot.
+  const handleFixIssue = () => {
+    router.replace('/scan' as any);
+  };
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.topHeader}>
+    <PhotoDetailSheet
+      photoUri={currentPhoto?.uri ?? null}
+      onBack={() => router.back()}
+      headerActions={
         <IconButton
-          icon={<ArrowLeft size={18} color={Colors.inkSoft} />}
-          onPress={() => router.back()}
-          accessibilityLabel="Back to camera"
-        />
-        <Text style={Typography.title}>Scan review</Text>
-        <IconButton
-          icon={<RotateCw size={18} color={Colors.inkSoft} />}
-          onPress={() => router.replace('/scan' as any)}
+          icon={<RotateCw size={18} color={Colors.cream} />}
+          onPress={handleFixIssue}
+          variant="dark"
+          shape="circle"
           accessibilityLabel="Re-analyze photo"
         />
+      }
+      footer={
+        <View style={styles.footerRow}>
+          <Button
+            label="Fix Issue"
+            variant="secondary"
+            onPress={handleFixIssue}
+            style={styles.footerBtnSecondary}
+          />
+          <Button
+            label="Done"
+            variant="primary"
+            loading={saving}
+            onPress={handleLogMeal}
+            style={styles.footerBtnPrimary}
+          />
+        </View>
+      }
+    >
+      <View style={styles.timestampRow}>
+        <Chip label={timestampLabel} variant="muted" />
       </View>
 
-      <ScrollView contentContainerStyle={styles.container}>
-        {/* Match Header */}
-        <View style={styles.dishHeader}>
-          <Text style={Typography.displayL}>{dishTitle}</Text>
+      <EditableTitle value={dishTitle} onChangeText={setDishTitle} />
 
-          <View style={styles.matchMetaRow}>
-            <Text style={Typography.monoLabel}>{matchSubtitle.toUpperCase()}</Text>
-            <Chip
-              label={`${Math.round(matchConfidence * 100)}% match`}
-              variant={matchConfidence >= 0.85 ? 'scarlet' : 'amber'}
-              style={{ marginLeft: 8 }}
-            />
-          </View>
-
-          {showQuotaWarning ? (
-            <Text style={styles.quotaWarning}>
-              {quotaRemaining === 0
-                ? "That's your last photo scan for today — manual menu logging still works."
-                : `${quotaRemaining} photo scan${quotaRemaining === 1 ? '' : 's'} left today`}
-            </Text>
-          ) : null}
-        </View>
-
-        {/* Portion Control Hero Card */}
-        <Card style={styles.heroCard}>
-          <View style={styles.calorieRow}>
-            <View>
-              <Text style={Typography.displayXL}>
-                {isFallback ? `~${scaledCalories}` : scaledCalories}
-              </Text>
-              <Text style={[Typography.bodyS, { color: Colors.textMuted }]}>
-                calories, {portion} plate{portion !== 1 ? 's' : ''}
-              </Text>
-            </View>
-            <Stepper
-              value={portion}
-              onChange={setPortion}
-              step={0.25}
-              unitLabel="portion"
-            />
-          </View>
-
-          {/* Macro Row */}
-          <View style={styles.macroRow}>
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Protein</Text>
-              <Text style={Typography.title}>{scaledProtein}g</Text>
-            </View>
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Carbs</Text>
-              <Text style={Typography.title}>{scaledCarbs}g</Text>
-            </View>
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Fat</Text>
-              <Text style={Typography.title}>{scaledFat}g</Text>
-            </View>
-          </View>
-        </Card>
-
-        {healthScore ? (
-          <HealthScoreCard score={healthScore} style={styles.healthCard} />
-        ) : null}
-
-        {/* Itemized Breakdown */}
-        <View style={styles.section}>
-          <Text style={styles.sectionEyebrow}>WHAT WE FOUND ON THE PLATE</Text>
-          <Card style={styles.itemsCard}>
-            {items.map((item) => (
-              <View key={item.id} style={styles.itemRow}>
-                <View style={{ flex: 1 }}>
-                  <Text style={Typography.bodySSemiBold}>{item.name}</Text>
-                  <Text style={Typography.monoUnit}>
-                    {item.is_menu_match ? '' : '~'}
-                    {Math.round(item.calories * portion)} KCAL
-                  </Text>
-                </View>
-                <Pressable
-                  onPress={() => handleRemoveItem(item.id)}
-                  hitSlop={8}
-                  style={styles.deleteBtn}
-                  accessibilityLabel={`Remove ${item.name}`}
-                >
-                  <Trash2 size={16} color={Colors.textGhost} />
-                </Pressable>
-              </View>
-            ))}
-          </Card>
-        </View>
-
-        {/* Approximate disclaimer (§11 wellbeing requirement) */}
-        <View style={styles.disclaimerBox}>
-          <Info size={16} color={Colors.textMuted} style={{ marginRight: 6 }} />
-          <Text style={styles.disclaimerText}>
-            Estimated from a photo. Numbers are approximate.
-          </Text>
-        </View>
-      </ScrollView>
-
-      {/* Sticky Bottom Log Button — Explicit Tap Requirement */}
-      <View style={styles.bottomBar}>
-        <Button
-          label="Log this meal"
-          loading={saving}
-          variant="primary"
-          onPress={handleLogMeal}
+      <View style={styles.matchMetaRow}>
+        <Text style={Typography.monoLabel}>{matchSubtitle.toUpperCase()}</Text>
+        <Chip
+          label={`${Math.round(matchConfidence * 100)}% match`}
+          variant={matchConfidence >= 0.85 ? 'scarlet' : 'amber'}
+          style={{ marginLeft: 8 }}
         />
       </View>
-    </SafeAreaView>
+
+      {showQuotaWarning ? (
+        <Text style={styles.quotaWarning}>
+          {quotaRemaining === 0
+            ? "That's your last photo scan for today — manual menu logging still works."
+            : `${quotaRemaining} photo scan${quotaRemaining === 1 ? '' : 's'} left today`}
+        </Text>
+      ) : null}
+
+      <View style={styles.stepperSection}>
+        <Text style={styles.sectionEyebrow}>NUMBER OF SERVINGS</Text>
+        <Stepper value={portion} onChange={setPortion} step={0.25} unitLabel="plate" />
+      </View>
+
+      <Card style={styles.caloriesCard}>
+        <Text style={styles.sectionEyebrow}>CALORIES</Text>
+        <Text style={Typography.displayXL}>
+          {isFallback ? `~${scaledCalories}` : scaledCalories}
+        </Text>
+      </Card>
+
+      <View style={styles.macroRow}>
+        <Card style={styles.macroCard}>
+          <Text style={Typography.caption}>Protein</Text>
+          <Text style={Typography.title}>{scaledProtein}g</Text>
+        </Card>
+        <Card style={styles.macroCard}>
+          <Text style={Typography.caption}>Carbs</Text>
+          <Text style={Typography.title}>{scaledCarbs}g</Text>
+        </Card>
+        <Card style={styles.macroCard}>
+          <Text style={Typography.caption}>Fat</Text>
+          <Text style={Typography.title}>{scaledFat}g</Text>
+        </Card>
+      </View>
+
+      {healthScore ? <HealthScoreCard score={healthScore} style={styles.healthCard} /> : null}
+
+      {/* Itemized Breakdown */}
+      <View style={styles.section}>
+        <Text style={styles.sectionEyebrow}>WHAT WE FOUND ON THE PLATE</Text>
+        <Card style={styles.itemsCard}>
+          {items.map((item) => (
+            <View key={item.id} style={styles.itemRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={Typography.bodySSemiBold}>{item.name}</Text>
+                <Text style={Typography.monoUnit}>
+                  {item.is_menu_match ? '' : '~'}
+                  {Math.round(item.calories * portion)} KCAL
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => handleRemoveItem(item.id)}
+                hitSlop={8}
+                style={styles.deleteBtn}
+                accessibilityLabel={`Remove ${item.name}`}
+              >
+                <Trash2 size={16} color={Colors.textGhost} />
+              </Pressable>
+            </View>
+          ))}
+        </Card>
+      </View>
+
+      <View style={styles.feedbackRow}>
+        <Text style={Typography.bodySSemiBold}>Was this scan accurate?</Text>
+        <View style={styles.feedbackBtns}>
+          <Pressable
+            onPress={() => setFeedback((f) => (f === 'up' ? null : 'up'))}
+            accessibilityRole="button"
+            accessibilityState={{ selected: feedback === 'up' }}
+            accessibilityLabel="Scan was accurate"
+            style={[styles.feedbackBtn, feedback === 'up' && styles.feedbackBtnActiveUp]}
+          >
+            <ThumbsUp size={18} color={feedback === 'up' ? Colors.cream : Colors.inkSoft} />
+          </Pressable>
+          <Pressable
+            onPress={() => setFeedback((f) => (f === 'down' ? null : 'down'))}
+            accessibilityRole="button"
+            accessibilityState={{ selected: feedback === 'down' }}
+            accessibilityLabel="Scan was inaccurate"
+            style={[styles.feedbackBtn, feedback === 'down' && styles.feedbackBtnActiveDown]}
+          >
+            <ThumbsDown size={18} color={feedback === 'down' ? Colors.cream : Colors.inkSoft} />
+          </Pressable>
+        </View>
+      </View>
+
+      {/* Approximate disclaimer (§11 wellbeing requirement) */}
+      <View style={styles.disclaimerBox}>
+        <Info size={16} color={Colors.textMuted} style={{ marginRight: 6 }} />
+        <Text style={styles.disclaimerText}>
+          Estimated from a photo. Numbers are approximate.
+        </Text>
+      </View>
+    </PhotoDetailSheet>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.cream,
-  },
-  topHeader: {
+  timestampRow: {
+    marginTop: 4,
+    marginBottom: 12,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderSoft,
   },
-  container: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 40,
-  },
-  dishHeader: {
-    marginBottom: 20,
+  titleInput: {
+    ...Typography.displayL,
+    color: Colors.ink,
+    padding: 0,
+    marginBottom: 10,
   },
   matchMetaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
+    marginBottom: 4,
     flexWrap: 'wrap',
     gap: 8,
   },
@@ -353,33 +390,32 @@ const styles = StyleSheet.create({
     color: Colors.amber,
     marginTop: 8,
   },
-  heroCard: {
-    marginBottom: 24,
-  },
-  calorieRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  stepperSection: {
+    marginTop: 20,
     marginBottom: 16,
+    alignItems: 'center',
+  },
+  sectionEyebrow: {
+    ...Typography.monoLabel,
+    marginBottom: 8,
+  },
+  caloriesCard: {
+    marginBottom: 12,
   },
   macroRow: {
     flexDirection: 'row',
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: Colors.borderSoft,
+    gap: 10,
+    marginBottom: 20,
   },
-  macroCol: {
+  macroCard: {
     flex: 1,
+    padding: 14,
   },
   healthCard: {
     marginBottom: 20,
   },
   section: {
     marginBottom: 20,
-  },
-  sectionEyebrow: {
-    ...Typography.monoLabel,
-    marginBottom: 8,
   },
   itemsCard: {
     padding: 0,
@@ -396,6 +432,34 @@ const styles = StyleSheet.create({
   deleteBtn: {
     padding: 6,
   },
+  feedbackRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  feedbackBtns: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  feedbackBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: Radii.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  feedbackBtnActiveUp: {
+    backgroundColor: Colors.green,
+    borderColor: Colors.green,
+  },
+  feedbackBtnActiveDown: {
+    backgroundColor: Colors.scarlet,
+    borderColor: Colors.scarlet,
+  },
   disclaimerBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -408,11 +472,14 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     flex: 1,
   },
-  bottomBar: {
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    backgroundColor: Colors.cream,
-    borderTopWidth: 1,
-    borderTopColor: Colors.borderSoft,
+  footerRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  footerBtnSecondary: {
+    flex: 1,
+  },
+  footerBtnPrimary: {
+    flex: 1.4,
   },
 });
