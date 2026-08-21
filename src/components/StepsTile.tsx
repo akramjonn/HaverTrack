@@ -3,19 +3,11 @@ import { View, Text, StyleSheet, Platform, ViewStyle } from 'react-native';
 import { Colors, Typography } from '@/constants/theme';
 import { Card } from '@/components/ui';
 import { Footprints } from 'lucide-react-native';
-import { useStepCount } from '@/lib/steps';
+import { useStepCount, estimateCaloriesBurned, DEFAULT_WEIGHT_KG } from '@/lib/steps';
 import { useAuthStore } from '@/store/authStore';
 
 interface StepsTileProps {
   style?: ViewStyle;
-}
-
-/** Same fallback the codebase already uses in src/lib/goals.ts when weight_kg is missing. */
-const DEFAULT_WEIGHT_KG = 76.2;
-
-/** Rough steps→kcal estimate, weight-scaled. Not persisted, not scored — see src/lib/health.ts §11. */
-function estimateCaloriesBurned(steps: number, weightKg: number) {
-  return Math.round(steps * weightKg * 0.0005);
 }
 
 export function StepsTile({ style }: StepsTileProps) {

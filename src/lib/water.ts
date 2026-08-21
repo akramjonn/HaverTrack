@@ -56,22 +56,35 @@ export async function deleteWaterEntry(userId: string, id: string) {
 export interface UserPreferences {
   water_target_ml: number;
   goal_weight_kg: number | null;
+  daily_step_goal: number | null;
+  add_burned_calories: boolean;
+  rollover_calories: boolean;
+}
+
+const PREFERENCES_COLUMNS =
+  'water_target_ml, goal_weight_kg, daily_step_goal, add_burned_calories, rollover_calories';
+
+function mapPreferencesRow(data: any): UserPreferences {
+  return {
+    water_target_ml: Number(data.water_target_ml),
+    goal_weight_kg: data.goal_weight_kg === null ? null : Number(data.goal_weight_kg),
+    daily_step_goal: data.daily_step_goal === null ? null : Number(data.daily_step_goal),
+    add_burned_calories: Boolean(data.add_burned_calories),
+    rollover_calories: Boolean(data.rollover_calories),
+  };
 }
 
 export async function fetchPreferences(userId: string): Promise<UserPreferences | null> {
   const { data, error } = await supabase
     .from('user_preferences')
-    .select('water_target_ml, goal_weight_kg')
+    .select(PREFERENCES_COLUMNS)
     .eq('user_id', userId)
     .maybeSingle();
 
   if (error) throw new Error(error.message);
   if (!data) return null;
 
-  return {
-    water_target_ml: Number(data.water_target_ml),
-    goal_weight_kg: data.goal_weight_kg === null ? null : Number(data.goal_weight_kg),
-  };
+  return mapPreferencesRow(data);
 }
 
 export async function savePreferences(
@@ -84,12 +97,9 @@ export async function savePreferences(
       { user_id: userId, ...patch, updated_at: new Date().toISOString() },
       { onConflict: 'user_id' }
     )
-    .select('water_target_ml, goal_weight_kg')
+    .select(PREFERENCES_COLUMNS)
     .single();
 
   if (error) throw new Error(error.message);
-  return {
-    water_target_ml: Number(data.water_target_ml),
-    goal_weight_kg: data.goal_weight_kg === null ? null : Number(data.goal_weight_kg),
-  };
+  return mapPreferencesRow(data);
 }

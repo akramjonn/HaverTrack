@@ -16,14 +16,16 @@ import {
   StreakBadge,
   Button,
   Card,
+  Chip,
 } from '@/components/ui';
 import { Camera, Plus, Layers, UtensilsCrossed, Zap, Search } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
-import { loggingStreak } from '@/lib/stats';
+import { dailyTotals, loggingStreak } from '@/lib/stats';
 import { WaterTile, BOTTLE_ML } from '@/components/WaterTile';
 import { StepsTile } from '@/components/StepsTile';
 import { CelebrationModal } from '@/components/CelebrationModal';
+import { useStepCount, estimateCaloriesBurned, DEFAULT_WEIGHT_KG } from '@/lib/steps';
 import {
   CUP_ML,
   DEFAULT_WATER_TARGET_ML,
@@ -57,7 +59,6 @@ export default function TodayScreen() {
   const targetCarbs = goal?.carbs_g ?? 265;
   const targetFat = goal?.fat_g ?? 72;
 
-  const caloriesLeft = Math.max(0, targetCalories - totalCalories);
   const streak = loggingStreak(allLogs);
 
   // Sun-Sat filled state for the current calendar week, from the distinct
@@ -85,6 +86,11 @@ export default function TodayScreen() {
   const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
   const [waterError, setWaterError] = useState<string | null>(null);
 
+  // Calorie-math preferences — read from the same fetchPreferences call as
+  // the water target above, not a second fetch.
+  const [addBurnedEnabled, setAddBurnedEnabled] = useState(false);
+  const [rolloverEnabled, setRolloverEnabled] = useState(false);
+
   // Celebrations — a full-screen takeover for a milestone the user opted
   // into (streak day, hydration goal), not a lighter inline flourish.
   const [showWaterCelebration, setShowWaterCelebration] = useState(false);
@@ -111,7 +117,11 @@ export default function TodayScreen() {
       .then(([entries, prefs]) => {
         if (cancelled) return;
         setWaterEntries(entries);
-        if (prefs) setWaterTarget(prefs.water_target_ml);
+        if (prefs) {
+          setWaterTarget(prefs.water_target_ml);
+          setAddBurnedEnabled(prefs.add_burned_calories);
+          setRolloverEnabled(prefs.rollover_calories);
+        }
       })
       .catch((e: any) => {
         if (!cancelled) setWaterError(e?.message ?? 'Could not load water for today.');
@@ -123,6 +133,27 @@ export default function TodayScreen() {
   }, [userId, todayStr]);
 
   const waterTotalMl = waterEntries.reduce((sum, e) => sum + e.ml, 0);
+
+  // "Add burned calories back" and "rollover calories" both adjust the
+  // effective target only — the macro rows keep deriving from the raw
+  // targetProtein/targetCarbs/targetFat above, untouched.
+  const { steps } = useStepCount();
+  const profileWeightKg = useAuthStore((s) => s.profile?.weight_kg) ?? DEFAULT_WEIGHT_KG;
+  const burnedCalories = steps !== null ? estimateCaloriesBurned(steps, profileWeightKg) : 0;
+
+  // dailyTotals(logs, days, today) returns per-day totals oldest-first, so
+  // for a 2-day window ending today, index 0 is yesterday and index 1 is
+  // today (confirmed by reading src/lib/stats.ts's offset loop, which walks
+  // offset = days - 1 down to 0).
+  const yesterday = dailyTotals(allLogs, 2, today)[0];
+  const rolloverAmount =
+    !isJustTracking && rolloverEnabled
+      ? Math.min(200, Math.max(0, (goal?.calorie_target ?? 0) - yesterday.calories))
+      : 0;
+
+  const totalAdjustment = isJustTracking ? 0 : (addBurnedEnabled ? burnedCalories : 0) + rolloverAmount;
+  const adjustedTargetCalories = targetCalories + totalAdjustment;
+  const caloriesLeft = Math.max(0, adjustedTargetCalories - totalCalories);
 
   const addWater = async (ml: number) => {
     if (!userId) {
@@ -183,7 +214,7 @@ export default function TodayScreen() {
           <View style={styles.heroRow}>
             <CalorieRing
               current={totalCalories}
-              target={isJustTracking ? 0 : targetCalories}
+              target={isJustTracking ? 0 : adjustedTargetCalories}
               size={128}
               strokeWidth={20}
             />
@@ -201,12 +232,21 @@ export default function TodayScreen() {
                 </>
               ) : (
                 <>
-                  <Text style={Typography.displayXL}>{caloriesLeft}</Text>
+                  <View style={styles.caloriesLeftRow}>
+                    <Text style={Typography.displayXL}>{caloriesLeft}</Text>
+                    {totalAdjustment !== 0 ? (
+                      <Chip
+                        label={`+${totalAdjustment} today`}
+                        variant="green"
+                        style={styles.adjustmentChip}
+                      />
+                    ) : null}
+                  </View>
                   <Text style={[Typography.body, { color: Colors.textMuted }]}>
                     calories left
                   </Text>
                   <Text style={[Typography.monoLabel, { marginTop: 4 }]}>
-                    {totalCalories} / {targetCalories} KCAL
+                    {totalCalories} / {adjustedTargetCalories} KCAL
                   </Text>
                 </>
               )}
@@ -444,6 +484,14 @@ const styles = StyleSheet.create({
   heroTextCol: {
     marginLeft: 20,
     flex: 1,
+  },
+  caloriesLeftRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  adjustmentChip: {
+    marginBottom: 2,
   },
   macroRow: {
     flexDirection: 'row',

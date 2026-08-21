@@ -14,6 +14,14 @@ function startOfToday(): Date {
   return d;
 }
 
+/** Same fallback the codebase already uses in src/lib/goals.ts when weight_kg is missing. */
+export const DEFAULT_WEIGHT_KG = 76.2;
+
+/** Rough steps→kcal estimate, weight-scaled. Not persisted, not scored — see src/lib/health.ts §11. */
+export function estimateCaloriesBurned(steps: number, weightKg: number): number {
+  return Math.round(steps * weightKg * 0.0005);
+}
+
 /**
  * Live step count for today.
  *

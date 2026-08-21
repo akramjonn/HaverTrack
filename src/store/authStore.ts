@@ -13,6 +13,8 @@ export interface UserProfile {
   weight_kg?: number | null;
   age?: number | null;
   activity_level?: 'sedentary' | 'moderate' | 'active' | null;
+  /** Self-reported, optional — improves the BMR offset in calculateGoals(); unset = neutral. */
+  sex?: 'male' | 'female' | 'unspecified' | null;
   units: 'imperial' | 'metric';
   role: 'user' | 'admin';
   onboarded_at?: string | null;
@@ -31,7 +33,7 @@ export interface DailyGoal {
 /** Columns the client is allowed to write. Email, role and verification are server-owned. */
 export type EditableProfile = Pick<
   UserProfile,
-  'full_name' | 'class_year' | 'height_cm' | 'weight_kg' | 'age' | 'activity_level' | 'units'
+  'full_name' | 'class_year' | 'height_cm' | 'weight_kg' | 'age' | 'activity_level' | 'sex' | 'units'
 >;
 
 interface AuthState {

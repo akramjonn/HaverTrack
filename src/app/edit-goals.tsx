@@ -46,6 +46,7 @@ export default function EditGoalsScreen() {
         height_cm: profile?.height_cm,
         weight_kg: profile?.weight_kg,
         age: profile?.age,
+        sex: profile?.sex ?? undefined,
         activity_level: profile?.activity_level ?? undefined,
       });
 
