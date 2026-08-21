@@ -67,12 +67,12 @@ export default function BmiInfoScreen() {
           verdict.
         </Text>
 
-        <Text style={styles.sectionHeading}>Why doesn&apos;t SquirrelTrack score everyone?</Text>
+        <Text style={styles.sectionHeading}>Why doesn&apos;t HaverTrack score everyone?</Text>
         <Text style={styles.body}>
           The standard adult BMI bands (Underweight / Healthy / Overweight / Obese) are built
           from research on adults 20 and older. Below age 20, the CDC instead uses age- and
           sex-specific growth percentiles, because bodies are still developing and the same BMI
-          number means something different at 15 than it does at 35. SquirrelTrack doesn&apos;t
+          number means something different at 15 than it does at 35. HaverTrack doesn&apos;t
           collect sex, so percentile scoring isn&apos;t something we can compute responsibly. Rather
           than apply adult cutoffs to a group they weren&apos;t built for, anyone under 20 sees a
           neutral &quot;Adult ranges shown&quot; label instead of a graded category — the number and scale

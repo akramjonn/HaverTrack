@@ -37,7 +37,7 @@ export default function ComponentGalleryScreen() {
   const [mealSegment, setMealSegment] = useState<'lunch' | 'dinner' | 'coop'>('lunch');
   const [portion, setPortion] = useState(1);
   const [inputVal, setInputVal] = useState('jsmith@haverford.edu');
-  const [passwordVal, setPasswordVal] = useState('SquirrelTrack#1');
+  const [passwordVal, setPasswordVal] = useState('HaverTrack#1');
   const [ringCalories, setRingCalories] = useState(1180);
   const targetCalories = 2340;
 
@@ -49,7 +49,7 @@ export default function ComponentGalleryScreen() {
           <View style={styles.headerRow}>
             <AppIcon size={44} />
             <View style={{ marginLeft: 12 }}>
-              <Text style={Typography.monoLabel}>SQUIRRELTRACK DESIGN SYSTEM</Text>
+              <Text style={Typography.monoLabel}>HAVERTRACK DESIGN SYSTEM</Text>
               <Text style={Typography.displayM}>Component Gallery</Text>
             </View>
           </View>
@@ -271,7 +271,7 @@ export default function ComponentGalleryScreen() {
         {/* Footer disclaimer */}
         <View style={styles.footer}>
           <Text style={styles.disclaimer}>
-            SquirrelTrack 1.0 · made by Haverford students. Not affiliated with Haverford College Dining Services.
+            HaverTrack 1.0 · made by Haverford students. Not affiliated with Haverford College Dining Services.
           </Text>
         </View>
       </ScrollView>

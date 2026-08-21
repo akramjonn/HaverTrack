@@ -25,7 +25,7 @@ export function generateInsights(
       {
         id: 'empty-start',
         type: 'encouragement',
-        title: 'WELCOME TO SQUIRRELTRACK',
+        title: 'WELCOME TO HAVERTRACK',
         body: 'Log your meals at the Haverford DC to see weekly nutritional trends and patterns.',
       },
     ];

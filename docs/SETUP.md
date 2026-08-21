@@ -1,4 +1,4 @@
-# SquirrelTrack — setup and operations
+# HaverTrack — setup and operations
 
 Everything here needs credentials or dashboard access, so it cannot be scripted from
 the repo. Work through it once per environment.
@@ -86,7 +86,9 @@ include `{{ .Token }}`:
 > **Authentication → Settings → SMTP Settings** for real testing volume.
 
 **Authentication → URL Configuration**
-- Add `squirreltrack://` to the redirect allow-list.
+- Add `havertrack://` to the redirect allow-list. Keep `squirreltrack://` allow-listed
+  too during the transition, so any in-flight email confirmation/reset links from
+  before the rename don't break.
 
 ## 5. Granting admin access
 

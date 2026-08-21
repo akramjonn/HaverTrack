@@ -1,47 +1,22 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Pressable,
-  Alert,
-  Linking,
-  Share,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Card, Button, Input, SegmentedControl } from '@/components/ui';
-import {
-  User,
-  Heart,
-  FileText,
-  Download,
-  Trash2,
-  ExternalLink,
-  LogOut,
-  ChevronRight,
-  Sparkles,
-  ShieldCheck,
-  Ruler,
-} from 'lucide-react-native';
+import { Card, Button, Input, SegmentedControl, IconButton, Avatar } from '@/components/ui';
+import { Settings as SettingsIcon, ShieldCheck, ChevronRight, Ruler } from 'lucide-react-native';
 import { useAuthStore, selectIsAdmin, type UserProfile, type EditableProfile } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
-import { supabase } from '@/lib/supabase';
 import { formatHeight, formatWeight, parseHeightInput, parseWeightToKg, type Units } from '@/lib/units';
+import { loggingStreak } from '@/lib/stats';
+import { fullDate } from '@/lib/format';
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
   const profile = useAuthStore((state) => state.profile);
   const goal = useAuthStore((state) => state.goal);
-  const signOut = useAuthStore((state) => state.signOut);
   const updateProfile = useAuthStore((state) => state.updateProfile);
   const isAdmin = useAuthStore(selectIsAdmin);
-  const [deleting, setDeleting] = useState(false);
   const logs = useLogStore((state) => state.logs);
-  const weightEntries = useLogStore((state) => state.weightEntries);
 
   const units: Units = profile?.units ?? 'imperial';
   const [savingUnits, setSavingUnits] = useState(false);
@@ -58,77 +33,39 @@ export default function SettingsScreen() {
     }
   };
 
-  const handleExportData = async () => {
-    try {
-      const exportData = JSON.stringify(
-        {
-          exported_at: new Date().toISOString(),
-          user: user,
-          goal: goal,
-          weight_entries: weightEntries,
-          meal_logs: logs,
-        },
-        null,
-        2
-      );
-
-      await Share.share({
-        title: 'SquirrelTrack Data Export',
-        message: exportData,
-      });
-    } catch (e) {
-      Alert.alert('Export Failed', 'Could not generate JSON export.');
-    }
-  };
-
-  const handleDeleteAccount = () => {
-    Alert.alert(
-      'Delete Account & All Data',
-      'This will permanently delete your profile, meal logs, photo scans, and weight history. This action cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete Permanently',
-          style: 'destructive',
-          onPress: async () => {
-            setDeleting(true);
-            try {
-              const { error } = await supabase.functions.invoke('delete-account', {
-                method: 'POST',
-              });
-              if (error) throw error;
-
-              await signOut();
-              router.replace('/(auth)/welcome' as any);
-            } catch (err: any) {
-              Alert.alert(
-                'Could not delete account',
-                err?.message ||
-                  'Your account was not deleted. Check your connection and try again, or email us to remove it manually.'
-              );
-            } finally {
-              setDeleting(false);
-            }
-          },
-        },
-      ]
-    );
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.replace('/(auth)/welcome' as any);
-  };
+  const streak = loggingStreak(logs).current;
+  const totalMeals = logs.length;
+  const daysLogged = new Set(logs.map((l) => l.logged_date)).size;
+  const memberSince = fullDate(profile?.created_at);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         {/* Header */}
-        <View style={styles.header}>
-          <Text style={Typography.displayL}>You</Text>
-          <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 4 }]}>
-            {profile?.email || user?.email || ''}
-          </Text>
+        <View style={styles.headerRow}>
+          <View style={styles.headerIdentity}>
+            <Avatar name={profile?.full_name ?? profile?.email} size={64} />
+            <View style={styles.headerText}>
+              <Text style={Typography.displayM} numberOfLines={1}>
+                {profile?.full_name || 'You'}
+              </Text>
+              <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 2 }]} numberOfLines={1}>
+                {profile?.email || ''}
+              </Text>
+              {profile?.class_year ? (
+                <Text style={[Typography.caption, { color: Colors.textFaint, marginTop: 2 }]}>
+                  Class of {profile.class_year}
+                </Text>
+              ) : null}
+            </View>
+          </View>
+          <IconButton
+            icon={<SettingsIcon size={18} color={Colors.inkSoft} />}
+            onPress={() => router.push('/account-settings' as any)}
+            accessibilityLabel="Account settings"
+            shape="circle"
+            variant="light"
+          />
         </View>
 
         {isAdmin ? (
@@ -145,6 +82,26 @@ export default function SettingsScreen() {
             <ChevronRight size={16} color={Colors.textMuted} />
           </Card>
         ) : null}
+
+        {/* Editable identity — name + class year */}
+        <View style={styles.section}>
+          <Text style={styles.sectionEyebrow}>ABOUT YOU</Text>
+          <Card style={styles.card}>
+            <NameField
+              key={profile?.id ?? 'anon'}
+              profile={profile}
+              updateProfile={updateProfile}
+            />
+          </Card>
+        </View>
+
+        {/* Stats row */}
+        <View style={styles.statGrid}>
+          <StatBox label="Streak" value={`${streak}`} />
+          <StatBox label="Total meals" value={`${totalMeals}`} />
+          <StatBox label="Days logged" value={`${daysLogged}`} />
+          <StatBox label="Member since" value={memberSince} />
+        </View>
 
         {/* Current Plan Card */}
         <Card style={styles.card}>
@@ -167,7 +124,7 @@ export default function SettingsScreen() {
             <Button
               label="Edit"
               variant="secondary"
-              onPress={() => router.push('/(onboarding)/goal' as any)}
+              onPress={() => router.push('/edit-goals' as any)}
               style={{ height: 38, paddingHorizontal: 16 }}
             />
           </View>
@@ -206,110 +163,88 @@ export default function SettingsScreen() {
             />
           </Card>
         </View>
-
-        {/* Campus Wellbeing Resources Section (§11 & §13) */}
-        <View style={styles.section}>
-          <Text style={styles.sectionEyebrow}>CAMPUS & HEALTH RESOURCES</Text>
-          <Card style={{ padding: 0, overflow: 'hidden' }}>
-            <Pressable
-              onPress={() => Linking.openURL('https://www.haverford.edu/caps')}
-              style={styles.menuRow}
-            >
-              <Heart size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
-              <View style={{ flex: 1 }}>
-                <Text style={Typography.bodySSemiBold}>Haverford CAPS</Text>
-                <Text style={Typography.caption}>Counseling & Psychological Services</Text>
-              </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
-            </Pressable>
-
-            <Pressable
-              onPress={() =>
-                Linking.openURL('https://www.haverford.edu/dining-services/nutrition-and-dietary-support')
-              }
-              style={styles.menuRow}
-            >
-              <Sparkles size={18} color={Colors.gold} style={{ marginRight: 12 }} />
-              <View style={{ flex: 1 }}>
-                <Text style={Typography.bodySSemiBold}>Bi-Co Campus Dietitian</Text>
-                <Text style={Typography.caption}>Dining Services Nutrition Support</Text>
-              </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
-            </Pressable>
-
-            <Pressable
-              onPress={() => Linking.openURL('https://www.allianceforeatingdisorders.com/')}
-              style={[styles.menuRow, { borderBottomWidth: 0 }]}
-            >
-              <Heart size={18} color={Colors.textMuted} style={{ marginRight: 12 }} />
-              <View style={{ flex: 1 }}>
-                <Text style={Typography.bodySSemiBold}>National Eating Disorders Helpline</Text>
-                <Text style={Typography.caption}>Free, confidential support & resources</Text>
-              </View>
-              <ExternalLink size={16} color={Colors.textMuted} />
-            </Pressable>
-          </Card>
-        </View>
-
-        {/* Legal & Data Management */}
-        <View style={styles.section}>
-          <Text style={styles.sectionEyebrow}>DATA & LEGAL</Text>
-          <Card style={{ padding: 0, overflow: 'hidden' }}>
-            <Pressable
-              onPress={handleExportData}
-              style={styles.menuRow}
-            >
-              <Download size={18} color={Colors.ink} style={{ marginRight: 12 }} />
-              <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Download All Data (JSON)</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
-            </Pressable>
-
-            <Pressable
-              onPress={() => router.push('/legal/privacy' as any)}
-              style={styles.menuRow}
-            >
-              <FileText size={18} color={Colors.ink} style={{ marginRight: 12 }} />
-              <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Privacy Policy</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
-            </Pressable>
-
-            <Pressable
-              onPress={() => router.push('/legal/terms' as any)}
-              style={[styles.menuRow, { borderBottomWidth: 0 }]}
-            >
-              <FileText size={18} color={Colors.ink} style={{ marginRight: 12 }} />
-              <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Terms of Service</Text>
-              <ChevronRight size={16} color={Colors.textMuted} />
-            </Pressable>
-          </Card>
-        </View>
-
-        {/* Account Actions */}
-        <View style={styles.section}>
-          <Button
-            label="Sign out"
-            variant="secondary"
-            onPress={handleSignOut}
-            style={{ marginBottom: 12 }}
-          />
-
-          <Button
-            label="Delete Account & All Data"
-            variant="destructive"
-            onPress={handleDeleteAccount}
-            loading={deleting}
-          />
-        </View>
-
-        {/* Institutional Disclaimer */}
-        <View style={styles.footer}>
-          <Text style={styles.disclaimer}>
-            SquirrelTrack is an independent student project.{'\n'}
-            Not affiliated with or endorsed by Haverford College Dining Services.
-          </Text>
-        </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+interface NameFieldProps {
+  profile: UserProfile | null;
+  updateProfile: (patch: Partial<EditableProfile>) => Promise<void>;
+}
+
+/**
+ * Name + class year editor. Mounted with `key={profile.id}` from the parent
+ * so its local text state is *initialized* fresh from `profile` whenever
+ * identity changes, rather than an effect re-syncing it after the fact —
+ * mirrors `BodyMetricsFields`'s exact idiom below.
+ */
+function NameField({ profile, updateProfile }: NameFieldProps) {
+  const [nameText, setNameText] = useState(profile?.full_name ?? '');
+  const [classYearText, setClassYearText] = useState(
+    profile?.class_year != null ? String(profile.class_year) : ''
+  );
+  const [profileError, setProfileError] = useState<string | null>(null);
+  const [savingProfile, setSavingProfile] = useState(false);
+
+  const handleSaveProfile = async () => {
+    setProfileError(null);
+
+    let class_year: number | null = null;
+    if (classYearText.trim()) {
+      const parsedYear = parseInt(classYearText.trim(), 10);
+      if (isNaN(parsedYear) || parsedYear <= 0) {
+        setProfileError('Class year must be a number.');
+        return;
+      }
+      class_year = parsedYear;
+    }
+
+    setSavingProfile(true);
+    try {
+      await updateProfile({ full_name: nameText.trim() || null, class_year });
+    } catch (err: any) {
+      setProfileError(err?.message ?? 'Could not save your details.');
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  return (
+    <>
+      <Input
+        label="NAME"
+        value={nameText}
+        onChangeText={(t) => {
+          setNameText(t);
+          setProfileError(null);
+        }}
+        placeholder="Your name"
+        containerStyle={{ marginBottom: 12 }}
+      />
+
+      <Input
+        label="CLASS YEAR"
+        value={classYearText}
+        onChangeText={(t) => {
+          setClassYearText(t);
+          setProfileError(null);
+        }}
+        keyboardType="numeric"
+        placeholder="2027"
+        containerStyle={{ marginBottom: 4 }}
+      />
+
+      {profileError ? <Text style={styles.errorText}>{profileError}</Text> : null}
+
+      <Button
+        label="Save profile"
+        variant="secondary"
+        onPress={handleSaveProfile}
+        loading={savingProfile}
+        style={{ marginTop: 8 }}
+      />
+    </>
   );
 }
 
@@ -424,6 +359,17 @@ function BodyMetricsFields({ profile, units, updateProfile }: BodyMetricsFieldsP
   );
 }
 
+function StatBox({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.statBox}>
+      <Text style={styles.statBoxValue} numberOfLines={1} adjustsFontSizeToFit>
+        {value}
+      </Text>
+      <Text style={styles.statBoxLabel}>{label}</Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -434,8 +380,21 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 40,
   },
-  header: {
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 20,
+  },
+  headerIdentity: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    marginRight: 12,
+  },
+  headerText: {
+    marginLeft: 14,
+    flexShrink: 1,
   },
   adminRow: {
     flexDirection: 'row',
@@ -464,27 +423,36 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   section: {
-    marginBottom: 24,
+    marginBottom: 20,
   },
   sectionEyebrow: {
     ...Typography.monoLabel,
     marginBottom: 8,
   },
-  menuRow: {
+  statGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderSoft,
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 20,
   },
-  footer: {
-    marginTop: 20,
+  statBox: {
+    width: '47%',
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.card,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    padding: 12,
     alignItems: 'center',
   },
-  disclaimer: {
+  statBoxValue: {
+    fontFamily: Fonts.outfit.bold,
+    fontSize: 20,
+    color: Colors.ink,
+  },
+  statBoxLabel: {
     ...Typography.micro,
     color: Colors.textMuted,
+    marginTop: 2,
     textAlign: 'center',
-    lineHeight: 18,
   },
 });

@@ -135,7 +135,7 @@ export async function searchOpenFoodFacts(
   });
 
   const res = await fetch(`https://search.openfoodfacts.org/search?${params.toString()}`, {
-    headers: { 'User-Agent': 'SquirrelTrack/1.0 (Haverford College student project)' },
+    headers: { 'User-Agent': 'HaverTrack/1.0 (Haverford College student project)' },
   });
 
   if (!res.ok) {

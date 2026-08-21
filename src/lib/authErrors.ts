@@ -42,7 +42,7 @@ export function describeAuthError(error: AuthError | Error): AuthFailure {
     message.includes('fetch') ||
     message.includes('failed to fetch')
   ) {
-    return { message: 'Could not reach SquirrelTrack. Check your connection and try again.' };
+    return { message: 'Could not reach HaverTrack. Check your connection and try again.' };
   }
 
   return { message: raw || 'Something went wrong. Try again.' };

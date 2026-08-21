@@ -22,6 +22,8 @@ import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { loggingStreak } from '@/lib/stats';
 import { WaterTile, BOTTLE_ML } from '@/components/WaterTile';
+import { StepsTile } from '@/components/StepsTile';
+import { CelebrationModal } from '@/components/CelebrationModal';
 import {
   CUP_ML,
   DEFAULT_WATER_TARGET_ML,
@@ -58,6 +60,21 @@ export default function TodayScreen() {
   const caloriesLeft = Math.max(0, targetCalories - totalCalories);
   const streak = loggingStreak(allLogs);
 
+  // Sun-Sat filled state for the current calendar week, from the distinct
+  // logged_date set in allLogs — same day-of-week keying as loggingStreak's
+  // own date handling in src/lib/stats.ts.
+  const loggedDateSet = new Set(allLogs.map((l) => l.logged_date));
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+  const weekDots = Array.from({ length: 7 }, (_, i) => {
+    const day = new Date(startOfWeek);
+    day.setDate(day.getDate() + i);
+    const dayStr = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(
+      day.getDate()
+    ).padStart(2, '0')}`;
+    return loggedDateSet.has(dayStr);
+  });
+
   // Dynamic Date string
   const dayName = today.toLocaleDateString('en-US', { weekday: 'long' });
   const monthDay = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
@@ -67,6 +84,17 @@ export default function TodayScreen() {
   const [waterEntries, setWaterEntries] = useState<WaterEntry[]>([]);
   const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
   const [waterError, setWaterError] = useState<string | null>(null);
+
+  // Celebrations — a full-screen takeover for a milestone the user opted
+  // into (streak day, hydration goal), not a lighter inline flourish.
+  const [showWaterCelebration, setShowWaterCelebration] = useState(false);
+  // The streak celebration is driven straight off the store's transient flag
+  // rather than mirrored into local state via an effect — `addMealLog` only
+  // sets it true on an actual crossing, so it can't refire on the next meal
+  // logged the same day, and dismissing the modal clears it so it can't
+  // reopen on its own.
+  const justCrossedStreak = useLogStore((s) => s.justCrossedStreak);
+  const clearStreakFlag = useLogStore((s) => s.clearStreakFlag);
 
   useEffect(() => {
     if (!userId) {
@@ -98,9 +126,14 @@ export default function TodayScreen() {
       return;
     }
     setWaterError(null);
+    const before = waterTotalMl;
+    const after = before + ml;
     try {
       const saved = await pushWaterEntry(userId, todayStr, ml);
       setWaterEntries((prev) => [...prev, saved]);
+      if (before < waterTarget && after >= waterTarget) {
+        setShowWaterCelebration(true);
+      }
     } catch (e: any) {
       setWaterError(e?.message ?? 'Could not save that.');
     }
@@ -129,7 +162,7 @@ export default function TodayScreen() {
             <Text style={styles.dayMuted}>{dayName}</Text>
             <Text style={Typography.displayM}>{monthDay}</Text>
           </View>
-          <StreakBadge days={12} />
+          <StreakBadge days={streak.current} />
         </View>
 
         {/* Gallery / Debug Link Pill */}
@@ -274,6 +307,8 @@ export default function TodayScreen() {
           style={styles.waterTile}
         />
 
+        <StepsTile style={styles.waterTile} />
+
         {/* Logged Today Section Header */}
         <View style={styles.sectionHeaderRow}>
           <Text style={Typography.title}>Logged today</Text>
@@ -328,10 +363,26 @@ export default function TodayScreen() {
 
         <View style={styles.footer}>
           <Text style={styles.disclaimer}>
-            SquirrelTrack · Haverford College Dining Center
+            HaverTrack · Haverford College Dining Center
           </Text>
         </View>
       </ScrollView>
+
+      <CelebrationModal
+        visible={showWaterCelebration}
+        onDismiss={() => setShowWaterCelebration(false)}
+        icon="droplet"
+        title="Hydration goal hit"
+        subtitle={`You crossed your ${(waterTarget / 1000).toFixed(1)}L target today.`}
+      />
+      <CelebrationModal
+        visible={justCrossedStreak}
+        onDismiss={clearStreakFlag}
+        icon="flame"
+        title={`${streak.current} day streak`}
+        subtitle="Keep it going tomorrow."
+        weekDots={weekDots}
+      />
     </SafeAreaView>
   );
 }

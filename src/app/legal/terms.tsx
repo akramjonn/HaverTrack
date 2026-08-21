@@ -33,12 +33,12 @@ export default function TermsScreen() {
         </View>
 
         <Text style={styles.paragraph}>
-          By using SquirrelTrack, you agree to these Terms of Service.
+          By using HaverTrack, you agree to these Terms of Service.
         </Text>
 
         <Text style={styles.sectionHeader}>1. Informational Health Disclaimer</Text>
         <Text style={styles.paragraph}>
-          SquirrelTrack is designed solely for informational and educational purposes for students. The application does NOT provide medical, clinical, or formal nutritional advice. Calorie and macro values are sourced from third-party dining menus or estimated via computer vision and may vary from actual preparation.
+          HaverTrack is designed solely for informational and educational purposes for students. The application does NOT provide medical, clinical, or formal nutritional advice. Calorie and macro values are sourced from third-party dining menus or estimated via computer vision and may vary from actual preparation.
         </Text>
 
         <Text style={styles.sectionHeader}>2. Allergen Notice & Cross-Contact</Text>
@@ -48,7 +48,7 @@ export default function TermsScreen() {
 
         <Text style={styles.sectionHeader}>3. Wellbeing Guardrails</Text>
         <Text style={styles.paragraph}>
-          SquirrelTrack enforces strict health floors (minimum 1,200 kcal/day) and rate clamps. The service must not be used for extreme caloric restriction or unsafe weight loss practices.
+          HaverTrack enforces strict health floors (minimum 1,200 kcal/day) and rate clamps. The service must not be used for extreme caloric restriction or unsafe weight loss practices.
         </Text>
       </ScrollView>
     </SafeAreaView>

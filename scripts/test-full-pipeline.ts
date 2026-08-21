@@ -5,7 +5,7 @@ import { parseNutrisliceWeek } from '../src/lib/nutrislice';
 import { generateInsights } from '../src/lib/insights';
 import { MealLog } from '../src/store/logStore';
 
-console.log('🐿️ Running SquirrelTrack Full Master Pipeline Test Suite...\n');
+console.log('🐿️ Running HaverTrack Full Master Pipeline Test Suite...\n');
 
 // 1. Goal Calculations
 console.log('--- TEST 1: Goal Estimation & §11 Guardrails ---');

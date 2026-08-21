@@ -33,7 +33,7 @@ export default function PrivacyPolicyScreen() {
         </View>
 
         <Text style={styles.paragraph}>
-          SquirrelTrack is an independent student application built for the Haverford and Bryn Mawr College communities. We take student privacy seriously.
+          HaverTrack is an independent student application built for the Haverford and Bryn Mawr College communities. We take student privacy seriously.
         </Text>
 
         <Text style={styles.sectionHeader}>1. Information We Collect</Text>
@@ -57,7 +57,7 @@ export default function PrivacyPolicyScreen() {
 
         <Text style={styles.sectionHeader}>4. Disclaimer</Text>
         <Text style={styles.paragraph}>
-          SquirrelTrack is not officially affiliated with or endorsed by Haverford College Dining Services.
+          HaverTrack is not officially affiliated with or endorsed by Haverford College Dining Services.
         </Text>
       </ScrollView>
     </SafeAreaView>

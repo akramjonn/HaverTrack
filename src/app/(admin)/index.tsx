@@ -69,7 +69,7 @@ export default function AdminOverviewScreen() {
       <View style={styles.headerRow}>
         <Text style={Typography.displayL}>Overview</Text>
         <Text style={[Typography.bodyS, { color: Colors.textMuted, marginTop: 4 }]}>
-          {o ? `${compactNumber(o.total_users)} students on SquirrelTrack` : 'Loading…'}
+          {o ? `${compactNumber(o.total_users)} students on HaverTrack` : 'Loading…'}
         </Text>
       </View>
 

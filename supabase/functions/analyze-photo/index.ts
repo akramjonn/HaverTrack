@@ -119,7 +119,7 @@ const GEMINI_RESPONSE_SCHEMA = {
 };
 
 function buildPrompt(menuContextText: string, describeText?: string) {
-  return `You are SquirrelTrack Vision. A student at Haverford College has ${describeText ? 'described' : 'photographed'} their meal.
+  return `You are HaverTrack Vision. A student at Haverford College has ${describeText ? 'described' : 'photographed'} their meal.
 
 STEP 1 — IDENTIFY THE FOOD ON ITS OWN MERITS.
 Work out what each distinct food item actually is, purely from what you can ${describeText ? 'read in their description' : 'see'}. Do not consult any menu for this step. Do not let the list below influence what you think the food is. If it is a burrito, say burrito — even if no burrito appears on the menu.

@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { compactNumber, fullDate, relativeTime } from '@/lib/format';
+
+// Re-exported so existing `@/lib/admin` call sites keep working unchanged —
+// these three are plain date/number formatting with no admin-specific
+// dependency, now owned by `@/lib/format`.
+export { compactNumber, fullDate, relativeTime };
 
 /**
  * Client for the admin analytics RPCs (migration 20260819010000_admin.sql).
@@ -353,41 +359,12 @@ export function useAdminAudit(limit = 15) {
 // Formatting & severity helpers
 // ---------------------------------------------------------------------------
 
-/** 1,284 → "1,284"; 12,900 → "12.9K". Keeps stat tiles from wrapping. */
-export function compactNumber(value: number | null | undefined): string {
-  if (value == null || Number.isNaN(value)) return '—';
-  const n = Number(value);
-  if (Math.abs(n) < 10_000) return n.toLocaleString();
-  if (Math.abs(n) < 1_000_000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}K`;
-  return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
-}
-
 /** "3 Aug" style short date from a YYYY-MM-DD or ISO string. */
 export function shortDate(value: string | null | undefined): string {
   if (!value) return '—';
   const date = new Date(value.length === 10 ? `${value}T12:00:00` : value);
   if (Number.isNaN(date.getTime())) return '—';
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-}
-
-export function fullDate(value: string | null | undefined): string {
-  if (!value) return '—';
-  const date = new Date(value.length === 10 ? `${value}T12:00:00` : value);
-  if (Number.isNaN(date.getTime())) return '—';
-  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
-/** "4h ago" / "3d ago". Returns "—" for nulls rather than inventing a zero. */
-export function relativeTime(value: string | null | undefined): string {
-  if (!value) return '—';
-  const then = new Date(value).getTime();
-  if (Number.isNaN(then)) return '—';
-  const minutes = Math.round((Date.now() - then) / 60_000);
-  if (minutes < 1) return 'just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 48) return `${hours}h ago`;
-  return `${Math.round(hours / 24)}d ago`;
 }
 
 /** 13 → "1 PM". Used for the peak-hours axis. */

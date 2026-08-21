@@ -199,7 +199,7 @@ export default function ScanScreen() {
       if (!permissionResult.canAskAgain) {
         Alert.alert(
           'Photo Access Off',
-          'Turn on photo access for SquirrelTrack in Settings to pick a meal photo.',
+          'Turn on photo access for HaverTrack in Settings to pick a meal photo.',
           [
             { text: 'Not now', style: 'cancel' },
             { text: 'Open Settings', onPress: () => Linking.openSettings() },
@@ -298,7 +298,7 @@ export default function ScanScreen() {
         <View style={styles.scanningOverlay}>
           <CameraOff size={28} color={Colors.gold} />
           <Text style={styles.blockerText}>
-            The browser is blocking camera access. Open SquirrelTrack over https or on
+            The browser is blocking camera access. Open HaverTrack over https or on
             localhost, or use the app on your phone.
           </Text>
           <Button
@@ -327,8 +327,8 @@ export default function ScanScreen() {
           <CameraOff size={28} color={Colors.gold} />
           <Text style={styles.blockerText}>
             {blockedForGood
-              ? 'Camera access is turned off for SquirrelTrack. Turn it on in Settings to scan your plate.'
-              : 'SquirrelTrack needs your camera to scan your plate.'}
+              ? 'Camera access is turned off for HaverTrack. Turn it on in Settings to scan your plate.'
+              : 'HaverTrack needs your camera to scan your plate.'}
           </Text>
           <Button
             label={blockedForGood ? 'Open Settings' : 'Allow camera access'}

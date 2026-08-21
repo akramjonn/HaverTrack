@@ -1,29 +1,31 @@
 {
   "expo": {
-    "name": "SquirrelTrack",
-    "slug": "squirreltrack",
+    "name": "HaverTrack",
+    "slug": "havertrack",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "squirreltrack",
+    "scheme": "havertrack",
     "userInterfaceStyle": "light",
     "ios": {
-      "bundleIdentifier": "edu.haverford.squirreltrack",
+      "bundleIdentifier": "edu.haverford.havertrack",
       "supportsTablet": false,
       "infoPlist": {
-        "NSCameraUsageDescription": "SquirrelTrack uses your camera to photograph and identify meals at the Haverford Dining Center.",
-        "NSPhotoLibraryUsageDescription": "SquirrelTrack allows you to choose meal photos from your library to log calories."
+        "NSCameraUsageDescription": "HaverTrack uses your camera to photograph and identify meals at the Haverford Dining Center.",
+        "NSPhotoLibraryUsageDescription": "HaverTrack allows you to choose meal photos from your library to log calories.",
+        "NSMotionUsageDescription": "HaverTrack uses Motion & Fitness data to show your daily steps and estimated calories burned."
       }
     },
     "android": {
-      "package": "edu.haverford.squirreltrack",
+      "package": "edu.haverford.havertrack",
       "adaptiveIcon": {
         "backgroundColor": "#FBF8F3",
         "foregroundImage": "./assets/images/adaptive-icon.png"
       },
       "permissions": [
         "CAMERA",
-        "READ_EXTERNAL_STORAGE"
+        "READ_EXTERNAL_STORAGE",
+        "ACTIVITY_RECOGNITION"
       ],
       "predictiveBackGestureEnabled": false
     },
@@ -33,6 +35,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-sensors",
       [
         "expo-splash-screen",
         {
@@ -44,13 +47,13 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "SquirrelTrack uses your camera to photograph and identify meals at the Haverford Dining Center."
+          "cameraPermission": "HaverTrack uses your camera to photograph and identify meals at the Haverford Dining Center."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "SquirrelTrack allows you to choose meal photos from your library to log calories."
+          "photosPermission": "HaverTrack allows you to choose meal photos from your library to log calories."
         }
       ]
     ],

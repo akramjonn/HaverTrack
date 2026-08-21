@@ -38,7 +38,7 @@ export interface BarcodeProduct {
 }
 
 const FETCH_TIMEOUT_MS = 4000;
-const USER_AGENT = 'SquirrelTrack/1.0 (Haverford College student project)';
+const USER_AGENT = 'HaverTrack/1.0 (Haverford College student project)';
 
 async function fetchWithTimeout(url: string, init?: RequestInit): Promise<Response | null> {
   const controller = new AbortController();

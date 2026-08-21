@@ -72,7 +72,7 @@ export default function SignInScreen() {
           <View style={styles.header}>
             <Text style={Typography.displayL}>Welcome back</Text>
             <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 8 }]}>
-              Sign in to your SquirrelTrack account.
+              Sign in to your HaverTrack account.
             </Text>
           </View>
 

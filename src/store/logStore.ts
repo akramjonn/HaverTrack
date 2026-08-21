@@ -8,6 +8,7 @@ import {
   pushWeightEntry,
   deleteMealLogRemote,
 } from '@/lib/mealLogs';
+import { loggingStreak } from '@/lib/stats';
 
 export interface LogItem {
   id: string;
@@ -46,9 +47,16 @@ export interface WeightEntry {
   weight_kg: number;
 }
 
-const LOGS_KEY = '@squirreltrack_logs';
-const WEIGHTS_KEY = '@squirreltrack_weights';
-const DELETED_KEY = '@squirreltrack_pending_deletes';
+const LOGS_KEY = '@havertrack_logs';
+const WEIGHTS_KEY = '@havertrack_weights';
+const DELETED_KEY = '@havertrack_pending_deletes';
+
+// Pre-rename keys. Kept around (read-only, never written to again) so that
+// devices with existing local-only data self-migrate on the next hydrate()
+// instead of silently losing unsynced meal logs/pending deletes.
+const LEGACY_LOGS_KEY = '@squirreltrack_logs';
+const LEGACY_WEIGHTS_KEY = '@squirreltrack_weights';
+const LEGACY_DELETED_KEY = '@squirreltrack_pending_deletes';
 
 interface LogState {
   logs: MealLog[];
@@ -58,10 +66,18 @@ interface LogState {
   syncError: string | null;
   /** client_uuids deleted locally that still need to be deleted on the server. */
   pendingDeletes: string[];
+  /**
+   * Set for one tick when `addMealLog` pushes the logging streak's `current`
+   * count higher than it was before that log — e.g. the first log of a new
+   * day. Transient: whatever reads it (the Today screen) is expected to
+   * clear it right away via `clearStreakFlag` so the celebration can't refire.
+   */
+  justCrossedStreak: boolean;
 
   hydrate: (userId: string | null) => Promise<void>;
   syncPending: (userId: string) => Promise<void>;
   addMealLog: (meal: Omit<MealLog, 'id' | 'client_uuid'>, userId?: string | null) => Promise<void>;
+  clearStreakFlag: () => void;
   updateMealLog: (id: string, meal: Partial<MealLog>, userId?: string | null) => Promise<void>;
   deleteMealLog: (id: string, userId?: string | null) => Promise<void>;
   addWeightEntry: (
@@ -128,6 +144,7 @@ export const useLogStore = create<LogState>((set, get) => ({
   isSyncing: false,
   syncError: null,
   pendingDeletes: [],
+  justCrossedStreak: false,
 
   /**
    * Shows the cached copy immediately, then reconciles with the server. Anything
@@ -135,11 +152,35 @@ export const useLogStore = create<LogState>((set, get) => ({
    */
   hydrate: async (userId) => {
     try {
-      const [cachedLogs, cachedWeights, cachedDeletes] = await Promise.all([
+      let [cachedLogs, cachedWeights, cachedDeletes] = await Promise.all([
         AsyncStorage.getItem(LOGS_KEY),
         AsyncStorage.getItem(WEIGHTS_KEY),
         AsyncStorage.getItem(DELETED_KEY),
       ]);
+
+      // Self-migrate from the pre-rename keys the first time this runs on a
+      // device that still only has local data under the old names.
+      if (!cachedLogs) {
+        const legacyLogs = await AsyncStorage.getItem(LEGACY_LOGS_KEY);
+        if (legacyLogs) {
+          cachedLogs = legacyLogs;
+          await AsyncStorage.setItem(LOGS_KEY, legacyLogs);
+        }
+      }
+      if (!cachedWeights) {
+        const legacyWeights = await AsyncStorage.getItem(LEGACY_WEIGHTS_KEY);
+        if (legacyWeights) {
+          cachedWeights = legacyWeights;
+          await AsyncStorage.setItem(WEIGHTS_KEY, legacyWeights);
+        }
+      }
+      if (!cachedDeletes) {
+        const legacyDeletes = await AsyncStorage.getItem(LEGACY_DELETED_KEY);
+        if (legacyDeletes) {
+          cachedDeletes = legacyDeletes;
+          await AsyncStorage.setItem(DELETED_KEY, legacyDeletes);
+        }
+      }
 
       if (cachedLogs) set({ logs: JSON.parse(cachedLogs) });
       if (cachedWeights) set({ weightEntries: JSON.parse(cachedWeights) });
@@ -166,7 +207,7 @@ export const useLogStore = create<LogState>((set, get) => ({
       await Promise.all([cacheLogs(logs), cacheWeights(weights)]);
     } catch (e: any) {
       // Offline is a normal state on campus; the cached copy stays usable.
-      set({ syncError: e?.message ?? 'Could not reach SquirrelTrack.' });
+      set({ syncError: e?.message ?? 'Could not reach HaverTrack.' });
     } finally {
       set({ isSyncing: false, isLoaded: true });
     }
@@ -211,10 +252,19 @@ export const useLogStore = create<LogState>((set, get) => ({
       synced: false,
     };
 
+    // Side-effect only — computed before the mutation for comparison against
+    // the post-mutation streak below. Does not affect the log write itself.
+    const streakBefore = loggingStreak(get().logs).current;
+
     // Optimistic: the meal appears the moment it is logged, then reconciles.
     const optimistic = [newLog, ...get().logs];
     set({ logs: optimistic });
     await cacheLogs(optimistic);
+
+    const streakAfter = loggingStreak(optimistic).current;
+    if (streakAfter > streakBefore) {
+      set({ justCrossedStreak: true });
+    }
 
     if (!userId) return;
 
@@ -319,4 +369,6 @@ export const useLogStore = create<LogState>((set, get) => ({
       ),
 
   clear: () => set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false }),
+
+  clearStreakFlag: () => set({ justCrossedStreak: false }),
 }));
