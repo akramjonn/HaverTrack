@@ -12,7 +12,8 @@
       "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "HaverTrack uses your camera to photograph and identify meals at the Haverford Dining Center.",
-        "NSPhotoLibraryUsageDescription": "HaverTrack allows you to choose meal photos from your library to log calories."
+        "NSPhotoLibraryUsageDescription": "HaverTrack allows you to choose meal photos from your library to log calories.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -22,8 +23,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png"
       },
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE"
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ],
       "predictiveBackGestureEnabled": false
     },
@@ -57,6 +59,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e116143a-4cc2-45c5-bb56-ec8162e1a2ea"
+      }
     }
   }
 }
