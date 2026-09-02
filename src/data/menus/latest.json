@@ -1,6 +1,6 @@
 {
-  "synced_at": "2026-08-31T15:05:32.999Z",
-  "item_count": 226,
+  "synced_at": "2026-09-02T15:57:18.350Z",
+  "item_count": 305,
   "items": [
     {
       "nutrislice_id": 2072925,
@@ -23,7 +23,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -47,7 +47,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -74,7 +74,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -93,7 +93,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -115,7 +115,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -134,7 +134,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -158,7 +158,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -181,7 +181,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072971,
@@ -205,7 +205,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072957,
@@ -224,7 +224,7 @@
       "fat_g": 20,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -243,7 +243,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -265,7 +265,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073023,
@@ -289,7 +289,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -311,7 +311,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -335,7 +335,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073164,
@@ -359,7 +359,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2358299,
@@ -378,7 +378,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -401,7 +401,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -425,7 +425,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -452,7 +452,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -471,7 +471,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -493,7 +493,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -512,7 +512,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -536,7 +536,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -559,7 +559,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -585,7 +585,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -604,7 +604,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -623,7 +623,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -645,7 +645,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073023,
@@ -669,7 +669,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -691,7 +691,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -715,7 +715,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -738,7 +738,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -762,7 +762,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -789,7 +789,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -808,7 +808,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -830,7 +830,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -849,7 +849,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -873,7 +873,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -896,7 +896,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072975,
@@ -921,7 +921,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072956,
@@ -940,7 +940,7 @@
       "fat_g": 6,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072967,
@@ -959,7 +959,7 @@
       "fat_g": 9,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -981,7 +981,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2298527,
@@ -1005,7 +1005,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1027,7 +1027,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1051,7 +1051,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -1074,7 +1074,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -1098,7 +1098,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -1125,7 +1125,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -1144,7 +1144,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -1166,7 +1166,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -1185,7 +1185,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -1209,7 +1209,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -1232,7 +1232,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -1258,7 +1258,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -1277,7 +1277,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2324155,
@@ -1296,7 +1296,7 @@
       "fat_g": 2.5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -1318,7 +1318,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2298527,
@@ -1342,7 +1342,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1364,7 +1364,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1388,7 +1388,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -1411,7 +1411,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -1435,7 +1435,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -1462,7 +1462,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -1481,7 +1481,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -1503,7 +1503,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -1522,7 +1522,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -1546,7 +1546,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072951,
@@ -1568,7 +1568,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072974,
@@ -1594,7 +1594,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072957,
@@ -1613,7 +1613,7 @@
       "fat_g": 20,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -1632,7 +1632,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -1654,7 +1654,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2298530,
@@ -1678,7 +1678,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1700,7 +1700,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1724,7 +1724,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:21.802Z"
+      "synced_at": "2026-09-02T15:57:13.959Z"
     },
     {
       "nutrislice_id": 2073479,
@@ -1743,7 +1743,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074030,
@@ -1766,7 +1766,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074118,
@@ -1790,7 +1790,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2358457,
@@ -1809,7 +1809,7 @@
       "fat_g": 3.7,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2330383,
@@ -1835,7 +1835,7 @@
         "Peanuts",
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -1858,7 +1858,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073625,
@@ -1879,7 +1879,7 @@
       "allergens": [
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073614,
@@ -1902,7 +1902,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1927,7 +1927,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073215,
@@ -1951,7 +1951,7 @@
         "Wheat",
         "Fish"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073191,
@@ -1974,7 +1974,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073194,
@@ -1997,7 +1997,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073195,
@@ -2020,7 +2020,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073406,
@@ -2039,7 +2039,7 @@
       "fat_g": 48,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2072916,
@@ -2061,7 +2061,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074137,
@@ -2085,7 +2085,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074199,
@@ -2107,7 +2107,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073028,
@@ -2131,7 +2131,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073130,
@@ -2153,7 +2153,194 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073604,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Mushroom & Pepperoni Pizza",
+      "description": "13539DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.), Mushrooms,Canned,Incl Liquids",
+      "serving_size": "1 slice",
+      "calories": 278,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073612,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Vegetable Pizza",
+      "description": "13374DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Onions,Fresh,Jumbo (onions 2018 BP), Mushrooms,Fresh,Whole (mushrooms), Peppers,Red,Fresh (pepper), Peppers,Green,Fresh (green peppers 2018 BP), Spinach,Fresh,Bunch",
+      "serving_size": "1 slice",
+      "calories": 256,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073204,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
+      "protein_g": null,
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073234,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Turkey Bacon & Avocado Wrap",
+      "description": "14351DC",
+      "ingredients": "Tortilla,Wrap,Sundried Tomato,12\" (USFOODS 3208402:BLEACHED ENRICHED WHEAT FLOUR WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID, WATER, BLEND OF VEGETABLE OILS SOYBEAN OIL AND HYDROGENATED COTTONSEED OIL, TOMATO POWDER EXTENDER SEASONING [TOMATO POWDER, CORN STARCH, SUGAR, CITRIC ACID, SALT, NATURAL AND ARTIFICIAL FLAVORS, EXTRACTIVE OF ANNATTO COLOR, EXTRACTIVE OF PAPRIKA COLOR, RED 40 LAKE, SILICON DIOXIDE ANTICAKING AGENT], CONTAINS 2 OR LESS OF THE FOLLOWING: LEAVENING SODIUM BICARBONATE, SODIUM ACID PYROPHOSPHATE, CORN STARCH, MONOCALCIUM PHOSPHATE, SALT, FUMARIC ACID, DOUGH CONDITIONER WHEAT FLOUR, CALCIUM SULFATE, SORBIC ACID, MONO AND DIGLYCERIDES, CALCIUM PROPIONATE PRESERVATIVE, CELLULOSE GUM, POTASSIUM SORBATE PRESERVATIVE. JAN 2021\r\n), Turkey,Breast,Deli,Cooked (TURKEY BREAST, WATER, SEA SALT, VINEGAR  2018 BP), Tomato,Fresh,6X6 (tomato 2018 BP), Bacon Rnch DCC [Salad Dressing,Ranch,Hidden Valley (Sysco 1478189 Ingredients: Soybean Oil, Water, Buttermilk (Cultured Pasteurized Skim Milk And Milk, Sodium Citrate And Salt), Ranch Seasoning & Spices (Salt, Modified Food Starch, Monosodium Glutamite, Sugar, Garlic*, Onion, Whey Protein Concentrate, Dextrose, Spices, less than 2% of Natural Flavor, Xanthan Gum, Citric Acid, Artificial Flavor, Soybean Oil, Calcium Stearate, Sorbic Acid [Preservative], Calcium Disodium EDTA [To Protect Flavor]), Egg Yolks, contains less than 2% of Natural Flavor, Distilled Vinegar, Xanthan Gum. *Dehydrated. Manufactured in a facility that produces gluten products. Contains: Egg, Milk, Soy. 2014.\r\n\r\nUS Foods 43547 Ingredients: SOYBEAN OIL, WATER, EGG YOLKS, SUGAR, VINEGAR, CONTAINS LESS THAN 2% OF SALT, BUTTERMILK, LEMON JUICE CONCENTRATE, LACTIC ACID, XANTHAN GUM, SPICE, SORBIC ACID AND CALCIUM DISODIUM EDTA AS PRESERVATIVES, DRIED GARLIC, DISODIUM GUANYLATE, DISODIUM INOSINATE, NATURAL FLAVOR, AND ARTIFICIAL FLAVOR. Contains: Egg, Milk. 2014.), Bacon,Raw,Sliced,15/19 (USFOODS 6285340:CURED WITH WATER, SALT, SUGAR, SODIUM PHOSPHATES, SODIUM ERYTHORBATE, SODIUM NITRITE. FEB 2021)], Avocado,Diced, Frozen (USFOODS 8951444:AVOCADO, SALT, ASCORBIC ACID TO MAINTAIN NATURAL COLOR, CITRIC ACID), Lettuce,Green Leaf,Fresh,Head (lettuce)",
+      "serving_size": "1 each",
+      "calories": 339,
+      "protein_g": 41,
+      "carbs_g": 55,
+      "fat_g": 25,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073191,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Italian Hoagie",
+      "description": "13028DC",
+      "ingredients": "Lettuce,Iceberg,Fresh,Pre-Shredded, Pork,Ham,Deli,Cooked,4x6 (PORK, WATER, CANE SUGAR, SALT, NATURAL FLAVOR.  2018 BP), Pork,Soppressata,3/8-9# (Pork, Salt, Contains less than 2% of the Following: Dextrose, Natural Flavoring, Wine, Garlic, Lactic Acid Starter Culture, Potassium Nitrate, Sodium Nitrite.\r\nAlle), Pork,Ham,Capicola (Sysco 1632041: Ham CURED WITH: WATER, DEXTROSE, SALT, CONTAINS LESS THAN 2% OF MODIFIED FOOD STARCH, SUGAR, SODIUM PHOSPHATE, FLAVORING, SODIUM ERYTHORBATE, SODIUM NITRITE, SODIUM ASCORBATE  2018 BP), Cheese,Provolone (US Foods 8327249: UNSMOKED PASTEURIZED MILK, CHEESE CULTURES, SALT, AND ENZYMES, POWDERED CELLULOSE TO PREVENT CAKING, NATAMYCIN TO PROTECT FLAVOR OR CULTURED PASTEURIZED MILK, SALT, ENZYMES. SMOKE: PASTEURIZED MILK, CHEESE CULTURES, SALT, ENZYMES, AND ARTIFICIAL OR NATURAL SMOKE FLAVOR. Contains: Milk. 2014.), Tomato,Fresh,6X6 (tomato 2018 BP), Basil,Dried,Leaves (Basil dried leaves..), Oregano,Dried,Crushed (Oregano.), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "1 piece",
+      "calories": 528,
+      "protein_g": 54,
+      "carbs_g": 24,
+      "fat_g": 29,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073195,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Turkey Hoagie",
+      "description": "13027DC",
+      "ingredients": "Tomato,Fresh,6X6 (tomato 2018 BP), Turkey,Breast,Deli,Cooked (TURKEY BREAST, WATER, SEA SALT, VINEGAR  2018 BP), Cheese,American,White,Pre-Sliced,KRAFT (US Foods 3152: INGREDIENTS: CHEDDAR CHEESE MILK, CHEESE CULTURE, SALT, ENZYMES, MILKFAT, WATER, SODIUM CITRATE, CALCIUM PHOSPHATE, SALT, SODIUM PHOSPHATE, SORBIC ACID AS A PRESERVATIVE, VITAMIN D3, WITH SUNFLOWER LECITHIN ADDED FOR SLICE SEPARATION   Contains: Milk. 2018 BP), Lettuce,Iceberg,Fresh,Pre-Shredded, Onions,Fresh,Jumbo (onions 2018 BP), Oregano,Dried,Crushed (Oregano.), Basil,Dried,Leaves (Basil dried leaves..), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "5 each",
+      "calories": 3657,
+      "protein_g": 282,
+      "carbs_g": 393,
+      "fat_g": 118,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073194,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-01",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Ham Hoagie",
+      "description": "13399DC",
+      "ingredients": "Tomato,Fresh,6X6 (tomato 2018 BP), Pork,Ham,Cured, Cheese,Swiss,Light,Alpine Lace (Cultured reduced fat milk, salt, enzymes, vitamin A palmitate (not found in regular Swiss cheese). CONTAINS: Milk 2018 BP), Lettuce,Iceberg,Fresh,Head (Lettuce.), Onions,Fresh,Jumbo (onions 2018 BP), Oregano,Dried,Crushed (Oregano.), Basil,Dried,Leaves (Basil dried leaves..), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "6 oz",
+      "calories": 454,
+      "protein_g": 31,
+      "carbs_g": 32,
+      "fat_g": 21,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073421,
@@ -2172,7 +2359,7 @@
       "fat_g": 14,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074029,
@@ -2196,7 +2383,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074255,
@@ -2220,7 +2407,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074261,
@@ -2243,7 +2430,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074207,
@@ -2254,18 +2441,18 @@
       "station_id": 78547,
       "dish_name": "Peas with Mushrooms & Onions",
       "description": "1134",
-      "ingredients": "Peas & Pearl Onions,Frozen (Peas, Pearl Onions, Salt.), Mushrooms,Fresh,Whole (mushrooms)",
+      "ingredients": "Peas & Pearl Onions,Frozen (Peas, Pearl Onions, Salt.), Mushrooms,Canned,Sliced,Incl Liquids, Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Pepper,Black,Ground (Ground black pepper.)",
       "serving_size": "3 oz",
-      "calories": 59,
-      "protein_g": 4,
-      "carbs_g": 11,
-      "fat_g": 0.3,
+      "calories": 71,
+      "protein_g": 3,
+      "carbs_g": 12,
+      "fat_g": 1.4,
       "dietary_tags": [
         "Vegan",
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2072909,
@@ -2287,7 +2474,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073041,
@@ -2311,7 +2498,31 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2074019,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Club Roll",
+      "description": "0159",
+      "ingredients": "Roll,Club,Sliced,3.5\" (ROLL:Petros AO07P: ENRICHED WHEAT FLOUR (WHEAT FLOUR, NIACIN, FERROUS SULFATE, THIAMINE MONOITRATE, RIBOFLAVIN, FOLIC ACID) WATER CONTAINS 2% OR LESS OF EACH OF THE FOLLOWING: SALT, YEAST, WHEY (MILK), SUGAR CORN STARCH, SOYBEAN OIL, DIACETYL TARTARIC, ACID ESTERS OF MONODIGLYCERIDES (DATEM), DEXTROSE, POTASSIUM BROMATE, ASCORBIC ACID, L-CYSTEINE, ENZYMES. Ingredients made in a facility that processes: Sesame \r\nContains: Milk, Soy, Wheat. 2014)",
+      "serving_size": "1 each",
+      "calories": 90,
+      "protein_g": 2,
+      "carbs_g": 15,
+      "fat_g": 2.1,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073132,
@@ -2333,7 +2544,189 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073204,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
+      "protein_g": null,
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073240,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Chicken & Boursin Cheese Wrap",
+      "description": "14349DC",
+      "ingredients": "Peppers,Red,Roasted,Canned,Incl Liquids large can (Red Peppers,Water, Salt, Citric Acid , Calcium Chloride), Tortilla,Wrap,Sundried Tomato,12\" (USFOODS 3208402:BLEACHED ENRICHED WHEAT FLOUR WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID, WATER, BLEND OF VEGETABLE OILS SOYBEAN OIL AND HYDROGENATED COTTONSEED OIL, TOMATO POWDER EXTENDER SEASONING [TOMATO POWDER, CORN STARCH, SUGAR, CITRIC ACID, SALT, NATURAL AND ARTIFICIAL FLAVORS, EXTRACTIVE OF ANNATTO COLOR, EXTRACTIVE OF PAPRIKA COLOR, RED 40 LAKE, SILICON DIOXIDE ANTICAKING AGENT], CONTAINS 2 OR LESS OF THE FOLLOWING: LEAVENING SODIUM BICARBONATE, SODIUM ACID PYROPHOSPHATE, CORN STARCH, MONOCALCIUM PHOSPHATE, SALT, FUMARIC ACID, DOUGH CONDITIONER WHEAT FLOUR, CALCIUM SULFATE, SORBIC ACID, MONO AND DIGLYCERIDES, CALCIUM PROPIONATE PRESERVATIVE, CELLULOSE GUM, POTASSIUM SORBATE PRESERVATIVE. JAN 2021\r\n), Chicken,Cooked,Fajita,Frozen (BONELESS, SKINLESS CHICKEN BREAST STRIPS WITH RIB MEAT, WATER, MODIFIED FOOD STARCH, SEASONING [MALTODEXTRIN, SALT, SUGAR, FLAVORS, VEGETABLE STOCK (CARROT, ONION, CELERY), CARROT POWDER, GARLIC POWDER], VINEGAR, SODIUM PHOSPHATES, SALT.), Spinach,Fresh,Baby,HC (Baby spinach), Onions,Fresh,Red (red onion 2018 BP), Cheese,Boursin (Sysco:Date:7.27.2021:Code:1177559: PASTEURIZED CULTURED MILK AND CREAM, GARLIC*,\r\nSALT, WHITE PEPPER, PARSLEY, CHIVES*. *DRIED\r\nCONTAINS: MILK), Garlic Cloves,Fresh (garlic), Oil,Olive,Pure Italy (HC) (Sysco 5847029: Olive oil. 2018. BP), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground,Table (HC) (Sysco 5935689: Black ground peppper. 2014.)",
+      "serving_size": "1 each",
+      "calories": 275,
+      "protein_g": 35,
+      "carbs_g": 57,
+      "fat_g": 18,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073191,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Italian Hoagie",
+      "description": "13028DC",
+      "ingredients": "Lettuce,Iceberg,Fresh,Pre-Shredded, Pork,Ham,Deli,Cooked,4x6 (PORK, WATER, CANE SUGAR, SALT, NATURAL FLAVOR.  2018 BP), Pork,Soppressata,3/8-9# (Pork, Salt, Contains less than 2% of the Following: Dextrose, Natural Flavoring, Wine, Garlic, Lactic Acid Starter Culture, Potassium Nitrate, Sodium Nitrite.\r\nAlle), Pork,Ham,Capicola (Sysco 1632041: Ham CURED WITH: WATER, DEXTROSE, SALT, CONTAINS LESS THAN 2% OF MODIFIED FOOD STARCH, SUGAR, SODIUM PHOSPHATE, FLAVORING, SODIUM ERYTHORBATE, SODIUM NITRITE, SODIUM ASCORBATE  2018 BP), Cheese,Provolone (US Foods 8327249: UNSMOKED PASTEURIZED MILK, CHEESE CULTURES, SALT, AND ENZYMES, POWDERED CELLULOSE TO PREVENT CAKING, NATAMYCIN TO PROTECT FLAVOR OR CULTURED PASTEURIZED MILK, SALT, ENZYMES. SMOKE: PASTEURIZED MILK, CHEESE CULTURES, SALT, ENZYMES, AND ARTIFICIAL OR NATURAL SMOKE FLAVOR. Contains: Milk. 2014.), Tomato,Fresh,6X6 (tomato 2018 BP), Basil,Dried,Leaves (Basil dried leaves..), Oregano,Dried,Crushed (Oregano.), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "1 piece",
+      "calories": 528,
+      "protein_g": 54,
+      "carbs_g": 24,
+      "fat_g": 29,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073194,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Ham Hoagie",
+      "description": "13399DC",
+      "ingredients": "Tomato,Fresh,6X6 (tomato 2018 BP), Pork,Ham,Cured, Cheese,Swiss,Light,Alpine Lace (Cultured reduced fat milk, salt, enzymes, vitamin A palmitate (not found in regular Swiss cheese). CONTAINS: Milk 2018 BP), Lettuce,Iceberg,Fresh,Head (Lettuce.), Onions,Fresh,Jumbo (onions 2018 BP), Oregano,Dried,Crushed (Oregano.), Basil,Dried,Leaves (Basil dried leaves..), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "6 oz",
+      "calories": 454,
+      "protein_g": 31,
+      "carbs_g": 32,
+      "fat_g": 21,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073195,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Turkey Hoagie",
+      "description": "13027DC",
+      "ingredients": "Tomato,Fresh,6X6 (tomato 2018 BP), Turkey,Breast,Deli,Cooked (TURKEY BREAST, WATER, SEA SALT, VINEGAR  2018 BP), Cheese,American,White,Pre-Sliced,KRAFT (US Foods 3152: INGREDIENTS: CHEDDAR CHEESE MILK, CHEESE CULTURE, SALT, ENZYMES, MILKFAT, WATER, SODIUM CITRATE, CALCIUM PHOSPHATE, SALT, SODIUM PHOSPHATE, SORBIC ACID AS A PRESERVATIVE, VITAMIN D3, WITH SUNFLOWER LECITHIN ADDED FOR SLICE SEPARATION   Contains: Milk. 2018 BP), Lettuce,Iceberg,Fresh,Pre-Shredded, Onions,Fresh,Jumbo (onions 2018 BP), Oregano,Dried,Crushed (Oregano.), Basil,Dried,Leaves (Basil dried leaves..), Bread,French,Wide,Loaf (Petros A034: Enriched wheat flour (wheat flour, niacin, ferrous sulfate, thiamine monoitrate, riboflavin, folic acid), water, contains 2% or less of each of the following: salt, yeast, whey (milk), sugar, corn starch, soybean oil, diacetyl tartaric, acid esters of monodiglycerides (datem), dextrose, potassium bromate, ascorbic acid, L-cysteine. \r\n\r\nContains: Milk, Soy, Wheat. \r\nAllergens present in facility: Egg, Milk, Tree nuts, Soy, Wheat, Sesame)",
+      "serving_size": "5 each",
+      "calories": 3657,
+      "protein_g": 282,
+      "carbs_g": 393,
+      "fat_g": 118,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073602,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Mushroom Pizza*",
+      "description": "13211DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Mushrooms,Canned,Incl Liquids",
+      "serving_size": "1 slice",
+      "calories": 254,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2141648,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #2",
+      "description": "14481DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073419,
@@ -2359,7 +2752,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074147,
@@ -2381,7 +2774,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074023,
@@ -2407,7 +2800,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073686,
@@ -2429,7 +2822,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073129,
@@ -2452,7 +2845,108 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2142086,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-03",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Deli Salad du jour #1",
+      "description": "14482DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2143244,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-03",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Sandwich du jour #1",
+      "description": "14483DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2141647,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #1",
+      "description": "14480DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2141648,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #2",
+      "description": "14481DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.157Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "lunch",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073453,
@@ -2476,7 +2970,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074051,
@@ -2501,7 +2995,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074039,
@@ -2525,7 +3019,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -2547,7 +3041,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2074231,
@@ -2569,7 +3063,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2217857,
@@ -2591,7 +3085,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:25.251Z"
+      "synced_at": "2026-09-02T15:57:15.157Z"
     },
     {
       "nutrislice_id": 2073426,
@@ -2615,7 +3109,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074034,
@@ -2639,7 +3133,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073458,
@@ -2662,7 +3156,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074203,
@@ -2686,7 +3180,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073599,
@@ -2712,7 +3206,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073217,
@@ -2735,7 +3229,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -2759,7 +3253,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -2783,7 +3277,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -2805,7 +3299,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -2829,7 +3323,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -2853,7 +3347,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073405,
@@ -2872,7 +3366,7 @@
       "fat_g": 41,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073445,
@@ -2894,7 +3388,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2298526,
@@ -2916,7 +3410,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074003,
@@ -2940,7 +3434,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073538,
@@ -2962,7 +3456,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350547,
@@ -2981,7 +3475,7 @@
       "fat_g": 16,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350549,
@@ -3000,7 +3494,7 @@
       "fat_g": 0.3,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073666,
@@ -3024,7 +3518,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -3046,7 +3540,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074066,
@@ -3068,7 +3562,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074059,
@@ -3090,7 +3584,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074060,
@@ -3112,7 +3606,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072906,
@@ -3134,7 +3628,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -3156,7 +3650,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073743,
@@ -3180,7 +3674,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074062,
@@ -3204,7 +3698,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074069,
@@ -3229,7 +3723,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074065,
@@ -3253,7 +3747,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -3276,7 +3770,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -3300,7 +3794,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -3322,7 +3816,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -3346,7 +3840,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -3370,7 +3864,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -3394,7 +3888,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073625,
@@ -3415,7 +3909,7 @@
       "allergens": [
         "Tree Nuts"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073614,
@@ -3438,7 +3932,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -3463,7 +3957,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073507,
@@ -3486,7 +3980,7 @@
         "Wheat",
         "Fish"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073046,
@@ -3510,7 +4004,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074145,
@@ -3532,7 +4026,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074002,
@@ -3555,7 +4049,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072917,
@@ -3577,7 +4071,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350547,
@@ -3596,7 +4090,7 @@
       "fat_g": 16,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350549,
@@ -3615,7 +4109,7 @@
       "fat_g": 0.3,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073666,
@@ -3639,7 +4133,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -3661,7 +4155,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074066,
@@ -3683,7 +4177,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074059,
@@ -3705,7 +4199,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074060,
@@ -3727,7 +4221,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072906,
@@ -3749,7 +4243,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -3771,7 +4265,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073743,
@@ -3795,7 +4289,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074062,
@@ -3819,7 +4313,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074069,
@@ -3844,7 +4338,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074065,
@@ -3868,7 +4362,219 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073204,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
+      "protein_g": null,
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2072922,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pasta",
+      "description": "13357DC",
+      "ingredients": "Water,Tap (Ingredients: Water.   11/4/16), Pasta,Rotini,Dry - HC (DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. PROCESSED IN A FACILITY THAT USES EGG.), Pasta,Shells,Medium,Dry - HC (Sysco 4786943: DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. PROCESSED IN A FACILITY THAT USES EGG.), Pasta,Orzo,Dry (DURUM WHEAT SEMOLINA,NIACIN,IRON (FERROUS SULFATE),THIAMIN MONONITRATE (VITAMIN B1),RIBOFLAVIN (VITAMIN B2),FOLIC ACID\r\nIngredienst made ijn a facility that proccesses : EGG), Noodles,Lomein, Chinese, FZN * - HC (BLEACHED WHEAT FLOUR, WATER, DEHYDRATED WHOLE EGG, CORN STARCH, DEHYDRATED EGG WHITE, SALT, SODIUM BENZOATE, FD&C YELLOW #5 AND FD&C YELLOW #6.), Pasta,Linguini,10\",Dry - HC (DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT.  PROCESSED IN A FACILITY THAT USES EGG.), Noodles,Rice Stick (Sysco 1470638: Rice flour, water.), 5204551 (Sysco 5588017: Semolina, Durum Flour, Spinach Powder, Tomato Powder, Niacin, Ferrous Sulfate (Iron), Thiamine Mononitrate, Riboflavin, Folic Acid. Contains: Wheat. 2022.\r\nPROCESSED IN A FACILITY THAT USES EGGS.), Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Pasta,Penne Rigate,Dry - HC (SEMOLINA (WHEAT), NIACIN, FERROUS SULFATE (IRON), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. \r\n\r\nPROCESSED IN A FACILITY THAT USES EGG.), Pasta,Spaghetti,Thin,Dry (Sysco 4862983: DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. \r\n\r\nCONTAINS: WHEAT. \r\nPROCESSED IN A FACILITY THAT USES EGG.), Noodles,Soba,Buckwheat (Sysco 5222668: Enriched Wheat Flour (Flour, Niacin, Reduced Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Buckwheat Flour, Water, Wheat Gluten, Salt, Soybean Oil.  CONTAINS: WHEAT.  2018 BP)",
+      "serving_size": "4 oz",
+      "calories": 661,
+      "protein_g": 21,
+      "carbs_g": 137,
+      "fat_g": 2.9,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Egg",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073596,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Marinara",
+      "description": "13424DC",
+      "ingredients": "Sauce,Marinara,Canned - HC (VINE-RIPENED FRESH TOMATOES, BLEND OF EXTRA VIRGIN OLIVE OIL AND SUNFLOWER OIL, SALT, ONIONS, BLACK PEPPER, BASIL, OREGANO, PARSLEY, AND NATURALLY DERIVED CITRIC ACID.)",
+      "serving_size": "2 oz",
+      "calories": 28,
+      "protein_g": 1,
+      "carbs_g": 7,
+      "fat_g": 0,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073597,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pesto Sauce",
+      "description": "4640",
+      "ingredients": "Sauce,Pesto,Nut Free (USFoods 2334068: BASIL, SOY OIL, ROMANO CHEESE (SHEEP'S MILK, CHEESE CULTURE, SALT, RENNET, CELLULOSE, CALCIUM PROPIONATE), WATER, OLIVE OIL, PARMASEAN CHEESE (CULTURED PART SKIM MILK, SALT, ENZYMES, POWDERED CELLULOSE), MINCED GARLIC, SALT, BLACK PEPPER  Contains: milk  2018 BP)",
+      "serving_size": "1 oz",
+      "calories": 189,
+      "protein_g": 2,
+      "carbs_g": 6,
+      "fat_g": 17,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073484,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Alfredo Sauce",
+      "description": "13840DC",
+      "ingredients": "Milk,Reduced Fat,2%,Dispenser (Ingredients: Reduced fat milk, vitamin A Palmitate, Vitamin D3.   11/5/16), Cream,Heavy,Whipping (HC) (Heavy Cream (Milk), Milk, Contains less than 0.5% of: Carrageenan, Mono and Diglycerides, Polysorbate 80.), Cheese,Parmesan,Grated (US Foods 5851449: IMPORTED PARMESAN CHEESE: PASTEURIZED PART-SKIM COW�S MILK, CHEESE CULTURES, SALT, ENZYMES, PARMESAN STYLE CHEESE: FOOD STARCH, WATER, CELLULOSE, MILKFAT, SALT, SODIUM PHOSPHATE, CULTURED MILK, ANNATTO, POWDERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN A NATURAL MOLD INHIBITOR. Contains Milk.   2018 BP\r\n\r\n), Cornstarch (USFOODS 1651712: CORN STARCH \r\nJAN 2019), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "3 oz",
+      "calories": 108,
+      "protein_g": 6,
+      "carbs_g": 8,
+      "fat_g": 6,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073630,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Grated Parmesan",
+      "description": "13497DC",
+      "ingredients": "Cheese,Parmesan,Grated (US Foods 5851449: IMPORTED PARMESAN CHEESE: PASTEURIZED PART-SKIM COW�S MILK, CHEESE CULTURES, SALT, ENZYMES, PARMESAN STYLE CHEESE: FOOD STARCH, WATER, CELLULOSE, MILKFAT, SALT, SODIUM PHOSPHATE, CULTURED MILK, ANNATTO, POWDERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN A NATURAL MOLD INHIBITOR. Contains Milk.   2018 BP\r\n\r\n)",
+      "serving_size": "1 each",
+      "calories": 119,
+      "protein_g": 8,
+      "carbs_g": 4,
+      "fat_g": 8,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073604,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Mushroom & Pepperoni Pizza",
+      "description": "13539DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.), Mushrooms,Canned,Incl Liquids",
+      "serving_size": "1 slice",
+      "calories": 278,
+      "protein_g": 12,
+      "carbs_g": 31,
+      "fat_g": 12,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073612,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Vegetable Pizza",
+      "description": "13374DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Onions,Fresh,Jumbo (onions 2018 BP), Mushrooms,Fresh,Whole (mushrooms), Peppers,Red,Fresh (pepper), Peppers,Green,Fresh (green peppers 2018 BP), Spinach,Fresh,Bunch",
+      "serving_size": "1 slice",
+      "calories": 256,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-01",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073402,
@@ -3887,7 +4593,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072916,
@@ -3909,7 +4615,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2298529,
@@ -3931,7 +4637,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074004,
@@ -3955,29 +4661,29 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
-      "nutrislice_id": 2074202,
+      "nutrislice_id": 2074207,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-09-02",
       "station_name": "The Main Line",
       "station_id": 78547,
-      "dish_name": "Seasoned Green Beans",
-      "description": "13484DC",
-      "ingredients": "Beans,Green,Fresh,Snipped, Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground,Table (HC) (Sysco 5935689: Black ground peppper. 2014.)",
+      "dish_name": "Peas with Mushrooms & Onions",
+      "description": "1134",
+      "ingredients": "Peas & Pearl Onions,Frozen (Peas, Pearl Onions, Salt.), Mushrooms,Canned,Sliced,Incl Liquids, Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Pepper,Black,Ground (Ground black pepper.)",
       "serving_size": "3 oz",
-      "calories": 49,
-      "protein_g": 2,
-      "carbs_g": 7,
-      "fat_g": 2.5,
+      "calories": 71,
+      "protein_g": 3,
+      "carbs_g": 12,
+      "fat_g": 1.4,
       "dietary_tags": [
         "Vegan",
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324159,
@@ -3999,7 +4705,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324156,
@@ -4021,7 +4727,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350548,
@@ -4045,7 +4751,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -4067,7 +4773,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2355659,
@@ -4088,7 +4794,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324158,
@@ -4107,7 +4813,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350551,
@@ -4131,7 +4837,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -4153,7 +4859,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324157,
@@ -4175,7 +4881,120 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073204,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-02",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
+      "protein_g": null,
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073602,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Mushroom Pizza*",
+      "description": "13211DC",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.), Mushrooms,Canned,Incl Liquids",
+      "serving_size": "1 slice",
+      "calories": 254,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2141648,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #2",
+      "description": "14481DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-02",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2362311,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-02",
+      "station_name": "Dessert Station",
+      "station_id": 88537,
+      "dish_name": "Mini Apple Cinnamon Muffin",
+      "description": "14548DC",
+      "ingredients": "Cinnamon Apple Mini Muffins DC (Sugar, apple puree, WHEAT flour, rapeseed oil, apple pieces (appie, sugar, ascorpic acid (antioxidant)), EGG white, EGG, water, modified starch, BUTTER, powdered WHEY, dietary fatty acid mono-and diglycerides, fatty acid propylene glycol esters (emulsifiers), metalic salts of diphosphates, sodium carbonate (raising agents), cinnamon, salt, WHEAT gluten, citric acid (acidifier), natural flavor, potassium sorbate (preservative), ascorbic acid (antioxidant).\r\n\r\nContains: wheat, egg, milk\r\nMade in a facility that processes: Nuts, Sesame, Soya)",
+      "serving_size": "1 oz",
+      "calories": 3735,
+      "protein_g": 47,
+      "carbs_g": 584,
+      "fat_g": 140,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073413,
@@ -4198,7 +5017,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073083,
@@ -4220,7 +5039,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074012,
@@ -4245,7 +5064,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074242,
@@ -4270,7 +5089,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074199,
@@ -4292,7 +5111,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324159,
@@ -4314,7 +5133,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324156,
@@ -4336,7 +5155,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350548,
@@ -4360,7 +5179,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -4382,7 +5201,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2355659,
@@ -4403,7 +5222,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324158,
@@ -4422,7 +5241,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2350551,
@@ -4446,7 +5265,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -4468,7 +5287,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2324157,
@@ -4490,7 +5309,89 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2142086,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-03",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Deli Salad du jour #1",
+      "description": "14482DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2141647,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #1",
+      "description": "14480DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2141648,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #2",
+      "description": "14481DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-03",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073408,
@@ -4514,7 +5415,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2298531,
@@ -4538,7 +5439,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074046,
@@ -4560,7 +5461,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2074247,
@@ -4582,7 +5483,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -4606,7 +5507,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -4630,7 +5531,405 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:28.635Z"
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073597,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pesto Sauce",
+      "description": "4640",
+      "ingredients": "Sauce,Pesto,Nut Free (USFoods 2334068: BASIL, SOY OIL, ROMANO CHEESE (SHEEP'S MILK, CHEESE CULTURE, SALT, RENNET, CELLULOSE, CALCIUM PROPIONATE), WATER, OLIVE OIL, PARMASEAN CHEESE (CULTURED PART SKIM MILK, SALT, ENZYMES, POWDERED CELLULOSE), MINCED GARLIC, SALT, BLACK PEPPER  Contains: milk  2018 BP)",
+      "serving_size": "1 oz",
+      "calories": 189,
+      "protein_g": 2,
+      "carbs_g": 6,
+      "fat_g": 17,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073596,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Marinara",
+      "description": "13424DC",
+      "ingredients": "Sauce,Marinara,Canned - HC (VINE-RIPENED FRESH TOMATOES, BLEND OF EXTRA VIRGIN OLIVE OIL AND SUNFLOWER OIL, SALT, ONIONS, BLACK PEPPER, BASIL, OREGANO, PARSLEY, AND NATURALLY DERIVED CITRIC ACID.)",
+      "serving_size": "2 oz",
+      "calories": 28,
+      "protein_g": 1,
+      "carbs_g": 7,
+      "fat_g": 0,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073484,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Alfredo Sauce",
+      "description": "13840DC",
+      "ingredients": "Milk,Reduced Fat,2%,Dispenser (Ingredients: Reduced fat milk, vitamin A Palmitate, Vitamin D3.   11/5/16), Cream,Heavy,Whipping (HC) (Heavy Cream (Milk), Milk, Contains less than 0.5% of: Carrageenan, Mono and Diglycerides, Polysorbate 80.), Cheese,Parmesan,Grated (US Foods 5851449: IMPORTED PARMESAN CHEESE: PASTEURIZED PART-SKIM COW�S MILK, CHEESE CULTURES, SALT, ENZYMES, PARMESAN STYLE CHEESE: FOOD STARCH, WATER, CELLULOSE, MILKFAT, SALT, SODIUM PHOSPHATE, CULTURED MILK, ANNATTO, POWDERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN A NATURAL MOLD INHIBITOR. Contains Milk.   2018 BP\r\n\r\n), Cornstarch (USFOODS 1651712: CORN STARCH \r\nJAN 2019), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "3 oz",
+      "calories": 108,
+      "protein_g": 6,
+      "carbs_g": 8,
+      "fat_g": 6,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2141647,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #1",
+      "description": "14480DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2141648,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pizza du jour #2",
+      "description": "14481DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073600,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Fresh Baked Cheese Pizza",
+      "description": "5477",
+      "ingredients": "pizza, cheese 4 way, 16\" frozen, villa prima (US Foods 1404391: INGREDIENTS: ENRICHED FLOUR (WHEAT FLOUR, MALTED BARLEY FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID), TOMATOES (WATER, TOMATO PASTE), LOW MOISTURE PART SKIM MOZZARELLA CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), CHEDDAR CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, ANNATTO [COLOR]), YEAST, CONTAINS 2% OR LESS OF: CORNMEAL, PARMESAN CHEESE (CULTURED PASTEURIZED PART SKIM MILK, SALT, ENZYMES), SHORTENING (PALM OIL, NATURAL FLAVOR, SOY LECITHIN), SMOKE-FLAVORED PROVOLONE CHEESE (CULTURED PASTEURIZED MILK, SALT, ENZYMES, SMOKE FLAVORING), SUGAR, NATURAL FLAVOR (LIQUID AND HYDROGENATED SOYBEAN OIL, NATURAL FLAVOR, SALT, ARTIFICIAL FLAVOR, SOY LECITHIN, BETA CAROTENE [COLOR], VITAMIN A PALMITATE), SALT, SEA SALT, SPICE, DATEM, WHEAT GLUTEN, DEXTROSE, GUAR GUM, GARLIC, SOY LECITHIN, ASCORBIC ACID, ENZYMES (SODIUM CHLORIDE, WHEAT STARCH, ENZYMES, MALTODEXTRIN). Contains: Milk, Soy, Wheat. 2015.)",
+      "serving_size": "1 slice",
+      "calories": 253,
+      "protein_g": 11,
+      "carbs_g": 31,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2142086,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-04",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Deli Salad du jour #1",
+      "description": "14482DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073472,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Grilled Herb Chicken, Avocado,Corn & Lime",
+      "description": "6679",
+      "ingredients": "Chicken,Breast,Cutlet,Raw,Frozen,5 oz - HC (UNCOOKED NATURAL CHICKEN BREAST FILETS WITH RIB MEAT. ENHANCED WITH UP TO 15% WATER AND SALT.\r\nNo Artificial Ingredients. Certified Gluten-Free. Certified Halal.), Corn, Roasted, Frozen (:ROASTED CORN.), Onions,Fresh,Red (red onion 2018 BP), Peppers,Red,Fresh (pepper), Avocado,Diced, Frozen (USFOODS 8951444:AVOCADO, SALT, ASCORBIC ACID TO MAINTAIN NATURAL COLOR, CITRIC ACID), Shallots,Fresh,Whole,Peeled (shallots\r\n), Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Juice,Lime (Ingredients: Lime.  11/4/16), Vinegar,Wine,Red (RED WINE VINEGAR, POTASSIUM METABISULFITE ADDED TO PROTECT COLOR. DILUTED WITH WATER TO 5 ACIDIT), Parsley,Fresh,Bunch (parsley 2018 BP), Cilantro,Fresh,Bunch (cilantro), Basil,Fresh,Bunch (basil), Salt (Salt, calcium silicate, dextrose, potassium iodide (0.006%), sodium bicarbonate.), Oil,Olive,100%, Pepper,Black,Ground (Ground black pepper.), Cumin,Ground (Ground cumin.), Pepper,Cayenne (Ingredients: Cayenne pepper.   11/4/16)",
+      "serving_size": "5 oz",
+      "calories": 307,
+      "protein_g": 16,
+      "carbs_g": 18,
+      "fat_g": 19,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2298532,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Chickpea, Squash & Spinach Gnocchi",
+      "description": null,
+      "ingredients": "Gnocchi,Pasta,Potato (US Foods 959833: MASHED POTATOES (WATER, DEHYDRATED POTATOES, POTATOES ANTIOXIDANT, SOD,WHEAT FLOUR,POTATO STARCH,RICE FLOUR,SALT,LACTIC ACID,POTASSIUM SORBATE Contains: wheat. 2018 BP\r\nMade in a facility that processes: Soy\r\n\r\n), Squash,Butternut,Fresh, Peeled, Diced 1' (butternut squash), Beans,Garbanzo,Canned,Incl Liquids (Prepared Garbanzo Beans, Water, Salt, Disodium EDTA added for color retention), Water,Tap (Ingredients: Water.   11/4/16), Shallots,Fresh,Whole,Peeled (shallots\r\n), Spinach,Fresh,Baby (spinach 2018 BP), Peppers,Red,Roasted,Canned,Incl Liquids large can (Red Peppers,Water, Salt, Citric Acid , Calcium Chloride), Raisins (Raisins.), Onions,Green,Fresh,Bunch (green onion), Sauce,Balsamic Glaze (Sysco 0651828: BALSAMIC VINEGAR OF MODENA, SUGAR, XANTHAN GUM STABILIZER. 2015.), Soup Base,Vegetable,GF (VEGETABLE PUREE (CELERY, ONIONS, CARROTS, PARSNIPS, TURNIPS), SALT, CORNSTARCH, TOMATO PASTE, SUGAR, CORN OIL, 2% OR LESS OF NATURAL FLAVORS, CORN POWDER, XANTHAN GUM, SOYBEAN OIL, CANOLA OIL.  2018 BP), Sage,Fresh,Bunch, Parsley,Fresh,Bunch (parsley 2018 BP), Oil,Olive,100%, Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "6 oz",
+      "calories": 225,
+      "protein_g": 7,
+      "carbs_g": 44,
+      "fat_g": 3.1,
+      "dietary_tags": [],
+      "allergens": [
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2074001,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Ranch Roasted Potatoes",
+      "description": "13191DC",
+      "ingredients": "Potatoes,Fresh,Red Bliss,350 Count, Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Salad Dressing Mix,Ranch,8 oz,HVR (MALTODEXTRIN, BUTTERMILK, SALT, MONOSODIUM GLUTAMATE, GARLIC, ONION, LACTIC ACID, CALCIUM LACTATE, SPICES, CITRIC ACID, LESS THAN 1 OF: CALCIUM STEARATE, ARTIFICIAL FLAVOR, XANTHAN GUM, CARBOXYMETHYLCELLULOSE, GUAR GUM, NATURAL FLAVOR. DRIED. CONTAINS: MILK, SOY.), Soup Base,Vegetable,Vegan/GF - HC (Dehydrated vegetables (onion, tomoato, sweet corn, carrot, celery, pumpkin, carrot juice, bell pepper, green leek and garlic), sea salt, sugar, yeast extract, canola oil, spices, and extactives of celery, onion and garlic. \r\nVegan - Contains no meat, Dairy or Egg.), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground,Table (HC) (Sysco 5935689: Black ground peppper. 2014.), Oil,Pan Coating Spray,Advantage,Soy Oil Base (USFoods 9856154:Date11.29.2020:ING:  SOYBEAN OIL, CANOLA OIL, CAPRIC/CAPRYLIC TRIGLYCERIDES, PHOSPHATED MONO DIGLYCERIDES, CALCIUM STEARATE, SILICONE DIOXIDE,\r\nPROPELLANT. ADDS A TRIVIAL AMOUNT OF FAT.\r\nADVANTAGE 65183 IS A HIGH HEAT BAKING SPRAY WITH SOY AND CANOLA OILS. CONTAINS NO LECITHIN.)",
+      "serving_size": "3 oz",
+      "calories": 272,
+      "protein_g": 1,
+      "carbs_g": 16,
+      "fat_g": 23,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2074199,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Fresh Seasoned Broccoli",
+      "description": "4918",
+      "ingredients": "Broccoli Florets,Fresh (broccoli), Oil,Salad,Canola (USFoods 2328722: CANOLA OIL WITH CITRIC ACID ADDED AS PRESERVATIVE.  2018 BP\r\n\r\n), Salt (Salt, calcium silicate, dextrose, potassium iodide (0.006%), sodium bicarbonate.), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "3 oz",
+      "calories": 50,
+      "protein_g": 3,
+      "carbs_g": 5,
+      "fat_g": 2.9,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2074255,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Plant Based Nuggets",
+      "description": "13391DC",
+      "ingredients": "Vegan,Chicken,Nuggets - HC (Soy Protien Concentrate, Water, Breadcrumbs, (Wheat, Flour, Yeast, Sugar,Salt) Soybean Oil, Flour, Celluose Gum,Granulated Onions, Hydrolyzed Vegetable Protien, Granulated Garlic, Suagr, Dextrose, Spiced & Flavorings. Xanthan Gum), Oil,Fry On,Zero Trans Fat",
+      "serving_size": "5 each",
+      "calories": 571,
+      "protein_g": 48,
+      "carbs_g": 19,
+      "fat_g": 34,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2142086,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Deli Salad du jour #1",
+      "description": "14482DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2072922,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pasta",
+      "description": "13357DC",
+      "ingredients": "Water,Tap (Ingredients: Water.   11/4/16), Pasta,Rotini,Dry - HC (DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. PROCESSED IN A FACILITY THAT USES EGG.), Pasta,Shells,Medium,Dry - HC (Sysco 4786943: DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. PROCESSED IN A FACILITY THAT USES EGG.), Pasta,Orzo,Dry (DURUM WHEAT SEMOLINA,NIACIN,IRON (FERROUS SULFATE),THIAMIN MONONITRATE (VITAMIN B1),RIBOFLAVIN (VITAMIN B2),FOLIC ACID\r\nIngredienst made ijn a facility that proccesses : EGG), Noodles,Lomein, Chinese, FZN * - HC (BLEACHED WHEAT FLOUR, WATER, DEHYDRATED WHOLE EGG, CORN STARCH, DEHYDRATED EGG WHITE, SALT, SODIUM BENZOATE, FD&C YELLOW #5 AND FD&C YELLOW #6.), Pasta,Linguini,10\",Dry - HC (DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT.  PROCESSED IN A FACILITY THAT USES EGG.), Noodles,Rice Stick (Sysco 1470638: Rice flour, water.), 5204551 (Sysco 5588017: Semolina, Durum Flour, Spinach Powder, Tomato Powder, Niacin, Ferrous Sulfate (Iron), Thiamine Mononitrate, Riboflavin, Folic Acid. Contains: Wheat. 2022.\r\nPROCESSED IN A FACILITY THAT USES EGGS.), Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Pasta,Penne Rigate,Dry - HC (SEMOLINA (WHEAT), NIACIN, FERROUS SULFATE (IRON), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. CONTAINS: WHEAT. \r\n\r\nPROCESSED IN A FACILITY THAT USES EGG.), Pasta,Spaghetti,Thin,Dry (Sysco 4862983: DURUM WHEAT SEMOLINA, NIACIN, IRON (FERROUS SULFATE), THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID. \r\n\r\nCONTAINS: WHEAT. \r\nPROCESSED IN A FACILITY THAT USES EGG.), Noodles,Soba,Buckwheat (Sysco 5222668: Enriched Wheat Flour (Flour, Niacin, Reduced Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Buckwheat Flour, Water, Wheat Gluten, Salt, Soybean Oil.  CONTAINS: WHEAT.  2018 BP)",
+      "serving_size": "4 oz",
+      "calories": 661,
+      "protein_g": 21,
+      "carbs_g": 137,
+      "fat_g": 2.9,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Egg",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073630,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Grated Parmesan",
+      "description": "13497DC",
+      "ingredients": "Cheese,Parmesan,Grated (US Foods 5851449: IMPORTED PARMESAN CHEESE: PASTEURIZED PART-SKIM COW�S MILK, CHEESE CULTURES, SALT, ENZYMES, PARMESAN STYLE CHEESE: FOOD STARCH, WATER, CELLULOSE, MILKFAT, SALT, SODIUM PHOSPHATE, CULTURED MILK, ANNATTO, POWDERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN A NATURAL MOLD INHIBITOR. Contains Milk.   2018 BP\r\n\r\n)",
+      "serving_size": "1 each",
+      "calories": 119,
+      "protein_g": 8,
+      "carbs_g": 4,
+      "fat_g": 8,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073596,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Marinara",
+      "description": "13424DC",
+      "ingredients": "Sauce,Marinara,Canned - HC (VINE-RIPENED FRESH TOMATOES, BLEND OF EXTRA VIRGIN OLIVE OIL AND SUNFLOWER OIL, SALT, ONIONS, BLACK PEPPER, BASIL, OREGANO, PARSLEY, AND NATURALLY DERIVED CITRIC ACID.)",
+      "serving_size": "2 oz",
+      "calories": 28,
+      "protein_g": 1,
+      "carbs_g": 7,
+      "fat_g": 0,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073484,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Alfredo Sauce",
+      "description": "13840DC",
+      "ingredients": "Milk,Reduced Fat,2%,Dispenser (Ingredients: Reduced fat milk, vitamin A Palmitate, Vitamin D3.   11/5/16), Cream,Heavy,Whipping (HC) (Heavy Cream (Milk), Milk, Contains less than 0.5% of: Carrageenan, Mono and Diglycerides, Polysorbate 80.), Cheese,Parmesan,Grated (US Foods 5851449: IMPORTED PARMESAN CHEESE: PASTEURIZED PART-SKIM COW�S MILK, CHEESE CULTURES, SALT, ENZYMES, PARMESAN STYLE CHEESE: FOOD STARCH, WATER, CELLULOSE, MILKFAT, SALT, SODIUM PHOSPHATE, CULTURED MILK, ANNATTO, POWDERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN A NATURAL MOLD INHIBITOR. Contains Milk.   2018 BP\r\n\r\n), Cornstarch (USFOODS 1651712: CORN STARCH \r\nJAN 2019), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Salt,Kosher (USFoods 4999470: SALT AND YELLOW PRUSSIATE OF SODA. 2013. ), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "3 oz",
+      "calories": 108,
+      "protein_g": 6,
+      "carbs_g": 8,
+      "fat_g": 6,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
+    },
+    {
+      "nutrislice_id": 2073597,
+      "location_id": "dining-location",
+      "meal_period": "dinner",
+      "served_date": "2026-09-05",
+      "station_name": "Pizza/Pasta Station",
+      "station_id": 87969,
+      "dish_name": "Pesto Sauce",
+      "description": "4640",
+      "ingredients": "Sauce,Pesto,Nut Free (USFoods 2334068: BASIL, SOY OIL, ROMANO CHEESE (SHEEP'S MILK, CHEESE CULTURE, SALT, RENNET, CELLULOSE, CALCIUM PROPIONATE), WATER, OLIVE OIL, PARMASEAN CHEESE (CULTURED PART SKIM MILK, SALT, ENZYMES, POWDERED CELLULOSE), MINCED GARLIC, SALT, BLACK PEPPER  Contains: milk  2018 BP)",
+      "serving_size": "1 oz",
+      "calories": 189,
+      "protein_g": 2,
+      "carbs_g": 6,
+      "fat_g": 17,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:15.995Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -4653,7 +5952,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -4680,7 +5979,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -4704,7 +6003,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -4723,7 +6022,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072944,
@@ -4745,7 +6044,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -4764,7 +6063,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -4786,7 +6085,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2073476,
@@ -4810,7 +6109,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2073474,
@@ -4834,7 +6133,7 @@
         "Soy",
         "Fish"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072937,
@@ -4859,7 +6158,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -4883,7 +6182,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072959,
@@ -4905,7 +6204,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072979,
@@ -4931,7 +6230,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -4950,7 +6249,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072968,
@@ -4969,7 +6268,7 @@
       "fat_g": 11,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -4991,7 +6290,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2298528,
@@ -5015,7 +6314,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -5037,7 +6336,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -5061,7 +6360,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2072984,
@@ -5085,7 +6384,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
     },
     {
       "nutrislice_id": 2073217,
@@ -5108,7 +6407,480 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-08-31T15:05:29.540Z"
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072925,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Hot Cereal/Soup Station",
+      "station_id": 79231,
+      "dish_name": "Oatmeal",
+      "description": "0599",
+      "ingredients": "Water,Tap (Ingredients: Water.   11/4/16), Cereal,Oatmeal,Dry (WHOLE GRAIN ROLLED OATS. May contain traces of wheat (2017)  2018 BP)",
+      "serving_size": "4 oz",
+      "calories": 128,
+      "protein_g": 5,
+      "carbs_g": 22,
+      "fat_g": 2.1,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072931,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Bread Basket",
+      "station_id": 71506,
+      "dish_name": "Assorted Bagels",
+      "description": "2150",
+      "ingredients": "A&S Bagel, Rainbow HC (Enriched Wheat Flour (Wheat Flour, Malted Barley Flour, Niacin, Iron, Thiamine, Mononitrate, Riboflavin, Folic Acid), Water, Contains 2% or less of: Calcium Propionate, Citric Acid, Caramel Color, Sodium Benzoate, FD&C Yellow #5, FD&CYellow#6, FD&C Blue#1, FD&C Red #40, corn flour, mono-and diglycerides, L-Cysteine, Enzymes, Salt, Sesame Seeds, Sugar, Yeast. CONTAINS: SESAME, WHEAT.), A&S Bagel, Blueberry HC (Enriched Wheat Flour (Wheat Flour, Malted Barley Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Water, Contains 2% or less of: Blueberries, Calcium Propionate, Corn Flour, Mono and diglycerides, L-Cysteine, Enzymes, Salt, Sesame Seeds, Soybean Oil, Wheat Starch, Natural and Artificial Flavor, Boue #2 and Red 40, sugar Yeast. CONTAINS: SESAME & WHEAT), A&S Bagel, Everything HC (Enriched Wheat Flour(Wheat Flour, Malted Barley Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, olic Acid) Water, Contains 2% or Less of : Calcium Propionate, Corn Flour, Mono-and Diglycerides, L-Cysteine, Enzymes, Garlic, Onions, poppy Seeds, Rye, Salt, Sesame Seed, Sugar, yeast. CONTAINS SESAME, WHEAT.), A&S Bagel, Cinnamon Raisin, HC (Enriched Wheat Flour(Wheat Flour, Malted Barley Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Water, Raisins, Contains 2% or less of:  Calcium Propionate, Caramel, Cinnamon, Corn Flour, Mono and Diglycerides, L-Cysteine, Enzymes, Salt, Sesame Seeds, Sugar, Yeast. CONTAINS: SESAME, WHEAT.), A&S Bagel, Multigrain HC (Enriched Wheat Flour (Wheat Flour, Malted Barley Flour, Niacin, Iron, ThiamineMononitrate, Riboflavin, Folic Acid), Water, Contains 2% or less of: Calcium Proponate, Caramel, Caraway Seeds, Corn, Flour, Mono and Diglycerides, L-Cysteine, Enzymes, Flaxseed, Garlic, Poppy Seeds, Salt, Sesame Seeds, Sugar, Sunflower Seeds, Yeast. CONTAINS: SESAME,WHEAT.), A&S Bagel, Plain HC (Enriched wheat flour(Wheat Flour) Malted barley Flour, Niacin, Iron, Thiamine, Mononitrate, Riboflavin, Folic Acid, Water, Contains 2% or less of: Calcium Propionate, Corn  Flour, Mono-and Diglycerides, L-Cysteine, Enzyes, Salt, Sesame Seeds, Sugar, Yeast. CONTAINS: SESAME, WHEAT.)",
+      "serving_size": "1 each",
+      "calories": 2116,
+      "protein_g": 73,
+      "carbs_g": 412,
+      "fat_g": 20,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072945,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Bread Basket",
+      "station_id": 71506,
+      "dish_name": "Selection of  Donuts",
+      "description": "0494",
+      "ingredients": "Assorted Doughnuts, Nightingale HC (Enriched wheat flour bleached, dextrose, soybean oil, salt, leavening, soy flour, dry whey, mono & diglycerides with BHT and citric acid as preservatives, sodium stearoyl lactylate, nonfat milk solids nonfat dry milk, wheat starch, corn oil, beta carotene as color\r\n\r\nFilling Ingredients: Sugar, fondant, trans fat-free chocolate fudge base , Apple donut filling, bavarian, black raspberry, red raspberry, blueberry filling, lemon filling, pinapple filling, cinnamon powder, coconut.\r\n\r\nProcessed in a facility with: treenuts)",
+      "serving_size": "1 each",
+      "calories": 205,
+      "protein_g": 4,
+      "carbs_g": 17,
+      "fat_g": 14,
+      "dietary_tags": [
+        "Vegetarian",
+        "Made in a Facility with Allergens"
+      ],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072938,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Breakfast Favorites",
+      "station_id": 71502,
+      "dish_name": "Hand Fruit in Season",
+      "description": "2151",
+      "ingredients": "Orange,Fresh,113 Count (Orange), Apples,Fresh,Golden Delicious,100 Count (apple), Apples,Fresh,Red Delicious,100 Count, Apples,Fresh,Braeburn,100 Count, Apples,Fresh,Granny Smith,100 Count (granny smith apples\r\n), Apples,Fresh,Macintosh,100 Count (apple), Pears,Fresh, Boxc, 100CT, Orange,Fresh,88 Count, Nectarine,Fresh, Banana,Fresh,Yellow (banana), Peaches,Fresh, Plum,Fresh",
+      "serving_size": "1 piece",
+      "calories": 38,
+      "protein_g": 0,
+      "carbs_g": 10,
+      "fat_g": 0.1,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072944,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Breakfast Favorites",
+      "station_id": 71502,
+      "dish_name": "Yogurt Bar",
+      "description": "6464",
+      "ingredients": "Grapefruit,Red,Fresh, Peaches,Canned,Sliced,Pear Juice,Incl Liqu - HC (Peaches, Pear Juice from Concentrate (Water, Pear Juice Concentrate), Citric Acid.), Yogurt,Vanilla,Lowfat (US Foods 1067362: CULTURED GRADE A REDUCED FAT MILK, SUGAR, NATURAL VANILLA FLAVOR, PECTIN. CONTAINS ACTIVE YOGURT CULTURES INCLUDING L.ACIDOPHILUS. Conmtains: Milk. 2013), Yogurt,Plain,Greek,No-Fat (USFoods: 3917358 YOGURT (CULTURED PASTEURIZED NONFAT MILK., CREAM). CONTAINS LIVE AND ACTIVE CULTURES: S. THERMOPHILUS, L. BULGARICUS, L. ACIDOPHILUS, BIFIDUS AND L. CASEI.   2018 BP ), Pears,Canned,Diced,Juice Pack,Incl Liquids (PEARS, WATER, PEAR JUICE FROM CONCENTRATE.), Blueberries,Frozen,Unsweetened (US Foods 1085786: Blueberries. 2014.), Raspberries,Frozen,Whole (USFoods 1327642: Red Raspberries. 2014.), Cereal,Granola,Malt O Meal,Bulk (INGREDIENTS: WHOLE GRAIN ROLLED OATS, SUGAR, RICE, CANOLA OIL, WHOLE GRAIN WHEAT, RICE SYRUP, MOLASSES, HONEY, CINNAMON, SALT. BHT ADDED TO PACKAGING MATERIAL TO PRESERVE FRESHNESS.), Pineapple,Fresh, Cantaloupe,Fresh, Honeydew Melon,Fresh, Cottage Cheese,Lowfat,2% (Cultured nonfat milk, milk, nonfat milk, contains less than 2% f: whey, salt, matodextrin, guar gum, citric acid, carrageenan, mono and diglycerides, locut bean gum, potassium sorbate, carbon dioxide, natural and artificial flavors, vitamin A palmitate, enzyme)",
+      "serving_size": "4 oz",
+      "calories": 65,
+      "protein_g": 3,
+      "carbs_g": 13,
+      "fat_g": 0.5,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2073467,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Breakfast Favorites",
+      "station_id": 71502,
+      "dish_name": "Fruit Bar",
+      "description": null,
+      "ingredients": "Grapefruit Sections,Fresh,Sunrich,Incl Liquids (GRAPEFRUIT, WATER, SUGAR, CITRIC ACID, ASCORBIC ACID, SODIUM BENZOATE AND POTASSIUM SORBATE (USED TO PRESERVE FRESHNESS).), Honeydew Melon,Fresh,Pre-Cut,Chunks,Sunrich (Honeydew, water, sugar, citric acid, ascorbic acid, sodium benzoate and potassium sorbate (both used as preservatives).), Pineapple,Fresh,Pre-Cut,Chunks,Sunrich,Incl Liquid (Sysco 2527851: Pineapple, water, sugar, citric acid, ascorbic acid, sodium benzoate and potassium sorbate (both used as a preservative). 2014.), Grapes,Red,Fresh,Seedless, Cantaloupe,Fresh,Pre-Cut,Chunks,Sunrich (SYSCO 1888510:Cantaloupe, Water, Sugar, Citric Acid, Ascorbic Acid, Sodium Benzoate and Potassium Sorbate (both used to preserve freshness) JAN 2021), Strawberries,Frozen,Sliced,Sweetened (STRAWBERRIES.), Blueberries,Frozen,Unsweetened (US Foods 1085786: Blueberries. 2014.)",
+      "serving_size": "1 each",
+      "calories": 4,
+      "protein_g": 0,
+      "carbs_g": 1,
+      "fat_g": 0,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072936,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Breakfast Favorites",
+      "station_id": 71502,
+      "dish_name": "Omelet Bar",
+      "description": "13243DC",
+      "ingredients": "Egg,Fresh,Medium (USFOODS 823021: EGG), Onions,Fresh,Pre-Chopped, Egg White,Frozen (EGG WHITES, GUAR GUM, AND TRIETHYL CITRATE ADDED AS WHIPPING AIDS.CONTAINS: EGG.), Pepperoni,All Meat,Sliced,8count - HC (BHA, BHT with Citric Acid Added to Help Protect Flavor Ingredients: Pork, Beef, Salt, Contains 2% or less of Water, Dextrose, Spices, Lactic Acid Starter Culture, Sodium Ascorbate, Oleoresin of Paprika, Garlic Powder, Sodium Nitrite, BHA, BHT, Citric Acid. In Collagen Casing.), Tomatoes,Fresh,Pre-Diced, Cheese,Monterey/Cheddar,Pre-Shredded (CHEDDAR CHEESE (PASTEURIZED MILK, CHEESE CULTURE, SALT, ENZYMES, ANNATTO [COLOR]), POTATO STARCH AND POWERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN (A NATURAL MOLD INHIBITOR).), Cheese,Feta,Crumbled (US Foods 6560577: FETA CHEESE (PASTEURIZED MILK, CHEESE CULTURES, SALT, ENZYMES), POWDERED CELLULOSE TO PREVENT CAKING, NATAMYCIN TO PROTECT FLAVOR. Contains: Milk.  2018 BP), Egg,Liquid,Whole,Pastuerized - HC (WHOLE EGGS, CITRIC ACID, 0.15% WATER ADDED AS CARRIER FOR CITRIC ACID. CITRIC ACID ADDED TO PRESERVE COLOR.\r\nContains: Egg), Pork,Ham,Diced,Cooked (Sysco 1496876: Diced ham cured with: water, dextrose, salt, modified food starch, potassium lactate, sodium phosphates, sodium diacetate, sodium erythorbate, smoke flavoring, sodium nitrite. May contain sodium ascorbate.  2018 BP\r\n\r\n), Peppers,Green,Fresh,Pre-Diced (USFOODS 7833580:FRESH GREEN BELL PEPPER-50%FRESH RED BELL PEPPER-50% FEB 2020), Mushrooms,Fresh,Whole (mushrooms), Spinach,Fresh,Bunch, Cheese,American,White,Pre-Sliced,KRAFT (US Foods 3152: INGREDIENTS: CHEDDAR CHEESE MILK, CHEESE CULTURE, SALT, ENZYMES, MILKFAT, WATER, SODIUM CITRATE, CALCIUM PHOSPHATE, SALT, SODIUM PHOSPHATE, SORBIC ACID AS A PRESERVATIVE, VITAMIN D3, WITH SUNFLOWER LECITHIN ADDED FOR SLICE SEPARATION   Contains: Milk. 2018 BP), Broccoli,Fresh,Head (broccoli)",
+      "serving_size": "1 oz",
+      "calories": 38,
+      "protein_g": 3,
+      "carbs_g": 1,
+      "fat_g": 2.8,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2073476,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Salad Station",
+      "station_id": 81914,
+      "dish_name": "Salad Bar",
+      "description": "1106",
+      "ingredients": "Beans,Kidney,Dark Red,Canned,Incl Liquids (US Foods 2329183: PREPARED DARK RED KIDNEY BEANS, WATER, SALT, CALCIUM CHLORIDE, (FIRMING AGENT), CITRIC ACID, DISODIUM EDTA ADDED FOR COLOR RETENTION.   2018 BP\r\n\r\n), Tofu,Firm,Bulk (NESHAM BUS0010: No information available. Contains: Soy. 2013.), SoyBeans,Shelled,Edamame,Frozen (USFoods 6371686: Edamame (shelled soybeans). Contains: Soy. 2018 BP), Quinoa,Red (quinoa), Cheese,Feta,Crumbled (US Foods 6560577: FETA CHEESE (PASTEURIZED MILK, CHEESE CULTURES, SALT, ENZYMES), POWDERED CELLULOSE TO PREVENT CAKING, NATAMYCIN TO PROTECT FLAVOR. Contains: Milk.  2018 BP), Beets,Canned,Pickled,Sliced,Incl Liquids, Pasta,Penne Rigate,Dry (Sysco 5776893: MADE FROM 100% PURE DURUM SEMOLINA, DURUM FLOUR, NIACIN, FERROUS SULFATE (IRON), THIAMINE MONONITRATE, RIBOFLAVIN, FOLIC ACID. Contains: Wheat. 2014.), Corn,Baby,Canned,Water Pack,Incl Liquids ( Young Corn, Water, Salt.), Beans,Black,Canned,Incl Liquids (Sysco 5844220: Black Beans, Water, Salt, Calcium Chloride and Ferrous Gluconate (to promote color retention) 2018 BP\r\n\r\nUS Foods 9332313: BLACK BEANS, WATER, SALT, CALCIUM CHORIDE, FERROUS GLUCONATE.  2018 BP), Hummus Spread, Egg,Hard Cooked,Peeled, Olives,Ripe,Canned,Pitted,Sliced,Incl Liquids (Sysco 1286319: Ripe Olives, Water, Salt and Ferrous gluconate added to stabilize color. 2018 BP), Cheese,Mozzarella,Pre-Shredded (LOW MOISTURE PART SKIM MOZZARELLA CHEESE (PASTEURIZED PART SKIM MILK, CHEESE CULTURES, SALT, ENZYMES), POWDERED CELLULOSE TO PREVENT CAKING AND NATAMYCIN TO PROTECT FLAVOR FOR SHREDDED PRODUCT ONLY.), Mushrooms,Fresh,Pre-Sliced (mushroom), Quinoa (White Quinoa), Peppers,Sweet,Sliced,Incl Liquids (Sysco 4095766: peppers, water, high fructose corn syrup, distilled vinegar, calcium chloride, sodium benzoate. 2018 BP), Cheese,Monterey/Cheddar,Pre-Shredded (CHEDDAR CHEESE (PASTEURIZED MILK, CHEESE CULTURE, SALT, ENZYMES, ANNATTO [COLOR]), POTATO STARCH AND POWERED CELLULOSE ADDED TO PREVENT CAKING, NATAMYCIN (A NATURAL MOLD INHIBITOR).), Beans,Garbanzo,Canned,Incl Liquids (Prepared Garbanzo Beans, Water, Salt, Disodium EDTA added for color retention), Lettuce,Iceberg,Fresh,Head (Lettuce.), Lettuce,Romaine,Fresh,Head (Lettuce.), Tomato,Fresh,6X6 (tomato 2018 BP), Onions,Fresh,Red (red onion 2018 BP), Carrots,Fresh (carrots\r\n), Celery,Fresh,Bunch (celery 2018 BP), Peppers,Green,Fresh (green peppers 2018 BP), Cucumbers,Fresh (Ingredients: Cucumbers.    11/4/16), Spinach,Fresh,Baby (spinach 2018 BP), Lettuce,Green Leaf,Fresh,Head (lettuce), Broccoli,Fresh,Head (broccoli), Sauce,Salsa,Mild,Thick & Chunky (USFoods 1017425: CRUSHED TOMATOES WATER, CONCENTRATED CRUSHED TOMOTOES), FRESH ONIONS, FRESH JALAPENO PEPPERS, DICED TOMATOES IN TOMATO JUICE, DISTILLED VINEGAR, SALT, DEHYDRATED ONIONS, GARLIC AND NATURAL FLAVORING. 2013.), Bean Sprouts,Fresh (bean sprouts)",
+      "serving_size": "1 each",
+      "calories": 20,
+      "protein_g": 1,
+      "carbs_g": 2,
+      "fat_g": 0.8,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2073474,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Sandwich Station",
+      "station_id": 78622,
+      "dish_name": "Deli Bar",
+      "description": "1104",
+      "ingredients": "Tomato,Fresh,6X6 (tomato 2018 BP), Fish,Tuna,Cos,Pouch Pack (USFOODS 6228811:LIGHT TUNA, WATER, VEGETABLE BROTH, SALT.\r\n\r\nSysco 3494226: Tuna, Water, Vegetable Broth (Carrot, Celery and Soy), Salt. Contains: Tuna, Soy. 2013.), Egg,Hard Cooked,Peeled, Beef,Corned,Cooked (US Foods 8403800:No information available. 2013.\r\n\r\n), Cheese,Provolone (US Foods 8327249: UNSMOKED PASTEURIZED MILK, CHEESE CULTURES, SALT, AND ENZYMES, POWDERED CELLULOSE TO PREVENT CAKING, NATAMYCIN TO PROTECT FLAVOR OR CULTURED PASTEURIZED MILK, SALT, ENZYMES. SMOKE: PASTEURIZED MILK, CHEESE CULTURES, SALT, ENZYMES, AND ARTIFICIAL OR NATURAL SMOKE FLAVOR. Contains: Milk. 2014.), Cheese,Muenster (US Foods 3358207: Pasteurized milk, cheese culture, salt, enzymes, and annato (vegetable color). Contains: Milk. 2015.), Salami,Genoa (USFoods 2021657: PORK, BEEF, SALT, CONTAINS 2 OR LESS OF DEXTROSE, WATER, SPICES, SODIUM ASCORBATE, LACTIC ACID STARTER CULTURE, GARLIC POWDER, SODIUM NITRITE, BHA, BHT, CITRIC ACID.   2018 BP), Cheese,American,White,Pre-Sliced,KRAFT (US Foods 3152: INGREDIENTS: CHEDDAR CHEESE MILK, CHEESE CULTURE, SALT, ENZYMES, MILKFAT, WATER, SODIUM CITRATE, CALCIUM PHOSPHATE, SALT, SODIUM PHOSPHATE, SORBIC ACID AS A PRESERVATIVE, VITAMIN D3, WITH SUNFLOWER LECITHIN ADDED FOR SLICE SEPARATION   Contains: Milk. 2018 BP), Cheese,Swiss,Light,Alpine Lace (Cultured reduced fat milk, salt, enzymes, vitamin A palmitate (not found in regular Swiss cheese). CONTAINS: Milk 2018 BP), Turkey,Breast,Deli,Cooked (TURKEY BREAST, WATER, SEA SALT, VINEGAR  2018 BP), Pork,Ham,Capicola (Sysco 1632041: Ham CURED WITH: WATER, DEXTROSE, SALT, CONTAINS LESS THAN 2% OF MODIFIED FOOD STARCH, SUGAR, SODIUM PHOSPHATE, FLAVORING, SODIUM ERYTHORBATE, SODIUM NITRITE, SODIUM ASCORBATE  2018 BP), Beef,Roast,Cooked,Deli,Whole (USFGOODS 2669117:BEEF, WATER, VINEGAR, SEA SALT. RUBBED WITH: SEA SALT, CRACKED BLACK PAPPER. DEC 2020), Salad,Chicken, Cheese,Cheddar,Pre-Sliced (Cheddar Cheese (Pasteurized Milk, Cheese Culture, Salt, Enzymes, Color Added).), Pork,Ham,Cured, Mayonnaise,Heavy (Sysco 4002432:  Soybean Oil, Corn Syrup, Water, Whole Egg, Egg Yolks, Distilled Vinegar, Contains less than 2% of Mustard Seed, Salt, Lemon Juice Concentrate. Contains: Egg. Contains: Egg. 2018 BP\r\n\r\nUS Foods 42192: SOYBEAN OIL, WATER, EGGS, VINEGAR, CONTAINS LESS THAN 2% OF EGG YOLKS, LEMON JUICE CONCENTRATE, SALT, SUGAR, DRIED ONIONS, DRIED GARLIC, PAPRIKA, NATURAL FLAVOR, CALCIUM DISODIUM EDTA (TO PROTECT FLAVOR) CONTAINS: EGG. Contains Egg. 2018 BP), Peppers,Green&Red,Hot,Sliced,Incl Liquids (USFOODS 1810803:FRESH CHERRY PEPPERS, WATER, VINEGAR, SALT, CALCIUM CHLORIDE, SODIUM BENZOATE (PRESERVATIVE), YELLOW 5, SODIUM METABISULFITE (PRESERVATIVE).FEB 2020), Pickles,Dill Slices,Kosher (USFoods: 611541 FRESH CUCUMBERS, WATER, VINEGAR, SALT, SPICES, GARLIC, CALCIUM CHLORIDE, POTASSIUM SORBATE (PRESERVATIVE), TURMERIC, POLYSORBATE 80 (2016)), Lettuce,Green Leaf,Fresh,Head (lettuce)",
+      "serving_size": "1 each",
+      "calories": 47,
+      "protein_g": 3,
+      "carbs_g": 1,
+      "fat_g": 3.3,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Soy",
+        "Fish"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072937,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Buttermilk Biscuits",
+      "description": "0914",
+      "ingredients": "Biscuit,Buttermilk,Frozen, Pilssbury, 2.25oz (UNBLEACHED WHEAT FLOUR, CULTURED BUTTERMILK (SKIM MILK, NONFAT DRY MILK, CULTURES ADDED), WATER, BUTTER (SWEET CREAM, NATURAL FLAVOR), PALM OIL, Contains less than 2%: BAKING SODA, SALT, SUGAR, SODIUM ACID PYROPHOSPHATE, SODIUM ALUMINUM PHOSPHATE, MONOCALCIUM PHOSPHATE, SOYBEAN OIL, WHEAT STARCH, NATURAL FLAVOR. \r\n\r\nCONTAINS: WHEAT, MILK. \r\nPROCESSED IN A FACILITY THAT PROCESSES EGG & SOY PRODUCTS.)",
+      "serving_size": "1 each",
+      "calories": 216,
+      "protein_g": 4,
+      "carbs_g": 34,
+      "fat_g": 7,
+      "dietary_tags": [
+        "Vegetarian",
+        "Made in a Facility with Allergens"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072940,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Scrambled Eggs",
+      "description": "13232DC",
+      "ingredients": "Egg,Liquid,Whole,Pastuerized - HC (WHOLE EGGS, CITRIC ACID, 0.15% WATER ADDED AS CARRIER FOR CITRIC ACID. CITRIC ACID ADDED TO PRESERVE COLOR.\r\nContains: Egg), Oil,Pan Coating Spray,Advantage,Soy Oil Base (USFoods 9856154:Date11.29.2020:ING:  SOYBEAN OIL, CANOLA OIL, CAPRIC/CAPRYLIC TRIGLYCERIDES, PHOSPHATED MONO DIGLYCERIDES, CALCIUM STEARATE, SILICONE DIOXIDE,\r\nPROPELLANT. ADDS A TRIVIAL AMOUNT OF FAT.\r\nADVANTAGE 65183 IS A HIGH HEAT BAKING SPRAY WITH SOY AND CANOLA OILS. CONTAINS NO LECITHIN.)",
+      "serving_size": "4 oz",
+      "calories": 160,
+      "protein_g": 15,
+      "carbs_g": 1,
+      "fat_g": 11,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Egg"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072950,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Diced Potatoes",
+      "description": "0553",
+      "ingredients": "Potatoes,Frozen,Cubed,Battered (USFoods 8032799: POTATOES, VEGETABLE OIL (MAY CONTAIN ONE OR MORE OF THE FOLLOWING: CANOLA OIL, SUNFLOWER OIL, COTTONSEED OIL, PALM OIL, CORN OIL, SOYBEAN OIL), ENRICHED BLEACHED FLOUR (WHEAT FLOUR, NIACIN, IRON, THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID), SALT, MODIFIED FOOD STARCH, SPICES, CORN MEAL, GARLIC POWDER, ONION POWDER, LEAVENING (DISODIUM DIHYDROGEN PYROPHOSPHATE, SODIUM BICARBONATE), DRIED YEAST, COLORED WITH OLEORESIN PAPRIKA, DEXTROSE. Contains: Wheat. 2014.), Oil,Fry On,Zero Trans Fat",
+      "serving_size": "4 oz",
+      "calories": 255,
+      "protein_g": 3,
+      "carbs_g": 27,
+      "fat_g": 16,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072972,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Pancakes",
+      "description": "13382DC",
+      "ingredients": "Water,Tap (Ingredients: Water.   11/4/16), Pancake Mix, Pearl Mill, Buttermilk (ENRICHED BLEACHED FLOUR (BLEACHED WHEAT FLOUR, NIACINAMIDE, REDUCED IRON, THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID), SUGAR, LEAVENING (BAKING SODA, SODIUM ALUMINUM PHOSPHATE, MONOCALCIUM PHOSPHATE), DEXTROSE, BUTTERMILK POWDER, PALM OIL, SALT, WHEAT GLUTEN, CORN SYRUP SOLIDS, SODIUM CASEINATE, MONO AND DIGLYCERIDES, DIPOTASSIUM PHOSPHATE, LACTIC ACID, TOCOPHEROLS (TO PRESERVE FRESHNESS). CONTAINS MILK AND WHEAT INGREDIENTS.), Oil,Pan Coating Spray,Advantage,Soy Oil Base (USFoods 9856154:Date11.29.2020:ING:  SOYBEAN OIL, CANOLA OIL, CAPRIC/CAPRYLIC TRIGLYCERIDES, PHOSPHATED MONO DIGLYCERIDES, CALCIUM STEARATE, SILICONE DIOXIDE,\r\nPROPELLANT. ADDS A TRIVIAL AMOUNT OF FAT.\r\nADVANTAGE 65183 IS A HIGH HEAT BAKING SPRAY WITH SOY AND CANOLA OILS. CONTAINS NO LECITHIN.)",
+      "serving_size": "2 each",
+      "calories": 232,
+      "protein_g": 5,
+      "carbs_g": 46,
+      "fat_g": 3.2,
+      "dietary_tags": [
+        "Vegetarian"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072957,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Pork Sausage Patty",
+      "description": "13205DC",
+      "ingredients": "Sausage Patty,Pork,Cooked,Frozen - HC (PORK, WATER, CONTAINS 2 OR LESS OF: SALT, POTASSIUM CHLORIDE, DEXTROSE, SPICES, MONOSODIUM GLUTAMATE, SODIUM PHOSPHATES, BHT, CITRIC ACID, CARAMEL COLOR.)",
+      "serving_size": "2 oz",
+      "calories": 211,
+      "protein_g": 8,
+      "carbs_g": 0,
+      "fat_g": 20,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072963,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Halal Chicken Sausage Links",
+      "description": "14437DC",
+      "ingredients": "Sausage Link, Chicken,HALAL, 1.8oz - HC (INGREDIENTS: CHICKEN THIGH MEAT WITH SKIN, CHICKEN BREAST MEAT WITH RIB MEAT, WATER, CONTAINS 2% OR LESS OF SALT, SPICES, DEXTROSE, SUGAR, YEAST EXTRACT, NATURAL FLAVORS, LACTIC ACID. IN COLLAGEN CASING.), Oil,Pan Coating Spray,Advantage,Soy Oil Base (USFoods 9856154:Date11.29.2020:ING:  SOYBEAN OIL, CANOLA OIL, CAPRIC/CAPRYLIC TRIGLYCERIDES, PHOSPHATED MONO DIGLYCERIDES, CALCIUM STEARATE, SILICONE DIOXIDE,\r\nPROPELLANT. ADDS A TRIVIAL AMOUNT OF FAT.\r\nADVANTAGE 65183 IS A HIGH HEAT BAKING SPRAY WITH SOY AND CANOLA OILS. CONTAINS NO LECITHIN.)",
+      "serving_size": "1.3 oz",
+      "calories": 69,
+      "protein_g": 8,
+      "carbs_g": 5,
+      "fat_g": 1.8,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072970,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Vegan Sausage",
+      "description": "13137DC",
+      "ingredients": "Sausage,Vegan,Breakfast,BEYOND (Water, Pea Protein, Expeller-Pressed Canola Oil,Refined Coconut Oil, Natural Flavoers, Inactivated yeast, Rice, Protien, Methylcellulose, Yeast Extrct(niaicn(Viatmin B3),pyridoxine hydrochloride (Vitamin B6), thiamin hydrochloride (Vitamin B1\r\n), riboflavin(Vitamin B2), folic acid( Vitamin B9),cyanocobalamin (Vitamin B12),Apple Extract,Salt,Pomegranate Extract,Vinegar,Lemon Juice Concentrate,Sunflower Lecithin,Bett Juice Extract (for color), Carrot.)",
+      "serving_size": "2 oz",
+      "calories": 145,
+      "protein_g": 12,
+      "carbs_g": 5,
+      "fat_g": 10,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2298528,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Pico de Gallo Tofu Scramble",
+      "description": "14517DC",
+      "ingredients": "Tofu,Grilled (WATER,SOYBEANS,CALCIUM SULFATE,CALCIUM CHLORIDE), Pico De Gallo REF Salsa (Tomato, Onion, Cilantro, Salt), Onions,Green,Fresh,Bunch (green onion), Soup Base,Vegetable,GF (VEGETABLE PUREE (CELERY, ONIONS, CARROTS, PARSNIPS, TURNIPS), SALT, CORNSTARCH, TOMATO PASTE, SUGAR, CORN OIL, 2% OR LESS OF NATURAL FLAVORS, CORN POWDER, XANTHAN GUM, SOYBEAN OIL, CANOLA OIL.  2018 BP), Garlic Cloves,Fresh,Peeled (garlic), Oil, 51/49, Olive/Sunflower blend - HC (EXTRA VIRGIN OLIVE OIL, NON-GMO HIGH OLEIC SUNFLOWER OIL.), Turmeric,Ground, Salt (Salt, calcium silicate, dextrose, potassium iodide (0.006%), sodium bicarbonate.), Pepper,Black,Ground (Ground black pepper.)",
+      "serving_size": "4 oz",
+      "calories": 162,
+      "protein_g": 14,
+      "carbs_g": 10,
+      "fat_g": 9,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072822,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Maple Syrup",
+      "description": "13427DC",
+      "ingredients": "Syrup,Maple - HC (CORN SYRUP, WATER, HIGH FRUCTOSE CORN SYRUP, SALT, NATURAL AND ARTIFICIAL FLAVORS, POTASSIUM SORBATE, SODIUM BENZOATE AND BENZOIC ACID (PRESERVATIVES), CARAMEL COLOR, CELLULOSE GUM.)",
+      "serving_size": "1 oz",
+      "calories": 106,
+      "protein_g": 0,
+      "carbs_g": 27,
+      "fat_g": 0,
+      "dietary_tags": [
+        "Vegan",
+        "Wheat-Free"
+      ],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2072836,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Butter",
+      "description": "3342",
+      "ingredients": "Butter (US Foods 877506: Pasteurized cream and salt. Contains: Milk. 2014. \r\n)",
+      "serving_size": "0.5 oz",
+      "calories": 102,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 12,
+      "dietary_tags": [
+        "Vegetarian",
+        "Wheat-Free"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2073006,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "The Main Line",
+      "station_id": 78547,
+      "dish_name": "Quiche Lorraine",
+      "description": "1411",
+      "ingredients": "Milk,Reduced Fat,2%,Dispenser (Ingredients: Reduced fat milk, vitamin A Palmitate, Vitamin D3.   11/5/16), Pie Shell,Frozen,10\" (Sysco 9786021: ENRICHED FLOUR (WHEAT FLOUR, NIACIN, IRON, THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID), INTERESTERIFIED SOYBEAN OIL, WATER, HYDORGENATED COTTONSEED OIL, HIGH FRUCTOSE CORN SYRUP, SALT, SOY FLOUR. CONTAINS: WHEAT AND SOY.  2018 BP), Egg,Liquid,Whole,Aseptic (USFOODC9295139:WHOLE EGGS, 19.0 WATER, CONTAINS LESS THAN 2 OF THE FOLLOWING: SALT, XANTHAN GUM, CITRIC ACID, ANNATTO COLOR, NATURAL BUTTER FLAVOR SUNFLOWER OIL, NATURAL FLAVORS, AND MEDIUM CHAIN TRIGLYCERIDES sEPTEMBER 2019), Cheese,Swiss,Light,Alpine Lace (Cultured reduced fat milk, salt, enzymes, vitamin A palmitate (not found in regular Swiss cheese). CONTAINS: Milk 2018 BP), Onions,Fresh,Jumbo (onions 2018 BP), Bacon,Raw,Sliced,15/19 (USFOODS 6285340:CURED WITH WATER, SALT, SUGAR, SODIUM PHOSPHATES, SODIUM ERYTHORBATE, SODIUM NITRITE. FEB 2021), Pepper,White,Ground (Ingredients: White pepper.   11/4/16), Nutmeg,Ground (Ingredients: Nutmeg.   11/4/16)",
+      "serving_size": "0.12 piece",
+      "calories": 243,
+      "protein_g": 8,
+      "carbs_g": 15,
+      "fat_g": 16,
+      "dietary_tags": [],
+      "allergens": [
+        "Milk",
+        "Egg",
+        "Wheat",
+        "Soy"
+      ],
+      "synced_at": "2026-09-02T15:57:16.206Z"
+    },
+    {
+      "nutrislice_id": 2142086,
+      "location_id": "dining-location",
+      "meal_period": "brunch",
+      "served_date": "2026-09-05",
+      "station_name": "Deli Salad",
+      "station_id": 76137,
+      "dish_name": "Deli Salad du jour #1",
+      "description": "14482DC",
+      "ingredients": "No Ingredients",
+      "serving_size": "1 lbs",
+      "calories": null,
+      "protein_g": null,
+      "carbs_g": null,
+      "fat_g": null,
+      "dietary_tags": [],
+      "allergens": [],
+      "synced_at": "2026-09-02T15:57:16.206Z"
     }
   ]
 }
