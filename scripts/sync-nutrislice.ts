@@ -21,22 +21,45 @@ const MEAL_TYPES: { slug: 'breakfast' | 'lunch' | 'dinner' | 'brunch'; id: numbe
 const UPSERT_CHUNK_ROWS = 200;
 const COLUMNS_PER_ROW = 17;
 
+const RETRYABLE_HTTP_STATUSES = new Set([403, 408, 425, 429]);
+
 /** Retry transient Nutrislice/CDN failures before giving up on a meal period. */
-async function fetchWithRetry(url: string, attempts = 3): Promise<Response> {
+async function fetchWithRetry(url: string, attempts = 4): Promise<Response> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      const res = await fetch(url);
-      // Retrying a 4xx cannot fix a retired slug or menu-type id.
-      if (res.ok || (res.status >= 400 && res.status < 500)) return res;
+      const res = await fetch(url, {
+        headers: {
+          Accept: 'application/json',
+          'User-Agent': 'HaverTrack-Menu-Sync/1.0 (+https://github.com/akramjonn/HaverTrack)',
+        },
+      });
+      const isRetryable =
+        RETRYABLE_HTTP_STATUSES.has(res.status) || res.status >= 500;
+
+      // Most 4xx responses identify a real endpoint/configuration problem, but
+      // Nutrislice's CDN also emits transient 403 and 429 responses to runners.
+      if (res.ok || !isRetryable) return res;
       lastError = new Error(`HTTP ${res.status}`);
+
+      if (attempt < attempts) {
+        const retryAfterSeconds = Number(res.headers.get('retry-after'));
+        const backoffMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+          ? Math.min(retryAfterSeconds * 1000, 60_000)
+          : 3000 * 3 ** (attempt - 1);
+        console.warn(
+          `   ↻ Attempt ${attempt}/${attempts} failed (${lastError}); retrying in ${backoffMs}ms`
+        );
+        await new Promise((resolve) => setTimeout(resolve, backoffMs));
+        continue;
+      }
     } catch (err) {
       lastError = err;
     }
 
     if (attempt < attempts) {
-      const backoffMs = 1000 * attempt;
+      const backoffMs = 3000 * 3 ** (attempt - 1);
       console.warn(
         `   ↻ Attempt ${attempt}/${attempts} failed (${lastError}); retrying in ${backoffMs}ms`
       );
