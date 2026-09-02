@@ -5,6 +5,7 @@ import { Colors } from '@/constants/theme';
 import { Calendar, Utensils, TrendingUp, User } from 'lucide-react-native';
 import { useAuthStore, selectIsOnboarded } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
+import { useMenuStore } from '@/store/menuStore';
 import { AppTabBar } from '@/components/navigation/AppTabBar';
 
 export default function TabLayout() {
@@ -12,11 +13,14 @@ export default function TabLayout() {
   const profile = useAuthStore((state) => state.profile);
   const isOnboarded = useAuthStore(selectIsOnboarded);
   const hydrate = useLogStore((state) => state.hydrate);
+  const refreshMenu = useMenuStore((state) => state.refreshMenu);
+  const userId = user?.id ?? null;
 
   // One load for the whole tab group; every tab reads the same store.
   useEffect(() => {
-    hydrate(user?.id ?? null);
-  }, [user?.id]);
+    hydrate(userId);
+    if (userId) refreshMenu();
+  }, [userId, hydrate, refreshMenu]);
 
   // Guarding the group itself means a deep link cannot land inside the app
   // without a session.

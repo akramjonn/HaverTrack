@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import latestMenuJson from '../data/menus/latest.json';
 import { ParsedMenuItem } from '@/lib/nutrislice';
+import { supabase } from '@/lib/supabase';
 import {
   SavedMeal,
   SavedMealInput,
@@ -15,6 +16,11 @@ interface MenuState {
   items: ParsedMenuItem[];
   syncedAt: string;
   isStale: boolean;
+  isRefreshing: boolean;
+  refreshError: string | null;
+
+  /** Replaces the bundled fallback with today's live Supabase menu. */
+  refreshMenu: () => Promise<void>;
 
   /**
    * Saved meals, straight from public.user_favorites. This used to be an
@@ -72,6 +78,62 @@ export const useMenuStore = create<MenuState>((set, get) => {
     items: latestMenuJson.items as ParsedMenuItem[],
     syncedAt: syncedAt,
     isStale: hoursOld > 26,
+    isRefreshing: false,
+    refreshError: null,
+
+    refreshMenu: async () => {
+      // menu_items is intentionally authenticated-only under RLS. The tab group
+      // calls this after auth restoration; signed-out screens keep the bundle.
+      if (!currentUserId() || get().isRefreshing) return;
+
+      set({ isRefreshing: true, refreshError: null });
+
+      try {
+        const dateParts = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/New_York',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }).formatToParts(new Date());
+        const datePart = (type: string) =>
+          dateParts.find((part) => part.type === type)?.value ?? '';
+        const today = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
+
+        const { data, error } = await supabase
+          .from('menu_items')
+          .select(
+            'nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at'
+          )
+          .eq('served_date', today)
+          .order('meal_period')
+          .order('station_name')
+          .order('dish_name');
+
+        if (error) throw error;
+        if (!data?.length) throw new Error(`No live menu rows were found for ${today}.`);
+
+        const items = data as ParsedMenuItem[];
+        const liveSyncedAt = items.reduce(
+          (latest, item) => (item.synced_at > latest ? item.synced_at : latest),
+          items[0].synced_at
+        );
+
+        set({
+          items,
+          syncedAt: liveSyncedAt,
+          isStale: Date.now() - new Date(liveSyncedAt).getTime() > 26 * 60 * 60 * 1000,
+          isRefreshing: false,
+          refreshError: null,
+        });
+      } catch (e: any) {
+        // The checked-in snapshot remains usable offline; make the fallback
+        // visible instead of blanking the menu when the network is unavailable.
+        set({
+          isRefreshing: false,
+          refreshError: e?.message ?? 'The live menu could not be refreshed.',
+        });
+      }
+    },
 
     favorites: [],
     favoritesLoaded: false,

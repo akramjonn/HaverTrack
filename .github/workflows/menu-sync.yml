@@ -2,12 +2,17 @@ name: Nutrislice Menu Sync
 
 on:
   schedule:
-    # 3x daily in UTC:
-    # 09:30 UTC = 5:30 AM ET (Before breakfast)
-    # 15:00 UTC = 11:00 AM ET (Before lunch)
-    # 20:30 UTC = 4:30 PM ET (Before dinner)
+    # Cron is always UTC. These times land before each meal in both EST and EDT.
+    # GitHub's hosted schedule is best-effort, so the sync itself is idempotent.
     - cron: '30 9,15,20 * * *'
   workflow_dispatch: # Allow manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+concurrency:
+  group: menu-sync
+  cancel-in-progress: false
 
 jobs:
   sync-menus:
@@ -19,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -29,11 +34,18 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        run: npx tsx scripts/sync-nutrislice.ts
+        run: npm run sync:menus
 
       - name: Commit cached menu data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- src/data/menus/latest.json; then
+            echo "No menu changes to commit."
+            exit 0
+          fi
+
           git add src/data/menus/latest.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(menu): sync live Nutrislice DC menu [skip ci]" && git push)
+          git commit -m "chore(menu): sync live Nutrislice DC menu [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

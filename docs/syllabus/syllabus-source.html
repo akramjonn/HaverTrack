@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vibe Coding at Haverford — Syllabus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ink: #1B1618;
+    --ink-soft: #3D3235;
+    --muted: #6E6165;
+    --faint: #8C8084;
+    --rule: #E2DADB;
+    --rule-strong: #C9BDBF;
+    --accent: #9E1B32;
+    --accent-soft: #F7EAEC;
+    --sunk: #F5F1F1;
+    --display: "Newsreader", Georgia, serif;
+    --body: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", "Courier New", monospace;
+  }
+
+  @page {
+    size: Letter;
+    margin: 0.6in 0.65in;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 8.9pt;
+    line-height: 1.4;
+  }
+
+  p { margin: 0 0 6pt; }
+  ul { margin: 0; padding-left: 13pt; }
+  li { margin-bottom: 2.6pt; }
+  li::marker { color: var(--rule-strong); }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+
+  code {
+    font-family: var(--mono);
+    font-size: .9em;
+    background: var(--sunk);
+    padding: 0.5pt 3pt;
+    border-radius: 1.5pt;
+    white-space: nowrap;
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 6.8pt;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .label.grey { color: var(--muted); font-weight: 500; }
+
+  /* ---------- cover ---------- */
+  .cover { padding-top: 4pt; }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 7.4pt;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14pt;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 33pt;
+    line-height: 1.02;
+    letter-spacing: -.02em;
+    margin: 0;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .deck {
+    font-family: var(--display);
+    font-size: 13pt;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 30em;
+    margin: 12pt 0 0;
+  }
+
+  .factbar {
+    margin-top: 20pt;
+    padding: 11pt 0;
+    border-top: 1.2pt solid var(--ink);
+    border-bottom: 0.6pt solid var(--rule-strong);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14pt;
+  }
+  .factbar dt {
+    font-family: var(--mono);
+    font-size: 6.6pt;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3pt;
+  }
+  .factbar dd { margin: 0; font-size: 9pt; font-weight: 500; line-height: 1.35; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 16pt;
+    line-height: 1.15;
+    letter-spacing: -.01em;
+    margin: 0 0 3pt;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .sub { color: var(--muted); font-size: 9pt; margin: 0 0 10pt; }
+
+  section { margin-top: 16pt; }
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; }
+
+  .premise p { max-width: 34em; }
+  .premise .lede { font-size: 10.4pt; }
+
+  /* rules cards */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0.6pt solid var(--rule-strong); break-inside: avoid; page-break-inside: avoid; }
+  .rules > div { padding: 8pt 10pt; border-right: 0.6pt solid var(--rule); border-bottom: 0.6pt solid var(--rule); }
+  .rules > div:nth-child(2n) { border-right: 0; }
+  .rules > div:nth-last-child(-n+2) { border-bottom: 0; }
+  .rules h3 { font-size: 9.4pt; font-weight: 600; margin: 0 0 3pt; }
+  .rules p { margin: 0; font-size: 8.8pt; color: var(--ink-soft); line-height: 1.45; }
+
+  /* stack */
+  .chips { display: flex; flex-wrap: wrap; gap: 4pt; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 7.6pt;
+    padding: 2.5pt 6pt;
+    border: 0.6pt solid var(--rule-strong);
+    color: var(--ink-soft);
+  }
+
+  /* calendar */
+  table { border-collapse: collapse; width: 100%; }
+  .cal td, .cal th { padding: 6pt 8pt 6pt 0; border-bottom: 0.6pt solid var(--rule); vertical-align: baseline; font-size: 9pt; }
+  .cal thead th {
+    font-family: var(--mono); font-size: 6.6pt; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; text-align: left; border-bottom: 0.8pt solid var(--rule-strong);
+  }
+  .cal td.d { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; width: 62pt; color: var(--ink-soft); }
+  .cal td.n { font-family: var(--mono); font-weight: 600; color: var(--accent); width: 30pt; }
+  .cal tr.off td { color: var(--muted); }
+  .cal tr.off td.n { color: var(--faint); font-weight: 400; }
+  .cal td strong { font-weight: 600; }
+
+  /* ---------- session pages ---------- */
+  .session { break-before: page; page-break-before: always; }
+
+  .session-head {
+    border-top: 1.2pt solid var(--ink);
+    padding-top: 6pt;
+    margin-bottom: 6pt;
+    display: grid;
+    grid-template-columns: 44pt 1fr auto;
+    gap: 12pt;
+    align-items: baseline;
+  }
+  .session-head .snum {
+    font-family: var(--mono);
+    font-size: 15pt;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .session-head h2 { font-size: 17.5pt; margin: 0; }
+  .session-head .sdate {
+    font-family: var(--mono);
+    font-size: 8pt;
+    letter-spacing: .06em;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .session-head .stag {
+    grid-column: 2;
+    font-size: 9pt;
+    color: var(--muted);
+    font-family: var(--display);
+    font-style: italic;
+    margin-top: 2pt;
+  }
+
+  .slot {
+    display: grid;
+    grid-template-columns: 62pt 1fr;
+    gap: 14pt;
+    padding: 3.2pt 0;
+    border-top: 0.6pt solid var(--rule);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .slot:first-of-type { border-top: 0.6pt solid var(--rule-strong); }
+  .slot .time {
+    font-family: var(--mono);
+    font-size: 7.6pt;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .01em;
+    font-variant-numeric: tabular-nums;
+    padding-top: 1.5pt;
+  }
+  .slot h3 {
+    font-family: var(--body);
+    font-size: 9.3pt;
+    font-weight: 600;
+    margin: 0 0 3.5pt;
+    letter-spacing: -.003em;
+  }
+  .slot ul li { font-size: 8.35pt; line-height: 1.34; color: var(--ink-soft); margin-bottom: 1.6pt; }
+  .slot ul li strong { color: var(--ink); }
+
+  .outcome {
+    margin-top: 9pt;
+    padding: 6.5pt 10pt;
+    background: var(--accent-soft);
+    border-left: 2pt solid var(--accent);
+    break-inside: avoid;
+  }
+  .outcome p {
+    margin: 2pt 0 0;
+    font-family: var(--display);
+    font-size: 10.2pt;
+    line-height: 1.3;
+  }
+
+
+  .footrow {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 9pt;
+    align-items: start;
+    margin-top: 6pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .footrow > .outcome, .footrow > .work { margin-top: 0; }
+  .footrow:has(> .outcome:only-child) { grid-template-columns: 1fr; }
+
+  .work {
+    margin-top: 8pt;
+    border: 0.6pt solid var(--rule-strong);
+    padding: 6pt 9pt 6.5pt;
+    break-inside: avoid;
+  }
+  .work .label { display: block; margin-bottom: 4.5pt; }
+  .work ol { margin: 0; padding-left: 14pt; }
+  .work ol li { font-size: 8.35pt; color: var(--ink-soft); margin-bottom: 2.6pt; }
+  .work .due { float: right; font-family: var(--mono); font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+  .breaks .cols2 { align-items: start; }
+
+  .sprint {
+    margin-top: 0;
+    padding: 7pt 10pt;
+    background: var(--sunk);
+    border-left: 2pt solid var(--rule-strong);
+    break-inside: avoid;
+  }
+  .sprint h4 { font-size: 9.2pt; font-weight: 600; margin: 0 0 4pt; }
+  .sprint p, .sprint li { font-size: 8.4pt; color: var(--ink-soft); margin: 0; }
+  .sprint ul { margin-top: 4pt; }
+
+  /* ---------- back matter ---------- */
+  .backmatter { break-before: page; page-break-before: always; }
+
+  .checklist { list-style: none; padding: 0; margin: 0; border-top: 0.6pt solid var(--rule-strong); }
+  .checklist li { border-bottom: 0.6pt solid var(--rule); padding: 5.5pt 0 5.5pt 20pt; position: relative; margin: 0; }
+  .checklist li::before {
+    content: "";
+    position: absolute; left: 1pt; top: 9.5pt;
+    width: 8pt; height: 8pt;
+    border: 0.8pt solid var(--rule-strong);
+  }
+  .checklist b { font-weight: 600; font-size: 9.4pt; }
+  .checklist span { display: block; color: var(--muted); font-size: 8.8pt; line-height: 1.4; }
+
+  .grade td { padding: 5.5pt 8pt 5.5pt 0; border-bottom: 0.6pt solid var(--rule); font-size: 9pt; vertical-align: baseline; }
+  .grade tr:last-child td { border-bottom: 0.8pt solid var(--rule-strong); }
+  .grade td.w { text-align: right; padding-right: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 500; width: 40pt; }
+  .grade td b { font-weight: 600; }
+  .grade td span { display: block; color: var(--muted); font-size: 8.6pt; }
+
+  .policies { break-inside: avoid; page-break-inside: avoid; }
+  .policy { break-inside: avoid; margin-bottom: 14pt; }
+  .policy h3 { font-family: var(--display); font-weight: 500; font-size: 12pt; margin: 0 0 5pt; }
+  .policy li { font-size: 8.5pt; color: var(--ink-soft); }
+
+  .closing {
+    margin-top: 18pt;
+    padding-top: 12pt;
+    border-top: 1.2pt solid var(--ink);
+    break-inside: avoid;
+  }
+  .closing p { font-family: var(--display); font-size: 12pt; line-height: 1.35; max-width: 30em; }
+  .closing p.small { font-family: var(--body); font-size: 9pt; color: var(--muted); max-width: 38em; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER / PAGE 1 ============ -->
+<div class="cover">
+  <p class="kicker">Haverford College &middot; Fall 2026 &middot; Syllabus</p>
+  <h1>Vibe Coding:<br>Building Real Apps <em>with AI</em></h1>
+  <p class="deck">Nine hours of class time. One codebase. An app in the hands of Haverford students by December.</p>
+
+  <dl class="factbar">
+    <div>
+      <dt>When</dt>
+      <dd>Thursdays, 6:00&ndash;7:30&nbsp;PM<br>Every other week</dd>
+    </div>
+    <div>
+      <dt>Where</dt>
+      <dd>Location TBD</dd>
+    </div>
+    <div>
+      <dt>Instructor</dt>
+      <dd>Akramjon Abdurakhimov<br>akramjondev@gmail.com</dd>
+    </div>
+    <div>
+      <dt>Prerequisites</dt>
+      <dd>None. Genuinely none.</dd>
+    </div>
+  </dl>
+</div>
+
+<section class="premise">
+  <h2>The premise</h2>
+  <p class="lede">Six sessions is not enough time to teach you to program the way it has been taught for forty years. It is enough to teach you to <em>ship</em>. You will direct an AI agent through a real codebase &mdash; writing the specs, cutting the scope, reviewing what comes back, and owning what goes live.</p>
+  <p>Session 1 is not &ldquo;here is the app.&rdquo; Session 1 is finding out what is actually broken on this campus and proving it with interviews. We expect to land on <strong>HaverTrack</strong> &mdash; a dining-hall food and nutrition tracker for Haverford students &mdash; because it clears the bar we set that night: a real user (everyone eats), real data (the Dining Center publishes its menus), and a core hard enough to be worth an agent. Auth, a database other people write to, a third-party feed on a schedule, a camera, and an AI call that has to run on a server: five different hard things in one app.</p>
+  <p>The whole class ships one app. Teams of three or four own a feature area of the same repository, which means you will merge into other people&rsquo;s work and they will merge into yours. That friction is the curriculum.</p>
+</section>
+
+<section>
+  <h2>How the class runs</h2>
+  <p class="sub">Studio, not lecture. Each session is roughly forty minutes of new material and fifty minutes of building with help in the room.</p>
+  <div class="rules">
+    <div>
+      <h3>You decide, the agent types</h3>
+      <p>The bottleneck was never syntax. It is knowing what to build, spotting a confidently wrong answer, and cutting scope before it cuts you.</p>
+    </div>
+    <div>
+      <h3>Nothing ships you can&rsquo;t explain</h3>
+      <p>If it is in a pull request with your name on it, you can walk me through what it does and why it is there. I will ask.</p>
+    </div>
+    <div>
+      <h3>The work is between sessions</h3>
+      <p>Budget four to six hours per two-week gap. Class time is for unblocking, reviewing, and what only works in a room together.</p>
+    </div>
+    <div>
+      <h3>Real users are watching</h3>
+      <p>Every decision gets tested on a student who did not build it, does not care how hard it was, and will close the app in nine seconds.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What we build on</h2>
+  <p class="sub">You need to know none of this on day one. You will have used all of it by December.</p>
+  <div class="chips">
+    <span class="chip">React&nbsp;Native + Expo&nbsp;SDK&nbsp;57</span>
+    <span class="chip">Expo&nbsp;Router</span>
+    <span class="chip">TypeScript</span>
+    <span class="chip">Supabase&nbsp;Postgres</span>
+    <span class="chip">Row&nbsp;Level&nbsp;Security</span>
+    <span class="chip">Supabase&nbsp;Auth</span>
+    <span class="chip">Edge&nbsp;Functions</span>
+    <span class="chip">TanStack&nbsp;Query</span>
+    <span class="chip">Zustand</span>
+    <span class="chip">Zod</span>
+    <span class="chip">Git + GitHub</span>
+    <span class="chip">GitHub&nbsp;Actions</span>
+    <span class="chip">Claude&nbsp;Code</span>
+    <span class="chip">MCP&nbsp;servers</span>
+    <span class="chip">EAS&nbsp;Build</span>
+  </div>
+</section>
+
+<section>
+  <h2>Calendar</h2>
+  <p class="sub">Every other Thursday, September 3 to December 10. Two Thursdays land on College breaks; a Break Sprint replaces each.</p>
+  <table class="cal">
+    <thead>
+      <tr><th>Date</th><th></th><th>Session</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="d">Thu Sep 3</td><td class="n">01</td><td><strong>Find the problem worth building</strong> &mdash; agent capabilities and failure modes, problem filters, interviewing, campus inventory, teams</td></tr>
+      <tr><td class="d">Thu Sep 17</td><td class="n">02</td><td><strong>From problem to spec to first merge</strong> &mdash; writing a buildable spec, HaverTrack&rsquo;s architecture, Git and pull requests</td></tr>
+      <tr><td class="d">Thu Oct 1</td><td class="n">03</td><td><strong>Data, auth, and who is allowed to see what</strong> &mdash; modeling, SQL, migrations, Row Level Security, email auth</td></tr>
+      <tr class="off"><td class="d">Thu Oct 15</td><td class="n">&mdash;</td><td>Fall Break &middot; no class &middot; <strong>Break Sprint A</strong></td></tr>
+      <tr><td class="d">Thu Oct 29</td><td class="n">04</td><td><strong>APIs, secrets, and things that fail</strong> &mdash; the menu sync, scheduled jobs, Edge Functions, camera, failure states</td></tr>
+      <tr><td class="d">Thu Nov 12</td><td class="n">05</td><td><strong>Design, and testing on people who don&rsquo;t care</strong> &mdash; UI/UX fundamentals, design tokens, live usability testing</td></tr>
+      <tr class="off"><td class="d">Thu Nov 26</td><td class="n">&mdash;</td><td>Thanksgiving Break &middot; no class &middot; <strong>Break Sprint B</strong></td></tr>
+      <tr><td class="d">Thu Dec 10</td><td class="n">06</td><td><strong>Ship day</strong> &mdash; pre-flight checklist, builds and release, operating a live app, demos, retro</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="breaks">
+  <h2>Break Sprints</h2>
+  <p class="sub">Two Thursdays fall on College breaks. There is no class and no office hours those weeks, and each sits inside a four-week gap between sessions &mdash; these assignments are what keep the app from going cold.</p>
+  <div class="cols2">
+    <div class="sprint">
+    <h4>Break Sprint A &middot; Fall Break week of Oct 15</h4>
+    <p>No class and no office hours that week, and a four-week gap between sessions &mdash; this is what keeps the app from going cold.</p>
+    <ul>
+      <li>Review another team&rsquo;s spec against the rubric and file three specific GitHub issues on their feature area. Not &ldquo;this is confusing&rdquo; &mdash; what breaks, and for whom.</li>
+      <li>Async standup in the class channel by that Friday: shipped, stuck, next.</li>
+    </ul>
+    </div>
+    <div class="sprint">
+    <h4>Break Sprint B &middot; Thanksgiving week of Nov 26</h4>
+    <p>Two weeks from launch, with your beta group using the app over the break &mdash; the best bug reports you will get all semester arrive that week.</p>
+    <ul>
+      <li>Solo ship: one small, self-contained improvement, spec&rsquo;d and merged without your team&rsquo;s help.</li>
+      <li>Three hundred words on something the agent got wrong this semester and how you caught it. Graded on the catching.</li>
+    </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SESSION 1 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">01</div>
+    <h2>Find the problem worth building</h2>
+    <div class="sdate">Thu&nbsp;Sep&nbsp;3 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">Nobody writes code tonight. That is deliberate.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:15</div>
+    <div>
+      <h3>The deal</h3>
+      <ul>
+        <li>What we are shipping, who uses it, and what &ldquo;done&rdquo; means on December 10</li>
+        <li>How the six sessions map onto the build, and where the real hours go</li>
+        <li>The one rule: you can explain everything you ship</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:15&ndash;6:40</div>
+    <div>
+      <h3>What the agent is, and what it isn&rsquo;t</h3>
+      <ul>
+        <li>Live: Claude Code takes a small feature from request to working code, narrated</li>
+        <li>Where it genuinely excels &mdash; unfamiliar APIs, boilerplate, refactors across many files, reading an error message you have never seen</li>
+        <li><strong>Failure mode 1: stale versions.</strong> It will write Expo SDK 49 code into our SDK 57 project. This is why our repo&rsquo;s first instruction to the agent is to read the versioned docs before writing anything</li>
+        <li><strong>Failure mode 2: invention.</strong> Functions, props and endpoints that do not exist, delivered with total confidence</li>
+        <li><strong>Failure mode 3: silent scope creep.</strong> It edits four files you did not ask about</li>
+        <li>Plan before code: review the plan, not the diff. Watching a wrong plan get built is the expensive way to learn this</li>
+        <li>Exercise: we ask it for something subtly wrong and race to catch it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:40&ndash;7:05</div>
+    <div>
+      <h3>Finding a problem that is actually real</h3>
+      <ul>
+        <li><strong>The three filters.</strong> Frequency: daily beats once a semester. Pain: mildly annoying every day beats catastrophic and rare. Reachability: can you put this in front of fifty Haverford students by December?</li>
+        <li>&ldquo;An app for X&rdquo; is not a problem statement. The format we use: <em>[who] can&rsquo;t [do what] because [why], so instead they [current workaround]</em></li>
+        <li>The workaround is the evidence. If nobody has one, nobody has the problem</li>
+        <li>Interviewing for past behavior, not future intentions: &ldquo;Tell me about the last time&hellip;&rdquo; never &ldquo;Would you use&hellip;&rdquo;</li>
+        <li>Five questions that work, and three that poison your data: &ldquo;Would you use an app that&hellip;&rdquo;, &ldquo;Don&rsquo;t you hate it when&hellip;&rdquo;, &ldquo;What features do you want?&rdquo;</li>
+        <li>How to take notes: verbatim quotes, not your summary of what they meant</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:05&ndash;7:25</div>
+    <div>
+      <h3>The campus problem inventory</h3>
+      <ul>
+        <li>Silent brainstorm, ten minutes, one problem per card &mdash; no discussion, no filtering</li>
+        <li>Cluster on the board, vote, then rank the top ten against the three filters</li>
+        <li>Where we expect to land: dining. Students eat at the DC two or three times a day, the menus are published but not usable as nutrition, and nobody can answer &ldquo;what did I actually eat today?&rdquo;</li>
+        <li>Stating HaverTrack v1 out loud, with its out-of-scope list, before anyone opens an editor</li>
+        <li>Why it is a good teaching project: sign-in, a shared database, a third-party feed on a schedule, a camera, and a model call that must run on a server</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:25&ndash;7:30</div>
+    <div>
+      <h3>Teams and feature areas</h3>
+      <ul>
+        <li><strong>Log &amp; search</strong> &mdash; today&rsquo;s DC menu, dish search, favorites, quick add</li>
+        <li><strong>Scan</strong> &mdash; camera, barcode lookup, photo becomes an editable plate</li>
+        <li><strong>Progress</strong> &mdash; daily totals, weight history, streaks, insights</li>
+        <li><strong>Account &amp; onboarding</strong> &mdash; sign-up, goal setting, personal details, deleting your data</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>A team, a claimed feature area, and a problem you can defend in one sentence.</p>
+  </div>
+
+  <div class="work">
+    <span class="due">Due Sep 17</span>
+    <span class="label">Independent work</span>
+    <ol>
+      <li><strong>Five interviews</strong>, ten minutes each, with students who are not in this class. Submit verbatim notes with at least three direct quotes per interview. Ask about the last time, never the next time.</li>
+      <li><strong>Setup checklist complete</strong> (back page). HaverTrack running on your own phone &mdash; screenshot as proof.</li>
+      <li><strong>One Claude Code session</strong> on any project at all. One paragraph: the first thing it got wrong, and how you noticed.</li>
+    </ol>
+  </div>
+  </div>
+</article>
+
+<!-- ============ SESSION 2 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">02</div>
+    <h2>From problem to spec to first merge</h2>
+    <div class="sdate">Thu&nbsp;Sep&nbsp;17 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">Everyone leaves with code merged into a repository other people depend on.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:20</div>
+    <div>
+      <h3>Interview debrief</h3>
+      <ul>
+        <li>What each team actually heard, and where the teams contradict each other</li>
+        <li>The chain we will use all semester: <strong>quote &rarr; need &rarr; feature &rarr; the cut</strong></li>
+        <li>Which of your assumptions died this week. Name one out loud</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:20&ndash;6:45</div>
+    <div>
+      <h3>Writing a spec an agent can build from</h3>
+      <ul>
+        <li>The seven sections: problem, users, user stories, <strong>out of scope</strong>, data, screens, done criteria</li>
+        <li>User story format &mdash; and why &ldquo;as a user I want a nice UI&rdquo; is not one</li>
+        <li>Out-of-scope is the most important section in the document. Everything you did not write there, you have implicitly promised</li>
+        <li>Acceptance criteria that can actually be checked: &ldquo;the totals row updates within one second of adding an item,&rdquo; not &ldquo;it feels fast&rdquo;</li>
+        <li>How much detail an agent needs: name the files, name the tables, name the screens. Vague in, vague out</li>
+        <li>Decomposition: turning one feature into four tasks that four people can do in parallel without colliding</li>
+        <li>Live: we take a vague line from a real spec and rewrite it into something buildable, together</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:45&ndash;7:10</div>
+    <div>
+      <h3>The architecture of HaverTrack</h3>
+      <ul>
+        <li>Drawn on the board, then mapped onto folders you can open</li>
+        <li><strong>The phone app</strong> &mdash; React Native and Expo; screens live in <code>src/app</code>, and the folder structure <em>is</em> the navigation (file-based routing)</li>
+        <li><strong>The database</strong> &mdash; Supabase Postgres, thirteen tables including <code>profiles</code>, <code>meal_logs</code>, <code>meal_log_items</code>, <code>menu_items</code>, <code>weight_entries</code></li>
+        <li><strong>Auth</strong> &mdash; Supabase Auth, email address plus a six-digit code</li>
+        <li><strong>The menu feed</strong> &mdash; a scheduled GitHub Action calls the Nutrislice API three times a day and writes <code>menu_items</code></li>
+        <li><strong>Server-side work</strong> &mdash; Edge Functions: <code>analyze-photo</code>, <code>estimate-goals</code>, <code>delete-account</code></li>
+        <li>The question to ask about every new piece of work: <em>does this need a secret?</em> If yes, it cannot run on the phone. That single question decides most of the architecture</li>
+        <li>State, briefly: what TanStack Query caches from the server, what Zustand holds on the device, and why they are not the same thing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:10&ndash;7:30</div>
+    <div>
+      <h3>Git, and your first pull request</h3>
+      <ul>
+        <li>The five commands you will use all semester: <code>clone</code>, <code>checkout -b</code>, <code>commit</code>, <code>push</code>, and opening a PR</li>
+        <li>Branch naming so four teams can work at once: <code>feature/log-search-empty-state</code></li>
+        <li>What a good pull request description contains &mdash; including what you asked the agent for and what you changed by hand</li>
+        <li>Reviewing someone else&rsquo;s PR: does it do what it says, does it break anything of mine, can I explain it</li>
+        <li>We create a merge conflict on purpose and resolve it together, so the first one you meet alone is not a crisis</li>
+        <li>Live: every student ships a visible change on a branch and opens a PR before leaving the room</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>A merged pull request in a codebase other people depend on.</p>
+  </div>
+
+  <div class="work">
+    <span class="due">Due Oct 1</span>
+    <span class="label">Independent work</span>
+    <ol>
+      <li><strong>Team spec</strong>, one to two pages, committed as <code>docs/specs/&lt;feature&gt;.md</code> and merged by pull request. It must contain an out-of-scope list you are willing to be held to.</li>
+      <li><strong>One more merged PR each</strong>, plus one review of a teammate&rsquo;s.</li>
+      <li><strong>Read your feature&rsquo;s existing screens</strong> in <code>src/app</code>. Bring three questions about code you do not understand.</li>
+    </ol>
+  </div>
+  </div>
+</article>
+
+<!-- ============ SESSION 3 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">03</div>
+    <h2>Data, auth, and who is allowed to see what</h2>
+    <div class="sdate">Thu&nbsp;Oct&nbsp;1 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">The night we read another student&rsquo;s food log on purpose, then make it impossible.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:20</div>
+    <div>
+      <h3>Spec review</h3>
+      <ul>
+        <li>Two teams present; the class hunts for what is missing from the out-of-scope list</li>
+        <li>Where a spec was too vague for the agent, and what it produced instead</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:20&ndash;6:50</div>
+    <div>
+      <h3>Modeling the data</h3>
+      <ul>
+        <li>Tables, rows, columns, primary keys, foreign keys &mdash; taught on our actual schema, on screen</li>
+        <li>Worked example: a logged meal is one row in <code>meal_logs</code> (whose, what date, which meal period) with child rows in <code>meal_log_items</code> (which dish, what portion). Why that is two tables and not one</li>
+        <li>The <code>user_id</code> column that appears on nearly every table, and what it is really for</li>
+        <li>Nullable versus not-null, defaults, and timestamps that let you ask &ldquo;what changed since Tuesday&rdquo;</li>
+        <li>Indexes: why <code>idx_meal_logs_user_date</code> exists, and the trigram index that makes typo-tolerant dish search possible</li>
+        <li><strong>The six SQL statements</strong> you need this semester: <code>select</code>, <code>insert</code>, <code>update</code>, <code>delete</code>, <code>join</code>, <code>where</code>. There is no seventh</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:50&ndash;7:10</div>
+    <div>
+      <h3>Migrations</h3>
+      <ul>
+        <li>Schema as version-controlled files in <code>supabase/migrations</code>, named by timestamp so they apply in order</li>
+        <li>Running them with <code>npx tsx scripts/migrate.ts</code>; what ran is recorded in <code>schema_migrations</code>, so re-running is safe</li>
+        <li>Why we never add a column in the dashboard: your database and mine silently diverge, and the bug surfaces on someone else&rsquo;s laptop a week later</li>
+        <li>Live: add a column with the agent, write the migration, run it, watch it land in the table</li>
+        <li>What to do when a migration is wrong &mdash; write a new one forward, never edit one that has already run</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:10&ndash;7:30</div>
+    <div>
+      <h3>Row Level Security, and signing in</h3>
+      <ul>
+        <li>The idea: the database itself refuses to return rows that are not yours. Not a check in the app &mdash; a rule in the database, enforced even if the app is wrong</li>
+        <li>Reading a real policy line by line: <em>&ldquo;Users can manage own meal logs&rdquo;</em>, <code>using (auth.uid() = user_id)</code></li>
+        <li><strong>Live demonstration:</strong> we switch a policy off and read one account&rsquo;s food log from another phone. Then we switch it back on and watch the same request return nothing</li>
+        <li>Shared-but-protected data: <code>menu_items</code> is readable by anyone signed in and writable by nobody &mdash; the sync job writes it with different credentials</li>
+        <li>The auth flow end to end: sign up, receive a six-digit code, confirm, hold a session. The email template must include the token or the code is never generated &mdash; the single most common setup failure in this stack</li>
+        <li>Server-owned columns: <code>profiles.role</code> is protected by a database trigger, because a client that can promote itself to admin is not a security model</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>Your feature&rsquo;s tables migrated, with policies that hold when the class attacks them.</p>
+  </div>
+
+  <div class="work">
+    <span class="due">Due Oct 29</span>
+    <span class="label">Independent work &middot; four weeks, Fall Break in the middle</span>
+    <ol>
+      <li><strong>Schema and RLS policies</strong> for your feature area, merged.</li>
+      <li><strong>Prove it holds.</strong> Sign in as a second account and show your query returns none of the first account&rsquo;s rows. Screenshot in the pull request.</li>
+      <li><strong>Bring one query</strong> your screen needs and cannot yet write.</li>
+      <li><strong>Break Sprint A</strong> over Fall Break &mdash; see page 2.</li>
+    </ol>
+  </div>
+  </div>
+
+</article>
+
+<!-- ============ SESSION 4 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">04</div>
+    <h2>APIs, secrets, and things that fail</h2>
+    <div class="sdate">Thu&nbsp;Oct&nbsp;29 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">Where the app stops being a demo and starts depending on the outside world.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:15</div>
+    <div>
+      <h3>Security check-in</h3>
+      <ul>
+        <li>Teams attempt to read each other&rsquo;s data. Anything that leaks gets fixed tonight</li>
+        <li>Two minutes each: the query you could not write, answered</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:15&ndash;6:40</div>
+    <div>
+      <h3>What an API is</h3>
+      <ul>
+        <li>Request, response, JSON, headers &mdash; in ten minutes, with a real one open</li>
+        <li>Status codes and what each one means you should <em>do</em>: <code>200</code>, <code>401</code>, <code>404</code>, <code>429</code>, <code>500</code></li>
+                <li>Live: we call the Nutrislice endpoint from the terminal and read the raw JSON that becomes tonight&rsquo;s dinner list</li>
+        <li><strong>Validation at the boundary.</strong> Our Zod schemas exist because a third-party feed changes shape without telling you. What the app does when <code>calories</code> comes back <code>null</code> &mdash; because it does</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:40&ndash;7:00</div>
+    <div>
+      <h3>The menu sync, opened up</h3>
+      <ul>
+        <li>The pipeline, top to bottom: a scheduled GitHub Action fetches the DC menus, parses them, upserts into <code>menu_items</code>, and caches a copy in the repo</li>
+        <li>Why the cron runs at 5:30&nbsp;AM, 11:00&nbsp;AM and 4:30&nbsp;PM Eastern &mdash; before each meal, not on demand. Scheduling as a product decision</li>
+        <li><strong>Upsert versus insert:</strong> running the same sync twice must not double tonight&rsquo;s menu. Idempotence, without the word</li>
+        <li>Secrets in CI: <code>DATABASE_URL</code> lives in GitHub Actions secrets and never in the repository. What to do the day one leaks</li>
+        <li>What students see when the sync did not run, and why that is a design question, not a bug</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:00&ndash;7:15</div>
+    <div>
+      <h3>Secrets and Edge Functions</h3>
+      <ul>
+        <li><strong>The rule.</strong> Anything shipped inside a phone app can be read by anyone who has the app. Variables prefixed <code>EXPO_PUBLIC_</code> are public by definition. There is no clever way around this</li>
+        <li>So the photo scan cannot call a model API from the phone &mdash; the key would ship to every user</li>
+        <li>What an Edge Function is: a small server, deployed separately, that holds the key and does exactly one job. Ours are <code>analyze-photo</code>, <code>estimate-goals</code> and <code>delete-account</code></li>
+        <li>Deploying one, setting its secrets, reading its logs. A <code>401</code> from an anonymous <code>curl</code> means it is alive and refusing you &mdash; the healthy answer</li>
+        <li>The service role key: what it bypasses, why it exists, and why it never leaves the server</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:15&ndash;7:30</div>
+    <div>
+      <h3>The camera, and designing for failure</h3>
+      <ul>
+        <li>Camera and barcode scanning need a real device &mdash; the simulator has no camera, and browsers only allow it over HTTPS</li>
+        <li>The scan path: photo &rarr; Edge Function &rarr; a list of dishes with portions you can edit before saving. Why the user always gets the last word</li>
+        <li>Caching lookups in <code>barcode_cache</code>: politeness to someone else&rsquo;s API, and speed for the second student who scans the same granola bar</li>
+        <li><strong>The four-states drill.</strong> For every screen you own, name what appears when it is empty, loading, offline, and erroring. &ldquo;It won&rsquo;t happen&rdquo; is not one of the four</li>
+        <li>Graceful degradation: when the scan service is unavailable the app estimates on-device instead of showing an error page</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>Your feature working end to end against live data, not fixtures.</p>
+  </div>
+
+  <div class="work">
+    <span class="due">Due Nov 12</span>
+    <span class="label">Independent work</span>
+    <ol>
+      <li><strong>Your feature works against real data</strong>, merged. Fixtures are for tests, not for demos.</li>
+      <li><strong>All four states</strong> implemented on every screen you own.</li>
+      <li><strong>Break it deliberately.</strong> Airplane mode, a slow network, a missing field, a very long dish name. File what you find &mdash; you are graded on finding, not on nothing being wrong.</li>
+    </ol>
+  </div>
+  </div>
+</article>
+
+<!-- ============ SESSION 5 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">05</div>
+    <h2>Design, and testing on people who don&rsquo;t care</h2>
+    <div class="sdate">Thu&nbsp;Nov&nbsp;12 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">The night you are forbidden from explaining your own app.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:25</div>
+    <div>
+      <h3>UI/UX fundamentals</h3>
+      <ul>
+        <li><strong>Visual hierarchy</strong> &mdash; what the eye lands on first, and controlling it with size, weight, and space rather than color and boxes</li>
+        <li><strong>Affordance</strong> &mdash; a thing must look like what it does. If it is tappable it must look tappable, and if it is not, it must not</li>
+        <li><strong>Touch targets</strong> &mdash; 44 points minimum. Why your beautiful small icon button fails on a real thumb in a loud dining hall</li>
+        <li><strong>Accessibility</strong> &mdash; text contrast ratios, dynamic type, screen-reader labels on icon-only buttons, and never encoding meaning in color alone</li>
+        <li><strong>The four states as design</strong> &mdash; an empty state is the best onboarding screen you will ever get for free, and most apps waste it</li>
+        <li>Motion and haptics with a purpose: confirming an action, not decorating one</li>
+        <li>Writing in the interface: buttons say what happens, errors say what to do next</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:25&ndash;6:45</div>
+    <div>
+      <h3>Design systems</h3>
+      <ul>
+        <li>Tokens over values: colors, spacing and type live in <code>src/constants/theme.ts</code>, and no screen hardcodes a hex code</li>
+        <li>Shared components &mdash; when to extract one, and when extracting one makes everything worse</li>
+        <li>Light and dark as one system with two sets of values, not two designs</li>
+        <li>One type scale, three weights, and the discipline to stop there</li>
+        <li>Consistency beats taste. It is also far cheaper to review, which is why the whole class benefits</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:45&ndash;7:00</div>
+    <div>
+      <h3>Directing an agent on design</h3>
+      <ul>
+        <li>Screenshots in, critique out: paste the screen and ask what is wrong with it <em>before</em> asking for a fix</li>
+        <li>Describing changes as intent &mdash; &ldquo;this row should read as secondary&rdquo; &mdash; rather than as pixels</li>
+        <li>Iterating visually: change one thing, screenshot, compare, keep or revert</li>
+        <li>Where the agent is genuinely weak at design and the decision has to be yours</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:00&ndash;7:30</div>
+    <div>
+      <h3>Usability testing, live</h3>
+      <ul>
+        <li>The method: five users, one task, no explanation, no rescuing. Five is enough &mdash; the same problems repeat</li>
+        <li>What you say: &ldquo;Log what you ate at lunch today.&rdquo; Then nothing. Silence is the instrument</li>
+        <li>What to record: where they hesitate, what they tap that is not a button, what they say out loud, where they give up</li>
+        <li><strong>The rule you will hate:</strong> you may not explain your own app. Every explanation you give in a test is a bug you are hiding from yourself</li>
+        <li>Live: teams swap phones and test cold on each other, then on someone from outside the class if we can find one</li>
+        <li>Debrief: each team names its three worst failures out loud, in the tester&rsquo;s words rather than their own</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>Your three worst usability failures, in writing, in someone else&rsquo;s words.</p>
+  </div>
+
+  <div class="work">
+    <span class="due">Due Dec 10</span>
+    <span class="label">Independent work</span>
+    <ol>
+      <li><strong>Fix all three.</strong> Each fix cites the observation it came from in the pull request.</li>
+      <li><strong>Full QA pass</strong> on a real device: every screen, every state, both themes, a small phone and a large one.</li>
+      <li><strong>Soft launch to ten students</strong> outside the class. Sit with two of them while they use it and say nothing.</li>
+      <li><strong>Release-blocking bug list</strong>, agreed with your team and filed by Dec 8. Everything not on it is not shipping.</li>
+      <li><strong>Break Sprint B</strong> over Thanksgiving &mdash; see page 2.</li>
+    </ol>
+  </div>
+  </div>
+
+</article>
+
+<!-- ============ SESSION 6 ============ -->
+<article class="session">
+  <div class="session-head">
+    <div class="snum">06</div>
+    <h2>Ship day</h2>
+    <div class="sdate">Thu&nbsp;Dec&nbsp;10 &middot; 6:00&ndash;7:30</div>
+    <div class="stag">The release is cut in the room, in front of everyone.</div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:00&ndash;6:20</div>
+    <div>
+      <h3>Pre-flight</h3>
+      <ul>
+        <li>The checklist we run before every release: <code>npx tsc --noEmit</code> for types, <code>npx expo export</code> to prove the bundle actually builds, migrations applied, Edge Functions deployed, environment variables present in every environment</li>
+        <li>The three environments &mdash; your laptop, CI, production &mdash; and the class of bug that only exists because they differ</li>
+        <li>Reading the release-blocking bug list out loud and cutting everything that does not ship tonight. <strong>Cutting is the skill.</strong> Shipping is what happens after you cut</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:20&ndash;6:45</div>
+    <div>
+      <h3>Deploying</h3>
+      <ul>
+        <li>What Expo Go could do for us all semester, and what it could never do</li>
+        <li>What a real build gives you, and what EAS Build does with it</li>
+        <li>TestFlight and the web build; version numbers, and why they matter the moment two versions exist in the wild</li>
+        <li>Live: we cut the release together, on the projector, mistakes included</li>
+        <li>Rollback: exactly what you do when the release is broken at 11&nbsp;PM and forty people have it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">6:45&ndash;7:00</div>
+    <div>
+      <h3>Operating something real</h3>
+      <ul>
+        <li>Monitoring: how you find out it is broken before a user tells you</li>
+        <li>Support: where bug reports land, who reads them, and how fast you answer</li>
+        <li>Privacy in practice &mdash; what we collect, why each field earns its place, and the <code>delete-account</code> function that genuinely removes it</li>
+        <li>The maintenance question, answered tonight: who is on call in January, and how the next cohort picks this up</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:00&ndash;7:25</div>
+    <div>
+      <h3>Demos</h3>
+      <ul>
+        <li>Five minutes per team. A real phone, real data, no slides</li>
+        <li>Each team shows one thing they shipped, one thing they cut, and one thing that broke</li>
+        <li>Students from outside the class install it in the room</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="time">7:25&ndash;7:30</div>
+    <div>
+      <h3>Retro</h3>
+      <ul>
+        <li>Where the agent carried you, honestly</li>
+        <li>Every place you had to actually know something &mdash; this is the list that matters</li>
+        <li>What you would tell the next cohort in one sentence</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footrow">
+  <div class="outcome">
+    <span class="label">You leave with</span>
+    <p>An app other people use, and a merge history with your name on it.</p>
+  </div>
+  </div>
+</article>
+
+<!-- ============ BACK MATTER ============ -->
+<div class="backmatter">
+  <section style="margin-top:0">
+    <h2>Setup checklist</h2>
+    <p class="sub">Complete before Session 2. If any step takes more than thirty minutes, stop and bring it to the setup clinic &mdash; do not lose a Saturday to an install error.</p>
+    <ul class="checklist">
+      <li><b>A laptop you can install software on</b><span>macOS or Windows. A Chromebook or a locked-down machine will not work for this class.</span></li>
+      <li><b>A GitHub account</b><span>Send me the username so I can add you to the repository.</span></li>
+      <li><b>Node.js 20 or newer, and Git</b><span>Verify with <code>node --version</code> and <code>git --version</code>.</span></li>
+      <li><b>Claude Code, installed and signed in</b><span>Open it once and ask it something. That is assignment three.</span></li>
+      <li><b>Expo Go on your phone</b><span>iOS or Android. Session 4&rsquo;s camera work needs a real device &mdash; simulators have no camera.</span></li>
+      <li><b>A Supabase account</b><span>Free tier, using an email address you actually check.</span></li>
+      <li><b>The app running on your phone</b><span>Clone the repo, <code>npm install</code>, <code>npx expo start</code>, scan the QR code. Green light: HaverTrack opens on your phone.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Assessment</h2>
+    <p class="sub">Weighted toward what you shipped and what you unblocked, because that is what the class is for.</p>
+    <table class="grade">
+      <tr><td><b>Problem work &amp; interviews</b><span>Session 1 output and five real conversations, with quotes</span></td><td class="w">10%</td></tr>
+      <tr><td><b>Team spec</b><span>Scoped, honest about what is cut, and specific enough for an agent to act on</span></td><td class="w">15%</td></tr>
+      <tr><td><b>Merged pull requests</b><span>Individual. Reviewing a teammate&rsquo;s work counts toward this</span></td><td class="w">30%</td></tr>
+      <tr><td><b>Usability pass &amp; fixes</b><span>The three failures found, and what you did about each</span></td><td class="w">15%</td></tr>
+      <tr><td><b>Launch, demo &amp; retro</b><span>It works on a stranger&rsquo;s phone, and you can explain how</span></td><td class="w">20%</td></tr>
+      <tr><td><b>Break Sprints &amp; unblocking others</b><span>Standups, reviews, and answering someone else&rsquo;s question</span></td><td class="w">10%</td></tr>
+    </table>
+    <p style="margin-top:9pt;color:var(--muted);font-size:8.8pt;">The grade is a proxy. The real test is whether Haverford students are still opening the app in February.</p>
+  </section>
+
+  <section class="policies">
+    <h2>Policies</h2>
+    <div class="cols2">
+      <div>
+        <div class="policy">
+          <h3>Using AI</h3>
+          <ul>
+            <li><strong>Use it for everything.</strong> That is the course, not a loophole in it.</li>
+            <li>You may not ship code you cannot explain &mdash; not &ldquo;roughly,&rdquo; but what it does and why it is there.</li>
+            <li>A confident wrong answer is the most expensive thing in this class. Verify against the running app, the database, and the real docs.</li>
+            <li>Your PR description says what you asked for and what you changed by hand.</li>
+            <li>Specs and retros may be drafted with AI. The argument has to be one you can defend out loud.</li>
+          </ul>
+        </div>
+        <div class="policy">
+          <h3>Attendance &amp; help</h3>
+          <ul>
+            <li>Six sessions is nine hours. Missing one costs a sixth of the class &mdash; tell me in advance and I will get you a catch-up plan.</li>
+            <li>Weekly office hours, time TBD, plus a setup clinic thirty minutes before Session 2.</li>
+            <li>The class channel beats email. Ask there and someone answers before I do.</li>
+            <li>Stuck for over an hour on the same error is not persistence. Post it.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="policy">
+          <h3>Real users, real responsibility</h3>
+          <ul>
+            <li>HaverTrack holds other students&rsquo; food logs and body weight. That is sensitive data about people you will see at lunch.</li>
+            <li>Collect the minimum. If no screen uses a field, it does not go in the table.</li>
+            <li>Row Level Security is not a later problem.</li>
+            <li>No real user data in screenshots, demos, or your downloads folder. Test accounts for testing, seed data for demos.</li>
+            <li>Every user can delete their account and everything in it. We ship that; we do not promise it.</li>
+          </ul>
+        </div>
+        <div class="policy">
+          <h3>What this class is not</h3>
+          <ul>
+            <li>Not a substitute for a computer science degree. You will not leave able to write a compiler, and that is fine.</li>
+            <li>Not a survey of AI tools. One workflow, deeply, on one real codebase.</li>
+            <li>Not a hackathon. Anyone can build a demo in a weekend; almost nobody keeps one running for a semester.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <p>Three of the things you will do this semester &mdash; write a database migration, deploy a server-side function, cut a release build &mdash; most computer science majors do not touch until their third year.</p>
+    <p class="small">You will do them in weeks five, nine, and fifteen, with an agent doing the typing and you doing the deciding. The syntax was never the hard part. Deciding what to build, and being honest about whether it works, always was.</p>
+  </div>
+</div>
+
+</body>
+</html>

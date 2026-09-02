@@ -23,6 +23,7 @@ export default function MenuScreen() {
   const menuItems = useMenuStore((state) => state.items);
   const isStale = useMenuStore((state) => state.isStale);
   const syncedAt = useMenuStore((state) => state.syncedAt);
+  const refreshError = useMenuStore((state) => state.refreshError);
 
   const todayStr = getTodayString();
   const [mealPeriod, setMealPeriod] = useState<'lunch' | 'dinner' | 'breakfast' | 'coop'>('lunch');
@@ -136,11 +137,13 @@ export default function MenuScreen() {
         </View>
 
         {/* Staleness Banner if >26h (§4 Screen 09) */}
-        {isStale && !dismissStaleness ? (
+        {(isStale || refreshError) && !dismissStaleness ? (
           <View style={styles.stalenessBanner}>
             <Clock size={16} color={Colors.amber} style={{ marginRight: 8 }} />
             <Text style={styles.stalenessText}>
-              Showing cached menu from {new Date(syncedAt).toLocaleDateString()}. Live sync pending.
+              {refreshError
+                ? `Live refresh failed. Showing cached menu from ${new Date(syncedAt).toLocaleDateString()}.`
+                : `Showing cached menu from ${new Date(syncedAt).toLocaleDateString()}. Live sync pending.`}
             </Text>
             <Pressable
               onPress={() => setDismissStaleness(true)}

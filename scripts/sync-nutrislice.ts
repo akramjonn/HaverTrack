@@ -6,12 +6,42 @@ import { connect } from './db';
 const HAVERFORD_API_BASE = 'https://haverfordcollege.api.nutrislice.com/menu/api';
 const SCHOOL_SLUG = 'dining-location';
 
-const MEAL_TYPES: Array<{ slug: 'breakfast' | 'lunch' | 'dinner' | 'brunch'; id: number }> = [
+const MEAL_TYPES: { slug: 'breakfast' | 'lunch' | 'dinner' | 'brunch'; id: number }[] = [
   { slug: 'breakfast', id: 35467 },
   { slug: 'lunch', id: 35468 },
   { slug: 'dinner', id: 37406 },
   { slug: 'brunch', id: 38679 },
 ];
+
+/** Keep every multi-row statement comfortably below Postgres's bind limit. */
+const UPSERT_CHUNK_ROWS = 200;
+const COLUMNS_PER_ROW = 17;
+
+/** Retry transient Nutrislice/CDN failures before giving up on a meal period. */
+async function fetchWithRetry(url: string, attempts = 3): Promise<Response> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const res = await fetch(url);
+      // Retrying a 4xx cannot fix a retired slug or menu-type id.
+      if (res.ok || (res.status >= 400 && res.status < 500)) return res;
+      lastError = new Error(`HTTP ${res.status}`);
+    } catch (err) {
+      lastError = err;
+    }
+
+    if (attempt < attempts) {
+      const backoffMs = 1000 * attempt;
+      console.warn(
+        `   ↻ Attempt ${attempt}/${attempts} failed (${lastError}); retrying in ${backoffMs}ms`
+      );
+      await new Promise((resolve) => setTimeout(resolve, backoffMs));
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
+}
 
 async function syncMenu() {
   console.log('🥜 Starting Nutrislice Sync for Haverford College DC...');
@@ -32,57 +62,126 @@ async function syncMenu() {
   console.log(`📅 Eastern Time Date: ${year}-${month}-${day}`);
 
   const allParsedItems: ParsedMenuItem[] = [];
+  const failures: string[] = [];
 
   for (const meal of MEAL_TYPES) {
     const url = `${HAVERFORD_API_BASE}/weeks/school/${SCHOOL_SLUG}/menu-type/${meal.slug}/${year}/${month}/${day}/?format=json`;
     console.log(`\nFetching ${meal.slug} menu from: ${url}`);
 
     try {
-      const res = await fetch(url);
+      const res = await fetchWithRetry(url);
       if (!res.ok) {
-        console.warn(`⚠️ Failed to fetch ${meal.slug}: HTTP ${res.status}`);
+        failures.push(`${meal.slug}: HTTP ${res.status} from Nutrislice`);
+        console.error(`❌ Failed to fetch ${meal.slug}: HTTP ${res.status}`);
         continue;
       }
 
       const json = await res.json();
       const items = parseNutrisliceWeek(json, meal.slug, SCHOOL_SLUG);
-      console.log(`✅ Parsed ${items.length} items for ${meal.slug}`);
+      const dayCount = Array.isArray((json as { days?: unknown[] })?.days)
+        ? (json as { days: unknown[] }).days.length
+        : 0;
+
+      // Zero items can be legitimate (for example weekday brunch), while a
+      // response without days indicates an upstream payload change.
+      if (dayCount === 0) {
+        failures.push(
+          `${meal.slug}: response contained no days[] — Nutrislice payload shape may have changed`
+        );
+        console.error(`❌ ${meal.slug}: response had no days[] at all`);
+        continue;
+      }
+
+      if (items.length === 0) {
+        console.log(
+          `ℹ️ Parsed 0 items for ${meal.slug} (${dayCount} days present — no menu published)`
+        );
+      } else {
+        console.log(`✅ Parsed ${items.length} items for ${meal.slug}`);
+      }
+
       allParsedItems.push(...items);
     } catch (err) {
-      console.error(`❌ Error parsing ${meal.slug}:`, err);
+      failures.push(`${meal.slug}: ${err instanceof Error ? err.message : String(err)}`);
+      console.error(`❌ Error fetching/parsing ${meal.slug}:`, err);
     }
   }
 
-  // Ensure local cache directory exists
-  const cacheDir = path.join(__dirname, '../src/data/menus');
-  fs.mkdirSync(cacheDir, { recursive: true });
+  if (failures.length > 0) {
+    throw new Error(
+      `Nutrislice sync failed for ${failures.length} meal period(s):\n  - ${failures.join('\n  - ')}`
+    );
+  }
 
-  const cachePath = path.join(cacheDir, 'latest.json');
-  const cachePayload = {
-    synced_at: new Date().toISOString(),
-    item_count: allParsedItems.length,
-    items: allParsedItems,
-  };
+  if (allParsedItems.length === 0) {
+    throw new Error(
+      'All meal periods returned 0 items. Refusing to overwrite the cached menu with an empty one.'
+    );
+  }
 
-  fs.writeFileSync(cachePath, JSON.stringify(cachePayload, null, 2), 'utf8');
-  console.log(`\n💾 Saved ${allParsedItems.length} items to ${cachePath}`);
+  // Nutrislice sometimes lists one dish at multiple stations. A multi-row
+  // ON CONFLICT statement may not affect the same key twice, so retain the last
+  // row for each unique database key before batching.
+  const deduped = new Map<string, ParsedMenuItem>();
+  for (const item of allParsedItems) {
+    deduped.set(`${item.nutrislice_id}|${item.meal_period}|${item.served_date}`, item);
+  }
+  const rows = [...deduped.values()];
 
-  // Connect to Supabase Postgres database and upsert items
+  if (rows.length < allParsedItems.length) {
+    console.log(
+      `🧹 Collapsed ${allParsedItems.length - rows.length} duplicate menu key(s) before upsert`
+    );
+  }
+
   console.log('\n🚀 Upserting into live Supabase Postgres database...');
   const client = await connect();
 
   try {
+    // Keep the transaction limited to database work; all network fetches and
+    // parsing completed before it began.
+    await client.query('BEGIN');
 
-    // 1. Ensure Dining Location exists
     await client.query(`
       INSERT INTO dining_locations (id, nutrislice_id, name, timezone)
       VALUES ('dining-location', 64087, 'Haverford DC', 'America/New_York')
       ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, nutrislice_id = EXCLUDED.nutrislice_id;
     `);
 
-    // 2. Upsert menu items
     let upsertedCount = 0;
-    for (const item of allParsedItems) {
+
+    for (let offset = 0; offset < rows.length; offset += UPSERT_CHUNK_ROWS) {
+      const chunk = rows.slice(offset, offset + UPSERT_CHUNK_ROWS);
+      const valuePlaceholders = chunk
+        .map(
+          (_, rowIndex) =>
+            `(${Array.from(
+              { length: COLUMNS_PER_ROW },
+              (_, col) => `$${rowIndex * COLUMNS_PER_ROW + col + 1}`
+            ).join(', ')})`
+        )
+        .join(', ');
+
+      const values = chunk.flatMap((item) => [
+        item.nutrislice_id,
+        item.location_id,
+        item.meal_period,
+        item.served_date,
+        item.station_name,
+        item.station_id,
+        item.dish_name,
+        item.description,
+        item.ingredients,
+        item.serving_size,
+        item.calories,
+        item.protein_g,
+        item.carbs_g,
+        item.fat_g,
+        item.dietary_tags,
+        item.allergens,
+        item.synced_at,
+      ]);
+
       await client.query(
         `
         INSERT INTO menu_items (
@@ -90,12 +189,11 @@ async function syncMenu() {
           station_name, station_id, dish_name, description,
           ingredients, serving_size, calories, protein_g,
           carbs_g, fat_g, dietary_tags, allergens, synced_at
-        ) VALUES (
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17
-        )
+        ) VALUES ${valuePlaceholders}
         ON CONFLICT (nutrislice_id, meal_period, served_date)
         DO UPDATE SET
           station_name = EXCLUDED.station_name,
+          station_id = EXCLUDED.station_id,
           dish_name = EXCLUDED.dish_name,
           description = EXCLUDED.description,
           ingredients = EXCLUDED.ingredients,
@@ -108,39 +206,43 @@ async function syncMenu() {
           allergens = EXCLUDED.allergens,
           synced_at = EXCLUDED.synced_at;
       `,
-        [
-          item.nutrislice_id,
-          item.location_id,
-          item.meal_period,
-          item.served_date,
-          item.station_name,
-          item.station_id,
-          item.dish_name,
-          item.description,
-          item.ingredients,
-          item.serving_size,
-          item.calories,
-          item.protein_g,
-          item.carbs_g,
-          item.fat_g,
-          item.dietary_tags,
-          item.allergens,
-          item.synced_at,
-        ]
+        values
       );
-      upsertedCount++;
+
+      upsertedCount += chunk.length;
     }
 
-    console.log(`🎉 SUCCESS: Upserted ${upsertedCount} live dishes directly into Supabase Postgres database!`);
+    await client.query('COMMIT');
+    console.log(
+      `🎉 SUCCESS: Upserted ${upsertedCount} live dishes directly into Supabase Postgres database!`
+    );
+
+    // Publish the bundled cache only after the database write commits. A failed
+    // upsert must not leave a fresh-looking cache or a misleading sync commit.
+    const cacheDir = path.join(__dirname, '../src/data/menus');
+    const cachePath = path.join(cacheDir, 'latest.json');
+    fs.mkdirSync(cacheDir, { recursive: true });
+    fs.writeFileSync(
+      cachePath,
+      JSON.stringify(
+        { synced_at: new Date().toISOString(), item_count: rows.length, items: rows },
+        null,
+        2
+      ),
+      'utf8'
+    );
+    console.log(`💾 Saved ${rows.length} items to ${cachePath}`);
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => undefined);
+    throw err;
+  } finally {
     await client.end();
-  } catch (dbErr) {
-    console.error('❌ Database upsert error:', dbErr);
   }
 
   console.log('\n✨ Nutrislice menu sync pipeline completed.');
 }
 
 syncMenu().catch((err) => {
-  console.error('Fatal sync error:', err);
+  console.error('\n💥 Fatal sync error:', err instanceof Error ? err.message : err);
   process.exit(1);
 });
