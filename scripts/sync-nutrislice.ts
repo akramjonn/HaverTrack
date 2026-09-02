@@ -1,6 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { parseNutrisliceWeek, ParsedMenuItem } from '../src/lib/nutrislice';
+import {
+  NutrisliceWeekResponseSchema,
+  parseNutrisliceWeek,
+  ParsedMenuItem,
+} from '../src/lib/nutrislice';
 import { connect } from './db';
 
 const HAVERFORD_API_BASE = 'https://haverfordcollege.api.nutrislice.com/menu/api';
@@ -62,6 +66,10 @@ async function syncMenu() {
   console.log(`📅 Eastern Time Date: ${year}-${month}-${day}`);
 
   const allParsedItems: ParsedMenuItem[] = [];
+  const syncedScopes = new Map<
+    string,
+    { servedDate: string; mealPeriod: ParsedMenuItem['meal_period'] }
+  >();
   const failures: string[] = [];
 
   for (const meal of MEAL_TYPES) {
@@ -76,11 +84,9 @@ async function syncMenu() {
         continue;
       }
 
-      const json = await res.json();
+      const json = NutrisliceWeekResponseSchema.parse(await res.json());
       const items = parseNutrisliceWeek(json, meal.slug, SCHOOL_SLUG);
-      const dayCount = Array.isArray((json as { days?: unknown[] })?.days)
-        ? (json as { days: unknown[] }).days.length
-        : 0;
+      const dayCount = json.days.length;
 
       // Zero items can be legitimate (for example weekday brunch), while a
       // response without days indicates an upstream payload change.
@@ -98,6 +104,19 @@ async function syncMenu() {
         );
       } else {
         console.log(`✅ Parsed ${items.length} items for ${meal.slug}`);
+      }
+
+      // Track every returned day, including empty menus. This lets the database
+      // reconciliation remove dishes that Nutrislice deleted after an earlier
+      // sync without accidentally touching dates outside this response.
+      for (const menuDay of json.days) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(menuDay.date)) {
+          throw new Error(`${meal.slug}: invalid menu date ${menuDay.date}`);
+        }
+        syncedScopes.set(`${menuDay.date}|${meal.slug}`, {
+          servedDate: menuDay.date,
+          mealPeriod: meal.slug,
+        });
       }
 
       allParsedItems.push(...items);
@@ -212,10 +231,42 @@ async function syncMenu() {
       upsertedCount += chunk.length;
     }
 
+    const scopes = [...syncedScopes.values()];
+    const staleRows = await client.query(
+      `
+        DELETE FROM menu_items AS existing
+        WHERE existing.location_id = $1
+          AND EXISTS (
+            SELECT 1
+            FROM unnest($2::date[], $3::text[])
+              AS scope(served_date, meal_period)
+            WHERE scope.served_date = existing.served_date
+              AND scope.meal_period = existing.meal_period
+          )
+          AND NOT EXISTS (
+            SELECT 1
+            FROM unnest($4::integer[], $5::date[], $6::text[])
+              AS incoming(nutrislice_id, served_date, meal_period)
+            WHERE incoming.nutrislice_id = existing.nutrislice_id
+              AND incoming.served_date = existing.served_date
+              AND incoming.meal_period = existing.meal_period
+          );
+      `,
+      [
+        SCHOOL_SLUG,
+        scopes.map((scope) => scope.servedDate),
+        scopes.map((scope) => scope.mealPeriod),
+        rows.map((item) => item.nutrislice_id),
+        rows.map((item) => item.served_date),
+        rows.map((item) => item.meal_period),
+      ]
+    );
+
     await client.query('COMMIT');
     console.log(
       `🎉 SUCCESS: Upserted ${upsertedCount} live dishes directly into Supabase Postgres database!`
     );
+    console.log(`🧹 Removed ${staleRows.rowCount ?? 0} stale menu row(s)`);
 
     // Publish the bundled cache only after the database write commits. A failed
     // upsert must not leave a fresh-looking cache or a misleading sync commit.
