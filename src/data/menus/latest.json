@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-09-03T22:50:03.600Z",
+  "synced_at": "2026-09-04T13:40:54.114Z",
   "item_count": 319,
   "items": [
     {
@@ -23,7 +23,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -47,7 +47,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -74,7 +74,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -93,7 +93,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -115,7 +115,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -134,7 +134,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -158,7 +158,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -181,7 +181,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072971,
@@ -205,7 +205,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072957,
@@ -224,7 +224,7 @@
       "fat_g": 20,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -243,7 +243,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -264,8 +264,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073023,
@@ -289,7 +291,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -311,7 +313,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -335,7 +337,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073164,
@@ -359,7 +361,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2358299,
@@ -378,7 +380,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -401,7 +403,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -425,7 +427,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -452,7 +454,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -471,7 +473,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -493,7 +495,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -512,7 +514,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -536,7 +538,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -559,7 +561,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -585,7 +587,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -604,7 +606,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -623,7 +625,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -644,8 +646,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073023,
@@ -669,7 +673,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -691,7 +695,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -715,7 +719,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -738,7 +742,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -762,7 +766,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -789,7 +793,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -808,7 +812,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -830,7 +834,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -849,7 +853,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -873,7 +877,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072946,
@@ -896,7 +900,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072975,
@@ -921,7 +925,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072956,
@@ -940,7 +944,7 @@
       "fat_g": 6,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072967,
@@ -959,7 +963,7 @@
       "fat_g": 9,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -980,8 +984,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2298527,
@@ -1005,7 +1011,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1027,7 +1033,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1051,7 +1057,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -1074,7 +1080,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -1098,7 +1104,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -1125,7 +1131,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -1144,7 +1150,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -1166,7 +1172,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -1185,7 +1191,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -1209,7 +1215,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -1232,7 +1238,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072973,
@@ -1258,7 +1264,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -1277,7 +1283,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2324155,
@@ -1296,7 +1302,7 @@
       "fat_g": 2.5,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -1317,8 +1323,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2298527,
@@ -1342,7 +1350,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1364,7 +1372,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1388,7 +1396,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -1411,7 +1419,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -1435,7 +1443,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -1462,7 +1470,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -1481,7 +1489,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -1503,7 +1511,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -1522,7 +1530,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -1546,7 +1554,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072951,
@@ -1568,7 +1576,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072974,
@@ -1594,7 +1602,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072957,
@@ -1613,7 +1621,7 @@
       "fat_g": 20,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -1632,7 +1640,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -1653,8 +1661,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2298530,
@@ -1678,7 +1688,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -1700,7 +1710,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -1724,7 +1734,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:57.740Z"
+      "synced_at": "2026-09-04T13:40:48.277Z"
     },
     {
       "nutrislice_id": 2073479,
@@ -1743,7 +1753,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074030,
@@ -1766,7 +1776,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074118,
@@ -1790,7 +1800,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2358457,
@@ -1809,7 +1819,7 @@
       "fat_g": 3.7,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2330383,
@@ -1835,7 +1845,7 @@
         "Peanuts",
         "Tree Nuts"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -1860,7 +1870,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073625,
@@ -1881,7 +1891,7 @@
       "allergens": [
         "Tree Nuts"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073614,
@@ -1904,7 +1914,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -1929,7 +1939,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073215,
@@ -1953,7 +1963,7 @@
         "Wheat",
         "Fish"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073191,
@@ -1976,7 +1986,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073194,
@@ -1999,7 +2009,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073195,
@@ -2022,7 +2032,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073406,
@@ -2041,7 +2051,7 @@
       "fat_g": 48,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2072916,
@@ -2063,7 +2073,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074137,
@@ -2087,7 +2097,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074199,
@@ -2109,7 +2119,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073028,
@@ -2133,7 +2143,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073130,
@@ -2155,7 +2165,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073604,
@@ -2178,7 +2188,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073612,
@@ -2201,7 +2211,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2226,7 +2236,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -2251,7 +2261,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073234,
@@ -2275,7 +2285,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073191,
@@ -2298,7 +2308,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073195,
@@ -2321,7 +2331,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073194,
@@ -2344,7 +2354,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073421,
@@ -2363,7 +2373,7 @@
       "fat_g": 14,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074029,
@@ -2387,7 +2397,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074255,
@@ -2411,7 +2421,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074261,
@@ -2434,7 +2444,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074207,
@@ -2456,7 +2466,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2072909,
@@ -2478,7 +2488,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073041,
@@ -2502,7 +2512,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074019,
@@ -2526,7 +2536,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073132,
@@ -2548,7 +2558,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -2573,7 +2583,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073240,
@@ -2596,7 +2606,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073191,
@@ -2619,7 +2629,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073194,
@@ -2642,7 +2652,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073195,
@@ -2665,7 +2675,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073602,
@@ -2688,7 +2698,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073608,
@@ -2711,7 +2721,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -2736,7 +2746,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073419,
@@ -2762,7 +2772,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074147,
@@ -2784,7 +2794,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074023,
@@ -2810,7 +2820,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073686,
@@ -2832,7 +2842,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073129,
@@ -2855,7 +2865,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -2880,7 +2890,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073231,
@@ -2904,7 +2914,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073191,
@@ -2927,7 +2937,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073194,
@@ -2950,7 +2960,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073195,
@@ -2973,7 +2983,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073603,
@@ -2996,7 +3006,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073612,
@@ -3019,7 +3029,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -3044,7 +3054,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073453,
@@ -3068,7 +3078,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074051,
@@ -3093,7 +3103,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074039,
@@ -3117,7 +3127,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073998,
@@ -3139,7 +3149,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2074231,
@@ -3161,7 +3171,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2217857,
@@ -3183,26 +3193,32 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
-      "nutrislice_id": 2142086,
+      "nutrislice_id": 2073204,
       "location_id": "dining-location",
       "meal_period": "lunch",
       "served_date": "2026-09-04",
       "station_name": "Deli Salad",
       "station_id": 76137,
-      "dish_name": "Deli Salad du jour #1",
-      "description": "14482DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
       "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
-      "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:49:59.211Z"
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-04T13:40:50.013Z"
     },
     {
       "nutrislice_id": 2073426,
@@ -3226,7 +3242,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074034,
@@ -3250,7 +3266,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073458,
@@ -3273,7 +3289,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074203,
@@ -3297,7 +3313,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073599,
@@ -3323,7 +3339,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073217,
@@ -3346,7 +3362,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -3370,7 +3386,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -3394,7 +3410,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -3416,7 +3432,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -3440,7 +3456,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -3464,7 +3480,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073405,
@@ -3483,7 +3499,7 @@
       "fat_g": 41,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073445,
@@ -3505,7 +3521,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2298526,
@@ -3527,7 +3543,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074003,
@@ -3551,7 +3567,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073538,
@@ -3573,7 +3589,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350547,
@@ -3592,7 +3608,7 @@
       "fat_g": 16,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350549,
@@ -3614,7 +3630,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073666,
@@ -3638,7 +3654,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -3660,7 +3676,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074066,
@@ -3682,7 +3698,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074059,
@@ -3704,7 +3720,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074060,
@@ -3726,7 +3742,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072906,
@@ -3748,7 +3764,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -3770,7 +3786,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073743,
@@ -3794,7 +3810,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074062,
@@ -3818,7 +3834,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074069,
@@ -3843,7 +3859,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074065,
@@ -3867,7 +3883,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -3892,7 +3908,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -3916,7 +3932,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -3938,7 +3954,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -3962,7 +3978,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -3986,7 +4002,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -4010,7 +4026,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073625,
@@ -4031,7 +4047,7 @@
       "allergens": [
         "Tree Nuts"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073614,
@@ -4054,7 +4070,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -4079,7 +4095,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073507,
@@ -4102,7 +4118,7 @@
         "Wheat",
         "Fish"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073046,
@@ -4126,7 +4142,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074145,
@@ -4148,7 +4164,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074002,
@@ -4171,7 +4187,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072917,
@@ -4193,7 +4209,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350547,
@@ -4212,7 +4228,7 @@
       "fat_g": 16,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350549,
@@ -4234,7 +4250,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073666,
@@ -4258,7 +4274,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -4280,7 +4296,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074066,
@@ -4302,7 +4318,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074059,
@@ -4324,7 +4340,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074060,
@@ -4346,7 +4362,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072906,
@@ -4368,7 +4384,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -4390,7 +4406,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073743,
@@ -4414,7 +4430,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074062,
@@ -4438,7 +4454,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074069,
@@ -4463,7 +4479,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074065,
@@ -4487,7 +4503,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -4512,7 +4528,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -4536,7 +4552,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -4558,7 +4574,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -4582,7 +4598,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -4606,7 +4622,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -4630,7 +4646,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073604,
@@ -4653,7 +4669,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073612,
@@ -4676,7 +4692,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -4701,7 +4717,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073402,
@@ -4720,7 +4736,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072916,
@@ -4742,7 +4758,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2298529,
@@ -4764,7 +4780,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074004,
@@ -4788,7 +4804,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074207,
@@ -4810,7 +4826,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324159,
@@ -4832,7 +4848,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324156,
@@ -4854,7 +4870,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073033,
@@ -4877,7 +4893,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350548,
@@ -4901,7 +4917,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -4923,7 +4939,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2355659,
@@ -4944,7 +4960,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324158,
@@ -4963,7 +4979,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350551,
@@ -4987,7 +5003,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -5009,7 +5025,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324157,
@@ -5031,7 +5047,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -5056,7 +5072,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073602,
@@ -5079,7 +5095,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073608,
@@ -5102,7 +5118,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -5127,7 +5143,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -5151,7 +5167,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -5175,7 +5191,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -5199,7 +5215,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -5223,7 +5239,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -5245,7 +5261,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073413,
@@ -5268,7 +5284,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073083,
@@ -5290,7 +5306,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074012,
@@ -5315,7 +5331,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074242,
@@ -5340,7 +5356,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074060,
@@ -5362,7 +5378,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324159,
@@ -5384,7 +5400,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073033,
@@ -5407,7 +5423,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324156,
@@ -5429,7 +5445,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350548,
@@ -5453,7 +5469,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350550,
@@ -5475,7 +5491,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2355659,
@@ -5496,7 +5512,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324158,
@@ -5515,7 +5531,7 @@
       "fat_g": 12,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2350551,
@@ -5539,7 +5555,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073670,
@@ -5561,7 +5577,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2324157,
@@ -5583,7 +5599,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073204,
@@ -5608,7 +5624,7 @@
         "Soy",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073603,
@@ -5631,7 +5647,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073612,
@@ -5654,7 +5670,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -5679,7 +5695,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -5703,7 +5719,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -5725,7 +5741,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -5749,7 +5765,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -5773,7 +5789,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -5797,7 +5813,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073408,
@@ -5821,7 +5837,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2298531,
@@ -5845,7 +5861,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074046,
@@ -5867,7 +5883,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074247,
@@ -5889,7 +5905,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -5913,7 +5929,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -5937,7 +5953,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -5961,7 +5977,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -5983,7 +5999,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -6007,7 +6023,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2141647,
@@ -6026,7 +6042,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2141648,
@@ -6045,7 +6061,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073600,
@@ -6070,26 +6086,32 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
-      "nutrislice_id": 2142086,
+      "nutrislice_id": 2073204,
       "location_id": "dining-location",
       "meal_period": "dinner",
       "served_date": "2026-09-04",
       "station_name": "Deli Salad",
       "station_id": 76137,
-      "dish_name": "Deli Salad du jour #1",
-      "description": "14482DC",
-      "ingredients": "No Ingredients",
-      "serving_size": "1 lbs",
-      "calories": null,
+      "dish_name": "Lo Mein Noodle Salad",
+      "description": "13121DC",
+      "ingredients": "Noodles,Lo Mein,Frozen (Sysco 9213513: Wheat flour (flour, niacin, thiamine mononitrate, riboflavin, reduced iron, folic acid, benzoyl peroxide, ascorbic acid, amylase), water, canola oil, corn starch, salt, potassium carbonate, sodium benzoate (as preservative). Contains: Wheat. 2014.\r\n\r\nUSFoods 6371363: WHEAT FLOUR (FLOUR, NIACIN, THIAMINE MONONITRATE, RIBOFLAVIN, REDUCED IRON, FOLIC ACID, BENZOYL PEROXIDE, ASCORBIC ACID, AMYLASE), WATER, CANOLA OIL, SALT, CORN STARCH, SALT, POTASSIUM CARBONATE, AND POTASSIUM SORBATE (AS PRESERVATIVE). Contains: Wheat. 2014.), Peppers,Red,Fresh (pepper), Peppers,Yellow,Fresh (pepper), Carrots,Fresh,Pre-Shredded (carrots 2018 BP), Sugar,Brown (HC) (Sysco 4279592: Brown sugar. 2013.), Spinach,Fresh,Baby (spinach 2018 BP), Vinegar,Rice Wine (US Foods 1676840: RICE VINEGAR (WATER, RICE). 2014.), Sauce,Soy,GF (Sysco 4675355: WATER, SALT, HYDROLYZED SOY PROTEIN, CORN SYRUP, CARAMEL COLOR, POTASSIUM SORBATE (PRESERVATIVE.) CONTAINS: SOY.   2018 BP), Onions,Green,Fresh,Bunch (green onion), Mustard,Dijon,Grey Poupon (DISTILLED WHITE VINEGAR, MUSTARD SEED, WATER, SALT, WHITE WINE, CITRIC ACID, TARTARIC ACID, FRUIT PECTIN, SUGAR, SPICES.), Garlic,Raw,Minced (US Foods 1355643: raw minced garlic), Oil,Sesame,Imported (Sysco 4546818: Sesame Seed Oil. 2018 BP), Cilantro,Fresh,Bunch (cilantro), Sesame Seed,Dry,Whole, Black (Sysco 6533939: Whole black sesame seeds. 2013.), Sesame Seed,Dry,Whole (USFoods 0761734: Sesame Seeds 2018 BP), Ginger,Pickle (Ginger, Pure Water, Salt, Acetic Acid, Citric Acid, Potassium Sorbate, Monosodium Glutamate, Aspartamine, FDA Food Color Red #440.), Pepper,Red,Crushed (HC) (Sysco 8254047: Red pepper. 2014.)",
+      "serving_size": "8 oz",
+      "calories": 379,
       "protein_g": null,
-      "carbs_g": null,
-      "fat_g": null,
-      "dietary_tags": [],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "carbs_g": 80,
+      "fat_g": 7,
+      "dietary_tags": [
+        "Vegan"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073472,
@@ -6108,7 +6130,7 @@
       "fat_g": 19,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2298532,
@@ -6132,7 +6154,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074001,
@@ -6157,7 +6179,7 @@
         "Milk",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2074199,
@@ -6179,7 +6201,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2142086,
@@ -6198,7 +6220,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072922,
@@ -6222,7 +6244,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073630,
@@ -6246,7 +6268,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073596,
@@ -6268,7 +6290,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073484,
@@ -6292,7 +6314,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2073597,
@@ -6316,7 +6338,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.529Z"
+      "synced_at": "2026-09-04T13:40:51.075Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -6339,7 +6361,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -6366,7 +6388,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -6390,7 +6412,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -6409,7 +6431,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072944,
@@ -6431,7 +6453,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -6450,7 +6472,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -6472,7 +6494,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073476,
@@ -6496,7 +6518,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073474,
@@ -6520,7 +6542,7 @@
         "Soy",
         "Fish"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072937,
@@ -6545,7 +6567,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -6569,7 +6591,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072959,
@@ -6591,7 +6613,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072979,
@@ -6617,7 +6639,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072958,
@@ -6636,7 +6658,7 @@
       "fat_g": 21,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072968,
@@ -6655,7 +6677,7 @@
       "fat_g": 11,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -6676,8 +6698,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2298528,
@@ -6701,7 +6725,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -6723,7 +6747,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -6747,7 +6771,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072984,
@@ -6771,7 +6795,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073217,
@@ -6794,7 +6818,7 @@
         "Egg",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072925,
@@ -6817,7 +6841,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072931,
@@ -6841,7 +6865,7 @@
         "Wheat",
         "Sesame"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072945,
@@ -6868,7 +6892,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072938,
@@ -6887,7 +6911,7 @@
       "fat_g": 0.1,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072944,
@@ -6909,7 +6933,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073467,
@@ -6928,7 +6952,7 @@
       "fat_g": 0,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072936,
@@ -6950,7 +6974,7 @@
         "Milk",
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073476,
@@ -6974,7 +6998,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073474,
@@ -6998,7 +7022,7 @@
         "Soy",
         "Fish"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072937,
@@ -7023,7 +7047,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072940,
@@ -7047,7 +7071,7 @@
       "allergens": [
         "Egg"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072950,
@@ -7070,7 +7094,7 @@
       "allergens": [
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072972,
@@ -7094,7 +7118,7 @@
         "Milk",
         "Wheat"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072957,
@@ -7113,7 +7137,7 @@
       "fat_g": 20,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072963,
@@ -7132,7 +7156,7 @@
       "fat_g": 1.8,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072970,
@@ -7153,8 +7177,10 @@
         "Vegan",
         "Wheat-Free"
       ],
-      "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "allergens": [
+        "Peanuts"
+      ],
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2298528,
@@ -7178,7 +7204,7 @@
       "allergens": [
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072822,
@@ -7200,7 +7226,7 @@
         "Wheat-Free"
       ],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2072836,
@@ -7224,7 +7250,7 @@
       "allergens": [
         "Milk"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2073006,
@@ -7250,7 +7276,7 @@
         "Wheat",
         "Soy"
       ],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     },
     {
       "nutrislice_id": 2142086,
@@ -7269,7 +7295,7 @@
       "fat_g": null,
       "dietary_tags": [],
       "allergens": [],
-      "synced_at": "2026-09-03T22:50:00.716Z"
+      "synced_at": "2026-09-04T13:40:51.338Z"
     }
   ]
 }
