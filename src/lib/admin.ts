@@ -216,8 +216,8 @@ export const fetchOverview = () => callRpcSingle<AdminOverview>('admin_overview'
 export const fetchFunnel = () => callRpc<AdminFunnelStep>('admin_funnel');
 export const fetchTrend = (days: TrendWindow) =>
   callRpc<AdminTrendPoint>('admin_platform_trend', { p_days: days });
-export const fetchRoster = (search: string) =>
-  callRpc<AdminRosterRow>('admin_user_roster', { p_search: search || null });
+export const fetchRoster = (search: string, offset = 0) =>
+  callRpc<AdminRosterRow>('admin_user_roster', { p_search: search || null, p_limit: 50, p_offset: offset });
 /** Writes an `admin_audit_log` row every time it resolves. */
 export const fetchUserDetail = (userId: string) =>
   callRpcSingle<AdminUserDetail>('admin_user_detail', { p_user_id: userId });
@@ -247,7 +247,7 @@ export const adminKeys = {
   overview: () => ['admin', 'overview'] as const,
   funnel: () => ['admin', 'funnel'] as const,
   trend: (days: TrendWindow) => ['admin', 'trend', days] as const,
-  roster: (search: string) => ['admin', 'roster', search] as const,
+  roster: (search: string, offset = 0) => ['admin', 'roster', search, offset] as const,
   user: (id: string) => ['admin', 'user', id] as const,
   userActivity: (id: string, days: number) => ['admin', 'user', id, 'activity', days] as const,
   contentSummary: () => ['admin', 'content', 'summary'] as const,
@@ -256,8 +256,9 @@ export const adminKeys = {
   audit: () => ['admin', 'audit'] as const,
 };
 
-export function useAdminOverview() {
+export function useAdminOverview(enabled = true) {
   return useQuery({
+    enabled,
     queryKey: adminKeys.overview(),
     queryFn: fetchOverview,
     staleTime: STALE_MS,
@@ -280,10 +281,10 @@ export function useAdminTrend(days: TrendWindow) {
   });
 }
 
-export function useAdminRoster(search: string) {
+export function useAdminRoster(search: string, offset = 0) {
   return useQuery({
-    queryKey: adminKeys.roster(search),
-    queryFn: () => fetchRoster(search),
+    queryKey: adminKeys.roster(search, offset),
+    queryFn: () => fetchRoster(search, offset),
     staleTime: STALE_MS,
     placeholderData: (previous) => previous,
   });

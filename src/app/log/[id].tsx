@@ -3,11 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Pressable,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import { Button, Card, IconButton, Stepper, SegmentedControl } from '@/components/ui';
@@ -144,6 +144,8 @@ export default function EditMealLogScreen() {
         </View>
 
         {/* Portion Stepper */}
+        <Button label={meal.synced === false ? 'Sync this meal before rating' : 'Rate this meal'} disabled={meal.synced === false} variant="secondary" onPress={() => router.push({ pathname: '/rate', params: { meal: meal.id } } as never)} />
+        {meal.nutrition_complete === false && <Text style={[Typography.bodyS, { color: Colors.amber, marginTop: 12 }]}>Nutrition is incomplete. Totals include only the information available.</Text>}
         <View style={styles.stepperContainer}>
           <Stepper
             value={portionMultiplier}

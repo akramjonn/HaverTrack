@@ -34,6 +34,7 @@
       "favicon": "./assets/images/icon.png"
     },
     "plugins": [
+      ["expo-notifications", { "icon": "./assets/images/notification-icon.png", "color": "#9E1B32", "defaultChannel": "meal-ratings" }],
       "expo-router",
       [
         "expo-splash-screen",

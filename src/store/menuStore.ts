@@ -102,7 +102,7 @@ export const useMenuStore = create<MenuState>((set, get) => {
         const { data, error } = await supabase
           .from('menu_items')
           .select(
-            'nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at'
+            'id, nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at, availability'
           )
           .eq('served_date', today)
           .order('meal_period')
@@ -112,7 +112,11 @@ export const useMenuStore = create<MenuState>((set, get) => {
         if (error) throw error;
         if (!data?.length) throw new Error(`No live menu rows were found for ${today}.`);
 
-        const items = data as ParsedMenuItem[];
+        const { data: categories, error: categoryError } = await supabase.from('dish_categories').select('location_id,nutrislice_id,course');
+        if (categoryError) throw categoryError;
+        const items = (data as ParsedMenuItem[]).map(item => ({ ...item,
+          course: categories?.find(c => c.location_id === item.location_id && c.nutrislice_id === item.nutrislice_id)?.course,
+        }));
         const liveSyncedAt = items.reduce(
           (latest, item) => (item.synced_at > latest ? item.synced_at : latest),
           items[0].synced_at

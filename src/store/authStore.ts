@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { isCollegeEmail } from '@/lib/authErrors';
+import { removeRatingDevice } from '@/lib/notifications';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface UserProfile {
   id: string;
@@ -83,21 +86,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return null;
     }
 
-    // The signup trigger normally creates this row; if it is missing we create it
-    // rather than running the app with a null profile.
+    // Profiles and verification fields are created by the auth trigger only.
     if (!data) {
-      const { data: created, error: insertError } = await supabase
-        .from('profiles')
-        .insert({ id: userId, email: get().user?.email ?? '' })
-        .select()
-        .single();
-
-      if (insertError) {
-        console.warn('Profile self-heal failed:', insertError.message);
-        return null;
-      }
-      set({ profile: created as UserProfile });
-      return created as UserProfile;
+      console.warn('Profile is missing. Contact support to restore it.');
+      return null;
     }
 
     set({ profile: data as UserProfile });
@@ -171,6 +163,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   signOut: async () => {
+    const departingUser = get().user?.id;
+    await removeRatingDevice();
+    if (departingUser) await AsyncStorage.removeItem(`@havertrack_meal_draft:${departingUser}`);
     const { error } = await supabase.auth.signOut();
     if (error) console.warn('Sign out error:', error.message);
     set({ user: null, session: null, profile: null, goal: DEFAULT_GOAL });
@@ -182,11 +177,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
    * unsubscribe function.
    */
   initAuth: () => {
+    const eligibleSession = (session: Session | null) => {
+      if (!session) return null;
+      return isCollegeEmail(session.user.email ?? '') && session.user.email_confirmed_at ? session : null;
+    };
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      set({ session, user: session?.user ?? null });
+      const eligible = eligibleSession(session);
+      set({ session: eligible, user: eligible?.user ?? null });
 
-      if (session?.user) {
-        get().loadProfile(session.user.id);
+      if (eligible?.user) {
+        // Do not call Supabase from inside its auth lock.
+        setTimeout(() => { void get().loadProfile(eligible.user.id); }, 0);
       } else {
         set({ profile: null, goal: DEFAULT_GOAL });
       }
@@ -195,8 +196,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     supabase.auth
       .getSession()
       .then(async ({ data: { session } }) => {
-        set({ session, user: session?.user ?? null });
-        if (session?.user) await get().loadProfile(session.user.id);
+        const eligible = eligibleSession(session);
+        set({ session: eligible, user: eligible?.user ?? null });
+        if (eligible?.user) await get().loadProfile(eligible.user.id);
       })
       .catch((e) => console.warn('Session restore failed:', e))
       .finally(() => set({ isLoading: false, isInitialized: true }));

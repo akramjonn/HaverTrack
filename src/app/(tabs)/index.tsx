@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { PendingRating } from '@/components/meals/PendingRating';
 import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Pressable,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import {
@@ -183,6 +184,8 @@ export default function TodayScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
+        <PendingRating />
+        {logs.some(log => log.logged_date === todayStr && log.nutrition_complete === false) && <Text style={[Typography.caption, { color: Colors.amber, marginBottom: 12 }]}>Today’s nutrition totals are partial: some logged foods have missing nutrition.</Text>}
         {/* Header Row */}
         <View style={styles.headerRow}>
           <View>

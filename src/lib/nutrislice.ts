@@ -72,6 +72,9 @@ export type NutrisliceWeekResponse = z.infer<typeof NutrisliceWeekResponseSchema
 
 // Parsed database menu item format
 export interface ParsedMenuItem {
+  id?: string;
+  course?: import('./mealFlow').Course | null;
+  availability?: 'published' | 'unavailable' | 'unknown';
   nutrislice_id: number;
   location_id: string;
   meal_period: 'breakfast' | 'lunch' | 'dinner' | 'brunch';

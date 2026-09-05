@@ -3,18 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Button, Input, IconButton } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
-import { describeAuthError } from '@/lib/authErrors';
+import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
+import { getAuthRedirectUrl, requireHaverfordUser, signInWithGoogle } from '@/lib/auth';
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -24,6 +25,17 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [confirmationEmail, setConfirmationEmail] = useState<string | null>(null);
+
+  const handleGoogle = async () => {
+    setError(null);
+    setGoogleLoading(true);
+    try {
+      if (await signInWithGoogle()) router.replace('/');
+    } catch (err) { setError(describeAuthError(err as Error).message); }
+    finally { setGoogleLoading(false); }
+  };
 
   const handleSignUp = async () => {
     setError(null);
@@ -34,8 +46,8 @@ export default function SignUpScreen() {
       return;
     }
 
-    if (!address.includes('@')) {
-      setError('Enter a valid email address.');
+    if (!isCollegeEmail(address)) {
+      setError('Registration is limited to @haverford.edu email addresses.');
       return;
     }
 
@@ -49,7 +61,10 @@ export default function SignUpScreen() {
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: address,
         password,
-        options: { data: { full_name: fullName.trim() } },
+        options: {
+          data: { full_name: fullName.trim() },
+          emailRedirectTo: getAuthRedirectUrl(),
+        },
       });
 
       if (signUpError) {
@@ -57,8 +72,11 @@ export default function SignUpScreen() {
         return;
       }
 
-      // Email confirmation is off, so signUp issues a session immediately and
-      // the root route decides between onboarding and the tabs.
+      if (!data.session) {
+        setConfirmationEmail(address);
+        return;
+      }
+      await requireHaverfordUser();
       router.replace('/' as any);
     } catch (err: any) {
       setError(describeAuthError(err).message);
@@ -88,12 +106,21 @@ export default function SignUpScreen() {
           <View style={styles.header}>
             <Text style={Typography.displayL}>Create your account</Text>
             <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 8 }]}>
-              Use your Haverford email to unlock DC menus.
+              For Haverford students. Use your @haverford.edu Google account or register with email.
             </Text>
           </View>
 
           {/* Form */}
           <View style={styles.form}>
+            {confirmationEmail ? <View style={{ gap: 16 }}>
+              <Text style={Typography.displayL}>Check your email</Text>
+              <Text style={Typography.body}>Open the confirmation link sent to {confirmationEmail} on this device, then sign in. Check your spam folder too.</Text>
+              <Button label="Go to sign in" onPress={() => router.replace('/(auth)/sign-in')} />
+              <Button label="Use a different email" variant="ghost" onPress={() => setConfirmationEmail(null)} />
+            </View> : <>
+            <Button label="Continue with Google" variant="outline" onPress={handleGoogle}
+              loading={googleLoading} disabled={loading} />
+            <Text style={[Typography.micro, { textAlign: 'center', marginVertical: 20 }]}>OR REGISTER WITH EMAIL</Text>
             <Input
               label="FULL NAME"
               placeholder="Alex Rivera"
@@ -132,10 +159,11 @@ export default function SignUpScreen() {
             {error ? <Text style={styles.errorBanner}>{error}</Text> : null}
 
             <Button
-              label="Continue"
+              label="Create account with email"
               variant="primary"
               onPress={handleSignUp}
               loading={loading}
+              disabled={googleLoading}
               style={{ marginTop: 8 }}
             />
 
@@ -144,6 +172,7 @@ export default function SignUpScreen() {
               variant="ghost"
               onPress={() => router.replace('/(auth)/sign-in' as any)}
             />
+            </>}
           </View>
 
           {/*

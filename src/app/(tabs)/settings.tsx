@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import { Card, Button, Input, IconButton, Avatar } from '@/components/ui';
@@ -60,7 +61,7 @@ export default function SettingsScreen() {
 
         {isAdmin ? (
           <Card
-            onPress={() => router.push('/(admin)' as any)}
+            onPress={() => router.push('/admin' as any)}
             accessibilityLabel="Open admin console"
             style={styles.adminRow}
           >
@@ -73,6 +74,7 @@ export default function SettingsScreen() {
           </Card>
         ) : null}
 
+        <Button label="Meal rating reminders" variant="secondary" onPress={() => router.push('/notification-settings' as never)} />
         {/* Editable identity — name + class year */}
         <View style={styles.section}>
           <Text style={styles.sectionEyebrow}>ABOUT YOU</Text>

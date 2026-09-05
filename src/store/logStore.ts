@@ -1,17 +1,24 @@
-import { create } from 'zustand';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAuthStore } from '@/store/authStore';
+import { create } from "zustand";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "@/store/authStore";
 import {
   fetchMealLogs,
   fetchWeightEntries,
   pushMealLog,
   pushWeightEntry,
   deleteMealLogRemote,
-} from '@/lib/mealLogs';
-import { loggingStreak } from '@/lib/stats';
+} from "@/lib/mealLogs";
+import { loggingStreak } from "@/lib/stats";
 
 export interface LogItem {
   id: string;
+  client_item_id?: string;
+  menu_item_id?: string | null;
+  nutrislice_id?: number;
+  location_id?: string;
+  station_name?: string;
+  course?: import("@/lib/mealFlow").Course;
+  nutrition_complete?: boolean;
   name: string;
   portion: number;
   portion_unit: string;
@@ -26,15 +33,20 @@ export interface LogItem {
 export interface MealLog {
   id: string;
   client_uuid: string;
+  eaten_at?: string;
+  guided?: boolean;
+  journey_id?: string;
+  nutrition_complete?: boolean;
+  feedback_dismissed?: boolean;
   title: string;
-  meal_period: 'breakfast' | 'lunch' | 'dinner' | 'snack';
+  meal_period: "breakfast" | "lunch" | "dinner" | "snack";
   logged_date: string; // YYYY-MM-DD
   logged_time: string; // e.g. "8:15am"
   total_calories: number;
   total_protein_g: number;
   total_carbs_g: number;
   total_fat_g: number;
-  source: 'manual' | 'scan' | 'menu';
+  source: "manual" | "scan" | "menu";
   photo_path?: string | null;
   /** False while the row exists only on this device. */
   synced?: boolean;
@@ -47,16 +59,16 @@ export interface WeightEntry {
   weight_kg: number;
 }
 
-const LOGS_KEY = '@havertrack_logs';
-const WEIGHTS_KEY = '@havertrack_weights';
-const DELETED_KEY = '@havertrack_pending_deletes';
+const LOGS_KEY = "@havertrack_logs";
+const WEIGHTS_KEY = "@havertrack_weights";
+const DELETED_KEY = "@havertrack_pending_deletes";
 
 // Pre-rename keys. Kept around (read-only, never written to again) so that
 // devices with existing local-only data self-migrate on the next hydrate()
 // instead of silently losing unsynced meal logs/pending deletes.
-const LEGACY_LOGS_KEY = '@squirreltrack_logs';
-const LEGACY_WEIGHTS_KEY = '@squirreltrack_weights';
-const LEGACY_DELETED_KEY = '@squirreltrack_pending_deletes';
+const LEGACY_LOGS_KEY = "@squirreltrack_logs";
+const LEGACY_WEIGHTS_KEY = "@squirreltrack_weights";
+const LEGACY_DELETED_KEY = "@squirreltrack_pending_deletes";
 
 interface LogState {
   logs: MealLog[];
@@ -76,14 +88,21 @@ interface LogState {
 
   hydrate: (userId: string | null) => Promise<void>;
   syncPending: (userId: string) => Promise<void>;
-  addMealLog: (meal: Omit<MealLog, 'id' | 'client_uuid'>, userId?: string | null) => Promise<void>;
+  addMealLog: (
+    meal: Omit<MealLog, "id" | "client_uuid">,
+    userId?: string | null,
+  ) => Promise<MealLog>;
   clearStreakFlag: () => void;
-  updateMealLog: (id: string, meal: Partial<MealLog>, userId?: string | null) => Promise<void>;
+  updateMealLog: (
+    id: string,
+    meal: Partial<MealLog>,
+    userId?: string | null,
+  ) => Promise<void>;
   deleteMealLog: (id: string, userId?: string | null) => Promise<void>;
   addWeightEntry: (
     weight_kg: number,
     recorded_on?: string,
-    userId?: string | null
+    userId?: string | null,
   ) => Promise<void>;
   getLogsForDate: (dateStr: string) => MealLog[];
   getTotalsForDate: (dateStr: string) => {
@@ -101,39 +120,49 @@ function currentUserId(explicit?: string | null) {
   return useAuthStore.getState().user?.id ?? null;
 }
 
+function scopedKey(key: string, userId: string | null) {
+  return `${key}:${userId ?? "signed-out"}`;
+}
+
 function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
 
 export function getTodayString() {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   }).formatToParts(new Date());
 
-  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '';
-  return `${get('year')}-${get('month')}-${get('day')}`;
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return `${get("year")}-${get("month")}-${get("day")}`;
 }
 
-async function cacheLogs(logs: MealLog[]) {
+async function cacheLogs(logs: MealLog[], userId: string | null) {
   try {
-    await AsyncStorage.setItem(LOGS_KEY, JSON.stringify(logs));
+    await AsyncStorage.setItem(
+      scopedKey(LOGS_KEY, userId),
+      JSON.stringify(logs),
+    );
   } catch (e) {
-    console.warn('Local log cache write failed:', e);
+    console.warn("Local log cache write failed:", e);
   }
 }
 
-async function cacheWeights(entries: WeightEntry[]) {
+async function cacheWeights(entries: WeightEntry[], userId: string | null) {
   try {
-    await AsyncStorage.setItem(WEIGHTS_KEY, JSON.stringify(entries));
+    await AsyncStorage.setItem(
+      scopedKey(WEIGHTS_KEY, userId),
+      JSON.stringify(entries),
+    );
   } catch (e) {
-    console.warn('Local weight cache write failed:', e);
+    console.warn("Local weight cache write failed:", e);
   }
 }
 
@@ -151,44 +180,63 @@ export const useLogStore = create<LogState>((set, get) => ({
    * written while offline is replayed before the refresh so it is not overwritten.
    */
   hydrate: async (userId) => {
+    set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false });
+    if (!userId) {
+      set({ isLoaded: true });
+      return;
+    }
     try {
       let [cachedLogs, cachedWeights, cachedDeletes] = await Promise.all([
-        AsyncStorage.getItem(LOGS_KEY),
-        AsyncStorage.getItem(WEIGHTS_KEY),
-        AsyncStorage.getItem(DELETED_KEY),
+        AsyncStorage.getItem(scopedKey(LOGS_KEY, userId)),
+        AsyncStorage.getItem(scopedKey(WEIGHTS_KEY, userId)),
+        AsyncStorage.getItem(scopedKey(DELETED_KEY, userId)),
       ]);
 
       // Self-migrate from the pre-rename keys the first time this runs on a
       // device that still only has local data under the old names.
       if (!cachedLogs) {
-        const legacyLogs = await AsyncStorage.getItem(LEGACY_LOGS_KEY);
+        const legacyLogs = await AsyncStorage.getItem(
+          scopedKey(LEGACY_LOGS_KEY, userId),
+        );
         if (legacyLogs) {
           cachedLogs = legacyLogs;
-          await AsyncStorage.setItem(LOGS_KEY, legacyLogs);
+          await AsyncStorage.setItem(scopedKey(LOGS_KEY, userId), legacyLogs);
         }
       }
       if (!cachedWeights) {
-        const legacyWeights = await AsyncStorage.getItem(LEGACY_WEIGHTS_KEY);
+        const legacyWeights = await AsyncStorage.getItem(
+          scopedKey(LEGACY_WEIGHTS_KEY, userId),
+        );
         if (legacyWeights) {
           cachedWeights = legacyWeights;
-          await AsyncStorage.setItem(WEIGHTS_KEY, legacyWeights);
+          await AsyncStorage.setItem(
+            scopedKey(WEIGHTS_KEY, userId),
+            legacyWeights,
+          );
         }
       }
       if (!cachedDeletes) {
-        const legacyDeletes = await AsyncStorage.getItem(LEGACY_DELETED_KEY);
+        const legacyDeletes = await AsyncStorage.getItem(
+          scopedKey(LEGACY_DELETED_KEY, userId),
+        );
         if (legacyDeletes) {
           cachedDeletes = legacyDeletes;
-          await AsyncStorage.setItem(DELETED_KEY, legacyDeletes);
+          await AsyncStorage.setItem(
+            scopedKey(DELETED_KEY, userId),
+            legacyDeletes,
+          );
         }
       }
 
+      if (currentUserId() !== userId) return;
       if (cachedLogs) set({ logs: JSON.parse(cachedLogs) });
       if (cachedWeights) set({ weightEntries: JSON.parse(cachedWeights) });
       if (cachedDeletes) set({ pendingDeletes: JSON.parse(cachedDeletes) });
     } catch (e) {
-      console.warn('Failed to read local cache:', e);
+      console.warn("Failed to read local cache:", e);
     }
 
+    if (currentUserId() !== userId) return;
     if (!userId) {
       set({ isLoaded: true });
       return;
@@ -203,43 +251,66 @@ export const useLogStore = create<LogState>((set, get) => ({
         fetchWeightEntries(userId),
       ]);
 
-      set({ logs, weightEntries: weights });
-      await Promise.all([cacheLogs(logs), cacheWeights(weights)]);
+      if (currentUserId() !== userId) return;
+      const pending = get().logs.filter((log) => log.synced === false);
+      const pendingIds = new Set(pending.map((log) => log.client_uuid));
+      const reconciled = [
+        ...pending,
+        ...logs.filter((log) => !pendingIds.has(log.client_uuid)),
+      ];
+      set({ logs: reconciled, weightEntries: weights });
+      await Promise.all([
+        cacheLogs(reconciled, userId),
+        cacheWeights(weights, userId),
+      ]);
     } catch (e: any) {
       // Offline is a normal state on campus; the cached copy stays usable.
-      set({ syncError: e?.message ?? 'Could not reach HaverTrack.' });
+      if (currentUserId() === userId)
+        set({ syncError: e?.message ?? "Could not reach HaverTrack." });
     } finally {
-      set({ isSyncing: false, isLoaded: true });
+      if (currentUserId() === userId) set({ isSyncing: false, isLoaded: true });
     }
   },
 
   syncPending: async (userId) => {
+    if (currentUserId() !== userId) return;
     const unsynced = get().logs.filter((log) => log.synced === false);
     const deletes = get().pendingDeletes;
 
     for (const clientUuid of deletes) {
+      if (currentUserId() !== userId) return;
       try {
         await deleteMealLogRemote(userId, clientUuid);
-        const remaining = get().pendingDeletes.filter((id) => id !== clientUuid);
+        if (currentUserId() !== userId) return;
+        const remaining = get().pendingDeletes.filter(
+          (id) => id !== clientUuid,
+        );
         set({ pendingDeletes: remaining });
-        await AsyncStorage.setItem(DELETED_KEY, JSON.stringify(remaining));
+        await AsyncStorage.setItem(
+          scopedKey(DELETED_KEY, userId),
+          JSON.stringify(remaining),
+        );
       } catch (e) {
-        console.warn('Deferred delete still failing:', e);
+        console.warn("Deferred delete still failing:", e);
       }
     }
 
     for (const log of unsynced) {
+      if (currentUserId() !== userId) return;
       try {
         const saved = await pushMealLog(userId, log);
+        if (currentUserId() !== userId) return;
         set({
-          logs: get().logs.map((l) => (l.client_uuid === log.client_uuid ? saved : l)),
+          logs: get().logs.map((l) =>
+            l.client_uuid === log.client_uuid ? saved : l,
+          ),
         });
       } catch (e) {
-        console.warn('Deferred meal sync still failing:', e);
+        console.warn("Deferred meal sync still failing:", e);
       }
     }
 
-    await cacheLogs(get().logs);
+    if (currentUserId() === userId) await cacheLogs(get().logs, userId);
   },
 
   addMealLog: async (mealData, explicitUserId) => {
@@ -247,6 +318,10 @@ export const useLogStore = create<LogState>((set, get) => ({
     const client_uuid = generateUUID();
     const newLog: MealLog = {
       ...mealData,
+      items: mealData.items.map((item) => ({
+        ...item,
+        client_item_id: item.client_item_id ?? item.id,
+      })),
       id: `local-${client_uuid}`,
       client_uuid,
       synced: false,
@@ -259,43 +334,55 @@ export const useLogStore = create<LogState>((set, get) => ({
     // Optimistic: the meal appears the moment it is logged, then reconciles.
     const optimistic = [newLog, ...get().logs];
     set({ logs: optimistic });
-    await cacheLogs(optimistic);
+    await cacheLogs(optimistic, userId);
+    if (currentUserId() !== userId) return newLog;
 
     const streakAfter = loggingStreak(optimistic).current;
     if (streakAfter > streakBefore) {
       set({ justCrossedStreak: true });
     }
 
-    if (!userId) return;
+    if (!userId) return newLog;
 
     try {
       const saved = await pushMealLog(userId, newLog);
-      const reconciled = get().logs.map((l) => (l.client_uuid === client_uuid ? saved : l));
+      if (currentUserId() !== userId) return saved;
+      const reconciled = get().logs.map((l) =>
+        l.client_uuid === client_uuid ? saved : l,
+      );
       set({ logs: reconciled });
-      await cacheLogs(reconciled);
+      await cacheLogs(reconciled, userId);
+      return saved;
     } catch (e: any) {
-      set({ syncError: e?.message ?? 'Meal saved on this device only.' });
+      if (currentUserId() === userId)
+        set({ syncError: e?.message ?? "Meal saved on this device only." });
     }
+    return newLog;
   },
 
   updateMealLog: async (id, mealData, explicitUserId) => {
     const userId = currentUserId(explicitUserId);
     const updated = get().logs.map((log) =>
-      log.id === id ? { ...log, ...mealData, synced: false } : log
+      log.id === id ? { ...log, ...mealData, synced: false } : log,
     );
     set({ logs: updated });
-    await cacheLogs(updated);
+    await cacheLogs(updated, userId);
+    if (currentUserId() !== userId) return;
 
     const target = updated.find((log) => log.id === id);
     if (!userId || !target) return;
 
     try {
       const saved = await pushMealLog(userId, target);
-      const reconciled = get().logs.map((l) => (l.client_uuid === saved.client_uuid ? saved : l));
+      if (currentUserId() !== userId) return;
+      const reconciled = get().logs.map((l) =>
+        l.client_uuid === saved.client_uuid ? saved : l,
+      );
       set({ logs: reconciled });
-      await cacheLogs(reconciled);
+      await cacheLogs(reconciled, userId);
     } catch (e: any) {
-      set({ syncError: e?.message ?? 'Change saved on this device only.' });
+      if (currentUserId() === userId)
+        set({ syncError: e?.message ?? "Change saved on this device only." });
     }
   },
 
@@ -305,7 +392,8 @@ export const useLogStore = create<LogState>((set, get) => ({
     const remaining = get().logs.filter((log) => log.id !== id);
 
     set({ logs: remaining });
-    await cacheLogs(remaining);
+    await cacheLogs(remaining, userId);
+    if (currentUserId() !== userId) return;
 
     if (!target) return;
 
@@ -314,10 +402,14 @@ export const useLogStore = create<LogState>((set, get) => ({
     try {
       await deleteMealLogRemote(userId, target.client_uuid);
     } catch {
+      if (currentUserId() !== userId) return;
       // Retried on next hydrate rather than resurrecting the meal in the UI.
       const queued = [...get().pendingDeletes, target.client_uuid];
       set({ pendingDeletes: queued });
-      await AsyncStorage.setItem(DELETED_KEY, JSON.stringify(queued));
+      await AsyncStorage.setItem(
+        scopedKey(DELETED_KEY, userId),
+        JSON.stringify(queued),
+      );
     }
   },
 
@@ -327,33 +419,40 @@ export const useLogStore = create<LogState>((set, get) => ({
     const existing = get().weightEntries.find((w) => w.recorded_on === dateStr);
 
     const updated = existing
-      ? get().weightEntries.map((w) => (w.recorded_on === dateStr ? { ...w, weight_kg } : w))
-      : [...get().weightEntries, { id: `local-${dateStr}`, recorded_on: dateStr, weight_kg }].sort(
-          (a, b) => a.recorded_on.localeCompare(b.recorded_on)
-        );
+      ? get().weightEntries.map((w) =>
+          w.recorded_on === dateStr ? { ...w, weight_kg } : w,
+        )
+      : [
+          ...get().weightEntries,
+          { id: `local-${dateStr}`, recorded_on: dateStr, weight_kg },
+        ].sort((a, b) => a.recorded_on.localeCompare(b.recorded_on));
 
     set({ weightEntries: updated });
-    await cacheWeights(updated);
+    await cacheWeights(updated, userId);
+    if (currentUserId() !== userId) return;
 
     if (!userId) return;
 
     try {
       const saved = await pushWeightEntry(userId, {
-        id: '',
+        id: "",
         recorded_on: dateStr,
         weight_kg,
       });
+      if (currentUserId() !== userId) return;
       const reconciled = get().weightEntries.map((w) =>
-        w.recorded_on === dateStr ? saved : w
+        w.recorded_on === dateStr ? saved : w,
       );
       set({ weightEntries: reconciled });
-      await cacheWeights(reconciled);
+      await cacheWeights(reconciled, userId);
     } catch (e: any) {
-      set({ syncError: e?.message ?? 'Weight saved on this device only.' });
+      if (currentUserId() === userId)
+        set({ syncError: e?.message ?? "Weight saved on this device only." });
     }
   },
 
-  getLogsForDate: (dateStr) => get().logs.filter((log) => log.logged_date === dateStr),
+  getLogsForDate: (dateStr) =>
+    get().logs.filter((log) => log.logged_date === dateStr),
 
   getTotalsForDate: (dateStr) =>
     get()
@@ -365,10 +464,11 @@ export const useLogStore = create<LogState>((set, get) => ({
           carbs: acc.carbs + log.total_carbs_g,
           fat: acc.fat + log.total_fat_g,
         }),
-        { calories: 0, protein: 0, carbs: 0, fat: 0 }
+        { calories: 0, protein: 0, carbs: 0, fat: 0 },
       ),
 
-  clear: () => set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false }),
+  clear: () =>
+    set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false }),
 
   clearStreakFlag: () => set({ justCrossedStreak: false }),
 }));

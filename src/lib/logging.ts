@@ -13,6 +13,13 @@ import type { FoodSearchResult } from '@/lib/foodSearch';
 export type MealPeriod = MealLog['meal_period'];
 
 export interface LoggableItem {
+  id?: string;
+  menu_item_id?: string | null;
+  nutrislice_id?: number;
+  location_id?: string;
+  station_name?: string;
+  course?: import('./mealFlow').Course;
+  nutrition_complete?: boolean;
   name: string;
   portion: number;
   portion_unit: string;
@@ -29,6 +36,9 @@ export interface LoggableItem {
 }
 
 export interface LogMealInput {
+  eaten_at?: string;
+  guided?: boolean;
+  journey_id?: string;
   title: string;
   meal_period: MealPeriod;
   source: MealLog['source'];
@@ -60,7 +70,6 @@ export function periodForNow(date = new Date()): MealPeriod {
 
 export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
   const store = useLogStore.getState();
-  const seen = new Set(store.logs.map((log) => log.client_uuid));
 
   const totals = input.items.reduce(
     (acc, item) => ({
@@ -72,7 +81,11 @@ export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
     { calories: 0, protein: 0, carbs: 0, fat: 0 }
   );
 
-  await store.addMealLog({
+  const created = await store.addMealLog({
+    eaten_at: input.eaten_at ?? (input.logged_date && input.logged_date !== getTodayString() ? undefined : new Date().toISOString()),
+    guided: input.guided,
+    journey_id: input.journey_id,
+    nutrition_complete: input.items.every(item => item.nutrition_complete !== false),
     title: input.title,
     meal_period: input.meal_period,
     logged_date: input.logged_date ?? getTodayString(),
@@ -84,7 +97,13 @@ export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
     source: input.source,
     photo_path: input.photo_path ?? null,
     items: input.items.map((item, index) => ({
-      id: `${index}`,
+      id: item.id ?? `${index}`,
+      menu_item_id: item.menu_item_id,
+      nutrislice_id: item.nutrislice_id,
+      location_id: item.location_id,
+      station_name: item.station_name,
+      course: item.course,
+      nutrition_complete: item.nutrition_complete,
       name: item.name,
       portion: item.portion,
       portion_unit: item.portion_unit,
@@ -96,9 +115,6 @@ export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
     })),
   });
 
-  // addMealLog reconciles the optimistic row with the server row, so the newly
-  // added log is whichever client_uuid was not there before the call.
-  const created = useLogStore.getState().logs.find((log) => !seen.has(log.client_uuid));
   const mealLogId = created?.id ?? null;
 
   const nutrition = nutritionFromItems(input.items);

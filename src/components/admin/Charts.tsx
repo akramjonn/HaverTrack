@@ -1,10 +1,21 @@
-import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
-import { Redirect } from 'expo-router';
-import Svg, { Path, Line, Circle, Polyline } from 'react-native-svg';
-import { CheckCircle2, AlertTriangle, XCircle, Minus } from 'lucide-react-native';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { compactNumber, type Severity } from '@/lib/admin';
+import React, { useCallback, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  LayoutChangeEvent,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
+import Svg, { Path, Line, Circle, Polyline } from "react-native-svg";
+import {
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+  Minus,
+} from "lucide-react-native";
+import { Colors, Fonts, Typography, Radii } from "@/constants/theme";
+import { compactNumber, type Severity } from "@/lib/admin";
 
 /**
  * Chart primitives for the admin console, built on react-native-svg.
@@ -38,19 +49,39 @@ export const ChartColors = {
    * ΔE 6.5 (protan), which is legal here because the mix always ships with a
    * legend, 2px surface gaps between segments and a numeric readout.
    */
-  scan: '#9E1B32',
-  menu: '#B8801A',
-  manual: '#15803D',
+  scan: "#9E1B32",
+  menu: "#B8801A",
+  manual: "#15803D",
 } as const;
 
 const SEVERITY_STYLE: Record<
   Severity,
   { fg: string; bg: string; border: string; Icon: typeof CheckCircle2 }
 > = {
-  good: { fg: Colors.green, bg: Colors.greenBg, border: '#BBF7D0', Icon: CheckCircle2 },
-  warning: { fg: Colors.amber, bg: Colors.amberBg, border: Colors.amberBorder, Icon: AlertTriangle },
-  critical: { fg: Colors.scarlet, bg: '#FBEAED', border: 'rgba(158,27,50,0.28)', Icon: XCircle },
-  neutral: { fg: Colors.textMuted, bg: Colors.surfaceWarm, border: Colors.borderSoft, Icon: Minus },
+  good: {
+    fg: Colors.green,
+    bg: Colors.greenBg,
+    border: "#BBF7D0",
+    Icon: CheckCircle2,
+  },
+  warning: {
+    fg: Colors.amber,
+    bg: Colors.amberBg,
+    border: Colors.amberBorder,
+    Icon: AlertTriangle,
+  },
+  critical: {
+    fg: Colors.scarlet,
+    bg: "#FBEAED",
+    border: "rgba(158,27,50,0.28)",
+    Icon: XCircle,
+  },
+  neutral: {
+    fg: Colors.textMuted,
+    bg: Colors.surfaceWarm,
+    border: Colors.borderSoft,
+    Icon: Minus,
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -60,7 +91,7 @@ const SEVERITY_STYLE: Record<
 /** Bar with a rounded data-end and a square baseline, growing upward. */
 function columnPath(x: number, y: number, w: number, h: number) {
   const r = Math.min(4, w / 2, h);
-  if (h <= 0) return '';
+  if (h <= 0) return "";
   return [
     `M${x},${y + h}`,
     `L${x},${y + r}`,
@@ -68,14 +99,14 @@ function columnPath(x: number, y: number, w: number, h: number) {
     `L${x + w - r},${y}`,
     `Q${x + w},${y} ${x + w},${y + r}`,
     `L${x + w},${y + h}`,
-    'Z',
-  ].join(' ');
+    "Z",
+  ].join(" ");
 }
 
 /** Bar with a rounded data-end and a square baseline, growing rightward. */
 function rowPath(x: number, y: number, w: number, h: number) {
   const r = Math.min(4, h / 2, w);
-  if (w <= 0) return '';
+  if (w <= 0) return "";
   return [
     `M${x},${y}`,
     `L${x + w - r},${y}`,
@@ -83,8 +114,8 @@ function rowPath(x: number, y: number, w: number, h: number) {
     `L${x + w},${y + h - r}`,
     `Q${x + w},${y + h} ${x + w - r},${y + h}`,
     `L${x},${y + h}`,
-    'Z',
-  ].join(' ');
+    "Z",
+  ].join(" ");
 }
 
 /** Measures the container so charts size themselves to whatever card holds them. */
@@ -149,7 +180,7 @@ export function StatTile({
   spark?: number[];
   style?: StyleProp<ViewStyle>;
 }) {
-  const display = typeof value === 'number' ? compactNumber(value) : value;
+  const display = typeof value === "number" ? compactNumber(value) : value;
   return (
     <View style={[styles.tile, style]}>
       <Text style={Typography.monoLabel} numberOfLines={1}>
@@ -164,7 +195,11 @@ export function StatTile({
         </Text>
       ) : null}
       {severity && severityLabel ? (
-        <SeverityChip severity={severity} label={severityLabel} style={{ marginTop: 8 }} />
+        <SeverityChip
+          severity={severity}
+          label={severityLabel}
+          style={{ marginTop: 8 }}
+        />
       ) : null}
       {spark && spark.length > 1 ? <Sparkline values={spark} /> : null}
     </View>
@@ -175,7 +210,13 @@ export function StatTile({
 // Sparkline
 // ---------------------------------------------------------------------------
 
-export function Sparkline({ values, height = 28 }: { values: number[]; height?: number }) {
+export function Sparkline({
+  values,
+  height = 28,
+}: {
+  values: number[];
+  height?: number;
+}) {
   const [width, onLayout] = useMeasuredWidth();
   const max = Math.max(...values, 1);
   const min = Math.min(...values, 0);
@@ -192,7 +233,7 @@ export function Sparkline({ values, height = 28 }: { values: number[]; height?: 
                 const y = height - 3 - ((v - min) / span) * (height - 6);
                 return `${x},${y}`;
               })
-              .join(' ')}
+              .join(" ")}
             fill="none"
             stroke={ChartColors.track}
             strokeWidth={2}
@@ -201,7 +242,11 @@ export function Sparkline({ values, height = 28 }: { values: number[]; height?: 
           />
           <Circle
             cx={width - 3}
-            cy={height - 3 - ((values[values.length - 1] - min) / span) * (height - 6)}
+            cy={
+              height -
+              3 -
+              ((values[values.length - 1] - min) / span) * (height - 6)
+            }
             r={4}
             fill={ChartColors.primary}
             stroke={ChartColors.surface}
@@ -229,7 +274,7 @@ export function ColumnChart({
   height = 120,
   /** How many x labels to show; the rest are dropped rather than overlapped. */
   maxLabels = 7,
-  valueSuffix = '',
+  valueSuffix = "",
   emphasisOnly = false,
 }: {
   data: ColumnDatum[];
@@ -259,7 +304,10 @@ export function ColumnChart({
             />
             {data.map((d, i) => {
               const slot = width / data.length;
-              const barW = Math.max(1.5, Math.min(24, slot - (slot > 6 ? 2 : 1)));
+              const barW = Math.max(
+                1.5,
+                Math.min(24, slot - (slot > 6 ? 2 : 1)),
+              );
               const x = i * slot + (slot - barW) / 2;
               const h = (d.value / max) * (height - 6);
               const accent = emphasisOnly ? !!d.emphasis : d.value > 0;
@@ -277,7 +325,7 @@ export function ColumnChart({
       <View style={styles.axisRow}>
         {data.map((d, i) => (
           <Text key={i} style={styles.axisLabel} numberOfLines={1}>
-            {i % labelStride === 0 ? d.label : ''}
+            {i % labelStride === 0 ? d.label : ""}
           </Text>
         ))}
       </View>
@@ -312,7 +360,9 @@ export function StackedColumnChart({
   maxLabels?: number;
 }) {
   const [width, onLayout] = useMeasuredWidth();
-  const totals = labels.map((_, i) => series.reduce((sum, s) => sum + (s.values[i] ?? 0), 0));
+  const totals = labels.map((_, i) =>
+    series.reduce((sum, s) => sum + (s.values[i] ?? 0), 0),
+  );
   const max = Math.max(...totals, 1);
   const labelStride = Math.max(1, Math.ceil(labels.length / maxLabels));
   const seriesTotals = series.map((s) => s.values.reduce((a, b) => a + b, 0));
@@ -333,7 +383,10 @@ export function StackedColumnChart({
             />
             {labels.map((_, i) => {
               const slot = width / labels.length;
-              const barW = Math.max(1.5, Math.min(24, slot - (slot > 6 ? 2 : 1)));
+              const barW = Math.max(
+                1.5,
+                Math.min(24, slot - (slot > 6 ? 2 : 1)),
+              );
               const x = i * slot + (slot - barW) / 2;
               let cursor = height;
               const usable = height - 6;
@@ -346,7 +399,9 @@ export function StackedColumnChart({
                 const h = Math.max(1, raw - gap);
                 const y = cursor - h;
                 cursor = y - gap;
-                const isTop = series.slice(si + 1).every((rest) => (rest.values[i] ?? 0) <= 0);
+                const isTop = series
+                  .slice(si + 1)
+                  .every((rest) => (rest.values[i] ?? 0) <= 0);
                 return (
                   <Path
                     key={`${i}-${s.key}`}
@@ -366,7 +421,7 @@ export function StackedColumnChart({
       <View style={styles.axisRow}>
         {labels.map((label, i) => (
           <Text key={i} style={styles.axisLabel} numberOfLines={1}>
-            {i % labelStride === 0 ? label : ''}
+            {i % labelStride === 0 ? label : ""}
           </Text>
         ))}
       </View>
@@ -377,9 +432,12 @@ export function StackedColumnChart({
           <View key={s.key} style={styles.legendItem}>
             <View style={[styles.legendSwatch, { backgroundColor: s.color }]} />
             <Text style={styles.legendLabel}>
-              {s.label}{' '}
+              {s.label}{" "}
               <Text style={styles.legendValue}>
-                {grandTotal ? Math.round((seriesTotals[i] / grandTotal) * 100) : 0}%
+                {grandTotal
+                  ? Math.round((seriesTotals[i] / grandTotal) * 100)
+                  : 0}
+                %
               </Text>
             </Text>
           </View>
@@ -422,7 +480,7 @@ export function RowBarChart({
         <View key={d.key} style={styles.rowBarBlock}>
           <View style={styles.rowBarHeader}>
             <Text style={styles.rowBarLabel} numberOfLines={1}>
-              {showRank ? `${i + 1}. ` : ''}
+              {showRank ? `${i + 1}. ` : ""}
               {d.label}
             </Text>
             <Text style={styles.rowBarValue}>{compactNumber(d.value)}</Text>
@@ -435,7 +493,12 @@ export function RowBarChart({
                 opacity={0.55}
               />
               <Path
-                d={rowPath(0, 0, Math.max(0, (d.value / max) * width), barHeight)}
+                d={rowPath(
+                  0,
+                  0,
+                  Math.max(0, (d.value / max) * width),
+                  barHeight,
+                )}
                 fill={ChartColors.primary}
               />
             </Svg>
@@ -461,9 +524,9 @@ export function ChartEmpty({ message }: { message: string }) {
 
 const styles = StyleSheet.create({
   severityChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
     gap: 5,
     paddingVertical: 4,
     paddingHorizontal: 9,
@@ -495,28 +558,28 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   axisRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 6,
   },
   axisLabel: {
     ...Typography.monoUnit,
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   axisNote: {
     ...Typography.monoUnit,
     marginTop: 6,
-    textAlign: 'right',
+    textAlign: "right",
   },
   legendRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginTop: 12,
     gap: 14,
   },
   legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   legendSwatch: {
     width: 10,
@@ -537,9 +600,9 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   rowBarHeader: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   rowBarLabel: {
@@ -560,20 +623,11 @@ const styles = StyleSheet.create({
   },
   empty: {
     paddingVertical: 26,
-    alignItems: 'center',
+    alignItems: "center",
   },
   emptyText: {
     ...Typography.bodyS,
     color: Colors.textFaint,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
-
-/**
- * Everything under `src/app` is a route to expo-router, including this module of
- * shared components. It has nothing to render, so it bounces to the console
- * rather than sitting in the stack as a blank screen.
- */
-export default function AdminChartsModuleRoute() {
-  return <Redirect href={'/(admin)' as never} />;
-}

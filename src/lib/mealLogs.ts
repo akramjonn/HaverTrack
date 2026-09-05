@@ -1,23 +1,35 @@
-import { supabase } from '@/lib/supabase';
-import type { MealLog, LogItem, WeightEntry } from '@/store/logStore';
+import { supabase } from "@/lib/supabase";
+import type { MealLog, LogItem, WeightEntry } from "@/store/logStore";
 
 /** How far back the app pulls history on launch. */
 export const HISTORY_WINDOW_DAYS = 90;
 
 interface MealLogRow {
+  eaten_at?: string;
+  nutrition_complete?: boolean;
+  guided?: boolean;
+  journey_id?: string;
+  feedback_dismissed?: boolean;
   id: string;
   client_uuid: string;
   logged_date: string;
-  meal_period: MealLog['meal_period'];
+  meal_period: MealLog["meal_period"];
   title: string;
   total_calories: number;
   total_protein_g: number;
   total_carbs_g: number;
   total_fat_g: number;
   photo_path: string | null;
-  source: MealLog['source'];
+  source: MealLog["source"];
   created_at: string;
   meal_log_items: {
+    client_item_id?: string;
+    menu_item_id?: string | null;
+    nutrislice_id?: number;
+    location_id?: string;
+    station_name?: string;
+    course?: import("./mealFlow").Course;
+    nutrition_complete?: boolean;
     id: string;
     name: string;
     portion: number;
@@ -33,12 +45,21 @@ interface MealLogRow {
 
 function formatTime(iso: string) {
   return new Date(iso)
-    .toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+    .toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
     .toLowerCase();
 }
 
 function rowToMealLog(row: MealLogRow): MealLog {
   return {
+    eaten_at: row.eaten_at,
+    nutrition_complete: row.nutrition_complete,
+    guided: row.guided,
+    journey_id: row.journey_id,
+    feedback_dismissed: row.feedback_dismissed,
     id: row.id,
     client_uuid: row.client_uuid,
     title: row.title,
@@ -53,6 +74,13 @@ function rowToMealLog(row: MealLogRow): MealLog {
     photo_path: row.photo_path,
     synced: true,
     items: (row.meal_log_items ?? []).map((item) => ({
+      client_item_id: item.client_item_id,
+      menu_item_id: item.menu_item_id,
+      nutrislice_id: item.nutrislice_id,
+      location_id: item.location_id,
+      station_name: item.station_name,
+      course: item.course,
+      nutrition_complete: item.nutrition_complete,
       id: item.id,
       name: item.name,
       portion: Number(item.portion),
@@ -72,11 +100,11 @@ export async function fetchMealLogs(userId: string): Promise<MealLog[]> {
   since.setDate(since.getDate() - HISTORY_WINDOW_DAYS);
 
   const { data, error } = await supabase
-    .from('meal_logs')
-    .select('*, meal_log_items(*)')
-    .eq('user_id', userId)
-    .gte('logged_date', since.toISOString().slice(0, 10))
-    .order('created_at', { ascending: false });
+    .from("meal_logs")
+    .select("*, meal_log_items(*)")
+    .eq("user_id", userId)
+    .gte("logged_date", since.toISOString().slice(0, 10))
+    .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
   return (data as MealLogRow[]).map(rowToMealLog);
@@ -86,75 +114,51 @@ export async function fetchMealLogs(userId: string): Promise<MealLog[]> {
  * Writes a meal and its items. `client_uuid` is unique per user, so replaying a
  * queued offline log cannot create a duplicate.
  */
-export async function pushMealLog(userId: string, log: MealLog): Promise<MealLog> {
-  const { data: saved, error } = await supabase
-    .from('meal_logs')
-    .upsert(
-      {
-        user_id: userId,
-        client_uuid: log.client_uuid,
-        logged_date: log.logged_date,
-        meal_period: log.meal_period,
-        title: log.title,
-        total_calories: Math.round(log.total_calories),
-        total_protein_g: log.total_protein_g,
-        total_carbs_g: log.total_carbs_g,
-        total_fat_g: log.total_fat_g,
-        photo_path: log.photo_path ?? null,
-        source: log.source,
-      },
-      { onConflict: 'user_id,client_uuid' }
-    )
-    .select()
-    .single();
-
-  if (error) throw new Error(error.message);
-
-  // Items are rewritten wholesale — an edit can add, remove or rescale them, and
-  // the row count is small enough that diffing would only add failure modes.
-  const { error: clearError } = await supabase
-    .from('meal_log_items')
-    .delete()
-    .eq('meal_log_id', saved.id);
-  if (clearError) throw new Error(clearError.message);
-
-  if (log.items.length) {
-    const { error: itemsError } = await supabase.from('meal_log_items').insert(
-      log.items.map((item: LogItem) => ({
-        meal_log_id: saved.id,
-        name: item.name,
-        portion: item.portion,
-        portion_unit: item.portion_unit,
-        calories: Math.round(item.calories),
-        protein_g: item.protein_g,
-        carbs_g: item.carbs_g,
-        fat_g: item.fat_g,
-        is_estimate: item.is_estimate ?? false,
-        confidence_score: item.confidence_score ?? null,
-      }))
+export async function pushMealLog(
+  userId: string,
+  log: MealLog,
+): Promise<MealLog> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session || session.user.id !== userId)
+    throw new Error(
+      "Account changed. Your meal remains saved on its original device account.",
     );
-    if (itemsError) throw new Error(itemsError.message);
-  }
-
-  return { ...log, id: saved.id, synced: true };
+  // The database derives ownership from the session, and saves all rows atomically.
+  const { data, error } = await supabase
+    .rpc("save_meal", {
+      p: {
+        ...log,
+        items: log.items.map((item: LogItem) => ({
+          ...item,
+          client_item_id: item.client_item_id ?? item.id,
+        })),
+      },
+    })
+    .setHeader("Authorization", `Bearer ${session.access_token}`);
+  if (error) throw new Error(error.message);
+  return rowToMealLog(data as MealLogRow);
 }
 
 export async function deleteMealLogRemote(userId: string, clientUuid: string) {
   const { error } = await supabase
-    .from('meal_logs')
+    .from("meal_logs")
     .delete()
-    .eq('user_id', userId)
-    .eq('client_uuid', clientUuid);
+    .eq("user_id", userId)
+    .eq("client_uuid", clientUuid);
 
   if (error) throw new Error(error.message);
 }
 
-export async function fetchWeightEntries(userId: string): Promise<WeightEntry[]> {
+export async function fetchWeightEntries(
+  userId: string,
+): Promise<WeightEntry[]> {
   const { data, error } = await supabase
-    .from('weight_entries')
-    .select('*')
-    .eq('user_id', userId)
-    .order('recorded_on', { ascending: true });
+    .from("weight_entries")
+    .select("*")
+    .eq("user_id", userId)
+    .order("recorded_on", { ascending: true });
 
   if (error) throw new Error(error.message);
 
@@ -167,36 +171,45 @@ export async function fetchWeightEntries(userId: string): Promise<WeightEntry[]>
 
 export async function pushWeightEntry(userId: string, entry: WeightEntry) {
   const { data, error } = await supabase
-    .from('weight_entries')
+    .from("weight_entries")
     .upsert(
       {
         user_id: userId,
         recorded_on: entry.recorded_on,
         weight_kg: entry.weight_kg,
       },
-      { onConflict: 'user_id,recorded_on' }
+      { onConflict: "user_id,recorded_on" },
     )
     .select()
     .single();
 
   if (error) throw new Error(error.message);
-  return { id: data.id, recorded_on: data.recorded_on, weight_kg: Number(data.weight_kg) };
+  return {
+    id: data.id,
+    recorded_on: data.recorded_on,
+    weight_kg: Number(data.weight_kg),
+  };
 }
 
 /**
  * Uploads a captured meal photo. The path starts with the user id because that
  * first segment is what the storage policies check.
  */
-export async function uploadMealPhoto(userId: string, base64: string): Promise<string> {
+export async function uploadMealPhoto(
+  userId: string,
+  base64: string,
+): Promise<string> {
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
 
   const path = `${userId}/${Date.now()}.jpg`;
-  const { error } = await supabase.storage.from('meal-photos').upload(path, bytes, {
-    contentType: 'image/jpeg',
-    upsert: false,
-  });
+  const { error } = await supabase.storage
+    .from("meal-photos")
+    .upload(path, bytes, {
+      contentType: "image/jpeg",
+      upsert: false,
+    });
 
   if (error) throw new Error(error.message);
   return path;
@@ -205,7 +218,7 @@ export async function uploadMealPhoto(userId: string, base64: string): Promise<s
 /** Meal photos live in a private bucket, so display needs a short-lived signed URL. */
 export async function getMealPhotoUrl(path: string, expiresInSeconds = 3600) {
   const { data, error } = await supabase.storage
-    .from('meal-photos')
+    .from("meal-photos")
     .createSignedUrl(path, expiresInSeconds);
 
   if (error) return null;

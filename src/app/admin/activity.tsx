@@ -1,10 +1,18 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl, ActivityIndicator, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useQueryClient } from '@tanstack/react-query';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
-import { Card, SegmentedControl } from '@/components/ui';
-import { Users, ChevronRight, RefreshCw } from 'lucide-react-native';
+import React, { useMemo, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Colors, Typography, Radii } from "@/constants/theme";
+import { Card, SegmentedControl } from "@/components/ui";
+import { Users, ChevronRight, RefreshCw } from "lucide-react-native";
 import {
   TREND_WINDOWS,
   TrendWindow,
@@ -12,18 +20,23 @@ import {
   useAdminFunnel,
   useAdminTrend,
   compactNumber,
-  share,
   relativeTime,
   syncSeverity,
   nullCaloriesSeverity,
   adminKeys,
-} from '@/lib/admin';
-import { StatTile, RowBarChart, StackedColumnChart, ChartEmpty, SeverityChip } from './_charts';
+} from "@/lib/admin";
+import {
+  StatTile,
+  RowBarChart,
+  StackedColumnChart,
+  ChartEmpty,
+  SeverityChip,
+} from "@/components/admin/Charts";
 
 export default function AdminOverviewScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [window, setWindow] = useState<`${TrendWindow}`>('30');
+  const [window, setWindow] = useState<`${TrendWindow}`>("30");
   const [refreshing, setRefreshing] = useState(false);
 
   const overview = useAdminOverview();
@@ -35,14 +48,13 @@ export default function AdminOverviewScreen() {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: adminKeys.overview() }),
       queryClient.invalidateQueries({ queryKey: adminKeys.funnel() }),
-      queryClient.invalidateQueries({ queryKey: ['admin', 'trend'] }),
+      queryClient.invalidateQueries({ queryKey: ["admin", "trend"] }),
     ]);
     setRefreshing(false);
   };
 
   const funnelRows = useMemo(() => {
     const rows = funnel.data ?? [];
-    const base = rows[0]?.user_count ?? 0;
     return rows.map((step) => ({
       key: step.step_key,
       label: step.step_label,
@@ -52,24 +64,40 @@ export default function AdminOverviewScreen() {
   }, [funnel.data]);
 
   const trendLabels = (trend.data ?? []).map((d) =>
-    new Date(`${d.day}T12:00:00`).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+    new Date(`${d.day}T12:00:00`).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+    }),
   );
 
   const o = overview.data;
   const isLoading = overview.isLoading || funnel.isLoading;
   const menuSyncSeverity = syncSeverity(
-    o?.menu_last_sync ? (Date.now() - new Date(o.menu_last_sync).getTime()) / 3_600_000 : null
+    o?.menu_last_sync
+      ? (overview.dataUpdatedAt - new Date(o.menu_last_sync).getTime()) /
+          3_600_000
+      : null,
   );
 
   return (
     <ScrollView
       contentContainerStyle={styles.container}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Colors.scarlet} />}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={Colors.scarlet}
+        />
+      }
     >
       <View style={styles.headerRow}>
         <Text style={Typography.displayL}>Overview</Text>
-        <Text style={[Typography.bodyS, { color: Colors.textMuted, marginTop: 4 }]}>
-          {o ? `${compactNumber(o.total_users)} students on HaverTrack` : 'Loading…'}
+        <Text
+          style={[Typography.bodyS, { color: Colors.textMuted, marginTop: 4 }]}
+        >
+          {o
+            ? `${compactNumber(o.total_users)} students on HaverTrack`
+            : "Loading…"}
         </Text>
       </View>
 
@@ -109,7 +137,7 @@ export default function AdminOverviewScreen() {
             />
             <StatTile
               label="Meals / active user"
-              value={o ? o.meals_per_active_user_7d.toFixed(1) : '—'}
+              value={o ? o.meals_per_active_user_7d.toFixed(1) : "—"}
               hint="per week, last 7 days"
               style={styles.tile}
             />
@@ -121,23 +149,32 @@ export default function AdminOverviewScreen() {
             />
             <StatTile
               label="Scan share"
-              value={o ? `${o.scan_share_30d}%` : '—'}
+              value={o ? `${o.scan_share_30d}%` : "—"}
               hint="of meals logged via camera scan, 30d"
               style={styles.tile}
             />
             <StatTile
               label="Menu freshness"
-              value={o?.menu_last_sync ? relativeTime(o.menu_last_sync) : 'never'}
+              value={
+                o?.menu_last_sync ? relativeTime(o.menu_last_sync) : "never"
+              }
               severity={menuSyncSeverity}
               severityLabel={
-                menuSyncSeverity === 'good' ? 'Fresh' : menuSyncSeverity === 'warning' ? 'Aging' : 'Stale'
+                menuSyncSeverity === "good"
+                  ? "Fresh"
+                  : menuSyncSeverity === "warning"
+                    ? "Aging"
+                    : "Stale"
               }
               style={styles.tile}
             />
           </View>
 
           {(o?.menu_null_calorie_pct ?? 0) >= 15 ? (
-            <Pressable onPress={() => router.push('/(admin)/content' as never)} style={styles.warningCallout}>
+            <Pressable
+              onPress={() => router.push("/admin/content" as never)}
+              style={styles.warningCallout}
+            >
               <SeverityChip
                 severity={nullCaloriesSeverity(o?.menu_null_calorie_pct)}
                 label={`${o?.menu_null_calorie_pct}% of menu items missing calories`}
@@ -151,7 +188,10 @@ export default function AdminOverviewScreen() {
             <Text style={styles.sectionEyebrow}>ACTIVATION FUNNEL</Text>
             <Card style={styles.card}>
               {funnelRows.length > 0 ? (
-                <RowBarChart data={funnelRows} scaleMax={funnelRows[0]?.value} />
+                <RowBarChart
+                  data={funnelRows}
+                  scaleMax={funnelRows[0]?.value}
+                />
               ) : (
                 <ChartEmpty message="No signups yet." />
               )}
@@ -162,7 +202,10 @@ export default function AdminOverviewScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionEyebrow}>SIGNUPS &amp; LOGGING MIX</Text>
             <SegmentedControl
-              options={TREND_WINDOWS.map((w) => ({ value: w.value, label: w.label }))}
+              options={TREND_WINDOWS.map((w) => ({
+                value: w.value,
+                label: w.label,
+              }))}
               value={window}
               onChange={setWindow}
               style={{ marginBottom: 12 }}
@@ -178,9 +221,24 @@ export default function AdminOverviewScreen() {
                 <StackedColumnChart
                   labels={trendLabels}
                   series={[
-                    { key: 'scan', label: 'Scan', color: '#9E1B32', values: (trend.data ?? []).map((d) => d.scan_meals) },
-                    { key: 'menu', label: 'Menu', color: '#B8801A', values: (trend.data ?? []).map((d) => d.menu_meals) },
-                    { key: 'manual', label: 'Manual', color: '#15803D', values: (trend.data ?? []).map((d) => d.manual_meals) },
+                    {
+                      key: "scan",
+                      label: "Scan",
+                      color: "#9E1B32",
+                      values: (trend.data ?? []).map((d) => d.scan_meals),
+                    },
+                    {
+                      key: "menu",
+                      label: "Menu",
+                      color: "#B8801A",
+                      values: (trend.data ?? []).map((d) => d.menu_meals),
+                    },
+                    {
+                      key: "manual",
+                      label: "Manual",
+                      color: "#15803D",
+                      values: (trend.data ?? []).map((d) => d.manual_meals),
+                    },
                   ]}
                   maxLabels={Number(window) === 90 ? 6 : 7}
                 />
@@ -190,20 +248,38 @@ export default function AdminOverviewScreen() {
             </Card>
           </View>
 
-          <Pressable onPress={() => router.push('/(admin)/users' as never)} style={styles.navRow}>
-            <Users size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+          <Pressable
+            onPress={() => router.push("/admin/users" as never)}
+            style={styles.navRow}
+          >
+            <Users
+              size={18}
+              color={Colors.scarlet}
+              style={{ marginRight: 12 }}
+            />
             <View style={{ flex: 1 }}>
               <Text style={Typography.bodySSemiBold}>Students</Text>
-              <Text style={Typography.caption}>Roster, search, and individual detail</Text>
+              <Text style={Typography.caption}>
+                Roster, search, and individual detail
+              </Text>
             </View>
             <ChevronRight size={16} color={Colors.textMuted} />
           </Pressable>
 
-          <Pressable onPress={() => router.push('/(admin)/content' as never)} style={[styles.navRow, { marginTop: 10 }]}>
-            <RefreshCw size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+          <Pressable
+            onPress={() => router.push("/admin/content" as never)}
+            style={[styles.navRow, { marginTop: 10 }]}
+          >
+            <RefreshCw
+              size={18}
+              color={Colors.scarlet}
+              style={{ marginRight: 12 }}
+            />
             <View style={{ flex: 1 }}>
               <Text style={Typography.bodySSemiBold}>Menu health</Text>
-              <Text style={Typography.caption}>Sync status and nutrition coverage</Text>
+              <Text style={Typography.caption}>
+                Sync status and nutrition coverage
+              </Text>
             </View>
             <ChevronRight size={16} color={Colors.textMuted} />
           </Pressable>
@@ -216,7 +292,9 @@ export default function AdminOverviewScreen() {
 function ErrorBanner({ message }: { message?: string }) {
   return (
     <View style={styles.errorBox}>
-      <Text style={styles.errorText}>{message || 'Could not load this data.'}</Text>
+      <Text style={styles.errorText}>
+        {message || "Could not load this data."}
+      </Text>
     </View>
   );
 }
@@ -224,14 +302,14 @@ function ErrorBanner({ message }: { message?: string }) {
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48, backgroundColor: Colors.cream },
   headerRow: { marginBottom: 18 },
-  loadingBlock: { paddingVertical: 60, alignItems: 'center' },
-  loadingBlockSmall: { paddingVertical: 30, alignItems: 'center' },
-  tileGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
-  tile: { width: '48%', minHeight: 96 },
+  loadingBlock: { paddingVertical: 60, alignItems: "center" },
+  loadingBlockSmall: { paddingVertical: 30, alignItems: "center" },
+  tileGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  tile: { width: "48%", minHeight: 96 },
   warningCallout: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 14,
     padding: 12,
     backgroundColor: Colors.surface,
@@ -240,11 +318,15 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
   },
   section: { marginTop: 26 },
-  sectionEyebrow: { ...Typography.monoLabel, marginBottom: 10, color: Colors.textMuted },
+  sectionEyebrow: {
+    ...Typography.monoLabel,
+    marginBottom: 10,
+    color: Colors.textMuted,
+  },
   card: { padding: 16 },
   navRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.surface,
     borderRadius: Radii.card,
     borderWidth: 1,
@@ -253,9 +335,9 @@ const styles = StyleSheet.create({
     marginTop: 26,
   },
   errorBox: {
-    backgroundColor: '#FBEAED',
+    backgroundColor: "#FBEAED",
     borderWidth: 1,
-    borderColor: 'rgba(158,27,50,0.28)',
+    borderColor: "rgba(158,27,50,0.28)",
     borderRadius: Radii.card,
     padding: 14,
   },

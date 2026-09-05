@@ -3,10 +3,10 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Pressable,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import { Card, Chip } from '@/components/ui';
 import { Sparkles, Flame, Scale, X, HeartHandshake, Target } from 'lucide-react-native';

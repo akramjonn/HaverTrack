@@ -13,6 +13,22 @@ export function describeAuthError(error: AuthError | Error): AuthFailure {
   const raw = error.message || '';
   const message = raw.toLowerCase();
 
+  if (message.includes('haverford.edu')) {
+    return { message: 'Use your @haverford.edu email. HaverTrack is reserved for Haverford students.' };
+  }
+  if (message.includes('email not confirmed')) {
+    return { message: 'Confirm your Haverford email using the link in your inbox, then sign in.' };
+  }
+  if (message.includes('provider is not enabled') || message.includes('unsupported provider')) {
+    return { message: 'Google sign-in is unavailable right now. Use your Haverford email and password.' };
+  }
+  if (message.includes('email address not authorized') || message.includes('error sending confirmation email')) {
+    return { message: 'We could not send your confirmation email. Try Continue with Google using your Haverford account.' };
+  }
+  if (message.includes('database error saving new user')) {
+    return { message: 'Could not create your account. Make sure you are using your @haverford.edu account and try again.' };
+  }
+
   if (message.includes('invalid login credentials')) {
     return { message: 'That email and password do not match. Check both and try again.' };
   }
@@ -48,9 +64,8 @@ export function describeAuthError(error: AuthError | Error): AuthFailure {
   return { message: raw || 'Something went wrong. Try again.' };
 }
 
-export const COLLEGE_DOMAINS = ['haverford.edu', 'brynmawr.edu'] as const;
+export const COLLEGE_DOMAINS = ['haverford.edu'] as const;
 
 export function isCollegeEmail(address: string) {
-  const domain = address.trim().toLowerCase().split('@')[1];
-  return COLLEGE_DOMAINS.includes(domain as (typeof COLLEGE_DOMAINS)[number]);
+  return /^[^\s@]+@haverford\.edu$/i.test(address.trim());
 }

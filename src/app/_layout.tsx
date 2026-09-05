@@ -8,6 +8,7 @@ import { JetBrainsMono_400Regular, JetBrainsMono_500Medium } from '@expo-google-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Colors } from '@/constants/theme';
 import { useAuthStore } from '@/store/authStore';
+import { NotificationBridge } from '@/components/meals/NotificationBridge';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,6 +27,9 @@ export default function RootLayout() {
 
   const initAuth = useAuthStore((state) => state.initAuth);
   const isAuthInitialized = useAuthStore((state) => state.isInitialized);
+  const accountId = useAuthStore((state) => state.user?.id);
+
+  useEffect(() => { queryClient.clear(); }, [accountId]);
 
   useEffect(() => {
     const unsubscribe = initAuth();
@@ -46,6 +50,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <View style={{ flex: 1, backgroundColor: Colors.cream }}>
         <StatusBar style="auto" />
+        <NotificationBridge />
         <Stack
           screenOptions={{
             headerShown: false,
@@ -57,7 +62,9 @@ export default function RootLayout() {
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(admin)" options={{ headerShown: false }} />
+          <Stack.Screen name="admin" options={{ headerShown: false }} />
+          <Stack.Screen name="rate" options={{ headerShown: false }} />
+          <Stack.Screen name="notification-settings" options={{ headerShown: true, title: 'Reminders' }} />
           <Stack.Screen
             name="scan"
             options={{
