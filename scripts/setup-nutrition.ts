@@ -76,6 +76,7 @@ async function main() {
     "review-nutrition",
     "sync-haverford-menu",
     "analyze-photo",
+    "lookup-usda-barcode",
   ]) {
     const result = spawnSync(
       "/opt/homebrew/bin/supabase",

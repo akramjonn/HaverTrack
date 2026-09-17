@@ -1,0 +1,9 @@
+.env
+.env.*
+.agents
+.codex
+.expo
+ios
+android
+fixtures
+dist

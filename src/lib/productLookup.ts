@@ -287,22 +287,13 @@ const FDC_NUTRIENT_MAP: Record<string, keyof Pick<
  */
 async function queryFdc(
   query: string,
-  variantSet: Set<string>,
-  apiKey: string
+  variantSet: Set<string>
 ): Promise<ReturnType<typeof FdcFoodSchema.parse> | null> {
-  const params = new URLSearchParams({
-    api_key: apiKey,
-    query,
-    dataType: 'Branded',
-    pageSize: '5',
-  });
-
-  const res = await fetchWithTimeout(`https://api.nal.usda.gov/fdc/v1/foods/search?${params}`);
-  if (!res || !res.ok) return null;
-
   let data: unknown;
   try {
-    data = await res.json();
+    const result = await supabase.functions.invoke('lookup-usda-barcode', { body: { query } });
+    if (result.error) return null;
+    data = result.data;
   } catch {
     return null;
   }
@@ -316,17 +307,11 @@ async function queryFdc(
 }
 
 async function lookupFdc(code: string, variants: string[]): Promise<BarcodeProduct | null> {
-  const apiKey = process.env.EXPO_PUBLIC_USDA_FDC_KEY;
-  if (!apiKey) {
-    console.warn('EXPO_PUBLIC_USDA_FDC_KEY not set — skipping USDA FoodData Central.');
-    return null;
-  }
-
   const variantSet = new Set(variants);
 
   let match: ReturnType<typeof FdcFoodSchema.parse> | null = null;
   for (const variant of variants) {
-    match = await queryFdc(variant, variantSet, apiKey);
+    match = await queryFdc(variant, variantSet);
     if (match) break;
   }
   if (!match) return null;
