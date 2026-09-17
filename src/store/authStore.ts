@@ -3,6 +3,7 @@ import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { isCollegeEmail } from '@/lib/authErrors';
 import { removeRatingDevice } from '@/lib/notifications';
+import { operationalErrorCode, trackOperationalEvent } from '@/lib/observability';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface UserProfile {
@@ -92,6 +93,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return null;
     }
 
+    if (get().user?.id !== userId) return null;
     set({ profile: data as UserProfile });
 
     const { data: goalRow } = await supabase
@@ -102,7 +104,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .limit(1)
       .maybeSingle();
 
-    if (goalRow) set({ goal: goalRow as DailyGoal });
+    if (goalRow && get().user?.id === userId) set({ goal: goalRow as DailyGoal });
 
     return data as UserProfile;
   },
@@ -133,18 +135,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .select()
       .single();
 
-    if (error) {
-      console.warn('Could not mark onboarding complete:', error.message);
-      return;
-    }
+    if (error) throw new Error(error.message);
     set({ profile: data as UserProfile });
   },
 
   saveGoal: async (goal) => {
-    set({ goal });
-
     const userId = get().user?.id;
-    if (!userId) return;
+    if (!userId) throw new Error('You need to be signed in to save your goals.');
 
     const { error } = await supabase.from('daily_goals').upsert(
       {
@@ -160,15 +157,28 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     );
 
     if (error) throw new Error(error.message);
+    if (get().user?.id === userId) set({ goal });
   },
 
   signOut: async () => {
     const departingUser = get().user?.id;
-    await removeRatingDevice();
-    if (departingUser) await AsyncStorage.removeItem(`@havertrack_meal_draft:${departingUser}`);
+    try {
+      await removeRatingDevice();
+    } catch (error) {
+      console.warn('Could not unregister rating reminders during sign out:', error);
+    }
+    try {
+      if (departingUser) await AsyncStorage.removeItem(`@havertrack_meal_draft:${departingUser}`);
+    } catch (error) {
+      console.warn('Could not remove the local meal draft during sign out:', error);
+    }
     const { error } = await supabase.auth.signOut();
-    if (error) console.warn('Sign out error:', error.message);
     set({ user: null, session: null, profile: null, goal: DEFAULT_GOAL });
+    if (error) {
+      trackOperationalEvent('sign_out_failed', { code: operationalErrorCode(error) });
+      throw new Error(error.message);
+    }
+    trackOperationalEvent('sign_out_completed');
   },
 
   /**
@@ -183,6 +193,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     };
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       const eligible = eligibleSession(session);
+      const previousUserId = get().user?.id;
+      if (previousUserId !== eligible?.user.id) {
+        set({ profile: null, goal: DEFAULT_GOAL });
+      }
       set({ session: eligible, user: eligible?.user ?? null });
 
       if (eligible?.user) {

@@ -55,6 +55,7 @@ function formatTime(iso: string) {
 
 function rowToMealLog(row: MealLogRow): MealLog {
   return {
+    created_at: row.created_at,
     eaten_at: row.eaten_at,
     nutrition_complete: row.nutrition_complete,
     guided: row.guided,

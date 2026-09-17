@@ -1,4 +1,6 @@
 import { supabase } from '@/lib/supabase';
+export { defaultPreferences, fetchPreferences, savePreferences, usePreferences, useSavePreferences } from '@/lib/preferences';
+export type { UserPreferences } from '@/lib/preferences';
 
 export interface WaterEntry {
   id: string;
@@ -51,50 +53,4 @@ export async function deleteWaterEntry(userId: string, id: string) {
     .eq('id', id);
 
   if (error) throw new Error(error.message);
-}
-
-export interface UserPreferences {
-  water_target_ml: number;
-  goal_weight_kg: number | null;
-  rollover_calories: boolean;
-}
-
-const PREFERENCES_COLUMNS = 'water_target_ml, goal_weight_kg, rollover_calories';
-
-function mapPreferencesRow(data: any): UserPreferences {
-  return {
-    water_target_ml: Number(data.water_target_ml),
-    goal_weight_kg: data.goal_weight_kg === null ? null : Number(data.goal_weight_kg),
-    rollover_calories: Boolean(data.rollover_calories),
-  };
-}
-
-export async function fetchPreferences(userId: string): Promise<UserPreferences | null> {
-  const { data, error } = await supabase
-    .from('user_preferences')
-    .select(PREFERENCES_COLUMNS)
-    .eq('user_id', userId)
-    .maybeSingle();
-
-  if (error) throw new Error(error.message);
-  if (!data) return null;
-
-  return mapPreferencesRow(data);
-}
-
-export async function savePreferences(
-  userId: string,
-  patch: Partial<UserPreferences>
-): Promise<UserPreferences> {
-  const { data, error } = await supabase
-    .from('user_preferences')
-    .upsert(
-      { user_id: userId, ...patch, updated_at: new Date().toISOString() },
-      { onConflict: 'user_id' }
-    )
-    .select(PREFERENCES_COLUMNS)
-    .single();
-
-  if (error) throw new Error(error.message);
-  return mapPreferencesRow(data);
 }

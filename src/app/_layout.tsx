@@ -28,13 +28,14 @@ export default function RootLayout() {
   const initAuth = useAuthStore((state) => state.initAuth);
   const isAuthInitialized = useAuthStore((state) => state.isInitialized);
   const accountId = useAuthStore((state) => state.user?.id);
+  const isSignedIn = Boolean(accountId);
 
   useEffect(() => { queryClient.clear(); }, [accountId]);
 
   useEffect(() => {
     const unsubscribe = initAuth();
     return unsubscribe;
-  }, []);
+  }, [initAuth]);
 
   useEffect(() => {
     if ((loaded || error) && isAuthInitialized) {
@@ -61,31 +62,27 @@ export default function RootLayout() {
           <Stack.Screen name="gallery" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="admin" options={{ headerShown: false }} />
-          <Stack.Screen name="rate" options={{ headerShown: false }} />
-          <Stack.Screen name="notification-settings" options={{ headerShown: true, title: 'Reminders' }} />
-          <Stack.Screen
-            name="scan"
-            options={{
-              presentation: 'fullScreenModal',
-              animation: 'fade',
-            }}
-          />
-          <Stack.Screen
-            name="scan/review"
-            options={{
-              presentation: 'fullScreenModal',
-              animation: 'fade',
-              gestureEnabled: false,
-            }}
-          />
-          <Stack.Screen
-            name="food/[id]"
-            options={{
-              presentation: 'modal',
-            }}
-          />
+          <Stack.Protected guard={isSignedIn}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="admin" options={{ headerShown: false }} />
+            <Stack.Screen name="rate" options={{ headerShown: false }} />
+            <Stack.Screen name="account-settings" />
+            <Stack.Screen name="personal-details" />
+            <Stack.Screen name="units" />
+            <Stack.Screen name="weight-history" />
+            <Stack.Screen name="edit-goals" />
+            <Stack.Screen name="notification-settings" options={{ headerShown: true, title: 'Reminders' }} />
+            <Stack.Screen name="log" />
+            <Stack.Screen
+              name="scan"
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+            />
+            <Stack.Screen
+              name="scan/review"
+              options={{ presentation: 'fullScreenModal', animation: 'fade', gestureEnabled: false }}
+            />
+            <Stack.Screen name="food/[id]" options={{ presentation: 'modal' }} />
+          </Stack.Protected>
         </Stack>
       </View>
     </QueryClientProvider>

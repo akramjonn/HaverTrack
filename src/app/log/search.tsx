@@ -166,7 +166,7 @@ export default function FoodSearchScreen() {
             <Text style={[Typography.title, { marginTop: 12 }]}>No matches</Text>
             <Text style={styles.emptyBody}>
               Nothing in {todayOnly ? "today's DC menu" : 'the DC menu'} or OpenFoodFacts matched
-              "{query.trim()}". Try fewer words, or quick add it by hand.
+              &quot;{query.trim()}&quot;. Try fewer words, or quick add it by hand.
             </Text>
             <Button
               label="Quick add instead"
@@ -210,6 +210,7 @@ export default function FoodSearchScreen() {
       </ScrollView>
 
       <ComposeSheet
+        key={selected?.key ?? 'closed'}
         result={selected}
         onClose={() => setSelected(null)}
         onLogged={() => {
@@ -292,15 +293,6 @@ function ComposeSheet({
   const [mealPeriod, setMealPeriod] = useState<MealPeriod>(periodForNow());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (result) {
-      setServings(1);
-      setGrams('100');
-      setMealPeriod(periodForNow());
-      setError(null);
-    }
-  }, [result?.key]);
 
   const perGram = result?.basis === 'per_100g';
   const gramValue = Number(grams);

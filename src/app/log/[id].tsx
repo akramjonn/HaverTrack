@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Pressable,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Typography } from '@/constants/theme';
 import { Button, Card, IconButton, Stepper, SegmentedControl } from '@/components/ui';
-import { ArrowLeft, Trash2, Clock, Check } from 'lucide-react-native';
+import { ArrowLeft, Trash2, Clock } from 'lucide-react-native';
 import { useLogStore } from '@/store/logStore';
 import { fetchMealNutrients, type MealNutrientRow } from '@/lib/mealNutrients';
 import { scoreMeal } from '@/lib/health';
 import { HealthScoreCard } from '@/components/HealthScore';
+import { formatClockTime, useClockFormat } from '@/lib/units';
 
 export default function EditMealLogScreen() {
   const router = useRouter();
@@ -23,6 +23,7 @@ export default function EditMealLogScreen() {
   const logs = useLogStore((state) => state.logs);
   const updateMealLog = useLogStore((state) => state.updateMealLog);
   const deleteMealLog = useLogStore((state) => state.deleteMealLog);
+  const clockFormat = useClockFormat();
 
   const meal = logs.find((l) => l.id === id);
 
@@ -76,21 +77,17 @@ export default function EditMealLogScreen() {
 
   // Recomputed live rather than read from the stored grade, so scaling the
   // portion with the stepper above updates the score too.
-  const healthScore = useMemo(
-    () =>
-      scoreMeal({
-        calories: currentCalories,
-        protein_g: currentProtein,
-        carbs_g: currentCarbs,
-        fat_g: currentFat,
-        fiber_g: nutrients?.fiber_g != null ? nutrients.fiber_g * portionMultiplier : null,
-        sugar_g: nutrients?.sugar_g != null ? nutrients.sugar_g * portionMultiplier : null,
-        sodium_mg: nutrients?.sodium_mg != null ? nutrients.sodium_mg * portionMultiplier : null,
-        saturated_fat_g:
-          nutrients?.saturated_fat_g != null ? nutrients.saturated_fat_g * portionMultiplier : null,
-      }),
-    [currentCalories, currentProtein, currentCarbs, currentFat, nutrients, portionMultiplier]
-  );
+  const healthScore = scoreMeal({
+    calories: currentCalories,
+    protein_g: currentProtein,
+    carbs_g: currentCarbs,
+    fat_g: currentFat,
+    fiber_g: nutrients?.fiber_g != null ? nutrients.fiber_g * portionMultiplier : null,
+    sugar_g: nutrients?.sugar_g != null ? nutrients.sugar_g * portionMultiplier : null,
+    sodium_mg: nutrients?.sodium_mg != null ? nutrients.sodium_mg * portionMultiplier : null,
+    saturated_fat_g:
+      nutrients?.saturated_fat_g != null ? nutrients.saturated_fat_g * portionMultiplier : null,
+  });
 
   const handleSave = async () => {
     await updateMealLog(meal.id, {
@@ -139,7 +136,9 @@ export default function EditMealLogScreen() {
           <Text style={Typography.displayL}>{meal.title}</Text>
           <View style={styles.timeRow}>
             <Clock size={14} color={Colors.textMuted} style={{ marginRight: 4 }} />
-            <Text style={Typography.monoUnit}>LOGGED AT {meal.logged_time.toUpperCase()}</Text>
+            <Text style={Typography.monoUnit}>
+              LOGGED AT {formatClockTime(meal.eaten_at ?? meal.created_at, clockFormat, meal.logged_time).toUpperCase()}
+            </Text>
           </View>
         </View>
 

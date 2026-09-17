@@ -127,13 +127,13 @@ function ScanFab() {
 
   const handlePressIn = () => {
     if (!reducedMotion) {
-      scale.value = withSpring(PRESS_SCALE, { damping: 14, stiffness: 300 });
+      scale.set(withSpring(PRESS_SCALE, { damping: 14, stiffness: 300 }));
     }
   };
 
   const handlePressOut = () => {
     if (!reducedMotion) {
-      scale.value = withSpring(1, { damping: 12, stiffness: 260 });
+      scale.set(withSpring(1, { damping: 12, stiffness: 260 }));
     }
   };
 

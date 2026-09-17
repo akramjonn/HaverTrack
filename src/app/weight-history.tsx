@@ -6,12 +6,12 @@ import { ArrowLeft, Scale } from 'lucide-react-native';
 import { Colors, Typography } from '@/constants/theme';
 import { Card, IconButton } from '@/components/ui';
 import { useLogStore } from '@/store/logStore';
-import { formatWeight, useUnits } from '@/lib/units';
+import { formatWeight, useWeightUnit } from '@/lib/units';
 import { fullDate } from '@/lib/format';
 
 export default function WeightHistoryScreen() {
   const router = useRouter();
-  const units = useUnits();
+  const weightUnit = useWeightUnit();
   const weightEntries = useLogStore((s) => s.weightEntries);
 
   // Store keeps entries oldest-first (sorted by `recorded_on` ascending, see
@@ -50,7 +50,7 @@ export default function WeightHistoryScreen() {
                 ]}
               >
                 <Text style={Typography.bodySSemiBold}>
-                  {formatWeight(entry.weight_kg, units)}
+                  {formatWeight(entry.weight_kg, weightUnit)}
                 </Text>
                 <Text style={[Typography.bodyS, { color: Colors.textMuted }]}>
                   {fullDate(entry.recorded_on)}

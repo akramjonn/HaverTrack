@@ -33,6 +33,7 @@ export interface LogItem {
 export interface MealLog {
   id: string;
   client_uuid: string;
+  created_at?: string;
   eaten_at?: string;
   guided?: boolean;
   journey_id?: string;
@@ -112,6 +113,7 @@ interface LogState {
     fat: number;
   };
   clear: () => void;
+  purgeLocalUserData: (userId: string) => Promise<void>;
 }
 
 /** Falls back to the signed-in user so no call site can forget to sync. */
@@ -469,6 +471,18 @@ export const useLogStore = create<LogState>((set, get) => ({
 
   clear: () =>
     set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false }),
+
+  purgeLocalUserData: async (userId) => {
+    await AsyncStorage.multiRemove([
+      scopedKey(LOGS_KEY, userId),
+      scopedKey(WEIGHTS_KEY, userId),
+      scopedKey(DELETED_KEY, userId),
+      scopedKey(LEGACY_LOGS_KEY, userId),
+      scopedKey(LEGACY_WEIGHTS_KEY, userId),
+      scopedKey(LEGACY_DELETED_KEY, userId),
+    ]);
+    set({ logs: [], weightEntries: [], pendingDeletes: [], justCrossedStreak: false, isLoaded: false, syncError: null });
+  },
 
   clearStreakFlag: () => set({ justCrossedStreak: false }),
 }));

@@ -4,13 +4,11 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import {
   Colors,
-  Fonts,
   Typography,
   Radii,
 } from '@/constants/theme';
@@ -18,10 +16,8 @@ import {
   AppIcon,
   Button,
   Input,
-  Card,
   HeroCard,
   OptionCard,
-  IconButton,
   ProgressBar,
   CalorieRing,
   SegmentedControl,
@@ -29,7 +25,7 @@ import {
   Stepper,
   StreakBadge,
 } from '@/components/ui';
-import { ArrowLeft, Sparkles, ChevronRight, Apple } from 'lucide-react-native';
+import { Apple } from 'lucide-react-native';
 
 export default function ComponentGalleryScreen() {
   const router = useRouter();
@@ -38,7 +34,7 @@ export default function ComponentGalleryScreen() {
   const [portion, setPortion] = useState(1);
   const [inputVal, setInputVal] = useState('jsmith@haverford.edu');
   const [passwordVal, setPasswordVal] = useState('HaverTrack#1');
-  const [ringCalories, setRingCalories] = useState(1180);
+  const ringCalories = 1180;
   const targetCalories = 2340;
 
   return (

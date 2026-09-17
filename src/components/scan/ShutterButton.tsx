@@ -1,8 +1,7 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Platform, Pressable, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Platform } from 'react-native';
 import { Colors } from '@/constants/theme';
 
 interface ShutterButtonProps {
@@ -22,14 +21,14 @@ export function ShutterButton({ onPress, disabled }: ShutterButtonProps) {
 
   const handlePressIn = () => {
     if (disabled) return;
-    scale.value = withSpring(PRESS_SCALE, { damping: 14, stiffness: 300 });
+    scale.set(withSpring(PRESS_SCALE, { damping: 14, stiffness: 300 }));
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
     }
   };
 
   const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 12, stiffness: 260 });
+    scale.set(withSpring(1, { damping: 12, stiffness: 260 }));
   };
 
   return (

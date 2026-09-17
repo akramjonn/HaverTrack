@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Typography, Radii } from '@/constants/theme';
 import {
   Button,
   Card,
@@ -19,6 +19,7 @@ import {
 } from '@/components/ui';
 import { ArrowLeft, Star, AlertCircle, ExternalLink } from 'lucide-react-native';
 import { useMenuStore, favoriteFromMenuItem } from '@/store/menuStore';
+import { NutritionDetails } from '@/components/NutritionDetails';
 
 export default function FoodDetailScreen() {
   const router = useRouter();
@@ -28,24 +29,13 @@ export default function FoodDetailScreen() {
   const toggleFavorite = useMenuStore((state) => state.toggleFavorite);
 
   const numericId = parseInt(id as string, 10);
-  const dish = menuItems.find((item) => item.nutrislice_id === numericId) || {
-    nutrislice_id: numericId || 2073447,
-    dish_name: 'Tempura Chicken',
-    station_name: 'The Main Line',
-    calories: 511,
-    protein_g: 37,
-    carbs_g: 25,
-    fat_g: 30,
-    serving_size: '8 oz',
-    ingredients: 'Chicken breast, battered with tempura flour (wheat, corn starch, salt, egg powder, turmeric extract, leavening), fried in zero trans fat vegetable oil.',
-    dietary_tags: [] as string[],
-    allergens: ['Egg', 'Wheat'],
-  };
+  const dish = menuItems.find((item) => item.id === id || item.nutrislice_id === numericId);
 
-  const isFav = isFavoriteFn(dish.dish_name);
+  const isFav = dish ? isFavoriteFn(dish.dish_name) : false;
 
   const [portion, setPortion] = useState(1);
   const [mealPeriod, setMealPeriod] = useState<'breakfast' | 'lunch' | 'dinner'>('lunch');
+  if (!dish) return <SafeAreaView style={styles.safeArea}><View style={styles.container}><Text style={Typography.title}>This food is no longer on the menu.</Text><Button label="Back to menu" onPress={() => router.back()} /></View></SafeAreaView>;
 
   const baseCals = dish.calories ?? 0;
   const baseProt = dish.protein_g ?? 0;
@@ -123,7 +113,7 @@ export default function FoodDetailScreen() {
 
         {/* 4-Up Macro Tiles */}
         <View style={styles.section}>
-          <Text style={styles.sectionEyebrow}>NUTRITION FACTS</Text>
+          <Text style={styles.sectionEyebrow}>YOUR PORTION</Text>
           <View style={styles.macroGrid}>
             <Card style={styles.macroTile}>
               <Text style={Typography.monoUnit}>CALORIES</Text>
@@ -145,6 +135,7 @@ export default function FoodDetailScreen() {
         </View>
 
         {/* Ingredients & Prep */}
+        <NutritionDetails item={dish} />
         {dish.ingredients ? (
           <View style={styles.section}>
             <Text style={styles.sectionEyebrow}>INGREDIENTS</Text>

@@ -4,8 +4,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Pressable,
-  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -130,7 +128,7 @@ export default function BuildPlateScreen() {
 
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={[Typography.bodyS, { color: Colors.textMuted, marginBottom: 16 }]}>
-          Picks from tonight's DC line to close today's protein gap without going
+          Picks from tonight&apos;s DC line to close today&apos;s protein gap without going
           over your calories.
         </Text>
 
@@ -190,13 +188,13 @@ export default function BuildPlateScreen() {
         ) : calorieBudget <= 0 ? (
           <Card style={styles.emptyCard}>
             <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center' }]}>
-              You've already hit today's calorie target — nothing to suggest.
+              You&apos;ve already hit today&apos;s calorie target — nothing to suggest.
             </Text>
           </Card>
         ) : !suggestion ? (
           <Card style={styles.emptyCard}>
             <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center' }]}>
-              Nothing on tonight's menu fits those filters and your remaining calories.
+              Nothing on tonight&apos;s menu fits those filters and your remaining calories.
             </Text>
           </Card>
         ) : (

@@ -48,8 +48,8 @@ function ModeChip({
   const progress = useSharedValue(active ? 1 : 0);
 
   useEffect(() => {
-    progress.value = withTiming(active ? 1 : 0, { duration: 180 });
-  }, [active]);
+    progress.set(withTiming(active ? 1 : 0, { duration: 180 }));
+  }, [active, progress]);
 
   const chipStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(progress.value, [0, 1], [INACTIVE_BG, Colors.cream]),

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Card, Chip } from '@/components/ui';
 import { Sparkles, Flame, Scale, X, HeartHandshake, Target } from 'lucide-react-native';
 import { useLogStore } from '@/store/logStore';
@@ -16,8 +16,8 @@ import { WeightModal } from '@/components/WeightModal';
 import { BmiCard } from '@/components/BmiCard';
 import { generateInsights } from '@/lib/insights';
 import { dailyTotals, averageCalories, loggingStreak, macroSplit, type DayTotals } from '@/lib/stats';
-import { fetchPreferences } from '@/lib/water';
-import { formatWeight, kgToLb, useUnits } from '@/lib/units';
+import { usePreferences } from '@/lib/preferences';
+import { formatWeight, kgToLb, useWeightUnit } from '@/lib/units';
 
 type RangeKey = '90' | '180' | '365' | 'all';
 
@@ -67,21 +67,16 @@ export default function ProgressScreen() {
   const [rangeKey, setRangeKey] = useState<RangeKey>('90');
   const [weightModalVisible, setWeightModalVisible] = useState(false);
   const [dismissedCheckinTime, setDismissedCheckinTime] = useState<number | undefined>();
-  const [goalWeightKg, setGoalWeightKg] = useState<number | null>(null);
 
   const user = useAuthStore((state) => state.user);
   const profile = useAuthStore((state) => state.profile);
   const logs = useLogStore((state) => state.logs);
   const weightEntries = useLogStore((state) => state.weightEntries);
   const goal = useAuthStore((state) => state.goal);
-  const units = useUnits();
-
-  useEffect(() => {
-    if (!user?.id) return;
-    fetchPreferences(user.id)
-      .then((prefs) => setGoalWeightKg(prefs?.goal_weight_kg ?? null))
-      .catch((e) => console.warn('Could not load goal weight:', e));
-  }, [user?.id]);
+  const legacyUnits = profile?.units ?? 'imperial';
+  const preferences = usePreferences(user?.id, legacyUnits);
+  const weightUnit = useWeightUnit();
+  const goalWeightKg = preferences.data?.goal_weight_kg ?? null;
 
   // Latest weight is the authoritative weight_entries series, never the
   // stale onboarding snapshot on profile.weight_kg (used only as a fallback
@@ -97,7 +92,7 @@ export default function ProgressScreen() {
   const deltaText =
     deltaKg === null
       ? null
-      : units === 'imperial'
+      : weightUnit === 'lb'
         ? `${kgToLb(deltaKg) <= 0 ? '' : '+'}${kgToLb(deltaKg).toFixed(1)} lb recently`
         : `${deltaKg <= 0 ? '' : '+'}${deltaKg.toFixed(1)} kg recently`;
 
@@ -161,14 +156,14 @@ export default function ProgressScreen() {
             <Text style={[Typography.monoLabel, { marginTop: 8 }]}>WEIGHT</Text>
             {weightKg !== null ? (
               <>
-                <Text style={Typography.displayM}>{formatWeight(weightKg, units)}</Text>
+                <Text style={Typography.displayM}>{formatWeight(weightKg, weightUnit)}</Text>
                 <Text style={[Typography.caption, { color: Colors.textMuted, marginTop: 2 }]}>
                   {deltaText ?? 'Tap to log today'}
                 </Text>
                 {goalWeightKg !== null ? (
                   <View style={styles.goalRow}>
                     <Target size={11} color={Colors.textMuted} style={{ marginRight: 4 }} />
-                    <Text style={styles.goalText}>Goal {formatWeight(goalWeightKg, units)}</Text>
+                    <Text style={styles.goalText}>Goal {formatWeight(goalWeightKg, weightUnit)}</Text>
                   </View>
                 ) : null}
               </>

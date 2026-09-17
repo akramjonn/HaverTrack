@@ -77,7 +77,7 @@ export function PhotoDetailSheet({
 
   const animateTo = useCallback(
     (target: number, isExpanded: boolean) => {
-      sheetTop.value = reducedMotion ? target : withSpring(target, SPRING_CONFIG);
+      sheetTop.set(reducedMotion ? target : withSpring(target, SPRING_CONFIG));
       setExpanded(isExpanded);
     },
     [reducedMotion, sheetTop]

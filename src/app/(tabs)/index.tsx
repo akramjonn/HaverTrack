@@ -27,11 +27,12 @@ import {
   CUP_ML,
   DEFAULT_WATER_TARGET_ML,
   deleteWaterEntry,
-  fetchPreferences,
   fetchWaterEntries,
   pushWaterEntry,
   type WaterEntry,
 } from '@/lib/water';
+import { usePreferences } from '@/lib/preferences';
+import { formatClockTime, useClockFormat } from '@/lib/units';
 
 export default function TodayScreen() {
   return <TodayContent />;
@@ -40,7 +41,9 @@ export default function TodayScreen() {
 export function TodayContent({ previewItems }: { previewItems?: import('@/lib/nutrislice').ParsedMenuItem[] }) {
   const router = useRouter();
   const userId = useAuthStore((state) => state.user?.id ?? null);
+  const profile = useAuthStore((state) => state.profile);
   const goal = useAuthStore((state) => state.goal);
+  const clockFormat = useClockFormat();
   const allLogs = useLogStore((state) => state.logs);
 
   const targetCalories = goal?.calorie_target ?? 2340;
@@ -84,8 +87,10 @@ export function TodayContent({ previewItems }: { previewItems?: import('@/lib/nu
   // totals above and the tile handles its own load/error display.
   const [waterEntries, setWaterEntries] = useState<WaterEntry[]>([]);
   const [waterError, setWaterError] = useState<string | null>(null);
-  const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
-  const [rolloverEnabled, setRolloverEnabled] = useState(false);
+  const legacyUnits = profile?.units ?? 'imperial';
+  const preferences = usePreferences(userId, legacyUnits);
+  const waterTarget = preferences.data?.water_target_ml ?? DEFAULT_WATER_TARGET_ML;
+  const rolloverEnabled = preferences.data?.rollover_calories ?? false;
 
   // Celebrations — a full-screen takeover for a milestone the user opted
   // into (streak day, hydration goal), not a lighter inline flourish.
@@ -106,14 +111,10 @@ export function TodayContent({ previewItems }: { previewItems?: import('@/lib/nu
     }
 
     let cancelled = false;
-    Promise.all([fetchWaterEntries(userId, selectedDate), fetchPreferences(userId)])
-      .then(([entries, prefs]) => {
+    fetchWaterEntries(userId, selectedDate)
+      .then((entries) => {
         if (cancelled) return;
         setWaterEntries(entries);
-        if (prefs) {
-          setWaterTarget(prefs.water_target_ml);
-          setRolloverEnabled(prefs.rollover_calories);
-        }
       })
       .catch((e: any) => {
         if (!cancelled) setWaterError(e?.message ?? 'Could not load water for today.');
@@ -322,7 +323,7 @@ energy for life.</Text></View>
               <View style={styles.mealLeft}>
                 <Text style={Typography.bodySSemiBold}>{meal.title}</Text>
                 <Text style={styles.mealMeta}>
-                  DC {meal.meal_period} · {meal.logged_time}
+                  DC {meal.meal_period} · {formatClockTime(meal.eaten_at ?? meal.created_at, clockFormat, meal.logged_time)}
                 </Text>
               </View>
               <View style={styles.mealRight}>

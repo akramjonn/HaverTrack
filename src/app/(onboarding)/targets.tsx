@@ -8,14 +8,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Button, Card, IconButton } from '@/components/ui';
-import { ArrowLeft, Sparkles, CheckCircle2 } from 'lucide-react-native';
+import { ArrowLeft } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 
 export default function OnboardingTargetsScreen() {
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
   const goal = useAuthStore((state) => state.goal);
   const saveGoal = useAuthStore((state) => state.saveGoal);
   const completeOnboarding = useAuthStore((state) => state.completeOnboarding);
@@ -65,7 +64,7 @@ export default function OnboardingTargetsScreen() {
             <>
               <Text style={[Typography.displayXL, { marginTop: 8 }]}>Log and observe</Text>
               <Text style={[Typography.bodyL, { color: Colors.textMuted, marginTop: 12, marginBottom: 28 }]}>
-                You're in tracking mode. You won't see calorie limits or deficit targets — just clear nutritional breakdowns of what the DC serves you.
+                You&apos;re in tracking mode. You won&apos;t see calorie limits or deficit targets — just clear nutritional breakdowns of what the DC serves you.
               </Text>
             </>
           ) : (

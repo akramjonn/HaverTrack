@@ -36,18 +36,18 @@ export function CaptureFreezeFrame({ uri, analyzing }: CaptureFreezeFrameProps) 
     if (!uri) {
       // Reset for the next capture rather than animating back — the overlay
       // is unmounted from the caller's perspective at this point.
-      flashOpacity.value = 0.85;
-      frameScale.value = 1;
+      flashOpacity.set(0.85);
+      frameScale.set(1);
       return;
     }
 
-    flashOpacity.value = 0.85;
-    flashOpacity.value = withTiming(0, { duration: FLASH_MS, easing: Easing.out(Easing.quad) });
-  }, [uri]);
+    flashOpacity.set(0.85);
+    flashOpacity.set(withTiming(0, { duration: FLASH_MS, easing: Easing.out(Easing.quad) }));
+  }, [flashOpacity, frameScale, uri]);
 
   useEffect(() => {
-    frameScale.value = withSpring(analyzing ? 0.96 : 1, { damping: 16, stiffness: 180 });
-  }, [analyzing]);
+    frameScale.set(withSpring(analyzing ? 0.96 : 1, { damping: 16, stiffness: 180 }));
+  }, [analyzing, frameScale]);
 
   const frameStyle = useAnimatedStyle(() => ({
     transform: [{ scale: frameScale.value }],

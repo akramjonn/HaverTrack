@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { Client } from "pg";
+import { testNutritionDatabase } from './test-nutrition-db';
 
 // Dedicated disposable Postgres only. Never reads production DATABASE_URL.
 const port = Number(process.env.MEAL_TEST_PORT ?? 55439);
@@ -301,6 +302,7 @@ async function main() {
       0,
     );
     console.log("PASS: no anonymous access to elevated private functions");
+    await testNutritionDatabase(db, admin, a);
   } finally {
     await db.end();
     await root.query(`drop database ${dbName}`);

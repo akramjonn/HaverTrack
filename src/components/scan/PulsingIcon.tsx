@@ -20,15 +20,15 @@ export function PulsingIcon({ children, reducedMotion }: PulsingIconProps) {
 
   useEffect(() => {
     if (reducedMotion) {
-      progress.value = 0;
+      progress.set(0);
       return;
     }
-    progress.value = withRepeat(
+    progress.set(withRepeat(
       withTiming(1, { duration: PULSE_MS, easing: Easing.inOut(Easing.sin) }),
       -1,
       true
-    );
-  }, [reducedMotion]);
+    ));
+  }, [progress, reducedMotion]);
 
   const style = useAnimatedStyle(() => ({
     transform: [{ scale: 1 + progress.value * 0.15 }],

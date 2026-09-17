@@ -12,7 +12,7 @@ import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
 import { Button, Input, IconButton } from '@/components/ui';
 import { X, Scale } from 'lucide-react-native';
 import { useLogStore } from '@/store/logStore';
-import { parseWeightToKg, useUnits } from '@/lib/units';
+import { parseWeightToKg, useWeightUnit } from '@/lib/units';
 
 interface WeightModalProps {
   visible: boolean;
@@ -47,15 +47,15 @@ interface WeightFormProps {
 
 function WeightForm({ onClose }: WeightFormProps) {
   const addWeightEntry = useLogStore((state) => state.addWeightEntry);
-  const units = useUnits();
-  const unitLabel = units === 'imperial' ? 'LB' : 'KG';
+  const weightUnit = useWeightUnit();
+  const unitLabel = weightUnit.toUpperCase();
   const [weightText, setWeightText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSave = async () => {
     setError(null);
-    const weight_kg = parseWeightToKg(weightText, units);
+    const weight_kg = parseWeightToKg(weightText, weightUnit);
     if (weight_kg === null) {
       setError('Please enter a valid weight.');
       return;
@@ -63,7 +63,7 @@ function WeightForm({ onClose }: WeightFormProps) {
 
     if (weight_kg < 20 || weight_kg > 300) {
       setError(
-        units === 'imperial'
+        weightUnit === 'lb'
           ? 'Weight must be between 45 lb and 660 lb.'
           : 'Weight must be between 20 kg and 300 kg.'
       );
@@ -104,7 +104,7 @@ function WeightForm({ onClose }: WeightFormProps) {
               setError(null);
             }}
             keyboardType="numeric"
-            placeholder={units === 'imperial' ? '165.4' : '75.0'}
+            placeholder={weightUnit === 'lb' ? '165.4' : '75.0'}
           />
         </View>
       </View>

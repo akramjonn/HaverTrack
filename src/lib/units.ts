@@ -8,8 +8,19 @@
  */
 
 import { useAuthStore } from '@/store/authStore';
+import { usePreferences, type ClockFormat, type HeightUnit, type WeightUnit } from '@/lib/preferences';
 
 export type Units = 'imperial' | 'metric';
+type WeightInputUnit = Units | WeightUnit;
+type HeightInputUnit = Units | HeightUnit;
+
+function normalizeWeightUnit(units: WeightInputUnit): WeightUnit {
+  return units === 'metric' || units === 'kg' ? 'kg' : 'lb';
+}
+
+function normalizeHeightUnit(units: HeightInputUnit): HeightUnit {
+  return units === 'metric' || units === 'cm' ? 'cm' : 'ft_in';
+}
 
 export function kgToLb(kg: number): number {
   return kg * 2.20462;
@@ -35,16 +46,16 @@ export function ftInToCm(feet: number, inches: number): number {
 }
 
 /** '165.4 lb' | '75.0 kg'. Returns an em dash when the value is missing. */
-export function formatWeight(kg: number | null | undefined, units: Units): string {
+export function formatWeight(kg: number | null | undefined, units: WeightInputUnit): string {
   if (kg === null || kg === undefined || !Number.isFinite(kg) || kg <= 0) return '—';
-  if (units === 'imperial') return `${kgToLb(kg).toFixed(1)} lb`;
+  if (normalizeWeightUnit(units) === 'lb') return `${kgToLb(kg).toFixed(1)} lb`;
   return `${kg.toFixed(1)} kg`;
 }
 
 /** `5' 10"` | '178 cm'. Returns an em dash when the value is missing. */
-export function formatHeight(cm: number | null | undefined, units: Units): string {
+export function formatHeight(cm: number | null | undefined, units: HeightInputUnit): string {
   if (cm === null || cm === undefined || !Number.isFinite(cm) || cm <= 0) return '—';
-  if (units === 'imperial') {
+  if (normalizeHeightUnit(units) === 'ft_in') {
     const { feet, inches } = cmToFtIn(cm);
     return `${feet}' ${inches}"`;
   }
@@ -78,10 +89,10 @@ export function parseHeightToCm(text: string): number | null {
  * as 178 feet, so metric entry is parsed as a plain cm number instead.
  * Imperial entry still goes through the ft/in-aware `parseHeightToCm`.
  */
-export function parseHeightInput(text: string, units: Units): number | null {
+export function parseHeightInput(text: string, units: HeightInputUnit): number | null {
   const trimmed = text.trim();
   if (!trimmed) return null;
-  if (units === 'metric') {
+  if (normalizeHeightUnit(units) === 'cm') {
     const num = parseFloat(trimmed);
     return isNaN(num) || num <= 0 ? null : Math.round(num);
   }
@@ -89,14 +100,50 @@ export function parseHeightInput(text: string, units: Units): number | null {
 }
 
 /** Reads the leading numeric portion of `text` in the given unit system. */
-export function parseWeightToKg(text: string, units: Units): number | null {
+export function parseWeightToKg(text: string, units: WeightInputUnit): number | null {
   const num = parseFloat(text.trim());
   if (isNaN(num) || num <= 0) return null;
-  const kg = units === 'imperial' ? lbToKg(num) : num;
+  const kg = normalizeWeightUnit(units) === 'lb' ? lbToKg(num) : num;
   return Math.round(kg * 10) / 10;
 }
 
 /** Reads `profiles.units`, defaulting to imperial for a not-yet-loaded profile. */
 export function useUnits(): Units {
   return useAuthStore((s) => s.profile?.units ?? 'imperial');
+}
+
+/** Independent display choices take precedence, with the legacy profile field
+ * as a safe fallback during migration and on first launch. */
+export function useWeightUnit(): WeightUnit {
+  const userId = useAuthStore((s) => s.user?.id);
+  const legacyUnits = useAuthStore((s) => s.profile?.units ?? 'imperial');
+  const preferences = usePreferences(userId, legacyUnits);
+  return preferences.data?.weight_unit ?? (legacyUnits === 'metric' ? 'kg' : 'lb');
+}
+
+export function useHeightUnit(): HeightUnit {
+  const userId = useAuthStore((s) => s.user?.id);
+  const legacyUnits = useAuthStore((s) => s.profile?.units ?? 'imperial');
+  const preferences = usePreferences(userId, legacyUnits);
+  return preferences.data?.height_unit ?? (legacyUnits === 'metric' ? 'cm' : 'ft_in');
+}
+
+export function useClockFormat(): ClockFormat {
+  const userId = useAuthStore((s) => s.user?.id);
+  const legacyUnits = useAuthStore((s) => s.profile?.units ?? 'imperial');
+  const preferences = usePreferences(userId, legacyUnits);
+  return preferences.data?.clock_format ?? '12h';
+}
+
+export function formatClockTime(iso: string | undefined, format: ClockFormat, fallback = '—') {
+  if (!iso) return fallback;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return fallback;
+  return date
+    .toLocaleTimeString('en-US', {
+      hour: format === '24h' ? '2-digit' : 'numeric',
+      minute: '2-digit',
+      hour12: format === '12h',
+    })
+    .toLowerCase();
 }

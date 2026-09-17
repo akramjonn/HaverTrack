@@ -72,6 +72,8 @@ export type NutrisliceWeekResponse = z.infer<typeof NutrisliceWeekResponseSchema
 
 // Parsed database menu item format
 export interface ParsedMenuItem {
+  nutrition_source_key?: string;
+  nutrition_review?: import('./nutritionReview').NutritionReview | null;
   id?: string;
   course?: import('./mealFlow').Course | null;
   availability?: 'published' | 'unavailable' | 'unknown';
@@ -124,19 +126,12 @@ export function parseNutrisliceWeek(
 
         if (food.icons?.food_icons) {
           for (const icon of food.icons.food_icons) {
-            if (icon.is_highlight || icon.name === 'Vegan' || icon.name === 'Vegetarian') {
+            if (icon.is_highlight || ['Vegan', 'Vegetarian', 'Halal', 'Kosher', 'Gluten-Free', 'Gluten Free'].includes(icon.name)) {
               if (!dietaryTags.includes(icon.name)) dietaryTags.push(icon.name);
             }
-            if (icon.is_filter || ['Milk', 'Egg', 'Wheat', 'Soy', 'Peanuts', 'Tree Nuts', 'Sesame', 'Fish'].includes(icon.name)) {
+            if ((icon.is_filter && !['Vegan', 'Vegetarian', 'Halal', 'Kosher', 'Gluten-Free', 'Gluten Free'].includes(icon.name)) || ['Milk', 'Egg', 'Wheat', 'Soy', 'Peanuts', 'Tree Nuts', 'Sesame', 'Fish'].includes(icon.name)) {
               if (!allergens.includes(icon.name)) allergens.push(icon.name);
             }
-          }
-        }
-
-        // Add Gluten-Free tag if wheat is not in allergens and food is marked
-        if (dietaryTags.includes('Vegan') || dietaryTags.includes('Vegetarian')) {
-          if (!allergens.includes('Wheat')) {
-            dietaryTags.push('Wheat-Free');
           }
         }
 

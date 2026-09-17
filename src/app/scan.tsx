@@ -105,7 +105,9 @@ export default function ScanScreen() {
   // The preview is torn down whenever we leave the screen or switch modes, so the
   // "ready" flag must not survive into the next mount.
   useEffect(() => {
-    if (!cameraActive) setCameraReady(false);
+    if (cameraActive) return;
+    const frame = requestAnimationFrame(() => setCameraReady(false));
+    return () => cancelAnimationFrame(frame);
   }, [cameraActive]);
 
   // Cross-fades the center content (viewfinder <-> describe form) on mode
@@ -113,12 +115,12 @@ export default function ScanScreen() {
   const contentOpacity = useSharedValue(1);
   useEffect(() => {
     if (reducedMotion) {
-      contentOpacity.value = 1;
+      contentOpacity.set(1);
       return;
     }
-    contentOpacity.value = 0;
-    contentOpacity.value = withTiming(1, { duration: 150 });
-  }, [mode, reducedMotion]);
+    contentOpacity.set(0);
+    contentOpacity.set(withTiming(1, { duration: 150 }));
+  }, [contentOpacity, mode, reducedMotion]);
   const contentFadeStyle = useAnimatedStyle(() => ({ opacity: contentOpacity.value }));
 
   const handlePermissionPress = useCallback(async () => {
@@ -186,7 +188,7 @@ export default function ScanScreen() {
       const prepared = await prepareImageForAnalysis(photo.uri);
       setCapturedPreviewUri(prepared.uri);
       await handleCapture(prepared.base64, prepared.uri);
-    } catch (err) {
+    } catch {
       Alert.alert('Camera Error', 'Could not capture photo. Please try again.');
     } finally {
       setIsScanning(false);
@@ -466,7 +468,7 @@ export default function ScanScreen() {
                 Describe your plate
               </Text>
               <Text style={[Typography.bodyS, { color: Colors.darkTextDim, marginBottom: 16 }]}>
-                We'll match your description against what's being served at the DC today.
+                We&apos;ll match your description against what&apos;s being served at the DC today.
               </Text>
               <TextInput
                 placeholder="e.g. Chicken parm with pasta, corn and side salad"
@@ -527,6 +529,7 @@ export default function ScanScreen() {
       </SafeAreaView>
 
       <FoodComposeSheet
+        key={barcodeResult?.key ?? 'closed'}
         result={barcodeResult}
         onClose={() => setBarcodeResult(null)}
         onLogged={() => {

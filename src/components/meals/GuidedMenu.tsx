@@ -45,6 +45,9 @@ import { logMeal } from "@/lib/logging";
 import type { ParsedMenuItem } from "@/lib/nutrislice";
 import { trackMealEvent } from "@/lib/ratings";
 import { enableRatingNotifications } from "@/lib/notifications";
+import { formatMenuLastUpdated } from "@/lib/menuFreshness";
+import { NutritionDetails } from '@/components/NutritionDetails';
+import { dietaryFilters, matchesDiet } from '@/lib/nutritionReview';
 
 type Draft = {
   day: string;
@@ -84,7 +87,8 @@ function GuidedMenuSession({
   const [ready, setReady] = useState(false);
   const [step, setStep] = useState(0);
   const [search, setSearch] = useState("");
-  const [tag, setTag] = useState<string | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
+  const [excludeIngredients, setExcludeIngredients] = useState('');
   const [detail, setDetail] = useState<ParsedMenuItem | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState<{
@@ -191,10 +195,9 @@ function GuidedMenuSession({
   const shown = items.filter(
     (i) =>
       i.availability !== "unavailable" &&
-      i.dish_name.toLowerCase().includes(search.toLowerCase()) &&
-      (!tag ||
-        i.dietary_tags.includes(tag) ||
-        (tag === "High protein" && (i.protein_g ?? 0) >= 20)),
+      `${i.dish_name} ${i.ingredients ?? ''}`.toLowerCase().includes(search.toLowerCase()) &&
+      tags.every(tag => matchesDiet(i, tag)) &&
+      (!excludeIngredients.trim() || (!!i.ingredients && excludeIngredients.split(',').map(x => x.trim().toLowerCase()).filter(Boolean).every(x => !i.ingredients!.toLowerCase().includes(x)))),
   );
   const mains = shown.filter((i) => classifyDish(i).course === "main");
   const event = (name: Parameters<typeof trackMealEvent>[0]) => {
@@ -273,6 +276,7 @@ function GuidedMenuSession({
             protein_g: (i.protein_g ?? 0) * amount,
             carbs_g: (i.carbs_g ?? 0) * amount,
             fat_g: (i.fat_g ?? 0) * amount,
+            is_estimate: i.nutrition_review?.basis === 'usda',
             nutrition_complete: [
               i.calories,
               i.protein_g,
@@ -317,6 +321,7 @@ function GuidedMenuSession({
           <View style={{ flex: 1, gap: 5 }}>
             <Text style={s.foodName}>{item.dish_name}</Text>
             <Text style={s.muted}>{item.station_name}</Text>
+            {item.nutrition_review?.status === 'approved' && <Text style={[s.diet, { color: '#37745A' }]}>✓ {item.nutrition_review.basis === 'usda' ? 'Reviewed USDA estimate' : 'Nutrition reviewed'}</Text>}
             <Text style={s.nutrition}>
               {item.calories == null
                 ? "Nutrition pending"
@@ -440,6 +445,11 @@ function GuidedMenuSession({
             <Text style={s.muted}>Today · Haverford DC</Text>
           </View>
         </View>
+        {!previewItems && (
+          <Text accessibilityLiveRegion="polite" style={s.lastUpdated}>
+            {formatMenuLastUpdated(store.syncedAt)}
+          </Text>
+        )}
         <View>
           <Text style={s.title}>
             {
@@ -505,7 +515,8 @@ function GuidedMenuSession({
                         "Service changed. Choose your meal from this menu.",
                       );
                     setDraft({ ...freshDraft(), period: p });
-                    setTag(null);
+                    setTags([]);
+                    setExcludeIngredients('');
                   }
                 }}
                 style={[
@@ -567,17 +578,20 @@ function GuidedMenuSession({
               />
             </View>
             <View style={s.filters}>
-              {["Vegan", "Vegetarian", "High protein"].map((t) => (
+              {[...dietaryFilters, "High protein"].map((t) => (
                 <Pressable
                   key={t}
-                  accessibilityState={{ selected: tag === t }}
-                  onPress={() => setTag(tag === t ? null : t)}
-                  style={[s.filter, tag === t && s.selected]}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: tags.includes(t) }}
+                  onPress={() => setTags(tags.includes(t) ? tags.filter(tag => tag !== t) : [...tags, t])}
+                  style={[s.filter, tags.includes(t) && s.selected]}
                 >
                   <Text style={s.link}>{t}</Text>
                 </Pressable>
               ))}
             </View>
+            <TextInput accessibilityLabel="Exclude ingredients, comma separated" placeholder="Exclude ingredients: pork, sesame…" value={excludeIngredients} onChangeText={setExcludeIngredients} style={[s.search, { backgroundColor: Colors.surfaceWarm, borderRadius: 12, paddingHorizontal: 14, marginTop: 10 }]} />
+            <Text style={s.muted}>Dietary filters use documented labels. Ingredient exclusions search supplied text and hide foods without ingredients; they do not check cross-contact.</Text>
           </>
         )}
         <Enter key={step} style={{ gap: 14 }}>
@@ -847,6 +861,7 @@ function GuidedMenuSession({
                   </Pressable>
                 </View>
                 <ScrollView>
+                  <NutritionDetails item={detail} />
                   <Text style={s.subtitle}>
                     {detail.description || "Fresh from the dining hall menu."}
                   </Text>
@@ -917,6 +932,11 @@ const s = StyleSheet.create({
     lineHeight: 23,
   },
   muted: { ...Typography.caption, color: Colors.textMuted },
+  lastUpdated: {
+    ...Typography.caption,
+    color: Colors.textMuted,
+    marginTop: -12,
+  },
   steps: { flexDirection: "row", alignItems: "center", paddingVertical: 5 },
   step: { flex: 1, flexDirection: "row", alignItems: "center", gap: 8 },
   stepDot: {

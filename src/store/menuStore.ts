@@ -75,7 +75,7 @@ export const useMenuStore = create<MenuState>((set, get) => {
   const currentUserId = () => useAuthStore.getState().user?.id ?? null;
 
   return {
-    items: latestMenuJson.items as ParsedMenuItem[],
+    items: (latestMenuJson.items as ParsedMenuItem[]).map(item => ({ ...item, dietary_tags: item.dietary_tags.filter(tag => tag !== 'Wheat-Free') })),
     syncedAt: syncedAt,
     isStale: hoursOld > 26,
     isRefreshing: false,
@@ -100,9 +100,9 @@ export const useMenuStore = create<MenuState>((set, get) => {
         const today = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
 
         const { data, error } = await supabase
-          .from('menu_items')
+          .from('reviewed_menu_items')
           .select(
-            'id, nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at, availability'
+            'id, nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at, availability, nutrition_source_key, nutrition_review'
           )
           .eq('served_date', today)
           .order('meal_period')

@@ -132,7 +132,7 @@ Here is what the Dining Center is serving this meal:
 ${menuContextText || '(no menu data available for this meal period)'}
 
 For each item you identified in step 1, ask: is this genuinely the same dish as one of the entries above? Judge that on the food itself, not on similarity of wording.
-- If YES — it is clearly the same dish — set is_menu_match: true, set matched_menu_item_id to that entry's [ID], and REPLACE your step-2 estimate with that entry's exact calories and macros. Those figures are dietitian-certified and are better than your estimate.
+- If YES — it is clearly the same dish — set is_menu_match: true, set matched_menu_item_id to that entry's [ID], and use that entry's provided calories and macros for the listed serving. Menu values may be source-reported or staff-reviewed USDA estimates; never describe them as dietitian-certified. Account for the actual portion.
 - If NO — set is_menu_match: false, matched_menu_item_id: null, and KEEP your own step-2 estimate.
 
 Never force a match. An unmatched item with your honest estimate is a correct, useful answer; a wrong match reports someone else's food as this student's. When nothing on the plate matches the menu, it is entirely normal for every item to come back is_menu_match: false — that is the expected result for outside food, and you must still return your own real estimates rather than reaching for the nearest menu entry.
@@ -217,7 +217,7 @@ serve(async (req) => {
 
     // Fetch today's menu items for this meal period to constrain the match
     const { data: menuItems } = await supabase
-      .from('menu_items')
+      .from('reviewed_menu_items')
       .select('*')
       .eq('meal_period', validated.meal_period)
       .eq('served_date', validated.served_date || today);
@@ -225,7 +225,7 @@ serve(async (req) => {
     const menuContextText = (menuItems || [])
       .map(
         (item) =>
-          `- [ID: ${item.nutrislice_id}] "${item.dish_name}" at ${item.station_name} (${item.calories ?? '?'} kcal, ${item.protein_g ?? '?'}P ${item.carbs_g ?? '?'}C ${item.fat_g ?? '?'}F)`
+          `- [ID: ${item.nutrislice_id}] "${item.dish_name}" at ${item.station_name} per ${item.serving_size || 'listed serving'} (${item.calories ?? '?'} kcal, ${item.protein_g ?? '?'}P ${item.carbs_g ?? '?'}C ${item.fat_g ?? '?'}F; ${item.nutrition_review?.status === 'approved' ? 'staff reviewed' : 'source reported, unreviewed'})`
       )
       .join('\n');
 

@@ -15,7 +15,7 @@ import { Button, Input, IconButton } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
-import { getAuthRedirectUrl, requireHaverfordUser, signInWithGoogle } from '@/lib/auth';
+import { getAuthRedirectUrl, requireHaverfordUser } from '@/lib/auth';
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -25,17 +25,7 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [googleLoading, setGoogleLoading] = useState(false);
   const [confirmationEmail, setConfirmationEmail] = useState<string | null>(null);
-
-  const handleGoogle = async () => {
-    setError(null);
-    setGoogleLoading(true);
-    try {
-      if (await signInWithGoogle()) router.replace('/');
-    } catch (err) { setError(describeAuthError(err as Error).message); }
-    finally { setGoogleLoading(false); }
-  };
 
   const handleSignUp = async () => {
     setError(null);
@@ -106,7 +96,7 @@ export default function SignUpScreen() {
           <View style={styles.header}>
             <Text style={Typography.displayL}>Create your account</Text>
             <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 8 }]}>
-              For Haverford students. Use your @haverford.edu Google account or register with email.
+              For Haverford students. Register with your @haverford.edu email.
             </Text>
           </View>
 
@@ -118,9 +108,6 @@ export default function SignUpScreen() {
               <Button label="Go to sign in" onPress={() => router.replace('/(auth)/sign-in')} />
               <Button label="Use a different email" variant="ghost" onPress={() => setConfirmationEmail(null)} />
             </View> : <>
-            <Button label="Continue with Google" variant="outline" onPress={handleGoogle}
-              loading={googleLoading} disabled={loading} />
-            <Text style={[Typography.micro, { textAlign: 'center', marginVertical: 20 }]}>OR REGISTER WITH EMAIL</Text>
             <Input
               label="FULL NAME"
               placeholder="Alex Rivera"
@@ -163,7 +150,6 @@ export default function SignUpScreen() {
               variant="primary"
               onPress={handleSignUp}
               loading={loading}
-              disabled={googleLoading}
               style={{ marginTop: 8 }}
             />
 

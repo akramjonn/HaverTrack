@@ -23,11 +23,11 @@ export function AnimatedCornerGuides({ pulse }: AnimatedCornerGuidesProps) {
 
   useEffect(() => {
     if (!pulse) return;
-    progress.value = withSequence(
+    progress.set(withSequence(
       withTiming(1, { duration: 120 }),
       withTiming(0, { duration: 320 })
-    );
-  }, [pulse]);
+    ));
+  }, [progress, pulse]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     borderColor: interpolateColor(progress.value, [0, 1], [DEFAULT_COLOR, PULSE_COLOR]),

@@ -27,6 +27,8 @@ import { useMenuStore } from "@/store/menuStore";
 import { ParsedMenuItem } from "@/lib/nutrislice";
 import { logMeal, periodForNow } from "@/lib/logging";
 import { getTodayString } from "@/store/logStore";
+import { formatMenuLastUpdated } from "@/lib/menuFreshness";
+import { dietaryFilters, matchesDiet } from '@/lib/nutritionReview';
 
 export default function MenuScreen() {
   const router = useRouter();
@@ -83,8 +85,7 @@ export default function MenuScreen() {
         .includes(searchQuery.toLowerCase());
       const matchesTag =
         !selectedTag ||
-        item.dietary_tags.includes(selectedTag) ||
-        (selectedTag === "High Protein" && (item.protein_g ?? 0) >= 20);
+        matchesDiet(item, selectedTag);
 
       if (matchesSearch && matchesTag) {
         const station = item.station_name || "The Main Line";
@@ -159,6 +160,9 @@ export default function MenuScreen() {
           >
             {getMealPeriodTiming()}
           </Text>
+          <Text accessibilityLiveRegion="polite" style={styles.lastUpdated}>
+            {formatMenuLastUpdated(syncedAt)}
+          </Text>
         </View>
 
         {/* Staleness Banner if >26h (§4 Screen 09) */}
@@ -214,13 +218,7 @@ export default function MenuScreen() {
               setSelectedTag(selectedTag === "Vegetarian" ? null : "Vegetarian")
             }
           />
-          <Chip
-            label="Wheat-Free"
-            selected={selectedTag === "Wheat-Free"}
-            onPress={() =>
-              setSelectedTag(selectedTag === "Wheat-Free" ? null : "Wheat-Free")
-            }
-          />
+          {dietaryFilters.slice(2).map(t => <Chip key={t} label={t} selected={selectedTag === t} onPress={() => setSelectedTag(selectedTag === t ? null : t)} />)}
           <Chip
             label="High Protein (20g+)"
             selected={selectedTag === "High Protein"}
@@ -275,7 +273,7 @@ export default function MenuScreen() {
         >
           <Sparkles size={16} color={Colors.cream} />
           <Text style={styles.buildPlateBtnText}>
-            Build my plate for today's target
+            Build my plate for today&apos;s target
           </Text>
         </Pressable>
 
@@ -295,7 +293,7 @@ export default function MenuScreen() {
                 <Pressable
                   key={item.nutrislice_id}
                   onPress={() =>
-                    router.push(`/food/${item.nutrislice_id}` as any)
+                    router.push(`/food/${item.id ?? item.nutrislice_id}` as any)
                   }
                   style={styles.foodRow}
                 >
@@ -303,7 +301,7 @@ export default function MenuScreen() {
                     <Text style={Typography.title}>{item.dish_name}</Text>
                     <Text style={styles.nutritionLine}>
                       {item.calories !== null
-                        ? `${item.calories} kcal · ${item.protein_g ?? 0}P ${item.carbs_g ?? 0}C ${item.fat_g ?? 0}F`
+                        ? `${item.calories} kcal · ${item.protein_g ?? '—'}P ${item.carbs_g ?? '—'}C ${item.fat_g ?? '—'}F`
                         : "Nutrition info pending"}
                     </Text>
                   </View>
@@ -376,6 +374,11 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 16,
+  },
+  lastUpdated: {
+    ...Typography.caption,
+    color: Colors.textMuted,
+    marginTop: 4,
   },
   stalenessBanner: {
     flexDirection: "row",

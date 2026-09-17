@@ -31,6 +31,7 @@ const links = [
   ["/admin/ratings", "Ratings & feedback", MessageSquare],
   ["/admin/users", "Students", Users],
   ["/admin/menu", "Menu management", Leaf],
+  ["/admin/nutrition", "Nutrition review", Activity],
   ["/admin/notifications", "Notifications", Bell],
   ["/admin/reports", "Reports & audit", FileDown],
   ["/admin/activity", "Platform activity", Activity],

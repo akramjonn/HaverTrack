@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -39,15 +39,6 @@ export function FoodComposeSheet({
   const [mealPeriod, setMealPeriod] = useState<MealPeriod>(periodForNow());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (result) {
-      setServings(1);
-      setGrams('100');
-      setMealPeriod(periodForNow());
-      setError(null);
-    }
-  }, [result?.key]);
 
   const perGram = result?.basis === 'per_100g';
   const gramValue = Number(grams);

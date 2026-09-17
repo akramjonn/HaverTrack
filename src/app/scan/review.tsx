@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, TextInputProps } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Typography, Radii } from '@/constants/theme';
 import { Button, Card, IconButton, Stepper, Chip } from '@/components/ui';
 import { PhotoDetailSheet, usePhotoDetailSheetControls } from '@/components/PhotoDetailSheet';
 import { RotateCw, Trash2, Info, ThumbsUp, ThumbsDown } from 'lucide-react-native';

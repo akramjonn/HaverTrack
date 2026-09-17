@@ -25,8 +25,6 @@ export function CalorieRing({
 
   // Clamp pct to [0, 1] as mandated by §3.5 and §11
   const pct = target > 0 ? Math.min(1, Math.max(0, current / target)) : 0;
-  const strokeDashoffset = circumference - circumference * pct;
-
   return (
     <View style={[styles.container, { width: size, height: size }, style]}>
       <Svg width={size} height={size} viewBox="0 0 200 200">

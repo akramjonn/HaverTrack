@@ -1,6 +1,4 @@
-import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
-import * as WebBrowser from 'expo-web-browser';
 import { supabase } from './supabase';
 import { isCollegeEmail } from './authErrors';
 import { parseAuthCallback } from './authCallback';
@@ -40,27 +38,4 @@ export function completeAuthCallback(url: string): Promise<void> {
   })();
   lastCallback = { url, promise };
   return promise;
-}
-
-export async function signInWithGoogle(): Promise<boolean> {
-  const redirectTo = getAuthRedirectUrl();
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo,
-      skipBrowserRedirect: true,
-      // hd improves the account chooser; the database enforces the domain.
-      queryParams: { hd: 'haverford.edu', prompt: 'select_account' },
-    },
-  });
-  if (error) throw error;
-  if (!data.url) throw new Error('Could not start Google sign-in. Try again.');
-  if (Platform.OS === 'web') {
-    window.location.assign(data.url);
-    return false;
-  }
-  const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
-  if (result.type !== 'success') return false;
-  await completeAuthCallback(result.url);
-  return true;
 }

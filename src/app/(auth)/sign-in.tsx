@@ -15,7 +15,7 @@ import { Button, Input, IconButton } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
-import { getAuthRedirectUrl, requireHaverfordUser, signInWithGoogle } from '@/lib/auth';
+import { getAuthRedirectUrl, requireHaverfordUser } from '@/lib/auth';
 
 export default function SignInScreen() {
   const router = useRouter();
@@ -24,19 +24,8 @@ export default function SignInScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [googleLoading, setGoogleLoading] = useState(false);
   const [needsConfirmation, setNeedsConfirmation] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
-
-  const handleGoogle = async () => {
-    setError(null);
-    setGoogleLoading(true);
-    try {
-      if (await signInWithGoogle()) router.replace('/');
-    } catch (err) {
-      setError(describeAuthError(err as Error).message);
-    } finally { setGoogleLoading(false); }
-  };
 
   const resendConfirmation = async () => {
     if (!isCollegeEmail(email)) return;
@@ -112,9 +101,6 @@ export default function SignInScreen() {
           </View>
 
           <View style={styles.form}>
-            <Button label="Continue with Google" variant="outline" onPress={handleGoogle}
-              loading={googleLoading} disabled={loading} />
-            <Text style={[Typography.micro, { textAlign: 'center', marginVertical: 20 }]}>OR SIGN IN WITH EMAIL</Text>
             <Input
               label="HAVERFORD EMAIL"
               placeholder="username@haverford.edu"
@@ -141,14 +127,13 @@ export default function SignInScreen() {
             {error ? <Text style={styles.errorBanner}>{error}</Text> : null}
             {notice ? <Text style={Typography.body}>{notice}</Text> : null}
             {needsConfirmation ? <Button label="Resend confirmation email" variant="ghost"
-              onPress={resendConfirmation} disabled={loading || googleLoading} /> : null}
+              onPress={resendConfirmation} disabled={loading} /> : null}
 
             <Button
               label="Sign In"
               variant="primary"
               onPress={handleSignIn}
               loading={loading}
-              disabled={googleLoading}
               style={{ marginTop: 8 }}
             />
 

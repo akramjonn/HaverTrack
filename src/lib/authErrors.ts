@@ -19,11 +19,8 @@ export function describeAuthError(error: AuthError | Error): AuthFailure {
   if (message.includes('email not confirmed')) {
     return { message: 'Confirm your Haverford email using the link in your inbox, then sign in.' };
   }
-  if (message.includes('provider is not enabled') || message.includes('unsupported provider')) {
-    return { message: 'Google sign-in is unavailable right now. Use your Haverford email and password.' };
-  }
   if (message.includes('email address not authorized') || message.includes('error sending confirmation email')) {
-    return { message: 'We could not send your confirmation email. Try Continue with Google using your Haverford account.' };
+    return { message: 'We could not send your confirmation email. Try again shortly.' };
   }
   if (message.includes('database error saving new user')) {
     return { message: 'Could not create your account. Make sure you are using your @haverford.edu account and try again.' };

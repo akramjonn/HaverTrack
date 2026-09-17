@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Typography } from '@/constants/theme';
 import { Button, OptionCard, IconButton, ProgressBar } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
@@ -65,7 +65,7 @@ export default function OnboardingGoalScreen() {
         <ScrollView contentContainerStyle={styles.content}>
           <Text style={Typography.displayL}>What are you here for?</Text>
           <Text style={[Typography.body, { color: Colors.textMuted, marginTop: 8, marginBottom: 28 }]}>
-            We'll set your daily targets from this.
+            We&apos;ll set your daily targets from this.
           </Text>
 
           <OptionCard

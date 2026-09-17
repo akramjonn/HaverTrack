@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Card, Button, Input, SegmentedControl, IconButton } from '@/components/ui';
-import { ArrowLeft } from 'lucide-react-native';
+import { ArrowLeft, ChevronRight, Ruler } from 'lucide-react-native';
 import { useAuthStore, type UserProfile, type EditableProfile } from '@/store/authStore';
 import {
   formatHeight,
@@ -12,9 +12,8 @@ import {
   parseHeightInput,
   parseWeightToKg,
   kgToLb,
-  type Units,
 } from '@/lib/units';
-import { fetchPreferences, savePreferences, type UserPreferences } from '@/lib/water';
+import { usePreferences, useSavePreferences, type HeightUnit, type WeightUnit } from '@/lib/preferences';
 
 /**
  * Plain pushed route (same convention as `edit-goals.tsx`/`bmi-info.tsx` —
@@ -28,32 +27,11 @@ export default function PersonalDetailsScreen() {
   const profile = useAuthStore((state) => state.profile);
   const updateProfile = useAuthStore((state) => state.updateProfile);
 
-  const units: Units = profile?.units ?? 'imperial';
-  const [savingUnits, setSavingUnits] = useState(false);
-
-  // Goal weight lives in `user_preferences`, not the profile store, so it
-  // needs its own one-off fetch — same pattern as `(tabs)/progress.tsx`'s
-  // goal-weight lookup.
-  const [prefs, setPrefs] = useState<UserPreferences | null>(null);
-
-  useEffect(() => {
-    if (!user?.id) return;
-    fetchPreferences(user.id)
-      .then((data) => setPrefs(data))
-      .catch((e) => console.warn('Could not load preferences:', e));
-  }, [user?.id]);
-
-  const handleUnitsChange = async (next: Units) => {
-    if (next === units) return;
-    setSavingUnits(true);
-    try {
-      await updateProfile({ units: next });
-    } catch (err: any) {
-      Alert.alert('Could not update units', err?.message ?? 'Please try again.');
-    } finally {
-      setSavingUnits(false);
-    }
-  };
+  const legacyUnits = profile?.units ?? 'imperial';
+  const preferences = usePreferences(user?.id, legacyUnits);
+  const savePreferences = useSavePreferences(user?.id, legacyUnits);
+  const weightUnit = preferences.data?.weight_unit ?? (legacyUnits === 'metric' ? 'kg' : 'lb');
+  const heightUnit = preferences.data?.height_unit ?? (legacyUnits === 'metric' ? 'cm' : 'ft_in');
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -69,22 +47,30 @@ export default function PersonalDetailsScreen() {
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         <View style={styles.section}>
           <Text style={styles.sectionEyebrow}>UNITS</Text>
-          <SegmentedControl
-            options={[
-              { value: 'imperial', label: 'Imperial' },
-              { value: 'metric', label: 'Metric' },
-            ]}
-            value={units}
-            onChange={handleUnitsChange}
-            style={{ opacity: savingUnits ? 0.6 : 1 }}
-          />
+          <Card style={{ padding: 0, overflow: 'hidden' }}>
+            <Pressable
+              onPress={() => router.push('/units' as never)}
+              accessibilityRole="button"
+              accessibilityLabel="Open units settings"
+              style={styles.unitsRow}
+            >
+              <Ruler size={18} color={Colors.scarlet} style={{ marginRight: 12 }} />
+              <View style={{ flex: 1 }}>
+                <Text style={Typography.bodySSemiBold}>Units</Text>
+                <Text style={Typography.caption}>
+                  {weightUnit === 'lb' ? 'Pounds' : 'Kilograms'} · {heightUnit === 'ft_in' ? 'Feet and inches' : 'Centimeters'}
+                </Text>
+              </View>
+              <ChevronRight size={16} color={Colors.textMuted} />
+            </Pressable>
+          </Card>
         </View>
 
         <GoalWeightCard
           userId={user?.id ?? null}
-          units={units}
-          goalWeightKg={prefs?.goal_weight_kg ?? null}
-          onSaved={(kg) => setPrefs((p) => (p ? { ...p, goal_weight_kg: kg } : p))}
+          weightUnit={weightUnit}
+          goalWeightKg={preferences.data?.goal_weight_kg ?? null}
+          onSaved={(goal_weight_kg) => savePreferences.mutateAsync({ goal_weight_kg })}
         />
 
         {/* Keyed by profile id + units: the fields below are only ever an
@@ -92,9 +78,10 @@ export default function PersonalDetailsScreen() {
             changing is the correct reset — not an effect that calls
             setState after the fact. */}
         <PersonalDetailsForm
-          key={`${profile?.id ?? 'anon'}-${units}`}
+          key={`${profile?.id ?? 'anon'}-${weightUnit}-${heightUnit}`}
           profile={profile}
-          units={units}
+          weightUnit={weightUnit}
+          heightUnit={heightUnit}
           updateProfile={updateProfile}
         />
       </ScrollView>
@@ -104,9 +91,9 @@ export default function PersonalDetailsScreen() {
 
 interface GoalWeightCardProps {
   userId: string | null;
-  units: Units;
+  weightUnit: WeightUnit;
   goalWeightKg: number | null;
-  onSaved: (kg: number | null) => void;
+  onSaved: (kg: number | null) => Promise<unknown>;
 }
 
 /**
@@ -115,7 +102,7 @@ interface GoalWeightCardProps {
  * input is (re-)seeded fresh every time editing starts, so no stale text
  * survives a cancel.
  */
-function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCardProps) {
+function GoalWeightCard({ userId, weightUnit, goalWeightKg, onSaved }: GoalWeightCardProps) {
   const [editing, setEditing] = useState(false);
   const [draftText, setDraftText] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -123,7 +110,7 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
 
   const startEditing = () => {
     if (goalWeightKg) {
-      const displayValue = units === 'imperial' ? kgToLb(goalWeightKg) : goalWeightKg;
+      const displayValue = weightUnit === 'lb' ? kgToLb(goalWeightKg) : goalWeightKg;
       setDraftText(displayValue.toFixed(1));
     } else {
       setDraftText('');
@@ -136,7 +123,7 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
     if (!userId) return;
     setError(null);
 
-    const kg = draftText.trim() ? parseWeightToKg(draftText, units) : null;
+    const kg = draftText.trim() ? parseWeightToKg(draftText, weightUnit) : null;
     if (draftText.trim() && kg === null) {
       setError('Could not read that weight.');
       return;
@@ -144,8 +131,7 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
 
     setSaving(true);
     try {
-      await savePreferences(userId, { goal_weight_kg: kg });
-      onSaved(kg);
+      await onSaved(kg);
       setEditing(false);
     } catch (err: any) {
       setError(err?.message ?? 'Could not save your goal weight.');
@@ -161,14 +147,14 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
         {editing ? (
           <>
             <Input
-              label={`GOAL WEIGHT (${units === 'imperial' ? 'LB' : 'KG'})`}
+              label={`GOAL WEIGHT (${weightUnit.toUpperCase()})`}
               value={draftText}
               onChangeText={(t) => {
                 setDraftText(t);
                 setError(null);
               }}
               keyboardType="numeric"
-              placeholder={units === 'imperial' ? '150' : '68'}
+              placeholder={weightUnit === 'lb' ? '150' : '68'}
               containerStyle={{ marginBottom: 4 }}
             />
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -193,7 +179,7 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
             <View>
               <Text style={Typography.monoLabel}>CURRENT TARGET</Text>
               <Text style={[Typography.title, { marginTop: 4 }]}>
-                {formatWeight(goalWeightKg, units)}
+                {formatWeight(goalWeightKg, weightUnit)}
               </Text>
             </View>
             <Button
@@ -211,7 +197,8 @@ function GoalWeightCard({ userId, units, goalWeightKg, onSaved }: GoalWeightCard
 
 interface PersonalDetailsFormProps {
   profile: UserProfile | null;
-  units: Units;
+  weightUnit: WeightUnit;
+  heightUnit: HeightUnit;
   updateProfile: (patch: Partial<EditableProfile>) => Promise<void>;
 }
 
@@ -222,12 +209,12 @@ interface PersonalDetailsFormProps {
  * fact — the exact idiom `BodyMetricsFields` used on the Settings tab
  * before this section moved here.
  */
-function PersonalDetailsForm({ profile, units, updateProfile }: PersonalDetailsFormProps) {
+function PersonalDetailsForm({ profile, weightUnit, heightUnit, updateProfile }: PersonalDetailsFormProps) {
   const [heightText, setHeightText] = useState(
-    profile?.height_cm ? formatHeight(profile.height_cm, units) : ''
+    profile?.height_cm ? formatHeight(profile.height_cm, heightUnit) : ''
   );
   const [weightText, setWeightText] = useState(
-    profile?.weight_kg ? formatWeight(profile.weight_kg, units) : ''
+    profile?.weight_kg ? formatWeight(profile.weight_kg, weightUnit) : ''
   );
   const [ageText, setAgeText] = useState(profile?.age != null ? String(profile.age) : '');
   const [sex, setSex] = useState<'male' | 'female' | 'unspecified'>(profile?.sex ?? 'unspecified');
@@ -239,13 +226,13 @@ function PersonalDetailsForm({ profile, units, updateProfile }: PersonalDetailsF
   const handleSave = async () => {
     setFormError(null);
 
-    const height_cm = heightText.trim() ? parseHeightInput(heightText, units) : null;
+    const height_cm = heightText.trim() ? parseHeightInput(heightText, heightUnit) : null;
     if (heightText.trim() && height_cm === null) {
       setFormError('Could not read that height.');
       return;
     }
 
-    const weight_kg = weightText.trim() ? parseWeightToKg(weightText, units) : null;
+    const weight_kg = weightText.trim() ? parseWeightToKg(weightText, weightUnit) : null;
     if (weightText.trim() && weight_kg === null) {
       setFormError('Could not read that weight.');
       return;
@@ -284,19 +271,19 @@ function PersonalDetailsForm({ profile, units, updateProfile }: PersonalDetailsF
                 setHeightText(t);
                 clearError();
               }}
-              placeholder={units === 'imperial' ? "5' 10\"" : '178'}
+              placeholder={heightUnit === 'ft_in' ? "5' 10\"" : '178'}
             />
           </View>
           <View style={{ flex: 1, marginLeft: 8 }}>
             <Input
-              label={`WEIGHT (${units === 'imperial' ? 'LB' : 'KG'})`}
+              label={`WEIGHT (${weightUnit.toUpperCase()})`}
               value={weightText}
               onChangeText={(t) => {
                 setWeightText(t);
                 clearError();
               }}
               keyboardType="numeric"
-              placeholder={units === 'imperial' ? '165' : '75'}
+              placeholder={weightUnit === 'lb' ? '165' : '75'}
             />
           </View>
         </View>
@@ -364,6 +351,12 @@ const styles = StyleSheet.create({
   sectionEyebrow: {
     ...Typography.monoLabel,
     marginBottom: 8,
+  },
+  unitsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minHeight: 72,
+    paddingHorizontal: 16,
   },
   card: {
     marginBottom: 0,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   Pressable,
   Alert,
   Linking,
-  Share,
   Switch,
   Modal,
   KeyboardAvoidingView,
@@ -29,90 +28,82 @@ import {
 } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 import { useLogStore } from '@/store/logStore';
+import { useScanStore } from '@/store/scanStore';
 import { supabase } from '@/lib/supabase';
-import { fetchPreferences, savePreferences, type UserPreferences } from '@/lib/water';
+import { usePreferences, useSavePreferences } from '@/lib/preferences';
+import { downloadAccountExport } from '@/lib/accountExport';
+import { operationalErrorCode, trackOperationalEvent } from '@/lib/observability';
 
 export default function AccountSettingsScreen() {
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
   const userId = useAuthStore((state) => state.user?.id ?? null);
-  const goal = useAuthStore((state) => state.goal);
+  const profile = useAuthStore((state) => state.profile);
   const signOut = useAuthStore((state) => state.signOut);
   const [deleting, setDeleting] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const logs = useLogStore((state) => state.logs);
-  const weightEntries = useLogStore((state) => state.weightEntries);
+  const purgeLocalUserData = useLogStore((state) => state.purgeLocalUserData);
+  const clearScan = useScanStore((state) => state.clear);
 
-  // Preferences — this screen doesn't otherwise fetch user_preferences, so
-  // it's loaded fresh here on mount for the two calorie-math toggles below.
-  const [preferences, setPreferences] = useState<UserPreferences | null>(null);
-
-  useEffect(() => {
-    if (!userId) return;
-    let cancelled = false;
-    fetchPreferences(userId)
-      .then((prefs) => {
-        if (!cancelled && prefs) setPreferences(prefs);
-      })
-      .catch((e: any) => {
-        console.warn('Could not load preferences:', e?.message);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [userId]);
+  const legacyUnits = profile?.units ?? 'imperial';
+  const preferenceQuery = usePreferences(userId, legacyUnits);
+  const savePreferences = useSavePreferences(userId, legacyUnits);
+  const preferences = preferenceQuery.data;
 
   const handleTogglePreference = async (key: 'rollover_calories', next: boolean) => {
-    if (!userId || !preferences) return;
-    const previous = preferences;
-    setPreferences({ ...preferences, [key]: next });
+    if (!userId) return;
     try {
-      const saved = await savePreferences(userId, { [key]: next });
-      setPreferences(saved);
+      await savePreferences.mutateAsync({ [key]: next });
     } catch (err: any) {
-      setPreferences(previous);
       Alert.alert('Could not update preference', err?.message ?? 'Please try again.');
     }
   };
 
   const handleExportData = async () => {
+    if (!userId) return;
+    setExporting(true);
     try {
-      const exportData = JSON.stringify(
-        {
-          exported_at: new Date().toISOString(),
-          user: user,
-          goal: goal,
-          weight_entries: weightEntries,
-          meal_logs: logs,
-        },
-        null,
-        2
-      );
-
-      await Share.share({
-        title: 'HaverTrack Data Export',
-        message: exportData,
-      });
-    } catch {
-      Alert.alert('Export Failed', 'Could not generate JSON export.');
+      await downloadAccountExport(userId);
+    } catch (error: any) {
+      Alert.alert('Export failed', error?.message ?? 'Could not generate the JSON export.');
+    } finally {
+      setExporting(false);
     }
   };
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
+    let deletedRemotely = false;
+    trackOperationalEvent('account_delete_started');
     try {
       const { error } = await supabase.functions.invoke('delete-account', {
         method: 'POST',
       });
       if (error) throw error;
+      deletedRemotely = true;
 
-      await signOut();
+      if (userId) {
+        try {
+          await purgeLocalUserData(userId);
+        } catch (cleanupError) {
+          console.warn('Could not remove local account data after deletion:', cleanupError);
+        }
+      }
+      clearScan();
+      try {
+        await signOut();
+      } catch (signOutError) {
+        console.warn('Account was deleted but the remote sign-out step failed:', signOutError);
+      }
       router.replace('/(auth)/welcome' as any);
+      trackOperationalEvent('account_delete_completed');
     } catch (err: any) {
+      trackOperationalEvent('account_delete_failed', { code: operationalErrorCode(err), deletedRemotely });
       Alert.alert(
-        'Could not delete account',
-        err?.message ||
-          'Your account was not deleted. Check your connection and try again, or email us to remove it manually.'
+        deletedRemotely ? 'Account deleted' : 'Could not delete account',
+        deletedRemotely
+          ? 'Your account was deleted. We could not finish device cleanup, so restart the app before signing in again.'
+          : err?.message || 'Your account was not deleted. Check your connection and try again, or email us to remove it manually.'
       );
     } finally {
       setDeleting(false);
@@ -196,7 +187,7 @@ export default function AccountSettingsScreen() {
                 onValueChange={(next) => handleTogglePreference('rollover_calories', next)}
                 trackColor={{ false: Colors.border, true: Colors.scarlet }}
                 thumbColor={Colors.surface}
-                disabled={!preferences}
+                disabled={preferenceQuery.isLoading || savePreferences.isPending}
               />
             </View>
           </Card>
@@ -208,10 +199,13 @@ export default function AccountSettingsScreen() {
           <Card style={{ padding: 0, overflow: 'hidden' }}>
             <Pressable
               onPress={handleExportData}
-              style={styles.menuRow}
+              disabled={exporting}
+              style={[styles.menuRow, exporting && styles.disabledRow]}
             >
               <Download size={18} color={Colors.ink} style={{ marginRight: 12 }} />
-              <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>Download All Data (JSON)</Text>
+              <Text style={[Typography.bodySSemiBold, { flex: 1 }]}>
+                {exporting ? 'Preparing data export…' : 'Download All Data (JSON)'}
+              </Text>
               <ChevronRight size={16} color={Colors.textMuted} />
             </Pressable>
 
@@ -388,6 +382,9 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderSoft,
+  },
+  disabledRow: {
+    opacity: 0.6,
   },
   footer: {
     marginTop: 20,

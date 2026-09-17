@@ -34,7 +34,14 @@
       "favicon": "./assets/images/icon.png"
     },
     "plugins": [
-      ["expo-notifications", { "icon": "./assets/images/notification-icon.png", "color": "#9E1B32", "defaultChannel": "meal-ratings" }],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification-icon.png",
+          "color": "#9E1B32",
+          "defaultChannel": "meal-ratings"
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -55,7 +62,8 @@
         {
           "photosPermission": "HaverTrack allows you to choose meal photos from your library to log calories."
         }
-      ]
+      ],
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true,

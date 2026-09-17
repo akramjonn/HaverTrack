@@ -24,15 +24,15 @@ export function BarcodeScanLine({ reducedMotion }: BarcodeScanLineProps) {
 
   useEffect(() => {
     if (reducedMotion) {
-      progress.value = 0.5;
+      progress.set(0.5);
       return;
     }
-    progress.value = withRepeat(
+    progress.set(withRepeat(
       withTiming(1, { duration: SWEEP_MS, easing: Easing.inOut(Easing.sin) }),
       -1,
       true
-    );
-  }, [reducedMotion]);
+    ));
+  }, [progress, reducedMotion]);
 
   const style = useAnimatedStyle(() => ({
     top: `${TOP_PCT + progress.value * (BOTTOM_PCT - TOP_PCT)}%`,

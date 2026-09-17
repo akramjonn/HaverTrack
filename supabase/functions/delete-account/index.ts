@@ -41,18 +41,48 @@ serve(async (req) => {
   const userId = userData.user.id;
 
   try {
-    const { data: photos } = await admin.storage.from('meal-photos').list(userId, { limit: 1000 });
-    if (photos?.length) {
-      await admin.storage
-        .from('meal-photos')
-        .remove(photos.map((file) => `${userId}/${file.name}`));
+    console.info(JSON.stringify({ event: 'account_delete_started' }));
+    const bucket = admin.storage.from('meal-photos');
+    const pageSize = 100;
+
+    // Storage does not cascade with auth.users. Process every page and stop on
+    // any storage failure rather than deleting the auth row with orphaned
+    // photos left behind.
+    while (true) {
+      const { data: photos, error: listError } = await bucket.list(userId, {
+        limit: pageSize,
+      });
+      if (listError) {
+        console.error(JSON.stringify({ event: 'account_delete_failed', stage: 'storage_list' }));
+        return json({ error: `Could not list account photos: ${listError.message}` }, 500);
+      }
+      if (!photos?.length) break;
+
+      const paths = photos
+        .filter((file) => file.name !== '.emptyFolderPlaceholder')
+        .map((file) => `${userId}/${file.name}`);
+      if (!paths.length) break;
+      if (paths.length) {
+        const { error: removeError } = await bucket.remove(paths);
+        if (removeError) {
+          console.error(JSON.stringify({ event: 'account_delete_failed', stage: 'storage_remove' }));
+          return json({ error: `Could not remove account photos: ${removeError.message}` }, 500);
+        }
+      }
+      // Always read offset zero again because each successful remove changes
+      // the contents of the next page.
     }
 
     const { error: deleteError } = await admin.auth.admin.deleteUser(userId);
-    if (deleteError) return json({ error: deleteError.message }, 500);
+    if (deleteError) {
+      console.error(JSON.stringify({ event: 'account_delete_failed', stage: 'auth_delete' }));
+      return json({ error: deleteError.message }, 500);
+    }
 
+    console.info(JSON.stringify({ event: 'account_delete_completed' }));
     return json({ deleted: true });
   } catch (err) {
+    console.error(JSON.stringify({ event: 'account_delete_failed' }));
     return json({ error: (err as Error).message }, 500);
   }
 });
