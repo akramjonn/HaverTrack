@@ -1,11 +1,17 @@
+import { Platform } from 'react-native';
+
 export const Colors = {
   // INK & TEXT
-  ink: '#141414',
+  ink: '#243B32',
   textMuted: '#6B645C',
   textFaint: '#8A8178',
   textFainter: '#A8A199',
   textGhost: '#C9C1B6',
   inkSoft: '#4A443E',
+
+  forest: '#244B3B',
+  butter: '#F2E3A2',
+  sage: '#E7EDDF',
 
   // BRAND
   scarlet: '#9E1B32',
@@ -13,10 +19,10 @@ export const Colors = {
   gold: '#E8B84B',
 
   // SURFACES (light)
-  cream: '#FBF8F3',
+  cream: '#FAF8F0',
   canvas: '#EFEAE2',
   surface: '#FFFFFF',
-  surfaceWarm: '#F3ECE0',
+  surfaceWarm: '#F3ECDD',
   track: '#F0E8DC',
   track2: '#EDE4D6',
   track3: '#E3D8C6',
@@ -48,8 +54,8 @@ export const Radii = {
   md: 12,
   input: 14,
   btn: 16,
-  card: 18,
-  cardLg: 24,
+  card: 22,
+  cardLg: 28,
   device: 44,
 } as const;
 
@@ -68,6 +74,10 @@ export const Fonts = {
 } as const;
 
 export const Typography = {
+  editorial: {
+    fontFamily: Platform.OS === 'android' ? 'serif' : 'Georgia',
+    fontWeight: '400' as const,
+  },
   displayXL: {
     fontFamily: Fonts.outfit.bold,
     fontSize: 40,

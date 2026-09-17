@@ -12,8 +12,8 @@ import { Colors, Fonts } from '@/constants/theme';
 const BAR_H = 64;
 // How far the FAB is allowed to sit proud of the bar's top edge. Also the
 // tappable-but-empty strip above the bar reserved for that protrusion.
-const OVERHANG = 24;
-const FAB_SIZE = 60;
+const OVERHANG = 8;
+const FAB_SIZE = 52;
 
 /**
  * Custom tab bar rendering 4 route tabs plus a center "+" FAB that pushes
@@ -78,7 +78,7 @@ interface TabItemProps {
 
 function TabItem({ route, isFocused, descriptors, navigation, insets }: TabItemProps) {
   const { options } = descriptors[route.key];
-  const color = isFocused ? Colors.scarlet : Colors.textFaint;
+  const color = isFocused ? Colors.forest : Colors.textMuted;
 
   const onPress = () => {
     const event = navigation.emit({
@@ -108,7 +108,7 @@ function TabItem({ route, isFocused, descriptors, navigation, insets }: TabItemP
       onLongPress={onLongPress}
       style={[styles.tabItem, { paddingBottom: insets.bottom }]}
     >
-      {options.tabBarIcon?.({ focused: isFocused, color, size: 22 })}
+      <View style={[styles.tabIcon, isFocused && { backgroundColor: Colors.sage }]}>{options.tabBarIcon?.({ focused: isFocused, color, size: 22 })}</View>
       <Text style={[styles.tabLabel, { color }]}>{options.title}</Text>
     </Pressable>
   );
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(251, 248, 243, 0.96)',
+    backgroundColor: Colors.cream,
     borderTopWidth: 1,
     borderTopColor: Colors.borderSoft,
   },
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     paddingTop: OVERHANG + 8,
     minHeight: 44,
   },
+  tabIcon: { paddingHorizontal: 15, paddingVertical: 5, borderRadius: 14 },
   tabLabel: {
     fontFamily: Fonts.outfit.medium,
     fontSize: 10,
@@ -191,8 +192,8 @@ const styles = StyleSheet.create({
   fab: {
     width: FAB_SIZE,
     height: FAB_SIZE,
-    borderRadius: FAB_SIZE / 2,
-    backgroundColor: Colors.ink,
+    borderRadius: 18,
+    backgroundColor: Colors.forest,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FeaturedMeal } from '@/components/meals/FeaturedMeal';
 import { PendingRating } from '@/components/meals/PendingRating';
 import {
   View,
@@ -9,17 +10,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Colors, Fonts, Typography, Radii } from '@/constants/theme';
+import { Colors, Fonts, Typography } from '@/constants/theme';
 import {
-  HeroCard,
-  CalorieRing,
-  ProgressBar,
   StreakBadge,
   Button,
   Card,
   Chip,
 } from '@/components/ui';
-import { Camera, Plus, Layers, UtensilsCrossed, Zap, Search } from 'lucide-react-native';
+import { Camera, Plus, UtensilsCrossed, Zap, Search, Apple, Wheat, Drumstick, Sprout } from 'lucide-react-native';
 import { useAuthStore } from '@/store/authStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { dailyTotals, loggingStreak } from '@/lib/stats';
@@ -36,6 +34,10 @@ import {
 } from '@/lib/water';
 
 export default function TodayScreen() {
+  return <TodayContent />;
+}
+
+export function TodayContent({ previewItems }: { previewItems?: import('@/lib/nutrislice').ParsedMenuItem[] }) {
   const router = useRouter();
   const userId = useAuthStore((state) => state.user?.id ?? null);
   const goal = useAuthStore((state) => state.goal);
@@ -44,10 +46,11 @@ export default function TodayScreen() {
   const targetCalories = goal?.calorie_target ?? 2340;
   const isJustTracking = goal?.goal_type === 'tracking' || !targetCalories;
 
-  // The rings and the list are about today, not the whole history.
-  const today = new Date();
   const todayStr = getTodayString();
-  const logs = allLogs.filter((m) => m.logged_date === todayStr);
+  const [selectedDate, setSelectedDate] = useState(todayStr);
+  const selectedDateObject = new Date(`${selectedDate}T12:00:00`);
+  const isToday = selectedDate === todayStr;
+  const logs = allLogs.filter((m) => m.logged_date === selectedDate);
 
   const totalCalories = logs.reduce((acc, m) => acc + m.total_calories, 0);
   const totalProtein = logs.reduce((acc, m) => acc + m.total_protein_g, 0);
@@ -60,33 +63,28 @@ export default function TodayScreen() {
 
   const streak = loggingStreak(allLogs);
 
-  // Sun-Sat filled state for the current calendar week, from the distinct
-  // logged_date set in allLogs — same day-of-week keying as loggingStreak's
-  // own date handling in src/lib/stats.ts.
   const loggedDateSet = new Set(allLogs.map((l) => l.logged_date));
-  const startOfWeek = new Date(today);
+  const startOfWeek = new Date(selectedDateObject);
   startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
-  const weekDots = Array.from({ length: 7 }, (_, i) => {
+  const weekDays = Array.from({ length: 7 }, (_, i) => {
     const day = new Date(startOfWeek);
     day.setDate(day.getDate() + i);
     const dayStr = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(
       day.getDate()
     ).padStart(2, '0')}`;
-    return loggedDateSet.has(dayStr);
+    return { date: day, dateString: dayStr, logged: loggedDateSet.has(dayStr) };
   });
+  const weekDots = weekDays.map((day) => day.logged);
 
   // Dynamic Date string
-  const dayName = today.toLocaleDateString('en-US', { weekday: 'long' });
-  const monthDay = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const dayName = selectedDateObject.toLocaleDateString('en-US', { weekday: 'long' });
+  const monthDay = selectedDateObject.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
 
   // Water — its own small slice of state, since it is independent of the meal
   // totals above and the tile handles its own load/error display.
   const [waterEntries, setWaterEntries] = useState<WaterEntry[]>([]);
-  const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
   const [waterError, setWaterError] = useState<string | null>(null);
-
-  // Calorie-math preference — read from the same fetchPreferences call as
-  // the water target above, not a second fetch.
+  const [waterTarget, setWaterTarget] = useState(DEFAULT_WATER_TARGET_ML);
   const [rolloverEnabled, setRolloverEnabled] = useState(false);
 
   // Celebrations — a full-screen takeover for a milestone the user opted
@@ -99,19 +97,16 @@ export default function TodayScreen() {
   // reopen on its own.
   const justCrossedStreak = useLogStore((s) => s.justCrossedStreak);
   const clearStreakFlag = useLogStore((s) => s.clearStreakFlag);
-  // Tapping the streak badge opens the same flame popup on demand (matching
-  // Cal AI's "tap the flame to see your streak" pattern) — shares the one
-  // modal instance with the auto-fired crossing celebration below.
+  // The badge and milestone celebration share the same streak detail modal.
   const [showStreakDetail, setShowStreakDetail] = useState(false);
 
   useEffect(() => {
-    if (!userId) {
-      setWaterEntries([]);
+    if (!userId || previewItems) {
       return;
     }
 
     let cancelled = false;
-    Promise.all([fetchWaterEntries(userId, todayStr), fetchPreferences(userId)])
+    Promise.all([fetchWaterEntries(userId, selectedDate), fetchPreferences(userId)])
       .then(([entries, prefs]) => {
         if (cancelled) return;
         setWaterEntries(entries);
@@ -127,7 +122,7 @@ export default function TodayScreen() {
     return () => {
       cancelled = true;
     };
-  }, [userId, todayStr]);
+  }, [userId, selectedDate, previewItems]);
 
   const waterTotalMl = waterEntries.reduce((sum, e) => sum + e.ml, 0);
 
@@ -138,9 +133,9 @@ export default function TodayScreen() {
   // for a 2-day window ending today, index 0 is yesterday and index 1 is
   // today (confirmed by reading src/lib/stats.ts's offset loop, which walks
   // offset = days - 1 down to 0).
-  const yesterday = dailyTotals(allLogs, 2, today)[0];
+  const yesterday = dailyTotals(allLogs, 2, selectedDateObject)[0];
   const rolloverAmount =
-    !isJustTracking && rolloverEnabled
+    isToday && !isJustTracking && rolloverEnabled
       ? Math.min(200, Math.max(0, (goal?.calorie_target ?? 0) - yesterday.calories))
       : 0;
 
@@ -149,6 +144,7 @@ export default function TodayScreen() {
   const caloriesLeft = Math.max(0, adjustedTargetCalories - totalCalories);
 
   const addWater = async (ml: number) => {
+    if (previewItems) { setWaterError('Water logging is disabled in this design preview.'); return; }
     if (!userId) {
       setWaterError('Sign in to track water.');
       return;
@@ -157,7 +153,7 @@ export default function TodayScreen() {
     const before = waterTotalMl;
     const after = before + ml;
     try {
-      const saved = await pushWaterEntry(userId, todayStr, ml);
+      const saved = await pushWaterEntry(userId, selectedDate, ml);
       setWaterEntries((prev) => [...prev, saved]);
       if (before < waterTarget && after >= waterTarget) {
         setShowWaterCelebration(true);
@@ -168,6 +164,7 @@ export default function TodayScreen() {
   };
 
   const undoWater = async () => {
+    if (previewItems) return;
     if (!userId || !waterEntries.length) return;
     const last = waterEntries[waterEntries.length - 1];
     setWaterError(null);
@@ -184,36 +181,22 @@ export default function TodayScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <PendingRating />
-        {logs.some(log => log.logged_date === todayStr && log.nutrition_complete === false) && <Text style={[Typography.caption, { color: Colors.amber, marginBottom: 12 }]}>Today’s nutrition totals are partial: some logged foods have missing nutrition.</Text>}
+        {!previewItems && <PendingRating />}
+        {logs.some(log => log.nutrition_complete === false) && <Text style={[Typography.caption, { color: Colors.amber, marginBottom: 12 }]}>Today’s nutrition totals are partial: some logged foods have missing nutrition.</Text>}
         {/* Header Row */}
         <View style={styles.headerRow}>
-          <View>
-            <Text style={styles.dayMuted}>{dayName}</Text>
-            <Text style={Typography.displayM}>{monthDay}</Text>
-          </View>
+          <View style={styles.brandLockup}><Sprout size={23} color={Colors.forest} /><Text style={styles.brand}>havertrack</Text></View>
           <StreakBadge days={streak.current} onPress={() => setShowStreakDetail(true)} />
         </View>
 
-        {/* Gallery / Debug Link Pill */}
-        <Pressable
-          onPress={() => router.push('/gallery' as any)}
-          style={styles.galleryBadge}
-        >
-          <Layers size={14} color={Colors.scarlet} />
-          <Text style={styles.galleryBadgeText}>View Design System Gallery</Text>
-        </Pressable>
+        <Text style={styles.dateCaption}>{dayName}, {monthDay}</Text>
+        <Text style={styles.welcomeTitle}>A good day starts here.</Text>
+        <FeaturedMeal previewItems={previewItems} />
+        <View style={styles.sectionHeaderRow}><Text style={styles.sectionTitle}>Your daily rhythm</Text><Text style={Typography.micro}>{isToday ? 'Today' : monthDay}</Text></View>
+        <WeekStrip days={weekDays} selectedDate={selectedDate} onSelect={setSelectedDate} />
 
-        {/* Hero Card (§3.4, §4 Screen 06) */}
-        <HeroCard style={styles.heroCard}>
+        <Card style={styles.heroCard}>
           <View style={styles.heroRow}>
-            <CalorieRing
-              current={totalCalories}
-              target={isJustTracking ? 0 : adjustedTargetCalories}
-              size={128}
-              strokeWidth={20}
-            />
-
             <View style={styles.heroTextCol}>
               {isJustTracking ? (
                 <>
@@ -228,7 +211,7 @@ export default function TodayScreen() {
               ) : (
                 <>
                   <View style={styles.caloriesLeftRow}>
-                    <Text style={Typography.displayXL}>{caloriesLeft}</Text>
+                    <Text style={styles.calorieValue}>{caloriesLeft}</Text>
                     {totalAdjustment !== 0 ? (
                       <Chip
                         label={`+${totalAdjustment} today`}
@@ -246,44 +229,16 @@ export default function TodayScreen() {
                 </>
               )}
             </View>
+            <View style={styles.energyMark}><Sprout size={32} color={Colors.forest} /><Text style={styles.energyLabel}>A little more
+energy for life.</Text></View>
           </View>
+        </Card>
 
-          {/* Macro Progress Columns */}
-          <View style={styles.macroRow}>
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Protein</Text>
-              <ProgressBar
-                progress={targetProtein > 0 ? totalProtein / targetProtein : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalProtein)} / {targetProtein}G
-              </Text>
-            </View>
-
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Carbs</Text>
-              <ProgressBar
-                progress={targetCarbs > 0 ? totalCarbs / targetCarbs : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalCarbs)} / {targetCarbs}G
-              </Text>
-            </View>
-
-            <View style={styles.macroCol}>
-              <Text style={Typography.caption}>Fat</Text>
-              <ProgressBar
-                progress={targetFat > 0 ? totalFat / targetFat : 0}
-                style={{ marginVertical: 6 }}
-              />
-              <Text style={Typography.monoUnit}>
-                {Math.round(totalFat)} / {targetFat}G
-              </Text>
-            </View>
-          </View>
-        </HeroCard>
+        <View style={styles.macroCards}>
+          <MacroCard tracking={isJustTracking} label="Protein" remaining={Math.max(0, targetProtein - totalProtein)} target={targetProtein} current={totalProtein} color={Colors.scarlet} icon={<Drumstick size={18} color={Colors.scarlet} />} />
+          <MacroCard tracking={isJustTracking} label="Carbs" remaining={Math.max(0, targetCarbs - totalCarbs)} target={targetCarbs} current={totalCarbs} color={Colors.gold} icon={<Wheat size={18} color={Colors.gold} />} />
+          <MacroCard tracking={isJustTracking} label="Fat" remaining={Math.max(0, targetFat - totalFat)} target={targetFat} current={totalFat} color={Colors.inkSoft} icon={<Apple size={17} color={Colors.inkSoft} />} />
+        </View>
 
         {/* Action Button Row: Scan & Browse Menu */}
         <View style={styles.actionRow}>
@@ -348,7 +303,7 @@ export default function TodayScreen() {
 
         {/* Logged Today Section Header */}
         <View style={styles.sectionHeaderRow}>
-          <Text style={Typography.title}>Logged today</Text>
+          <Text style={styles.sectionTitle}>{isToday ? 'At your table' : 'Logged meals'}</Text>
           {logs.length > 0 ? (
             <Text style={[Typography.caption, { color: Colors.textMuted }]}>
               {logs.length} meal{logs.length !== 1 ? 's' : ''}
@@ -379,9 +334,9 @@ export default function TodayScreen() {
         ) : (
           <Card style={styles.emptyCard}>
             <UtensilsCrossed size={32} color={Colors.textGhost} style={{ marginBottom: 12 }} />
-            <Text style={Typography.title}>Nothing logged yet today</Text>
+            <Text style={Typography.title}>Nothing logged yet</Text>
             <Text style={[Typography.bodyS, { color: Colors.textMuted, textAlign: 'center', marginTop: 4, marginBottom: 16 }]}>
-              Scan a plate at the DC or choose from today's menu to track calories and macros.
+              Scan a plate at the DC or choose from today&apos;s menu to track calories and macros.
             </Text>
             <View style={{ width: '100%', gap: 8 }}>
               <Button
@@ -427,7 +382,78 @@ export default function TodayScreen() {
   );
 }
 
+function WeekStrip({
+  days,
+  selectedDate,
+  onSelect,
+}: {
+  days: { date: Date; dateString: string; logged: boolean }[];
+  selectedDate: string;
+  onSelect: (date: string) => void;
+}) {
+  return (
+    <View style={styles.weekStrip} accessibilityRole="radiogroup" accessibilityLabel="Week days">
+      {days.map((day) => {
+        const selected = day.dateString === selectedDate;
+        const isToday = day.dateString === getTodayString();
+        return (
+          <Pressable
+            key={day.dateString}
+            onPress={() => onSelect(day.dateString)}
+            accessibilityRole="radio"
+            accessibilityState={{ selected }}
+            accessibilityLabel={day.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+            style={styles.dayChoice}
+          >
+            <View style={[styles.dayCircle, selected && styles.dayCircleSelected, !selected && isToday && styles.dayCircleToday]}>
+              <Text style={[styles.dayInitial, selected && styles.dayInitialSelected]}>
+                {day.date.toLocaleDateString('en-US', { weekday: 'narrow' })}
+              </Text>
+            </View>
+            <Text style={[styles.dayNumber, selected && styles.dayNumberSelected]}>{day.date.getDate()}</Text>
+            {day.logged ? <View style={[styles.logDot, selected && styles.logDotSelected]} /> : <View style={styles.logDotSpacer} />}
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
+function MacroCard({
+  label,
+  tracking,
+  remaining,
+  target,
+  current,
+  color,
+  icon,
+}: {
+  label: string;
+  tracking: boolean;
+  remaining: number;
+  target: number;
+  current: number;
+  color: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <Card style={styles.macroCard}>
+      <View style={styles.macroTop}>{icon}<Text style={styles.macroLabel}>{label}</Text></View>
+      <Text style={styles.macroValue}>{Math.round(tracking ? current : remaining)}<Text style={styles.macroUnit}> g</Text></Text>
+      <Text style={styles.macroLabel}>{tracking ? 'logged' : 'remaining'}</Text>
+      {!tracking && <View style={styles.macroTrack}><View style={{ height: 4, borderRadius: 2, backgroundColor: color, width: `${Math.min(100, Math.max(0, target > 0 ? current / target * 100 : 0))}%` }} /></View>}
+    </Card>
+  );
+}
+
 const styles = StyleSheet.create({
+  welcomeTitle: { ...Typography.editorial, fontSize: 29, color: Colors.ink, marginTop: 5, marginBottom: 10 },
+  sectionTitle: { ...Typography.editorial, fontSize: 25, color: Colors.ink },
+  energyMark: { alignItems: 'center', paddingLeft: 12, gap: 8 },
+  energyLabel: { ...Typography.micro, color: Colors.forest, textAlign: 'center', maxWidth: 95 },
+  macroTop: { flexDirection: 'row', gap: 5, alignItems: 'center', marginBottom: 8 },
+  macroUnit: { ...Typography.bodyS, color: Colors.textMuted },
+  macroTrack: { height: 4, backgroundColor: Colors.track, borderRadius: 2, marginTop: 12 },
   safeArea: {
     flex: 1,
     backgroundColor: Colors.cream,
@@ -436,11 +462,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 40,
+    width: '100%',
+    maxWidth: 620,
+    alignSelf: 'center',
   },
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  brandLockup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+  },
+  brand: {
+    fontFamily: Fonts.outfit.extraBold,
+    fontSize: 25,
+    color: Colors.ink,
+    letterSpacing: -1,
+  },
+  dateCaption: {
+    ...Typography.bodyS,
+    color: Colors.textMuted,
     marginBottom: 12,
   },
   dayMuted: {
@@ -449,34 +494,48 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     marginBottom: 2,
   },
-  galleryBadge: {
+  weekStrip: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 18,
+  },
+  dayChoice: { alignItems: 'center', flex: 1 },
+  dayCircle: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     alignItems: 'center',
-    alignSelf: 'flex-start',
-    backgroundColor: Colors.surfaceWarm,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-    marginBottom: 16,
-    borderWidth: 1,
+    justifyContent: 'center',
+    borderWidth: 1.5,
+    borderStyle: 'solid',
     borderColor: Colors.borderSoft,
-    gap: 6,
   },
-  galleryBadgeText: {
-    ...Typography.monoUnit,
-    color: Colors.scarlet,
-    fontFamily: Fonts.outfit.semiBold,
-  },
+  dayCircleSelected: { borderStyle: 'solid', borderColor: Colors.forest, backgroundColor: Colors.forest },
+  dayCircleToday: { borderStyle: 'solid', borderColor: Colors.ink },
+  dayInitial: { ...Typography.caption, color: Colors.inkSoft },
+  dayInitialSelected: { color: Colors.cream },
+  dayNumber: { ...Typography.body, color: Colors.ink, marginTop: 5 },
+  dayNumberSelected: { fontFamily: Fonts.outfit.bold, color: Colors.scarlet },
+  logDot: { width: 4, height: 4, borderRadius: 2, backgroundColor: Colors.ink, marginTop: 4 },
+  logDotSelected: { backgroundColor: Colors.scarlet },
+  logDotSpacer: { height: 8 },
   heroCard: {
     marginBottom: 16,
+    padding: 24,
   },
   heroRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   heroTextCol: {
-    marginLeft: 20,
     flex: 1,
+  },
+  calorieValue: {
+    fontFamily: Fonts.outfit.extraBold,
+    fontSize: 38,
+    lineHeight: 44,
+    color: Colors.ink,
+    letterSpacing: -2.4,
   },
   caloriesLeftRow: {
     flexDirection: 'row',
@@ -486,17 +545,26 @@ const styles = StyleSheet.create({
   adjustmentChip: {
     marginBottom: 2,
   },
-  macroRow: {
+  macroCards: {
     flexDirection: 'row',
-    gap: 12,
-    marginTop: 20,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: Colors.borderSoft,
+    gap: 8,
+    marginBottom: 18,
   },
-  macroCol: {
+  macroCard: {
     flex: 1,
+    padding: 13,
+    minHeight: 120,
+    overflow: 'hidden',
   },
+  macroValue: {
+    fontFamily: Fonts.outfit.bold,
+    fontSize: 24,
+    color: Colors.ink,
+    letterSpacing: -0.8,
+  },
+  macroLabel: { ...Typography.micro, color: Colors.inkSoft, marginTop: 2 },
+  macroRing: { alignSelf: 'center', marginTop: 12 },
+  macroAccent: { width: 18, height: 3, borderRadius: 2, alignSelf: 'center', marginTop: 8 },
   actionRow: {
     flexDirection: 'row',
     gap: 12,
@@ -505,13 +573,15 @@ const styles = StyleSheet.create({
   secondaryRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 20,
+    gap: 16,
+    flexWrap: 'wrap',
     marginBottom: 20,
   },
   secondaryLink: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    minHeight: 44,
   },
   secondaryLinkText: {
     fontFamily: Fonts.outfit.semiBold,
@@ -524,8 +594,8 @@ const styles = StyleSheet.create({
   scanBtn: {
     flex: 1,
     height: 52,
-    backgroundColor: Colors.scarlet,
-    borderRadius: 14,
+    backgroundColor: Colors.forest,
+    borderRadius: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

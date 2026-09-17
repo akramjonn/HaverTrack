@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Pressable } from "react-native";
+import { TodayContent } from './(tabs)/index';
 import GuidedMenu from "@/components/meals/GuidedMenu";
 import FoodDashboard from "@/components/admin/FoodDashboard";
 import { StarRating } from "@/components/ui/StarRating";
@@ -81,7 +82,7 @@ const report: FoodReport = {
   journeys_completed: 310,
 };
 export default function DesignPreview() {
-  const [tab, setTab] = useState("Menu");
+  const [tab, setTab] = useState("Today");
   const [stars, setStars] = useState(0);
   if (!__DEV__)
     return (
@@ -104,8 +105,8 @@ export default function DesignPreview() {
         <Text style={Typography.caption}>
           DESIGN PREVIEW · Illustrative data · No meals or ratings are saved
         </Text>
-        <View style={{ flexDirection: "row", gap: 12 }}>
-          {["Menu", "Dashboard", "Components"].map((t) => (
+        <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
+          {["Today", "Menu", "Dashboard", "Components"].map((t) => (
             <Pressable
               key={t}
               onPress={() => setTab(t)}
@@ -120,7 +121,9 @@ export default function DesignPreview() {
           ))}
         </View>
       </View>
-      {tab === "Menu" ? (
+      {tab === "Today" ? (
+        <TodayContent previewItems={sample} />
+      ) : tab === "Menu" ? (
         <GuidedMenu previewItems={sample} />
       ) : tab === "Dashboard" ? (
         <FoodDashboard preview={report} />
