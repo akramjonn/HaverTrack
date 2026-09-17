@@ -29,6 +29,8 @@ import { logMeal, periodForNow } from "@/lib/logging";
 import { getTodayString } from "@/store/logStore";
 import { formatMenuLastUpdated } from "@/lib/menuFreshness";
 import { dietaryFilters, matchesDiet } from '@/lib/nutritionReview';
+import { MenuDayPicker } from './MenuDayPicker';
+import { compareMenuOrder } from '@/lib/mealFlow';
 
 export default function MenuScreen() {
   const router = useRouter();
@@ -38,6 +40,7 @@ export default function MenuScreen() {
   const refreshError = useMenuStore((state) => state.refreshError);
 
   const todayStr = getTodayString();
+  const [selectedDay, setSelectedDay] = useState(todayStr);
   const [mealPeriod, setMealPeriod] = useState<
     "lunch" | "dinner" | "breakfast" | "coop"
   >("lunch");
@@ -61,7 +64,7 @@ export default function MenuScreen() {
   // keys for the repeats.
   const stationGroups = useMemo(() => {
     const periodItems = menuItems.filter((item) => {
-      if (item.served_date !== todayStr) return false;
+      if (item.served_date !== selectedDay) return false;
       if (mealPeriod === "coop") {
         return (
           item.station_name.toLowerCase().includes("coop") ||
@@ -69,7 +72,7 @@ export default function MenuScreen() {
         );
       }
       return item.meal_period === mealPeriod;
-    });
+    }).sort(compareMenuOrder);
 
     const groups: Record<string, ParsedMenuItem[]> = {};
     const seen = new Set<number>();
@@ -95,12 +98,12 @@ export default function MenuScreen() {
     }
 
     return groups;
-  }, [menuItems, mealPeriod, searchQuery, selectedTag, todayStr]);
+  }, [menuItems, mealPeriod, searchQuery, selectedTag, selectedDay]);
 
   const stationNames = Object.keys(stationGroups);
 
   const handleQuickLog = async (item: ParsedMenuItem) => {
-    if (item.calories === null || loggingItemIds[item.nutrislice_id]) return;
+    if (selectedDay !== todayStr || item.calories === null || loggingItemIds[item.nutrislice_id]) return;
 
     setLogError(null);
     setLoggingItemIds((prev) => ({ ...prev, [item.nutrislice_id]: true }));
@@ -185,6 +188,8 @@ export default function MenuScreen() {
         ) : null}
 
         {/* Meal Period Segmented Control */}
+        <MenuDayPicker items={menuItems} today={todayStr} value={selectedDay} onChange={setSelectedDay} />
+        {selectedDay !== todayStr && <Text style={Typography.caption}>Browsing this day’s menu. Return to today to log a meal.</Text>}
         <SegmentedControl
           options={[
             { value: "breakfast", label: "Breakfast" },
@@ -239,7 +244,7 @@ export default function MenuScreen() {
               style={styles.searchIcon}
             />
             <TextInput
-              placeholder="Search today's menu"
+              placeholder="Search this day's menu"
               placeholderTextColor={Colors.textGhost}
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -311,7 +316,7 @@ export default function MenuScreen() {
                       e.stopPropagation();
                       handleQuickLog(item);
                     }}
-                    disabled={
+                    disabled={selectedDay !== todayStr ||
                       item.calories === null ||
                       loggingItemIds[item.nutrislice_id]
                     }
@@ -340,7 +345,9 @@ export default function MenuScreen() {
         {stationNames.length === 0 ? (
           <View style={styles.emptyState}>
             <Text style={[Typography.body, { color: Colors.textMuted }]}>
-              No dishes found matching your filters for {mealPeriod}.
+              {menuItems.some(i => i.served_date === selectedDay && (mealPeriod === 'coop' ? /coop|grill/i.test(i.station_name) : i.meal_period === mealPeriod))
+                ? `No dishes found matching your filters for ${mealPeriod}.`
+                : refreshError ? 'The menu could not be loaded. Please refresh and try again.' : 'The menu is not available yet.'}
             </Text>
           </View>
         ) : null}

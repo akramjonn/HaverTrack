@@ -11,6 +11,8 @@ import {
   touchFavorite,
 } from '@/lib/favorites';
 import { useAuthStore } from '@/store/authStore';
+import { compareMenuOrder } from '@/lib/mealFlow';
+import { indexBundledMenu } from '@/lib/menuDates';
 
 interface MenuState {
   items: ParsedMenuItem[];
@@ -19,7 +21,7 @@ interface MenuState {
   isRefreshing: boolean;
   refreshError: string | null;
 
-  /** Replaces the bundled fallback with today's live Supabase menu. */
+  /** Replaces the bundled fallback with every published menu date. */
   refreshMenu: () => Promise<void>;
 
   /**
@@ -75,7 +77,7 @@ export const useMenuStore = create<MenuState>((set, get) => {
   const currentUserId = () => useAuthStore.getState().user?.id ?? null;
 
   return {
-    items: (latestMenuJson.items as ParsedMenuItem[]).map(item => ({ ...item, dietary_tags: item.dietary_tags.filter(tag => tag !== 'Wheat-Free') })),
+    items: indexBundledMenu(latestMenuJson.items as ParsedMenuItem[]).map(item => ({ ...item, dietary_tags: item.dietary_tags.filter(tag => tag !== 'Wheat-Free') })),
     syncedAt: syncedAt,
     isStale: hoursOld > 26,
     isRefreshing: false,
@@ -89,37 +91,24 @@ export const useMenuStore = create<MenuState>((set, get) => {
       set({ isRefreshing: true, refreshError: null });
 
       try {
-        const dateParts = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'America/New_York',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }).formatToParts(new Date());
-        const datePart = (type: string) =>
-          dateParts.find((part) => part.type === type)?.value ?? '';
-        const today = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
-
-        const { data, error } = await supabase
-          .from('reviewed_menu_items')
-          .select(
-            'id, nutrislice_id, location_id, meal_period, served_date, station_name, station_id, dish_name, description, ingredients, serving_size, calories, protein_g, carbs_g, fat_g, dietary_tags, allergens, synced_at, availability, nutrition_source_key, nutrition_review'
-          )
-          .eq('served_date', today)
-          .order('meal_period')
-          .order('station_name')
-          .order('dish_name');
-
-        if (error) throw error;
-        if (!data?.length) throw new Error(`No live menu rows were found for ${today}.`);
+        const data: ParsedMenuItem[] = [];
+        // A week can exceed PostgREST's row limit. Load all pages so later dates aren't silently lost.
+        for (let offset = 0; ; offset += 500) {
+          const page = await supabase.from('reviewed_menu_items').select('*')
+            .order('served_date').order('id').range(offset, offset + 499);
+          if (page.error) throw page.error;
+          data.push(...(page.data as ParsedMenuItem[]));
+          if (page.data.length < 500) break;
+        }
 
         const { data: categories, error: categoryError } = await supabase.from('dish_categories').select('location_id,nutrislice_id,course');
         if (categoryError) throw categoryError;
-        const items = (data as ParsedMenuItem[]).map(item => ({ ...item,
+        const items = data.map(item => ({ ...item,
           course: categories?.find(c => c.location_id === item.location_id && c.nutrislice_id === item.nutrislice_id)?.course,
-        }));
+        })).sort((a,b) => a.served_date.localeCompare(b.served_date) || a.meal_period.localeCompare(b.meal_period) || compareMenuOrder(a,b));
         const liveSyncedAt = items.reduce(
           (latest, item) => (item.synced_at > latest ? item.synced_at : latest),
-          items[0].synced_at
+          items[0]?.synced_at ?? new Date().toISOString()
         );
 
         set({

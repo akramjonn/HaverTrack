@@ -10,6 +10,7 @@ type Meal = (typeof MEALS)[number];
 type JsonObject = Record<string, unknown>;
 
 type MenuItem = {
+  source_order: number;
   nutrislice_id: number;
   location_id: string;
   meal_period: Meal;
@@ -111,6 +112,7 @@ function parseWeek(payload: unknown, meal: Meal) {
     scopes.push({ served_date: servedDate, meal_period: meal });
     let stationName = "Main Station";
     let stationId: number | null = null;
+    let sourceOrder = 0;
 
     for (const rawItem of day.menu_items) {
       const item = object(rawItem);
@@ -118,6 +120,7 @@ function parseWeek(payload: unknown, meal: Meal) {
       if (item.is_station_header === true) {
         stationName = stringOrNull(item.text) ?? stationName;
         stationId = numberOrNull(item.station_id);
+        sourceOrder = 0;
         continue;
       }
       const food = object(item.food);
@@ -148,6 +151,7 @@ function parseWeek(payload: unknown, meal: Meal) {
       const unit = stringOrNull(serving?.serving_size_unit);
 
       rows.push({
+        source_order: sourceOrder++,
         nutrislice_id: food.id,
         location_id: LOCATION_ID,
         meal_period: meal,
@@ -202,7 +206,9 @@ Deno.serve(async (request: Request) => {
     const scopes = results.flatMap((result) => result.scopes);
     const deduped = new Map<string, MenuItem>();
     for (const item of results.flatMap((result) => result.rows)) {
-      deduped.set(`${item.nutrislice_id}|${item.meal_period}|${item.served_date}`, item);
+      const key = `${item.nutrislice_id}|${item.meal_period}|${item.served_date}`;
+      const existing = deduped.get(key);
+      if (!existing || !(/\bmain\s*line\b/i.test(existing.station_name) && existing.source_order === 0)) deduped.set(key, item);
     }
     const items = [...deduped.values()];
     if (!items.length) throw new Error("All meal endpoints returned zero items; preserving last-known-good data");

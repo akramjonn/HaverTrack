@@ -24,6 +24,15 @@ service-role key in the app's `EXPO_PUBLIC_*` variables.
 
 ## Operations
 
+- The menu browser includes every published date returned by the database and
+  marks unposted dates with “The menu is not available yet.” Other dates are
+  read-only; meal logging stays on today's menu.
+- Before deploying the menu-order update, apply
+  `20260917141120_menu_source_order.sql` after the nutrition-review migrations,
+  then deploy `sync-haverford-menu` and run a sync. This preserves the dining
+  service's station order so the first Main Line food is the featured main dish.
+  The original one-time setup command does not apply this additional migration.
+
 - Edge Function logs contain structured `menu_sync_succeeded` and
   `menu_sync_failed` events with a run ID.
 - `public.menu_sync_status` stores the last attempt, last successful sync, and

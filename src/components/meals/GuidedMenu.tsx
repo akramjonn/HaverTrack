@@ -31,9 +31,10 @@ import { Button } from "@/components/ui";
 import { FoodIcon } from "@/components/ui/FoodIcon";
 import { Enter, MotionPressable } from "@/components/ui/Motion";
 import {
-  COURSES,
-  COURSE_LABELS,
+  menuSections,
   classifyDish,
+  compareMenuOrder,
+  isMainLineFirst,
   campusPeriod,
   servingKey,
   uuid,
@@ -48,6 +49,7 @@ import { enableRatingNotifications } from "@/lib/notifications";
 import { formatMenuLastUpdated } from "@/lib/menuFreshness";
 import { NutritionDetails } from '@/components/NutritionDetails';
 import { dietaryFilters, matchesDiet } from '@/lib/nutritionReview';
+import { MenuDayPicker } from './MenuDayPicker';
 
 type Draft = {
   day: string;
@@ -101,10 +103,17 @@ function GuidedMenuSession({
   const cacheKey = `@havertrack_meal_draft:${userId ?? "preview"}`;
   const allItems = previewItems ?? store.items;
   const today = getTodayString();
+  const browsing = draft.day !== today;
+  function changeDay(day: string) {
+    if (day === draft.day) return;
+    setDraft({ ...freshDraft(), day, period: draft.period });
+    setStep(0); setSearch(''); setTags([]); setExcludeIngredients(''); setError(null); setDetail(null);
+    setNotice(Object.keys(draft.quantities).length ? 'Day changed. Your plate selection has been cleared.' : null);
+  }
   const periods = (
     Object.keys(labels) as ParsedMenuItem["meal_period"][]
   ).filter((p) =>
-    allItems.some((i) => i.served_date === today && i.meal_period === p),
+    allItems.some((i) => i.served_date === draft.day && i.meal_period === p),
   );
 
   useEffect(() => {
@@ -136,11 +145,11 @@ function GuidedMenuSession({
     };
   }, [cacheKey, today, previewItems]);
   useEffect(() => {
-    if (ready && !previewItems)
+    if (ready && !previewItems && draft.day === today)
       void AsyncStorage.setItem(cacheKey, JSON.stringify(draft)).catch(
         () => undefined,
       );
-  }, [cacheKey, draft, ready, previewItems]);
+  }, [cacheKey, draft, ready, previewItems, today]);
   const periodKey = periods.join(",");
   useEffect(() => {
     if (ready && !previewItems)
@@ -165,15 +174,15 @@ function GuidedMenuSession({
     const unique = new Map<string, ParsedMenuItem>();
     for (const item of allItems)
       if (
-        item.served_date === today &&
+        item.served_date === draft.day &&
         item.meal_period === draft.period &&
         item.location_id === "dining-location"
       )
         unique.set(servingKey(item), item);
-    return [...unique.values()];
-  }, [allItems, today, draft.period]);
+    return [...unique.values()].sort(compareMenuOrder);
+  }, [allItems, draft.day, draft.period]);
   const selected = items.filter((i) => draft.quantities[servingKey(i)] > 0);
-  const main = items.find((i) => servingKey(i) === draft.main);
+  const main = items.find((i) => servingKey(i) === draft.main && isMainLineFirst(i));
   const partial = selected.some((i) =>
     [i.calories, i.protein_g, i.carbs_g, i.fat_g].some((n) => n == null),
   );
@@ -199,7 +208,6 @@ function GuidedMenuSession({
       tags.every(tag => matchesDiet(i, tag)) &&
       (!excludeIngredients.trim() || (!!i.ingredients && excludeIngredients.split(',').map(x => x.trim().toLowerCase()).filter(Boolean).every(x => !i.ingredients!.toLowerCase().includes(x)))),
   );
-  const mains = shown.filter((i) => classifyDish(i).course === "main");
   const event = (name: Parameters<typeof trackMealEvent>[0]) => {
     if (!previewItems) void trackMealEvent(name, draft.journey);
   };
@@ -216,15 +224,16 @@ function GuidedMenuSession({
   function choose(item: ParsedMenuItem) {
     const key = servingKey(item);
     if (!Object.keys(draft.quantities).length) event("meal_flow_started");
-    event(step === 0 ? "main_selected" : "extra_added");
+    const selectingMain = step === 0 && isMainLineFirst(item);
+    event(selectingMain ? "main_selected" : "extra_added");
     setDraft((d) => {
       const quantities = { ...d.quantities };
-      if (step === 0) {
+      if (selectingMain) {
         if (d.main && d.main !== key) delete quantities[d.main];
         quantities[key] = quantities[key] || 1;
       } else if (quantities[key]) delete quantities[key];
       else quantities[key] = 1;
-      return { ...d, quantities, main: step === 0 ? key : d.main };
+      return { ...d, quantities, main: selectingMain ? key : d.main };
     });
     haptic();
   }
@@ -307,10 +316,10 @@ function GuidedMenuSession({
     return (
       <View key={key} style={[s.foodCard, checked && s.selected]}>
         <MotionPressable
-          onPress={() => choose(item)}
-          accessibilityRole="checkbox"
-          accessibilityState={{ checked }}
-          accessibilityLabel={`Select ${item.dish_name}`}
+          onPress={() => browsing ? setDetail(item) : choose(item)}
+          accessibilityRole={browsing ? 'button' : 'checkbox'}
+          accessibilityState={browsing ? {} : { checked }}
+          accessibilityLabel={`${browsing ? 'View' : 'Select'} ${item.dish_name}`}
           style={s.foodBody}
         >
           <FoodIcon
@@ -321,6 +330,7 @@ function GuidedMenuSession({
           <View style={{ flex: 1, gap: 5 }}>
             <Text style={s.foodName}>{item.dish_name}</Text>
             <Text style={s.muted}>{item.station_name}</Text>
+            {isMainLineFirst(item) && <Text style={s.diet}>Main Line · Main dish</Text>}
             {item.nutrition_review?.status === 'approved' && <Text style={[s.diet, { color: '#37745A' }]}>✓ {item.nutrition_review.basis === 'usda' ? 'Reviewed USDA estimate' : 'Nutrition reviewed'}</Text>}
             <Text style={s.nutrition}>
               {item.calories == null
@@ -334,7 +344,7 @@ function GuidedMenuSession({
               </Text>
             )}
           </View>
-          <View
+          {!browsing && <View
             style={[
               s.check,
               checked && {
@@ -348,7 +358,7 @@ function GuidedMenuSession({
             ) : (
               <Plus size={16} color={Colors.textMuted} />
             )}
-          </View>
+          </View>}
         </MotionPressable>
         <View style={s.cardFoot}>
           <Text style={[s.muted, { flex: 1 }]}>
@@ -442,7 +452,7 @@ function GuidedMenuSession({
           <Text style={s.eyebrow}>THE DINING ROOM</Text>
           <View style={s.inline}>
             <Clock3 size={13} color={Colors.textMuted} />
-            <Text style={s.muted}>Today · Haverford DC</Text>
+            <Text style={s.muted}>{browsing ? draft.day : 'Today'} · Haverford DC</Text>
           </View>
         </View>
         {!previewItems && (
@@ -453,7 +463,7 @@ function GuidedMenuSession({
         <View>
           <Text style={s.title}>
             {
-              [
+              browsing ? 'Explore the menu.' : [
                 "Start with your main.",
                 "Make it your meal.",
                 "Your plate, ready.",
@@ -462,7 +472,7 @@ function GuidedMenuSession({
           </Text>
           <Text style={s.subtitle}>
             {
-              [
+              browsing ? 'See what is planned. Meal logging is available on today’s menu.' : [
                 "A good meal starts with something you love.",
                 "A little on the side. Something sweet. Your choice.",
                 "One last look before you dig in.",
@@ -470,7 +480,7 @@ function GuidedMenuSession({
             }
           </Text>
         </View>
-        <View style={s.steps}>
+        {!browsing && <View style={s.steps}>
           {["Main", "Extras", "Review"].map((label, i) => (
             <View key={label} style={s.step}>
               <View
@@ -493,7 +503,8 @@ function GuidedMenuSession({
               {i < 2 && <View style={s.stepLine} />}
             </View>
           ))}
-        </View>
+        </View>}
+        {step === 0 && <MenuDayPicker items={allItems} today={today} value={draft.day} onChange={changeDay} />}
         {step === 0 && (
           <ScrollView
             horizontal
@@ -514,7 +525,7 @@ function GuidedMenuSession({
                       setNotice(
                         "Service changed. Choose your meal from this menu.",
                       );
-                    setDraft({ ...freshDraft(), period: p });
+                    setDraft({ ...freshDraft(), day: draft.day, period: p });
                     setTags([]);
                     setExcludeIngredients('');
                   }
@@ -599,25 +610,27 @@ function GuidedMenuSession({
             <>
               <View style={s.between}>
                 <Text style={s.sectionTitle}>On the menu</Text>
-                <Text style={s.muted}>{mains.length} main dishes</Text>
+                <Text style={s.muted}>{shown.length} foods</Text>
               </View>
-              {mains.map(foodCard)}
-              {!mains.length && (
+              {!shown.length && (
                 <View style={s.empty}>
                   <FoodIcon course="main" tile size={30} />
                   <Text style={s.sectionTitle}>
                     {items.length
-                      ? "No matching mains"
-                      : "The menu is taking a moment."}
+                      ? "No matching foods"
+                      : store.isRefreshing ? 'Loading the menu…' : store.refreshError ? 'The menu could not be loaded.' : "The menu is not available yet."}
                   </Text>
                   <Text style={s.muted}>
                     {items.length
                       ? "Try another filter, or build a meal from the other published dishes."
-                      : "Try another service or refresh the menu."}
+                      : store.refreshError ? 'Check your connection and refresh to try again.' : "Please check back later or choose another day or service."}
                   </Text>
                 </View>
               )}
-              {!!items.length && (
+              {menuSections(shown).map(({ name, foods }) => {
+                return <View key={name} style={{ gap: 12 }}><Text style={s.sectionTitle}>{name}</Text>{foods.map(foodCard)}</View>;
+              })}
+              {!browsing && !!items.length && (
                 <Pressable
                   style={s.secondaryLink}
                   onPress={() => {
@@ -629,11 +642,11 @@ function GuidedMenuSession({
                   <ArrowRight size={16} color={Colors.scarlet} />
                 </Pressable>
               )}
-              <Button
+              {!browsing && <Button
                 label="Suggest a plate for my goals"
                 variant="ghost"
                 onPress={() => router.push("/log/plate" as never)}
-              />
+              />}
             </>
           )}
           {step === 1 && (
@@ -650,29 +663,15 @@ function GuidedMenuSession({
                   </Pressable>
                 </View>
               )}
-              {COURSES.filter((course) =>
-                shown.some(
-                  (i) =>
-                    classifyDish(i).course === course &&
-                    servingKey(i) !== draft.main,
-                ),
-              ).map((course) => (
-                <View key={course} style={{ gap: 12 }}>
+              {menuSections(shown.filter(i => servingKey(i) !== draft.main)).map(({ name, foods }) => (
+                <View key={name} style={{ gap: 12 }}>
                   <View style={s.between}>
                     <Text style={s.sectionTitle}>
-                      {course === "main"
-                        ? "Another main?"
-                        : COURSE_LABELS[course]}
+                      {name}
                     </Text>
                     <Text style={s.muted}>Optional</Text>
                   </View>
-                  {shown
-                    .filter(
-                      (i) =>
-                        classifyDish(i).course === course &&
-                        servingKey(i) !== draft.main,
-                    )
-                    .map(foodCard)}
+                  {foods.map(foodCard)}
                 </View>
               ))}
               {!shown.some((i) => servingKey(i) !== draft.main) && (
@@ -793,7 +792,7 @@ function GuidedMenuSession({
           allergens with dining staff.
         </Text>
       </ScrollView>
-      <View style={s.footer}>
+      {browsing ? <View style={s.footer}><Button label="Back to today’s menu" onPress={() => changeDay(today)} /></View> : <View style={s.footer}>
         <View style={s.footerInner}>
           <View style={s.between}>
             {step > 0 ? (
@@ -829,14 +828,14 @@ function GuidedMenuSession({
             }
             disabled={
               !ready ||
-              (step === 0 ? !main : !selected.length) ||
+              !selected.length ||
               (step === 2 && missingSelection)
             }
             onPress={() => (step < 2 ? changeStep(step + 1) : void confirm())}
             icon={<ArrowRight size={18} color="white" />}
           />
         </View>
-      </View>
+      </View>}
       <Modal
         visible={!!detail}
         transparent

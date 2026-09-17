@@ -19,7 +19,7 @@ const MEAL_TYPES: { slug: 'breakfast' | 'lunch' | 'dinner' | 'brunch'; id: numbe
 
 /** Keep every multi-row statement comfortably below Postgres's bind limit. */
 const UPSERT_CHUNK_ROWS = 200;
-const COLUMNS_PER_ROW = 17;
+const COLUMNS_PER_ROW = 18;
 
 const RETRYABLE_HTTP_STATUSES = new Set([403, 408, 425, 429]);
 
@@ -166,7 +166,9 @@ async function syncMenu() {
   // row for each unique database key before batching.
   const deduped = new Map<string, ParsedMenuItem>();
   for (const item of allParsedItems) {
-    deduped.set(`${item.nutrislice_id}|${item.meal_period}|${item.served_date}`, item);
+    const key = `${item.nutrislice_id}|${item.meal_period}|${item.served_date}`;
+    const existing = deduped.get(key);
+    if (!existing || !(/\bmain\s*line\b/i.test(existing.station_name) && existing.source_order === 0)) deduped.set(key, item);
   }
   const rows = [...deduped.values()];
 
@@ -222,6 +224,7 @@ async function syncMenu() {
         item.dietary_tags,
         item.allergens,
         item.synced_at,
+        item.source_order ?? null,
       ]);
 
       await client.query(
@@ -230,7 +233,7 @@ async function syncMenu() {
           nutrislice_id, location_id, meal_period, served_date,
           station_name, station_id, dish_name, description,
           ingredients, serving_size, calories, protein_g,
-          carbs_g, fat_g, dietary_tags, allergens, synced_at
+          carbs_g, fat_g, dietary_tags, allergens, synced_at, source_order
         ) VALUES ${valuePlaceholders}
         ON CONFLICT (nutrislice_id, meal_period, served_date)
         DO UPDATE SET
@@ -246,7 +249,8 @@ async function syncMenu() {
           fat_g = EXCLUDED.fat_g,
           dietary_tags = EXCLUDED.dietary_tags,
           allergens = EXCLUDED.allergens,
-          synced_at = EXCLUDED.synced_at;
+          synced_at = EXCLUDED.synced_at,
+          source_order = EXCLUDED.source_order;
       `,
         values
       );

@@ -4,7 +4,7 @@ import type { ParsedMenuItem } from '../src/lib/nutrislice';
 const now = new Date('2026-09-17T16:00:00Z');
 const base: ParsedMenuItem = {
   nutrislice_id: 1, location_id: 'dining-location', meal_period: 'lunch',
-  served_date: '2026-09-17', station_name: 'Main Line', station_id: 1,
+  served_date: '2026-09-17', station_name: 'The Main Line', station_id: 1, source_order: 0,
   dish_name: 'Salmon sushi', description: null, ingredients: null, serving_size: '6 pieces',
   calories: 300, protein_g: 20, carbs_g: 40, fat_g: 10,
   dietary_tags: [], allergens: ['Fish'], synced_at: now.toISOString(),
@@ -16,8 +16,9 @@ const menu = [dinner, base, { ...base, station_id: 2 },
   { ...base, dish_name: 'Unavailable pizza', availability: 'unavailable' as const },
   { ...base, dish_name: 'Unknown tacos', availability: 'unknown' as const },
   { ...base, dish_name: 'Other chicken', location_id: 'other' },
-  { ...base, dish_name: 'Soy sauce', course: 'condiment' as const },
-  { ...base, dish_name: 'Sushi rice', course: 'side' as const }];
+  { ...base, dish_name: 'Soy sauce', source_order: 1, course: 'condiment' as const },
+  { ...base, dish_name: 'Sushi rice', source_order: 2, course: 'side' as const },
+  { ...base, dish_name: 'Grill special', station_name: 'The Grill', course: 'main' as const }];
 assert.deepEqual(featuredMeals(menu, now).map(i => i.dish_name), ['Salmon sushi', 'Grilled chicken']);
 assert.equal(featuredMeals(menu, new Date('2026-09-17T22:00:00Z'))[0].dish_name, 'Grilled chicken');
 assert.equal(featuredMeals(menu, new Date('2026-09-18T16:00:00Z')).length, 0);

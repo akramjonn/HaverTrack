@@ -20,13 +20,33 @@ export const COURSE_LABELS: Record<Course, string> = {
   other: "More to enjoy",
 };
 
-/** Conservative rules. Staff overrides win; ambiguous dishes stay in the review queue. */
+export function isMainLineFirst(item: { station_name: string; source_order?: number | null }) {
+  return /\bmain\s*line\b/i.test(item.station_name) && item.source_order === 0;
+}
+export function compareMenuOrder(a: ParsedMenuItem, b: ParsedMenuItem) {
+  return Number(isMainLineFirst(b)) - Number(isMainLineFirst(a)) ||
+    a.station_name.localeCompare(b.station_name) ||
+    (a.source_order ?? Number.MAX_SAFE_INTEGER) - (b.source_order ?? Number.MAX_SAFE_INTEGER) ||
+    a.dish_name.localeCompare(b.dish_name);
+}
+/** Display categories come directly from the dining menu's section headers. */
+export function menuSections(items: ParsedMenuItem[]) {
+  const sections = new Map<string, ParsedMenuItem[]>();
+  for (const item of [...items].sort(compareMenuOrder)) {
+    const name = item.station_name || 'Other foods';
+    sections.set(name, [...(sections.get(name) ?? []), item]);
+  }
+  return [...sections].map(([name, foods]) => ({ name, foods }));
+}
+/** Only the first Main Line food is the main. Course hints remain for icons/logging. */
 export function classifyDish(
   item: Pick<ParsedMenuItem, "dish_name" | "station_name"> & {
     course?: Course | null;
+    source_order?: number | null;
   },
 ) {
-  if (item.course) return { course: item.course, needsReview: false };
+  if (isMainLineFirst(item)) return { course: 'main' as Course, needsReview: false };
+  if (item.course && item.course !== 'main') return { course: item.course, needsReview: false };
   const name = item.dish_name.toLowerCase();
   const rules: [Course, RegExp][] = [
     [
@@ -39,10 +59,6 @@ export function classifyDish(
       /\b(cookie|cake|brownie|ice cream|pudding|pie|cobbler|mousse|sorbet|cupcake)\b/,
     ],
     ["appetizer", /\b(soup|bisque|broth|spring roll|hummus)\b/],
-    [
-      "main",
-      /\b(chicken|turkey|beef|pork|salmon|tilapia|tofu|tempeh|burgers?|pizza|lasagna|enchiladas?|burritos?|sandwich|omelet|omelette|scrambled eggs?|pancakes?|waffles?|french toast|curry|stir fry|meatballs?|sausages?|fish|pasta|spaghetti|quiche|lentil stew|ribs|jack ?fruit|veggie griller)\b/,
-    ],
     [
       "side",
       /\b(rice|potato|fries|broccoli|carrot|corn|peas|beans|salad|spinach|greens|fruit|apple|banana|bread|roll|quinoa|couscous|vegetables|yogurt|oatmeal|cereal)\b/,

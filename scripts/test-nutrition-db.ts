@@ -121,4 +121,15 @@ export async function testNutritionDatabase(
   console.log(
     "PASS: nutrition read/write authorization, approval evidence, scaled publishing, raw preservation, sync persistence, and source-change invalidation",
   );
+  const syncedItem = { nutrislice_id: 987655, location_id: 'dining-location', meal_period: 'lunch', served_date: '2035-01-01', station_name: 'Main Line', station_id: 1, dish_name: 'Corned Beef Griller', source_order: 0, calories: 400, protein_g: 30, carbs_g: 20, fat_g: 20, dietary_tags: [], allergens: [], synced_at: new Date().toISOString() };
+  const sync = async () => db.query('select public.apply_haverford_menu_sync(gen_random_uuid(),now(),$1,$2)', [JSON.stringify([syncedItem]), JSON.stringify([{served_date: syncedItem.served_date,meal_period:'lunch'}])]);
+  await sync();
+  const row = (await db.query('select * from public.reviewed_menu_items where nutrislice_id=987655')).rows[0];
+  assert.equal(row.source_order, 0);
+  syncedItem.source_order = 2;
+  await sync();
+  const reordered = (await db.query('select * from public.reviewed_menu_items where nutrislice_id=987655')).rows[0];
+  assert.equal(reordered.source_order, 2);
+  assert.equal(reordered.nutrition_source_key, row.nutrition_source_key);
+  console.log('PASS: source ordering survives sync, updates, and reviewed menu projection without invalidating nutrition');
 }

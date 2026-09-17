@@ -72,6 +72,7 @@ export type NutrisliceWeekResponse = z.infer<typeof NutrisliceWeekResponseSchema
 
 // Parsed database menu item format
 export interface ParsedMenuItem {
+  source_order?: number | null;
   nutrition_source_key?: string;
   nutrition_review?: import('./nutritionReview').NutritionReview | null;
   id?: string;
@@ -111,11 +112,13 @@ export function parseNutrisliceWeek(
   for (const day of parsed.days) {
     let currentStation = 'Main Station';
     let currentStationId: number | null = null;
+    let sourceOrder = 0;
 
     for (const item of day.menu_items) {
       if (item.is_station_header && item.text) {
         currentStation = item.text.trim();
         currentStationId = item.station_id ?? null;
+        sourceOrder = 0;
       } else if (item.food) {
         const food = item.food;
         const nutrition = food.rounded_nutrition_info;
@@ -143,6 +146,7 @@ export function parseNutrisliceWeek(
 
         // Strict §7 Rule: Never coerce null nutrition facts to 0!
         results.push({
+          source_order: sourceOrder++,
           nutrislice_id: food.id,
           location_id: locationId,
           meal_period: mealPeriod,

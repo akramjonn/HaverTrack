@@ -1,5 +1,5 @@
 import type { ParsedMenuItem } from './nutrislice';
-import { campusPeriod, classifyDish, servingKey } from './mealFlow';
+import { campusPeriod, isMainLineFirst, compareMenuOrder, servingKey } from './mealFlow';
 import type { LoggableItem } from './logging';
 
 export function campusDate(now = new Date()) {
@@ -17,10 +17,10 @@ export function featuredMeals(items: ParsedMenuItem[], now = new Date()) {
   const seen = new Set<string>();
   return items.filter(item => item.served_date === day && item.location_id === 'dining-location'
     && item.availability !== 'unavailable' && item.availability !== 'unknown'
-    && (classifyDish(item).course === 'main' || (!item.course && /\b(sushi|maki|poke|tacos?)\b/i.test(item.dish_name))))
+    && isMainLineFirst(item))
     .sort((a, b) => Number(b.meal_period === period || (period === 'lunch' && b.meal_period === 'brunch'))
       - Number(a.meal_period === period || (period === 'lunch' && a.meal_period === 'brunch'))
-      || a.dish_name.localeCompare(b.dish_name))
+      || compareMenuOrder(a, b))
     .filter(item => { const key = item.dish_name.toLowerCase(); if (seen.has(key)) return false; seen.add(key); return true; })
     .slice(0, 3);
 }
