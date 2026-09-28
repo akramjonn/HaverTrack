@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Button, Input, IconButton } from '@/components/ui';
+import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
@@ -101,6 +102,8 @@ export default function SignInScreen() {
           </View>
 
           <View style={styles.form}>
+            <GoogleSignInButton />
+
             <Input
               label="HAVERFORD EMAIL"
               placeholder="username@haverford.edu"

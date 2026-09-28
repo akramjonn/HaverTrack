@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors, Fonts, Typography } from '@/constants/theme';
 import { Button, Input, IconButton } from '@/components/ui';
+import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 import { ArrowLeft } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { describeAuthError, isCollegeEmail } from '@/lib/authErrors';
@@ -108,6 +109,8 @@ export default function SignUpScreen() {
               <Button label="Go to sign in" onPress={() => router.replace('/(auth)/sign-in')} />
               <Button label="Use a different email" variant="ghost" onPress={() => setConfirmationEmail(null)} />
             </View> : <>
+            <GoogleSignInButton />
+
             <Input
               label="FULL NAME"
               placeholder="Alex Rivera"
