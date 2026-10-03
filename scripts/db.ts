@@ -30,7 +30,7 @@ function safeDecode(value: string) {
  * failed for user postgres" that looks like a wrong password rather than a
  * malformed URL. Splitting on the *last* `@` avoids that.
  */
-export function pgConfigFromUrl(url: string) {
+export function pgConfigFromUrl(url: string, caFile = process.env.DATABASE_SSL_CA_FILE) {
   const withoutScheme = url.replace(/^postgres(ql)?:\/\//, '');
   const separator = withoutScheme.lastIndexOf('@');
   if (separator === -1) throw new Error('DATABASE_URL is missing its credentials');
@@ -54,7 +54,9 @@ export function pgConfigFromUrl(url: string) {
     host,
     port: port ? Number(port) : 5432,
     database,
-    ssl: { rejectUnauthorized: false },
+    // Keep explicit fields rather than connectionString: its SSL query options
+    // can override this policy. Node's default hostname verification stays on.
+    ssl: { rejectUnauthorized: true, ...(caFile ? { ca: fs.readFileSync(caFile, 'utf8') } : {}) },
   };
 }
 

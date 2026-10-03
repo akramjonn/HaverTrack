@@ -30,6 +30,9 @@ export function GoogleSignInButton() {
     try {
       // The root layout routes onboarding once the session lands.
       if (await signInWithGoogle()) router.replace('/' as any);
+      // A closed sheet is also what an unlisted redirect URL looks like: Supabase
+      // falls back to the Site URL and the app never hears back.
+      else setError('Google sign-in was closed before it returned to HaverTrack. Try again.');
     } catch (err: any) {
       setError(describeAuthError(err).message);
     } finally {

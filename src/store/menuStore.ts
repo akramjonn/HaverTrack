@@ -10,7 +10,7 @@ import {
   pushFavorite,
   touchFavorite,
 } from '@/lib/favorites';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore, captureAccountScope, isAccountScopeCurrent } from '@/store/authStore';
 import { compareMenuOrder } from '@/lib/mealFlow';
 import { indexBundledMenu } from '@/lib/menuDates';
 
@@ -29,6 +29,7 @@ interface MenuState {
    * in-memory map that evaporated on reload — every write now goes to the
    * database first and the local copy follows it.
    */
+  favoritesOwnerId: string | null;
   favorites: SavedMeal[];
   favoritesLoaded: boolean;
   favoritesError: string | null;
@@ -128,11 +129,15 @@ export const useMenuStore = create<MenuState>((set, get) => {
       }
     },
 
+    favoritesOwnerId: currentUserId(),
     favorites: [],
     favoritesLoaded: false,
     favoritesError: null,
 
     hydrateFavorites: async (userId) => {
+      const scope = captureAccountScope();
+      if (scope.userId !== userId) return;
+      set({ favoritesOwnerId: userId, favorites: [], favoritesLoaded: false, favoritesError: null });
       if (!userId) {
         set({ favorites: [], favoritesLoaded: true, favoritesError: null });
         return;
@@ -140,8 +145,10 @@ export const useMenuStore = create<MenuState>((set, get) => {
 
       try {
         const favorites = await fetchFavorites(userId);
+        if (!isAccountScopeCurrent(scope)) return;
         set({ favorites, favoritesLoaded: true, favoritesError: null });
       } catch (e: any) {
+        if (!isAccountScopeCurrent(scope)) return;
         set({
           favoritesLoaded: true,
           favoritesError: `Could not load your saved meals: ${e?.message ?? 'unknown error'}`,
@@ -158,25 +165,30 @@ export const useMenuStore = create<MenuState>((set, get) => {
     },
 
     saveFavorite: async (input) => {
-      const userId = currentUserId();
+      const scope = captureAccountScope();
+      const userId = scope.userId;
       if (!userId) {
         set({ favoritesError: 'Sign in to save meals — there is nowhere to keep them yet.' });
         return;
       }
 
+      if (get().favoritesOwnerId !== userId) return;
       set({ favoritesError: null });
       try {
         const saved = await pushFavorite(userId, input);
+        if (!isAccountScopeCurrent(scope)) return;
         const rest = get().favorites.filter((f) => f.dish_name !== saved.dish_name);
         set({ favorites: [saved, ...rest] });
       } catch (e: any) {
+        if (!isAccountScopeCurrent(scope)) return;
         set({ favoritesError: `Could not save "${input.dish_name}": ${e?.message ?? 'unknown error'}` });
       }
     },
 
     removeFavorite: async (dishName) => {
-      const userId = currentUserId();
-      if (!userId) return;
+      const scope = captureAccountScope();
+      const userId = scope.userId;
+      if (!userId || get().favoritesOwnerId !== userId) return;
 
       const previous = get().favorites;
       set({ favorites: previous.filter((f) => f.dish_name !== dishName), favoritesError: null });
@@ -184,6 +196,7 @@ export const useMenuStore = create<MenuState>((set, get) => {
       try {
         await deleteFavorite(userId, dishName);
       } catch (e: any) {
+        if (!isAccountScopeCurrent(scope)) return;
         // Put it back rather than pretend it was removed.
         set({
           favorites: previous,
@@ -193,8 +206,9 @@ export const useMenuStore = create<MenuState>((set, get) => {
     },
 
     markFavoriteLogged: async (dishName) => {
-      const userId = currentUserId();
-      if (!userId || !get().isFavorite(dishName)) return;
+      const scope = captureAccountScope();
+      const userId = scope.userId;
+      if (!userId || get().favoritesOwnerId !== userId || !get().isFavorite(dishName)) return;
 
       const stamp = new Date().toISOString();
       set({
@@ -211,9 +225,9 @@ export const useMenuStore = create<MenuState>((set, get) => {
       }
     },
 
-    isFavorite: (dishName) => get().favorites.some((f) => f.dish_name === dishName),
+    isFavorite: (dishName) => get().favoritesOwnerId === currentUserId() && get().favorites.some((f) => f.dish_name === dishName),
 
-    clearFavorites: () => set({ favorites: [], favoritesLoaded: false, favoritesError: null }),
+    clearFavorites: () => set({ favoritesOwnerId: currentUserId(), favorites: [], favoritesLoaded: false, favoritesError: null }),
 
     getItemsForPeriod: (period, dateStr) => {
       const items = get().items;
@@ -241,4 +255,8 @@ export const useMenuStore = create<MenuState>((set, get) => {
       return grouped;
     },
   };
+});
+
+useAuthStore.subscribe((state, previous) => {
+  if (state.accountRevision !== previous.accountRevision) useMenuStore.getState().clearFavorites();
 });

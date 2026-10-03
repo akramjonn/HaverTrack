@@ -28,9 +28,10 @@ export default function RootLayout() {
   const initAuth = useAuthStore((state) => state.initAuth);
   const isAuthInitialized = useAuthStore((state) => state.isInitialized);
   const accountId = useAuthStore((state) => state.user?.id);
+  const accountRevision = useAuthStore((state) => state.accountRevision);
   const isSignedIn = Boolean(accountId);
 
-  useEffect(() => { queryClient.clear(); }, [accountId]);
+  useEffect(() => { queryClient.clear(); }, [accountId, accountRevision]);
 
   useEffect(() => {
     const unsubscribe = initAuth();
@@ -53,6 +54,7 @@ export default function RootLayout() {
         <StatusBar style="auto" />
         <NotificationBridge />
         <Stack
+          key={accountRevision}
           screenOptions={{
             headerShown: false,
             contentStyle: { backgroundColor: Colors.cream },

@@ -5,7 +5,7 @@ import type { FoodSearchResult } from '@/lib/foodSearch';
 /**
  * Packaged-food barcode resolution.
  *
- * Chain: local cache → OpenFoodFacts → USDA FoodData Central (Branded).
+ * Chain: OpenFoodFacts → USDA FoodData Central (Branded).
  * Verified live against real UPCs: OpenFoodFacts has the EU/international
  * catalog (e.g. 5000159461122, Snickers UK) but misses some US-market codes;
  * USDA FDC is the authoritative US branded-food label database and resolved
@@ -82,95 +82,6 @@ function barcodeVariants(raw: string): string[] {
   }
 
   return [...variants];
-}
-
-// ---------------------------------------------------------------------------
-// Cache
-// ---------------------------------------------------------------------------
-
-interface CacheRow {
-  barcode: string;
-  name: string | null;
-  brand: string | null;
-  serving_size: string | null;
-  calories: number | null;
-  protein_g: number | null;
-  carbs_g: number | null;
-  fat_g: number | null;
-  fiber_g: number | null;
-  sugar_g: number | null;
-  sodium_mg: number | null;
-  saturated_fat_g: number | null;
-  basis: 'serving' | 'per_100g' | null;
-  source: 'off' | 'fdc' | 'miss';
-  hit_count: number;
-}
-
-async function readCache(rawCode: string): Promise<CacheRow | null> {
-  const { data, error } = await supabase
-    .from('barcode_cache')
-    .select('*')
-    .eq('barcode', rawCode)
-    .maybeSingle();
-
-  if (error) {
-    console.warn('Barcode cache read failed:', error.message);
-    return null;
-  }
-  return data as CacheRow | null;
-}
-
-async function bumpCacheHit(rawCode: string, current: CacheRow) {
-  const { error } = await supabase
-    .from('barcode_cache')
-    .update({ hit_count: current.hit_count + 1, last_hit_at: new Date().toISOString() })
-    .eq('barcode', rawCode);
-
-  if (error) console.warn('Barcode cache hit-count update failed:', error.message);
-}
-
-async function writeCache(rawCode: string, product: BarcodeProduct | null) {
-  const row = {
-    barcode: rawCode,
-    name: product?.name ?? null,
-    brand: product?.brand ?? null,
-    serving_size: product?.serving_size ?? null,
-    calories: product?.calories ?? null,
-    protein_g: product?.protein_g ?? null,
-    carbs_g: product?.carbs_g ?? null,
-    fat_g: product?.fat_g ?? null,
-    fiber_g: product?.fiber_g ?? null,
-    sugar_g: product?.sugar_g ?? null,
-    sodium_mg: product?.sodium_mg ?? null,
-    saturated_fat_g: product?.saturated_fat_g ?? null,
-    basis: product?.basis ?? null,
-    source: product ? (product.source === 'cache' ? 'off' : product.source) : ('miss' as const),
-  };
-
-  // Best-effort: a cache write failing must never fail the lookup that just
-  // succeeded for the person holding the product in front of the camera.
-  const { error } = await supabase.from('barcode_cache').upsert(row, { onConflict: 'barcode' });
-  if (error) console.warn('Barcode cache write failed:', error.message);
-}
-
-function cacheRowToProduct(row: CacheRow): BarcodeProduct | null {
-  if (row.source === 'miss' || row.calories === null) return null;
-  return {
-    barcode: row.barcode,
-    name: row.name || 'Packaged Item',
-    brand: row.brand ?? undefined,
-    serving_size: row.serving_size ?? undefined,
-    calories: row.calories,
-    protein_g: row.protein_g ?? 0,
-    carbs_g: row.carbs_g ?? 0,
-    fat_g: row.fat_g ?? 0,
-    fiber_g: row.fiber_g,
-    sugar_g: row.sugar_g,
-    sodium_mg: row.sodium_mg,
-    saturated_fat_g: row.saturated_fat_g,
-    basis: row.basis ?? 'serving',
-    source: 'cache',
-  };
 }
 
 // ---------------------------------------------------------------------------
@@ -367,12 +278,6 @@ export async function lookupBarcode(barcode: string): Promise<BarcodeProduct | n
   const rawCode = barcode.trim();
   if (!rawCode) return null;
 
-  const cached = await readCache(rawCode);
-  if (cached) {
-    if (cached.source !== 'miss') void bumpCacheHit(rawCode, cached);
-    return cacheRowToProduct(cached);
-  }
-
   const variants = barcodeVariants(rawCode);
   if (!variants.length) return null;
 
@@ -386,7 +291,6 @@ export async function lookupBarcode(barcode: string): Promise<BarcodeProduct | n
     product = await lookupFdc(rawCode, variants);
   }
 
-  await writeCache(rawCode, product);
   return product ? { ...product, barcode: rawCode } : null;
 }
 

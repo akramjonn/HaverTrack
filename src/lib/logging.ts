@@ -3,6 +3,7 @@ import type { MealLog } from '@/store/logStore';
 import { nutritionFromItems, scoreMeal } from '@/lib/health';
 import { saveMealNutrients } from '@/lib/mealNutrients';
 import type { FoodSearchResult } from '@/lib/foodSearch';
+import { requireAccountScope, isAccountScopeCurrent } from '@/store/authStore';
 
 /**
  * The one place a meal gets written from every non-scan surface: quick add,
@@ -69,6 +70,7 @@ export function periodForNow(date = new Date()): MealPeriod {
 }
 
 export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
+  const scope = requireAccountScope();
   const store = useLogStore.getState();
 
   const totals = input.items.reduce(
@@ -113,7 +115,9 @@ export async function logMeal(input: LogMealInput): Promise<LogMealResult> {
       fat_g: Math.round(item.fat_g),
       is_estimate: item.is_estimate ?? false,
     })),
-  });
+  }, scope.userId);
+
+  if (!isAccountScopeCurrent(scope)) return { mealLogId: null, nutrientError: null };
 
   const mealLogId = created?.id ?? null;
 

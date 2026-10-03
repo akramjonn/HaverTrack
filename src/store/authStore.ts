@@ -47,6 +47,8 @@ interface AuthState {
   goal: DailyGoal | null;
   isLoading: boolean;
   isInitialized: boolean;
+  /** Changes on every identity transition, including A → signed out → A. */
+  accountRevision: number;
 
   setGoal: (goal: DailyGoal | null) => void;
   loadProfile: (userId: string) => Promise<UserProfile | null>;
@@ -72,10 +74,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   goal: DEFAULT_GOAL,
   isLoading: true,
   isInitialized: false,
+  accountRevision: 0,
 
   setGoal: (goal) => set({ goal }),
 
   loadProfile: async (userId) => {
+    const scope = captureAccountScope();
+    if (scope.userId !== userId) return null;
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -93,7 +98,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return null;
     }
 
-    if (get().user?.id !== userId) return null;
+    if (!isAccountScopeCurrent(scope)) return null;
     set({ profile: data as UserProfile });
 
     const { data: goalRow } = await supabase
@@ -104,12 +109,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .limit(1)
       .maybeSingle();
 
-    if (goalRow && get().user?.id === userId) set({ goal: goalRow as DailyGoal });
+    if (goalRow && isAccountScopeCurrent(scope)) set({ goal: goalRow as DailyGoal });
 
     return data as UserProfile;
   },
 
   updateProfile: async (patch) => {
+    const scope = requireAccountScope();
     const userId = get().user?.id;
     if (!userId) throw new Error('You need to be signed in to save your profile.');
 
@@ -121,10 +127,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .single();
 
     if (error) throw new Error(error.message);
-    set({ profile: data as UserProfile });
+    if (isAccountScopeCurrent(scope)) set({ profile: data as UserProfile });
   },
 
   completeOnboarding: async () => {
+    const scope = requireAccountScope();
     const userId = get().user?.id;
     if (!userId) return;
 
@@ -136,10 +143,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .single();
 
     if (error) throw new Error(error.message);
-    set({ profile: data as UserProfile });
+    if (isAccountScopeCurrent(scope)) set({ profile: data as UserProfile });
   },
 
   saveGoal: async (goal) => {
+    const scope = requireAccountScope();
     const userId = get().user?.id;
     if (!userId) throw new Error('You need to be signed in to save your goals.');
 
@@ -157,23 +165,34 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     );
 
     if (error) throw new Error(error.message);
-    if (get().user?.id === userId) set({ goal });
+    if (isAccountScopeCurrent(scope)) set({ goal });
   },
 
   signOut: async () => {
     const departingUser = get().user?.id;
+    // Remove local authority before asynchronous device/network cleanup. The
+    // Supabase session stays live for the cleanup RPC, so a token refresh for
+    // the departing user must not sign them back in meanwhile.
+    signingOutUserId = departingUser ?? null;
+    applySession(null);
+    const signedOutRevision = get().accountRevision;
     try {
-      await removeRatingDevice();
-    } catch (error) {
-      console.warn('Could not unregister rating reminders during sign out:', error);
+      try {
+        await removeRatingDevice();
+      } catch (error) {
+        console.warn('Could not unregister rating reminders during sign out:', error);
+      }
+      try {
+        if (departingUser) await AsyncStorage.removeItem(`@havertrack_meal_draft:${departingUser}`);
+      } catch (error) {
+        console.warn('Could not remove the local meal draft during sign out:', error);
+      }
+    } finally {
+      signingOutUserId = null;
     }
-    try {
-      if (departingUser) await AsyncStorage.removeItem(`@havertrack_meal_draft:${departingUser}`);
-    } catch (error) {
-      console.warn('Could not remove the local meal draft during sign out:', error);
-    }
+    // A later login must not be signed out by this old cleanup operation.
+    if (get().accountRevision !== signedOutRevision) return;
     const { error } = await supabase.auth.signOut();
-    set({ user: null, session: null, profile: null, goal: DEFAULT_GOAL });
     if (error) {
       trackOperationalEvent('sign_out_failed', { code: operationalErrorCode(error) });
       throw new Error(error.message);
@@ -191,13 +210,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (!session) return null;
       return isCollegeEmail(session.user.email ?? '') && session.user.email_confirmed_at ? session : null;
     };
+    let active = true;
+    let authEvents = 0;
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!active) return;
+      if (signingOutUserId && session?.user.id === signingOutUserId) return;
+      authEvents++;
       const eligible = eligibleSession(session);
-      const previousUserId = get().user?.id;
-      if (previousUserId !== eligible?.user.id) {
-        set({ profile: null, goal: DEFAULT_GOAL });
-      }
-      set({ session: eligible, user: eligible?.user ?? null });
+      applySession(eligible);
 
       if (eligible?.user) {
         // Do not call Supabase from inside its auth lock.
@@ -207,19 +227,57 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
     });
 
+    const restoreRevision = get().accountRevision;
+    const restoreEvents = authEvents;
     supabase.auth
       .getSession()
       .then(async ({ data: { session } }) => {
+        if (!active || authEvents !== restoreEvents || get().accountRevision !== restoreRevision) return;
         const eligible = eligibleSession(session);
-        set({ session: eligible, user: eligible?.user ?? null });
+        applySession(eligible);
         if (eligible?.user) await get().loadProfile(eligible.user.id);
       })
       .catch((e) => console.warn('Session restore failed:', e))
-      .finally(() => set({ isLoading: false, isInitialized: true }));
+      .finally(() => { if (active) set({ isLoading: false, isInitialized: true }); });
 
-    return () => data.subscription.unsubscribe();
+    return () => { active = false; data.subscription.unsubscribe(); };
   },
 }));
+
+let signingOutUserId: string | null = null;
+
+export interface AccountScope {
+  userId: string | null;
+  revision: number;
+}
+
+export function captureAccountScope(): AccountScope {
+  const state = useAuthStore.getState();
+  return { userId: state.user?.id ?? null, revision: state.accountRevision };
+}
+
+export function isAccountScopeCurrent(scope: AccountScope): boolean {
+  const current = captureAccountScope();
+  return scope.userId === current.userId && scope.revision === current.revision;
+}
+
+export function requireAccountScope(expectedUserId?: string | null): AccountScope & { userId: string } {
+  const scope = captureAccountScope();
+  if (!scope.userId || (expectedUserId !== undefined && expectedUserId !== scope.userId)) {
+    throw new Error('Your account changed. Please reopen this screen.');
+  }
+  return scope as AccountScope & { userId: string };
+}
+
+function applySession(session: Session | null) {
+  const current = useAuthStore.getState();
+  const userId = session?.user.id ?? null;
+  const changed = userId !== (current.user?.id ?? null);
+  useAuthStore.setState({
+    session, user: session?.user ?? null,
+    ...(changed ? { accountRevision: current.accountRevision + 1, profile: null, goal: DEFAULT_GOAL } : {}),
+  });
+}
 
 export const selectIsAdmin = (state: AuthState) => state.profile?.role === 'admin';
 export const selectIsOnboarded = (state: AuthState) => !!state.profile?.onboarded_at;

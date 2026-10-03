@@ -7,12 +7,12 @@ import { PhotoDetailSheet, usePhotoDetailSheetControls } from '@/components/Phot
 import { RotateCw, Trash2, Info, ThumbsUp, ThumbsDown } from 'lucide-react-native';
 import { scoreMeal, type MealNutrition } from '@/lib/health';
 import { HealthScoreCard } from '@/components/HealthScore';
-import { useScanStore } from '@/store/scanStore';
+import { useScanStore, CapturedPhoto, ScanMealPeriod } from '@/store/scanStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
 import { saveMealNutrients } from '@/lib/mealNutrients';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore, AccountScope, isAccountScopeCurrent } from '@/store/authStore';
 import { uploadMealPhoto } from '@/lib/mealLogs';
-import { ScannedPlateItem } from '@/lib/llm/types';
+import { AnalyzePlateResponse, ScannedPlateItem } from '@/lib/llm/types';
 
 /**
  * The editable dish title lives as its own component (rather than inline in
@@ -42,51 +42,28 @@ export default function ScanReviewScreen() {
   const router = useRouter();
   const scanResult = useScanStore((state) => state.currentResult);
   const currentPhoto = useScanStore((state) => state.currentPhoto);
+  const owner = useScanStore((state) => state.owner);
   const mealPeriod = useScanStore((state) => state.currentMealPeriod);
+  const accountRevision = useAuthStore((state) => state.accountRevision);
+  if (!scanResult || !owner?.userId || !isAccountScopeCurrent(owner)) {
+    return <View style={{ flex: 1, justifyContent: 'center', padding: 24 }}>
+      <Text style={Typography.title}>No photo to review</Text>
+      <Text style={Typography.body}>Take a new photo to start a meal scan.</Text>
+      <Button label="Take a photo" onPress={() => router.replace('/scan' as any)} />
+    </View>;
+  }
+  return <OwnedScanReview key={accountRevision} scanResult={scanResult} currentPhoto={currentPhoto} mealPeriod={mealPeriod} owner={owner} />;
+}
+
+function OwnedScanReview({ scanResult, currentPhoto, mealPeriod, owner }: {
+  scanResult: AnalyzePlateResponse; currentPhoto: CapturedPhoto | null; mealPeriod: ScanMealPeriod; owner: AccountScope;
+}) {
+  const router = useRouter();
   const clearScan = useScanStore((state) => state.clear);
   const addMealLog = useLogStore((state) => state.addMealLog);
-  const userId = useAuthStore((state) => state.user?.id ?? null);
+  const userId = owner.userId;
   const [saving, setSaving] = useState(false);
-
-  // Fallback demo data if opened directly
-  const initialItems: ScannedPlateItem[] = scanResult?.items || [
-    {
-      id: '1',
-      name: 'Breaded chicken cutlet',
-      portion: 1.0,
-      portion_unit: 'piece',
-      calories: 330,
-      protein_g: 25,
-      carbs_g: 10,
-      fat_g: 20,
-      confidence_score: 0.92,
-      is_menu_match: true,
-    },
-    {
-      id: '2',
-      name: 'Penne with marinara',
-      portion: 1.0,
-      portion_unit: '4 oz',
-      calories: 210,
-      protein_g: 7,
-      carbs_g: 44,
-      fat_g: 1,
-      confidence_score: 0.92,
-      is_menu_match: true,
-    },
-    {
-      id: '3',
-      name: 'Melted mozzarella',
-      portion: 1.0,
-      portion_unit: 'slice',
-      calories: 70,
-      protein_g: 5,
-      carbs_g: 1,
-      fat_g: 5,
-      confidence_score: 0.88,
-      is_menu_match: true,
-    },
-  ];
+  const initialItems = scanResult.items;
 
   // The one behavioral change vs. the previous version of this screen: the
   // dish title is now editable state (fed by a TextInput) instead of a
@@ -135,7 +112,7 @@ export default function ScanReviewScreen() {
 
   const handleLogMeal = async () => {
     // Explicit tap required per §4 Screen 08!
-    if (saving) return;
+    if (saving || !userId || !isAccountScopeCurrent(owner)) return;
     setSaving(true);
 
     const now = new Date();
@@ -156,6 +133,7 @@ export default function ScanReviewScreen() {
     // addMealLog reconciles the optimistic row with the server row rather than
     // returning an id, so the created log is whichever client_uuid was not
     // present before the call — the same trick src/lib/logging.ts uses.
+    if (!isAccountScopeCurrent(owner)) return;
     const seenBeforeSave = new Set(useLogStore.getState().logs.map((l) => l.client_uuid));
 
     await addMealLog({
@@ -181,8 +159,9 @@ export default function ScanReviewScreen() {
         is_estimate: !i.is_menu_match,
         confidence_score: i.confidence_score,
       })),
-    });
+    }, userId);
 
+    if (!isAccountScopeCurrent(owner)) return;
     if (healthScore) {
       const created = useLogStore
         .getState()
@@ -210,6 +189,7 @@ export default function ScanReviewScreen() {
       }
     }
 
+    if (!isAccountScopeCurrent(owner)) return;
     clearScan();
     setSaving(false);
     router.replace('/(tabs)' as any);

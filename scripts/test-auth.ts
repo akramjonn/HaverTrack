@@ -11,9 +11,15 @@ for (const address of ['', '@haverford.edu', 'student@gmail.com', 'student@brynm
   assert.equal(isCollegeEmail(address), false, address);
 }
 assert.equal(parseAuthCallback('havertrack://auth/callback?code=one-use-code').code, 'one-use-code');
-assert.deepEqual(parseAuthCallback('https://app.example/auth/callback#access_token=a&refresh_token=r').tokens,
-  { access_token: 'a', refresh_token: 'r' });
-assert.equal(parseAuthCallback('havertrack://auth/callback#access_token=a').tokens, null);
+assert.equal(parseAuthCallback('https://app.example/auth/callback#code=one-use-code').code, 'one-use-code');
+for (const callback of [
+  '?access_token=a&refresh_token=r', '#access_token=a&refresh_token=r',
+  '#access_token=a', '?refresh_token=r', '?access_token=',
+  '?access_token=a#refresh_token=r', '?code=one-use-code#access_token=a&refresh_token=r',
+  '?%61ccess_token=a&%72efresh_token=r',
+]) {
+  assert.throws(() => parseAuthCallback(`havertrack://auth/callback${callback}`), /Return to sign in/);
+}
 assert.throws(() => parseAuthCallback('havertrack://auth/callback#error=access_denied&error_description=Use%20%40haverford.edu'), /haverford.edu/);
 assert.throws(() => parseAuthCallback('havertrack://auth/callback?error_code=unexpected_failure'), /Sign-in failed/);
 assert.match(describeAuthError(new Error('email not confirmed')).message, /Confirm/);

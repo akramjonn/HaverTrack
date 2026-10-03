@@ -29,6 +29,11 @@ and email changes, regardless of provider or client. Confirmation timestamps
 control profile verification. User metadata never grants verification or roles.
 The client also rejects outside domains and unconfirmed sessions.
 
+Callback links accept only PKCE authorization codes, exchanged with the verifier
+stored on the device/browser that started sign-in. Links containing access or
+refresh tokens (including old confirmation links) are rejected; return to sign in
+and request a new link, or use the password after confirming the email.
+
 This migration was applied separately and recorded in `public.schema_migrations`;
 unrelated pending migrations were not applied. Existing users were not deleted.
 Addresses created while autoconfirm was enabled retain their historical
@@ -37,6 +42,7 @@ confirmation timestamps; those timestamps are not retroactive proof of ownership
 ## Checks
 
 - `node --import tsx scripts/test-auth.ts`
+- `node --import tsx scripts/test-auth-callback.ts`
 - `npx tsc --noEmit`
 - `npx expo export --platform web --output-dir /tmp/havertrack-auth-web`
 - Execute `supabase/tests/haverford_auth.sql` inside `BEGIN` / `ROLLBACK` against

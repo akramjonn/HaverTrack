@@ -13,7 +13,7 @@ import { Button, Card, IconButton, SegmentedControl } from '@/components/ui';
 import { ArrowLeft, Check, RotateCcw, Star, Bookmark } from 'lucide-react-native';
 import { useMenuStore } from '@/store/menuStore';
 import { useLogStore, getTodayString } from '@/store/logStore';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore, captureAccountScope, isAccountScopeCurrent } from '@/store/authStore';
 import { logMeal, periodForNow, type MealPeriod } from '@/lib/logging';
 import type { SavedMeal } from '@/lib/favorites';
 import type { MealLog } from '@/store/logStore';
@@ -28,6 +28,7 @@ export default function SavedMealsScreen() {
   const userId = useAuthStore((state) => state.user?.id ?? null);
 
   const favorites = useMenuStore((state) => state.favorites);
+  const favoritesOwnerId = useMenuStore((state) => state.favoritesOwnerId);
   const favoritesLoaded = useMenuStore((state) => state.favoritesLoaded);
   const favoritesError = useMenuStore((state) => state.favoritesError);
   const hydrateFavorites = useMenuStore((state) => state.hydrateFavorites);
@@ -42,8 +43,8 @@ export default function SavedMealsScreen() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!favoritesLoaded) hydrateFavorites(userId);
-  }, [favoritesLoaded, userId, hydrateFavorites]);
+    if (!favoritesLoaded || favoritesOwnerId !== userId) hydrateFavorites(userId);
+  }, [favoritesLoaded, favoritesOwnerId, userId, hydrateFavorites]);
 
   /** Most recent distinct meal per title, excluding anything logged today already. */
   const recents = useMemo(() => {
@@ -67,6 +68,8 @@ export default function SavedMealsScreen() {
   };
 
   const logSaved = async (meal: SavedMeal) => {
+    const scope = captureAccountScope();
+    if (!scope.userId || favoritesOwnerId !== scope.userId) return;
     if (busy) return;
     if (meal.calories === null) {
       setError(
@@ -96,6 +99,7 @@ export default function SavedMealsScreen() {
       ],
     });
 
+    if (!isAccountScopeCurrent(scope)) return;
     await markFavoriteLogged(meal.dish_name);
     setBusy(null);
 

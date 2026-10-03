@@ -32,6 +32,7 @@ import type { FoodSearchResult } from '@/lib/foodSearch';
 import { prepareImageForAnalysis } from '@/lib/image';
 import { useMenuStore } from '@/store/menuStore';
 import { useScanStore } from '@/store/scanStore';
+import { AccountScope, captureAccountScope, isAccountScopeCurrent } from '@/store/authStore';
 import { ShutterButton } from '@/components/scan/ShutterButton';
 import { CaptureFreezeFrame } from '@/components/scan/CaptureFreezeFrame';
 import { BarcodeScanLine } from '@/components/scan/BarcodeScanLine';
@@ -60,9 +61,7 @@ export default function ScanScreen() {
   const router = useRouter();
   const isFocused = useIsFocused();
   const menuItems = useMenuStore((state) => state.items);
-  const setCurrentResult = useScanStore((state) => state.setCurrentResult);
-  const setCurrentPhoto = useScanStore((state) => state.setCurrentPhoto);
-  const setCurrentMealPeriod = useScanStore((state) => state.setCurrentMealPeriod);
+  const setScan = useScanStore((state) => state.setScan);
 
   const [flash, setFlash] = useState(false);
   const [mode, setMode] = useState<ScanMode>('scan');
@@ -144,7 +143,8 @@ export default function ScanScreen() {
   const [mealPeriod, setMealPeriod] = useState<'breakfast' | 'lunch' | 'dinner'>(getAutoPeriod());
   const contextPill = `Dining Center · ${mealPeriod.charAt(0).toUpperCase() + mealPeriod.slice(1)}`;
 
-  const handleCapture = async (imageBase64?: string, photoUri?: string) => {
+  const handleCapture = async (imageBase64?: string, photoUri?: string, owner: AccountScope = captureAccountScope()) => {
+    if (!owner.userId || !isAccountScopeCurrent(owner)) return;
     setIsScanning(true);
     try {
       const currentPeriodMenu = menuItems.filter((i) => i.meal_period === mealPeriod);
@@ -156,11 +156,10 @@ export default function ScanScreen() {
         menu_items: currentPeriodMenu,
       });
 
-      setCurrentPhoto(photoUri && imageBase64 ? { uri: photoUri, base64: imageBase64 } : null);
-      setCurrentMealPeriod(mealPeriod);
-      setCurrentResult(result);
+      if (!setScan(owner, result, photoUri && imageBase64 ? { uri: photoUri, base64: imageBase64 } : null, mealPeriod)) return;
       router.push('/scan/review' as any);
     } catch (err: any) {
+      if (!isAccountScopeCurrent(owner)) return;
       Alert.alert(
         'Analysis Error',
         err?.message || 'Could not analyze plate. You can search the menu directly.'
@@ -174,6 +173,7 @@ export default function ScanScreen() {
   };
 
   const takePhoto = async () => {
+    const owner = captureAccountScope();
     if (!cameraRef.current || isScanning) return;
     if (!cameraReady) {
       Alert.alert('One moment', 'The camera is still starting up. Try again in a second.');
@@ -186,8 +186,9 @@ export default function ScanScreen() {
       if (!photo?.uri) throw new Error('No image captured');
 
       const prepared = await prepareImageForAnalysis(photo.uri);
+      if (!isAccountScopeCurrent(owner)) return;
       setCapturedPreviewUri(prepared.uri);
-      await handleCapture(prepared.base64, prepared.uri);
+      await handleCapture(prepared.base64, prepared.uri, owner);
     } catch {
       Alert.alert('Camera Error', 'Could not capture photo. Please try again.');
     } finally {
@@ -196,6 +197,7 @@ export default function ScanScreen() {
   };
 
   const pickImage = async () => {
+    const owner = captureAccountScope();
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       if (!permissionResult.canAskAgain) {
@@ -221,10 +223,11 @@ export default function ScanScreen() {
     });
 
     if (result.canceled || !result.assets[0]?.uri) return;
+    if (!isAccountScopeCurrent(owner)) return;
 
     try {
       const prepared = await prepareImageForAnalysis(result.assets[0].uri);
-      await handleCapture(prepared.base64, prepared.uri);
+      await handleCapture(prepared.base64, prepared.uri, owner);
     } catch {
       Alert.alert('Photo Error', 'Could not read that photo. Try a different one.');
     }

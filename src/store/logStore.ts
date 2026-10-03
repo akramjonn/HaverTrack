@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore, captureAccountScope, isAccountScopeCurrent, requireAccountScope } from "@/store/authStore";
 import {
   fetchMealLogs,
   fetchWeightEntries,
@@ -72,6 +72,7 @@ const LEGACY_WEIGHTS_KEY = "@squirreltrack_weights";
 const LEGACY_DELETED_KEY = "@squirreltrack_pending_deletes";
 
 interface LogState {
+  ownerId: string | null;
   logs: MealLog[];
   weightEntries: WeightEntry[];
   isLoaded: boolean;
@@ -114,12 +115,6 @@ interface LogState {
   };
   clear: () => void;
   purgeLocalUserData: (userId: string) => Promise<void>;
-}
-
-/** Falls back to the signed-in user so no call site can forget to sync. */
-function currentUserId(explicit?: string | null) {
-  if (explicit !== undefined) return explicit;
-  return useAuthStore.getState().user?.id ?? null;
 }
 
 function scopedKey(key: string, userId: string | null) {
@@ -169,6 +164,7 @@ async function cacheWeights(entries: WeightEntry[], userId: string | null) {
 }
 
 export const useLogStore = create<LogState>((set, get) => ({
+  ownerId: useAuthStore.getState().user?.id ?? null,
   logs: [],
   weightEntries: [],
   isLoaded: false,
@@ -182,7 +178,9 @@ export const useLogStore = create<LogState>((set, get) => ({
    * written while offline is replayed before the refresh so it is not overwritten.
    */
   hydrate: async (userId) => {
-    set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false });
+    const scope = captureAccountScope();
+    if (scope.userId !== userId) return;
+    set({ ownerId: userId, logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false });
     if (!userId) {
       set({ isLoaded: true });
       return;
@@ -230,7 +228,7 @@ export const useLogStore = create<LogState>((set, get) => ({
         }
       }
 
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       if (cachedLogs) set({ logs: JSON.parse(cachedLogs) });
       if (cachedWeights) set({ weightEntries: JSON.parse(cachedWeights) });
       if (cachedDeletes) set({ pendingDeletes: JSON.parse(cachedDeletes) });
@@ -238,7 +236,7 @@ export const useLogStore = create<LogState>((set, get) => ({
       console.warn("Failed to read local cache:", e);
     }
 
-    if (currentUserId() !== userId) return;
+    if (!isAccountScopeCurrent(scope)) return;
     if (!userId) {
       set({ isLoaded: true });
       return;
@@ -247,13 +245,14 @@ export const useLogStore = create<LogState>((set, get) => ({
     set({ isSyncing: true, syncError: null });
     try {
       await get().syncPending(userId);
+      if (!isAccountScopeCurrent(scope)) return;
 
       const [logs, weights] = await Promise.all([
         fetchMealLogs(userId),
         fetchWeightEntries(userId),
       ]);
 
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       const pending = get().logs.filter((log) => log.synced === false);
       const pendingIds = new Set(pending.map((log) => log.client_uuid));
       const reconciled = [
@@ -267,23 +266,25 @@ export const useLogStore = create<LogState>((set, get) => ({
       ]);
     } catch (e: any) {
       // Offline is a normal state on campus; the cached copy stays usable.
-      if (currentUserId() === userId)
+      if (isAccountScopeCurrent(scope))
         set({ syncError: e?.message ?? "Could not reach HaverTrack." });
     } finally {
-      if (currentUserId() === userId) set({ isSyncing: false, isLoaded: true });
+      if (isAccountScopeCurrent(scope)) set({ isSyncing: false, isLoaded: true });
     }
   },
 
   syncPending: async (userId) => {
-    if (currentUserId() !== userId) return;
+    const scope = captureAccountScope();
+    if (scope.userId !== userId || get().ownerId !== userId) return;
+    if (!isAccountScopeCurrent(scope)) return;
     const unsynced = get().logs.filter((log) => log.synced === false);
     const deletes = get().pendingDeletes;
 
     for (const clientUuid of deletes) {
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       try {
         await deleteMealLogRemote(userId, clientUuid);
-        if (currentUserId() !== userId) return;
+        if (!isAccountScopeCurrent(scope)) return;
         const remaining = get().pendingDeletes.filter(
           (id) => id !== clientUuid,
         );
@@ -298,10 +299,10 @@ export const useLogStore = create<LogState>((set, get) => ({
     }
 
     for (const log of unsynced) {
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       try {
         const saved = await pushMealLog(userId, log);
-        if (currentUserId() !== userId) return;
+        if (!isAccountScopeCurrent(scope)) return;
         set({
           logs: get().logs.map((l) =>
             l.client_uuid === log.client_uuid ? saved : l,
@@ -312,11 +313,13 @@ export const useLogStore = create<LogState>((set, get) => ({
       }
     }
 
-    if (currentUserId() === userId) await cacheLogs(get().logs, userId);
+    if (isAccountScopeCurrent(scope)) await cacheLogs(get().logs, userId);
   },
 
   addMealLog: async (mealData, explicitUserId) => {
-    const userId = currentUserId(explicitUserId);
+    const scope = requireAccountScope(explicitUserId);
+    const userId = scope.userId;
+    if (get().ownerId !== userId) throw new Error("Your account changed. Please reopen this screen.");
     const client_uuid = generateUUID();
     const newLog: MealLog = {
       ...mealData,
@@ -337,7 +340,7 @@ export const useLogStore = create<LogState>((set, get) => ({
     const optimistic = [newLog, ...get().logs];
     set({ logs: optimistic });
     await cacheLogs(optimistic, userId);
-    if (currentUserId() !== userId) return newLog;
+    if (!isAccountScopeCurrent(scope)) return newLog;
 
     const streakAfter = loggingStreak(optimistic).current;
     if (streakAfter > streakBefore) {
@@ -348,7 +351,7 @@ export const useLogStore = create<LogState>((set, get) => ({
 
     try {
       const saved = await pushMealLog(userId, newLog);
-      if (currentUserId() !== userId) return saved;
+      if (!isAccountScopeCurrent(scope)) return saved;
       const reconciled = get().logs.map((l) =>
         l.client_uuid === client_uuid ? saved : l,
       );
@@ -356,46 +359,50 @@ export const useLogStore = create<LogState>((set, get) => ({
       await cacheLogs(reconciled, userId);
       return saved;
     } catch (e: any) {
-      if (currentUserId() === userId)
+      if (isAccountScopeCurrent(scope))
         set({ syncError: e?.message ?? "Meal saved on this device only." });
     }
     return newLog;
   },
 
   updateMealLog: async (id, mealData, explicitUserId) => {
-    const userId = currentUserId(explicitUserId);
+    const scope = requireAccountScope(explicitUserId);
+    const userId = scope.userId;
+    if (get().ownerId !== userId) throw new Error("Your account changed. Please reopen this screen.");
     const updated = get().logs.map((log) =>
       log.id === id ? { ...log, ...mealData, synced: false } : log,
     );
     set({ logs: updated });
     await cacheLogs(updated, userId);
-    if (currentUserId() !== userId) return;
+    if (!isAccountScopeCurrent(scope)) return;
 
     const target = updated.find((log) => log.id === id);
     if (!userId || !target) return;
 
     try {
       const saved = await pushMealLog(userId, target);
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       const reconciled = get().logs.map((l) =>
         l.client_uuid === saved.client_uuid ? saved : l,
       );
       set({ logs: reconciled });
       await cacheLogs(reconciled, userId);
     } catch (e: any) {
-      if (currentUserId() === userId)
+      if (isAccountScopeCurrent(scope))
         set({ syncError: e?.message ?? "Change saved on this device only." });
     }
   },
 
   deleteMealLog: async (id, explicitUserId) => {
-    const userId = currentUserId(explicitUserId);
+    const scope = requireAccountScope(explicitUserId);
+    const userId = scope.userId;
+    if (get().ownerId !== userId) throw new Error("Your account changed. Please reopen this screen.");
     const target = get().logs.find((log) => log.id === id);
     const remaining = get().logs.filter((log) => log.id !== id);
 
     set({ logs: remaining });
     await cacheLogs(remaining, userId);
-    if (currentUserId() !== userId) return;
+    if (!isAccountScopeCurrent(scope)) return;
 
     if (!target) return;
 
@@ -404,7 +411,7 @@ export const useLogStore = create<LogState>((set, get) => ({
     try {
       await deleteMealLogRemote(userId, target.client_uuid);
     } catch {
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       // Retried on next hydrate rather than resurrecting the meal in the UI.
       const queued = [...get().pendingDeletes, target.client_uuid];
       set({ pendingDeletes: queued });
@@ -416,7 +423,9 @@ export const useLogStore = create<LogState>((set, get) => ({
   },
 
   addWeightEntry: async (weight_kg, recorded_on, explicitUserId) => {
-    const userId = currentUserId(explicitUserId);
+    const scope = requireAccountScope(explicitUserId);
+    const userId = scope.userId;
+    if (get().ownerId !== userId) throw new Error("Your account changed. Please reopen this screen.");
     const dateStr = recorded_on || getTodayString();
     const existing = get().weightEntries.find((w) => w.recorded_on === dateStr);
 
@@ -431,7 +440,7 @@ export const useLogStore = create<LogState>((set, get) => ({
 
     set({ weightEntries: updated });
     await cacheWeights(updated, userId);
-    if (currentUserId() !== userId) return;
+    if (!isAccountScopeCurrent(scope)) return;
 
     if (!userId) return;
 
@@ -441,14 +450,14 @@ export const useLogStore = create<LogState>((set, get) => ({
         recorded_on: dateStr,
         weight_kg,
       });
-      if (currentUserId() !== userId) return;
+      if (!isAccountScopeCurrent(scope)) return;
       const reconciled = get().weightEntries.map((w) =>
         w.recorded_on === dateStr ? saved : w,
       );
       set({ weightEntries: reconciled });
       await cacheWeights(reconciled, userId);
     } catch (e: any) {
-      if (currentUserId() === userId)
+      if (isAccountScopeCurrent(scope))
         set({ syncError: e?.message ?? "Weight saved on this device only." });
     }
   },
@@ -470,9 +479,10 @@ export const useLogStore = create<LogState>((set, get) => ({
       ),
 
   clear: () =>
-    set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false }),
+    set({ logs: [], weightEntries: [], pendingDeletes: [], isLoaded: false, isSyncing: false, syncError: null, justCrossedStreak: false }),
 
   purgeLocalUserData: async (userId) => {
+    const scope = captureAccountScope();
     await AsyncStorage.multiRemove([
       scopedKey(LOGS_KEY, userId),
       scopedKey(WEIGHTS_KEY, userId),
@@ -481,8 +491,15 @@ export const useLogStore = create<LogState>((set, get) => ({
       scopedKey(LEGACY_WEIGHTS_KEY, userId),
       scopedKey(LEGACY_DELETED_KEY, userId),
     ]);
-    set({ logs: [], weightEntries: [], pendingDeletes: [], justCrossedStreak: false, isLoaded: false, syncError: null });
+    if (scope.userId === userId && isAccountScopeCurrent(scope)) get().clear();
   },
 
   clearStreakFlag: () => set({ justCrossedStreak: false }),
 }));
+
+// Runs synchronously even when the next account never enters the tab group.
+useAuthStore.subscribe((state, previous) => {
+  if (state.accountRevision === previous.accountRevision) return;
+  useLogStore.getState().clear();
+  useLogStore.setState({ ownerId: state.user?.id ?? null });
+});

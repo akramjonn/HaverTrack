@@ -188,22 +188,7 @@ serve(async (req) => {
 
     const userId = userRes.data.user.id;
 
-    // Enforce 25 scans/day quota (§8)
     const today = new Date().toISOString().split('T')[0];
-    const { count } = await supabase
-      .from('meal_logs')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', userId)
-      .eq('logged_date', today)
-      .eq('source', 'scan');
-
-    const scansUsed = count ?? 0;
-    if (scansUsed >= 25) {
-      return json(
-        { error: 'Daily scan limit reached (25 scans/day). Please use manual menu logging.' },
-        429
-      );
-    }
 
     const body = await req.json();
     const validated = AnalyzeRequestSchema.parse(body);
@@ -238,6 +223,27 @@ serve(async (req) => {
       return json({ error: 'Send either a photo or a description of the plate.' }, 400);
     }
 
+    // Charge every provider attempt (photo or description), independently of
+    // editable meal logs. The database chooses the UTC day and reserves a slot
+    // atomically; failures after this point do not refund the provider attempt.
+    let quotaRemaining: number;
+    try {
+      const { data, error } = await supabase.rpc('reserve_analysis_usage', { p_user_id: userId });
+      if (error || !Number.isInteger(data) || data < -1 || data > 24) {
+        console.error('Analysis quota reservation failed:', error?.message ?? 'Invalid quota result');
+        return json({ error: 'Photo analysis is temporarily unavailable. Please try again later.' }, 503);
+      }
+      quotaRemaining = data;
+    } catch (quotaError) {
+      console.error('Analysis quota reservation failed:', quotaError);
+      return json({ error: 'Photo analysis is temporarily unavailable. Please try again later.' }, 503);
+    }
+    if (quotaRemaining === -1) {
+      return json(
+        { error: 'Daily scan limit reached (25 scans/day). Please use manual menu logging.' },
+        429
+      );
+    }
     let geminiRes: Response;
     try {
       geminiRes = await fetch(GEMINI_URL, {
@@ -295,7 +301,7 @@ serve(async (req) => {
 
     return json({
       ...validationResult.data,
-      quota_remaining: 25 - scansUsed - 1,
+      quota_remaining: quotaRemaining,
       is_fallback_estimate: false,
     });
   } catch (err: any) {

@@ -7,6 +7,7 @@ import ts from "typescript";
 // loading React Native or connecting to any account or database.
 const storage = new Map<string, string>();
 let account = "account-a";
+let revision = 0;
 let state: any;
 let resolvePush!: (value: any) => void;
 let resolveRead!: (value: any) => void;
@@ -54,7 +55,13 @@ const adapters: Record<string, unknown> = {
     },
   },
   "@/store/authStore": {
-    useAuthStore: { getState: () => ({ user: { id: account } }) },
+    useAuthStore: { getState: () => ({ user: { id: account }, accountRevision: revision }), subscribe: () => () => {} },
+    captureAccountScope: () => ({ userId: account, revision }),
+    isAccountScopeCurrent: (scope: any) => scope.userId === account && scope.revision === revision,
+    requireAccountScope: (expected?: string) => {
+      if (expected !== undefined && expected !== account) throw new Error('Your account changed.');
+      return { userId: account, revision };
+    },
   },
   "@/lib/stats": { loggingStreak: () => ({ current: 1 }) },
   "@/lib/mealLogs": {
@@ -108,6 +115,7 @@ async function main() {
   const saving = state.addMealLog(makeMeal("new-meal"));
   await until(() => !!resolvePush);
   account = "account-b";
+  revision++;
   await state.hydrate(account);
   resolvePush(makeMeal("account-a-saved"));
   await saving;
@@ -120,10 +128,12 @@ async function main() {
 
   storage.delete("@havertrack_logs:account-a");
   account = "account-a";
+  revision++;
   deferRead = true;
   const reading = state.hydrate(account);
   await until(() => !!resolveRead);
   account = "account-b";
+  revision++;
   await state.hydrate(account);
   resolveRead([makeMeal("account-a-private")]);
   await reading;

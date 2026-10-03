@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { AnalyzePlateResponse } from '@/lib/llm/types';
+import { useAuthStore, AccountScope, isAccountScopeCurrent } from '@/store/authStore';
 
 export interface CapturedPhoto {
   /** Local URI of the prepared (downscaled) capture. */
@@ -11,13 +12,12 @@ export interface CapturedPhoto {
 export type ScanMealPeriod = 'breakfast' | 'lunch' | 'dinner';
 
 interface ScanState {
+  owner: AccountScope | null;
   currentResult: AnalyzePlateResponse | null;
   currentPhoto: CapturedPhoto | null;
   /** Meal period selected on the camera screen, carried into the review save. */
   currentMealPeriod: ScanMealPeriod;
-  setCurrentResult: (res: AnalyzePlateResponse | null) => void;
-  setCurrentPhoto: (photo: CapturedPhoto | null) => void;
-  setCurrentMealPeriod: (period: ScanMealPeriod) => void;
+  setScan: (owner: AccountScope, result: AnalyzePlateResponse, photo: CapturedPhoto | null, period: ScanMealPeriod) => boolean;
   clear: () => void;
 }
 
@@ -29,11 +29,18 @@ function periodForNow(): ScanMealPeriod {
 }
 
 export const useScanStore = create<ScanState>((set) => ({
+  owner: null,
   currentResult: null,
   currentPhoto: null,
   currentMealPeriod: periodForNow(),
-  setCurrentResult: (currentResult) => set({ currentResult }),
-  setCurrentPhoto: (currentPhoto) => set({ currentPhoto }),
-  setCurrentMealPeriod: (currentMealPeriod) => set({ currentMealPeriod }),
-  clear: () => set({ currentResult: null, currentPhoto: null }),
+  setScan: (owner, currentResult, currentPhoto, currentMealPeriod) => {
+    if (!owner.userId || !isAccountScopeCurrent(owner)) return false;
+    set({ owner, currentResult, currentPhoto, currentMealPeriod });
+    return true;
+  },
+  clear: () => set({ owner: null, currentResult: null, currentPhoto: null, currentMealPeriod: periodForNow() }),
 }));
+
+useAuthStore.subscribe((state, previous) => {
+  if (state.accountRevision !== previous.accountRevision) useScanStore.getState().clear();
+});

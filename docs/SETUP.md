@@ -18,6 +18,18 @@ An unencoded `@` splits the URL at the wrong place and surfaces as
 `password authentication failed for user "postgres"`, which looks like a wrong
 password rather than a malformed URL.
 
+Database scripts require TLS and verify the server certificate and hostname.
+Supabase signs database certificates with its own private root ("Supabase Root
+2021 CA"), so a CA file is required: download it from Dashboard → Project
+Settings → Database → SSL Configuration and set
+`DATABASE_SSL_CA_FILE=/absolute/path/to/prod-ca-2021.crt` in `.env` or the
+script environment. Without it every database script fails with
+`self-signed certificate in certificate chain`.
+Certificate errors must be fixed with the correct CA and hostname; URL SSL query
+parameters do not disable verification. The local regression test
+`node --import tsx scripts/test-db-tls.ts` requires OpenSSL and creates disposable
+certificates and a PostgreSQL protocol endpoint without contacting a database.
+
 > **Rotate the database password.** It was previously hardcoded in
 > `scripts/migrate.ts` and `scripts/sync-nutrislice.ts`. Those literals are gone, but
 > the value should be rotated in the Supabase dashboard (Settings → Database) and
