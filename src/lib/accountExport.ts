@@ -3,6 +3,7 @@ import * as Sharing from 'expo-sharing';
 import { Platform } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { operationalErrorCode, trackOperationalEvent } from '@/lib/observability';
+import { isAccountScopeCurrent, requireAccountScope } from '@/store/authStore';
 
 const PAGE_SIZE = 500;
 
@@ -54,6 +55,7 @@ async function fetchMealDetails(userId: string) {
 
 /** Builds a complete, user-readable export without including auth tokens or credentials. */
 export async function buildAccountExport(userId: string) {
+  const scope = requireAccountScope(userId);
   const [profileResult, preferencesResult, goals, weights, water, favorites, meals, ratings, notifications] =
     await Promise.all([
       supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
@@ -67,6 +69,7 @@ export async function buildAccountExport(userId: string) {
       fetchAllForUser('notification_preferences', userId),
     ]);
 
+  if (!isAccountScopeCurrent(scope)) throw new Error('Your account changed. Please request a new export.');
   if (profileResult.error) throw profileResult.error;
   if (preferencesResult.error) throw preferencesResult.error;
 
@@ -90,9 +93,11 @@ export async function buildAccountExport(userId: string) {
 }
 
 export async function downloadAccountExport(userId: string) {
+  const scope = requireAccountScope(userId);
   trackOperationalEvent('account_export_started');
   try {
     const contents = JSON.stringify(await buildAccountExport(userId), null, 2);
+    if (!isAccountScopeCurrent(scope)) throw new Error('Your account changed. Please request a new export.');
     const filename = `havertrack-data-${new Date().toISOString().slice(0, 10)}.json`;
 
     if (Platform.OS === 'web') {
@@ -104,13 +109,13 @@ export async function downloadAccountExport(userId: string) {
       link.click();
       URL.revokeObjectURL(url);
     } else {
-      const file = new File(Paths.cache, filename);
-      file.create({ intermediates: true, overwrite: true });
-      file.write(contents);
-
       if (!(await Sharing.isAvailableAsync())) {
         throw new Error('Sharing is not available on this device.');
       }
+      if (!isAccountScopeCurrent(scope)) throw new Error('Your account changed. Please request a new export.');
+      const file = new File(Paths.cache, filename);
+      file.create({ intermediates: true, overwrite: true });
+      file.write(contents);
       await Sharing.shareAsync(file.uri, {
         dialogTitle: 'Save HaverTrack data export',
         mimeType: 'application/json',
